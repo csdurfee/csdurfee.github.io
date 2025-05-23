@@ -1,4 +1,4 @@
-Title: The Hot Hand Doesn't Exist, But Its Opposite Might
+Title: The Hot Hand Doesn't Exist, But The Lukewarm Hand Does
 Date: 2025-05-16 10:20
 Category: basketball
 
