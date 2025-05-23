@@ -31,7 +31,7 @@
                 </address>
         <p>In <a href="/category/machine-learning.html">machine learning</a>.</p>
         
-</footer><!-- /.post-info --><p>(notebook is available at <a href="github.com/csdurfee/ensemble_learning">github.com/csdurfee/ensemble_learning</a>.)</p>
+</footer><!-- /.post-info --><p>(notebook is available at <a href="https://github.com/csdurfee/ensemble_learning/blob/main/ensemble_voting.ipynb">github.com/csdurfee/ensemble_learning</a>.)</p>
 <h2>Ensemble Learning</h2>
 <p>AI and machine learning systems are often used for classification. Is this email spam or not? Is this person a good credit risk or not? Is this a photo of a cat or not?</p>
 <p>There are a lot of ways to build classifiers, and they all potentially have different strengths and weaknesses. It's natural to try combining multiple models together to produce better results than the individual models would. </p>
@@ -43,7 +43,7 @@
 <p>The more classification categories, the more classifiers are needed in the ensemble. However, in real world settings, there's usually a point where adding more classifiers doesn't improve the ensemble. </p>
 <h2><a name="model"></a>The Model</h2>
 <p>I like building really simple models. They can illustrate fundamental characteristics, and show what happens at the extremes. </p>
-<p>So I created an extremely simple model of majority voting (see <a href="github.com/csdurfee/ensemble_learning">notebook</a>). I'm generating a random list of 0's and 1's, indicating the ground truth of some binary classification problem. Then I make several copies of the ground truth and randomly flip <code>x%</code> of the bits. Each of those copies represent the responses from an individual classifier within the ensemble. Each fake classifier will have <code>100-x%</code> accuracy. There's no correlation between the wrong answers that each classifier gives, because the changes were totally random. </p>
+<p>So I created an extremely simple model of majority voting (see <a href="https://github.com/csdurfee/ensemble_learning/blob/main/ensemble_voting.ipynb">notebook</a>). I'm generating a random list of 0's and 1's, indicating the ground truth of some binary classification problem. Then I make several copies of the ground truth and randomly flip <code>x%</code> of the bits. Each of those copies represent the responses from an individual classifier within the ensemble. Each fake classifier will have <code>100-x%</code> accuracy. There's no correlation between the wrong answers that each classifier gives, because the changes were totally random. </p>
 <p>For every pair of fake classifiers with 60% accuracy, they will both be right <code>60% * 60% = 36%</code> of the time, and both wrong <code>40% * 40% = 16%</code>. So they will agree <code>36% + 16% = 52%</code> of the time at minimum.</p>
 <p>That's different from the real world. Machine learning algorithms trained on the same data will make a lot of the same mistakes. If there are outliers in the data, any classifier can overfit on them. And they're all going to find the same basic trends in the data. If there aren't a lot of good walrus pictures in the training data, every model is probably going to be bad at recognizing walruses. There's no way to make up for what isn't there.</p>
 <h2>Theory vs Reality</h2>
