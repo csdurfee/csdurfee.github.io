@@ -1,7 +1,7 @@
 Title: Majority Voting in Ensemble Learning
 Date: 2025-05-22 10:20
 Category: machine learning
-(notebook is available at [github.com/csdurfee/ensemble_learning](github.com/csdurfee/ensemble_learning).)
+(notebook is available at [github.com/csdurfee/ensemble_learning](https://github.com/csdurfee/ensemble_learning/blob/main/ensemble_voting.ipynb).)
 
 ## Ensemble Learning
 AI and machine learning systems are often used for classification. Is this email spam or not? Is this person a good credit risk or not? Is this a photo of a cat or not?
@@ -22,7 +22,7 @@ The more classification categories, the more classifiers are needed in the ensem
 ## <a name="model"></a>The Model
 I like building really simple models. They can illustrate fundamental characteristics, and show what happens at the extremes. 
 
-So I created an extremely simple model of majority voting (see [notebook](github.com/csdurfee/ensemble_learning)). I'm generating a random list of 0's and 1's, indicating the ground truth of some binary classification problem. Then I make several copies of the ground truth and randomly flip `x%` of the bits. Each of those copies represent the responses from an individual classifier within the ensemble. Each fake classifier will have `100-x%` accuracy. There's no correlation between the wrong answers that each classifier gives, because the changes were totally random. 
+So I created an extremely simple model of majority voting (see [notebook](https://github.com/csdurfee/ensemble_learning/blob/main/ensemble_voting.ipynb)). I'm generating a random list of 0's and 1's, indicating the ground truth of some binary classification problem. Then I make several copies of the ground truth and randomly flip `x%` of the bits. Each of those copies represent the responses from an individual classifier within the ensemble. Each fake classifier will have `100-x%` accuracy. There's no correlation between the wrong answers that each classifier gives, because the changes were totally random. 
 
 For every pair of fake classifiers with 60% accuracy, they will both be right `60% * 60% = 36%` of the time, and both wrong `40% * 40% = 16%`. So they will agree `36% + 16% = 52%` of the time at minimum.
 
