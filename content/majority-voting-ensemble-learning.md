@@ -1,7 +1,7 @@
 Title: Majority Voting in Ensemble Learning
 Date: 2025-05-22 10:20
 Category: machine learning
-(notebook is available at [github.com/csdurfee/ensemble_learning](github.com/csdurfee/ensemble_learning).
+(notebook is available at [github.com/csdurfee/ensemble_learning](github.com/csdurfee/ensemble_learning).)
 
 ## Ensemble Learning
 AI and machine learning systems are often used for classification. Is this email spam or not? Is this person a good credit risk or not? Is this a photo of a cat or not?
