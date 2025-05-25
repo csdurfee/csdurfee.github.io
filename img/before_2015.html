@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5.20.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "layer": [{"mark": {"type": "rect"}, "encoding": {"color": {"field": "Importance", "scale": {"reverse": true, "scheme": "redyellowblue"}, "type": "quantitative"}, "tooltip": {"field": "Importance", "format": ".3", "type": "ordinal"}, "x": {"axis": {"labelAngle": 0, "orient": "top"}, "field": "Rank", "type": "ordinal"}, "y": {"field": "Position", "type": "ordinal"}}, "title": "Correlation between combine results and draft position (r^2) 2000-2014"}, {"mark": {"type": "text", "baseline": "middle", "fontSize": 14}, "encoding": {"color": {"value": "black"}, "text": {"field": "Event", "type": "ordinal"}, "tooltip": {"field": "Importance", "format": ".3", "type": "ordinal"}, "x": {"axis": {"labelAngle": 0, "orient": "top"}, "field": "Rank", "type": "ordinal"}, "y": {"field": "Position", "type": "ordinal"}}}], "data": {"name": "data-3b4ae7a789148f69d8be69d5aeadfc6e"}, "height": 600, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-3b4ae7a789148f69d8be69d5aeadfc6e": [{"Position": "CB", "Event": "40 Yard Dash", "Rank": 1, "Importance": 0.3614078620483197}, {"Position": "CB", "Event": "Broad Jump", "Rank": 2, "Importance": 0.30112167253267225}, {"Position": "CB", "Event": "Vertical Leap", "Rank": 3, "Importance": 0.20793412756745067}, {"Position": "CB", "Event": "Shuttle", "Rank": 4, "Importance": 0.190043204704025}, {"Position": "CB", "Event": "3 Cone Drill", "Rank": 5, "Importance": 0.13928331080038142}, {"Position": "CB", "Event": "Bench Press", "Rank": 6, "Importance": 0.12239049506406671}, {"Position": "DL", "Event": "Bench Press", "Rank": 1, "Importance": 0.17347166079247095}, {"Position": "DL", "Event": "40 Yard Dash", "Rank": 2, "Importance": 0.17236601135031268}, {"Position": "DL", "Event": "Broad Jump", "Rank": 3, "Importance": 0.11425416282051533}, {"Position": "DL", "Event": "3 Cone Drill", "Rank": 4, "Importance": 0.10416616133502538}, {"Position": "DL", "Event": "Vertical Leap", "Rank": 5, "Importance": 0.019342314172231978}, {"Position": "DL", "Event": "Shuttle", "Rank": 6, "Importance": 0.0007673067214736532}, {"Position": "LB", "Event": "40 Yard Dash", "Rank": 1, "Importance": 0.34151594119210665}, {"Position": "LB", "Event": "Broad Jump", "Rank": 2, "Importance": 0.2854151399656752}, {"Position": "LB", "Event": "Vertical Leap", "Rank": 3, "Importance": 0.23765173388813574}, {"Position": "LB", "Event": "Shuttle", "Rank": 4, "Importance": 0.1614294534193254}, {"Position": "LB", "Event": "3 Cone Drill", "Rank": 5, "Importance": 0.14300125402016237}, {"Position": "LB", "Event": "Bench Press", "Rank": 6, "Importance": 0.09599662962246985}, {"Position": "OL", "Event": "40 Yard Dash", "Rank": 1, "Importance": 0.2187787921765939}, {"Position": "OL", "Event": "Broad Jump", "Rank": 2, "Importance": 0.18208685479052533}, {"Position": "OL", "Event": "Vertical Leap", "Rank": 3, "Importance": 0.1547998274264087}, {"Position": "OL", "Event": "Bench Press", "Rank": 4, "Importance": 0.1436112333672945}, {"Position": "OL", "Event": "3 Cone Drill", "Rank": 5, "Importance": 0.06369589463943252}, {"Position": "OL", "Event": "Shuttle", "Rank": 6, "Importance": 0.03632021953414121}, {"Position": "QB", "Event": "Broad Jump", "Rank": 1, "Importance": 0.39181634749852257}, {"Position": "QB", "Event": "Vertical Leap", "Rank": 2, "Importance": 0.3095340445839854}, {"Position": "QB", "Event": "3 Cone Drill", "Rank": 3, "Importance": 0.29064502658349894}, {"Position": "QB", "Event": "40 Yard Dash", "Rank": 4, "Importance": 0.19962215840734165}, {"Position": "QB", "Event": "Shuttle", "Rank": 5, "Importance": 0.1718348050284214}, {"Position": "QB", "Event": "Bench Press", "Rank": 6, "Importance": 0.0}, {"Position": "RB", "Event": "40 Yard Dash", "Rank": 1, "Importance": 0.41582013517879207}, {"Position": "RB", "Event": "Broad Jump", "Rank": 2, "Importance": 0.37566127179901526}, {"Position": "RB", "Event": "Vertical Leap", "Rank": 3, "Importance": 0.29083301625149105}, {"Position": "RB", "Event": "3 Cone Drill", "Rank": 4, "Importance": 0.2761284865514718}, {"Position": "RB", "Event": "Shuttle", "Rank": 5, "Importance": 0.08118949878103257}, {"Position": "RB", "Event": "Bench Press", "Rank": 6, "Importance": 0.01598220198891179}, {"Position": "S", "Event": "40 Yard Dash", "Rank": 1, "Importance": 0.27596408750034884}, {"Position": "S", "Event": "Shuttle", "Rank": 2, "Importance": 0.21816015587144783}, {"Position": "S", "Event": "3 Cone Drill", "Rank": 3, "Importance": 0.20390843829605743}, {"Position": "S", "Event": "Broad Jump", "Rank": 4, "Importance": 0.15308454805946503}, {"Position": "S", "Event": "Vertical Leap", "Rank": 5, "Importance": 0.1525042359741424}, {"Position": "S", "Event": "Bench Press", "Rank": 6, "Importance": 0.03721651005798947}, {"Position": "TE", "Event": "Bench Press", "Rank": 1, "Importance": 0.3313902380044666}, {"Position": "TE", "Event": "40 Yard Dash", "Rank": 2, "Importance": 0.2984248659821643}, {"Position": "TE", "Event": "Broad Jump", "Rank": 3, "Importance": 0.2843352289120431}, {"Position": "TE", "Event": "Vertical Leap", "Rank": 4, "Importance": 0.24071407031978556}, {"Position": "TE", "Event": "3 Cone Drill", "Rank": 5, "Importance": 0.1851188180358788}, {"Position": "TE", "Event": "Shuttle", "Rank": 6, "Importance": 0.05160094420119876}, {"Position": "WR", "Event": "Broad Jump", "Rank": 1, "Importance": 0.18726393142023717}, {"Position": "WR", "Event": "Vertical Leap", "Rank": 2, "Importance": 0.18647520964732797}, {"Position": "WR", "Event": "40 Yard Dash", "Rank": 3, "Importance": 0.16020403671044398}, {"Position": "WR", "Event": "Bench Press", "Rank": 4, "Importance": 0.14245352853318693}, {"Position": "WR", "Event": "Shuttle", "Rank": 5, "Importance": 0.05896180655794375}, {"Position": "WR", "Event": "3 Cone Drill", "Rank": 6, "Importance": 0.05070322486251267}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>
