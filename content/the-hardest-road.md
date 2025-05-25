@@ -1,6 +1,6 @@
 Title: The Hardest Road
 Date: 2025-05-01 10:20
-Category: basketball
+Category: sports analytics
 
 ## What geology can tell us about Kevin Durant's next team
 When NBA superstar Kevin Durant left the Oklahoma City Thunder to join the Golden State Warriors, he said that doing so was taking "the hardest road". This was met with a lot of mockery, because the Golden State Warriors had just won 73 games, the most in NBA history, the previous year.

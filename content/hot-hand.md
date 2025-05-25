@@ -1,6 +1,6 @@
-Title: The Hot Hand Doesn't Exist, But The Lukewarm Hand Does
+Title: The Hot Hand Doesn't Exist in the NBA, But The Lukewarm Hand Does
 Date: 2025-05-16 10:20
-Category: basketball
+Category: sports analytics
 
 (The code used, and ipython notebooks with a fuller investigation of the data is available at [https://github.com/csdurfee/hot_hand](https://github.com/csdurfee/hot_hand).)
 
