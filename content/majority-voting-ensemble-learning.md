@@ -15,7 +15,7 @@ This is called an ensemble. Random forests and gradient boosting are two popular
 ## Majority Voting
 We can also create ensembles of *strong learners* -- combining multiple powerful models together. Each individual model is powerful enough to do the entire classification on its own, but we hope to achieve higher accuracy by combining their results.  The most common way to do that is with voting. Query several classifiers, and have the ensemble return the majority pick, or otherwise combine the results.
 
-There are some characteristics of ensembles that seem pretty common-sense [Bonab 2017]. The classifiers in the ensemble need to be *diverse*: as different as possible in the mistakes they make. If they all make the same mistakes, then there's no way for the ensemble to correct for that. 
+There are some characteristics of ensembles that seem pretty common sense [1]. The classifiers in the ensemble need to be *diverse*: as different as possible in the mistakes they make. If they all make the same mistakes, then there's no way for the ensemble to correct for that. 
 
 The more classification categories, the more classifiers are needed in the ensemble. However, in real world settings, there's usually a point where adding more classifiers doesn't improve the ensemble. 
 
@@ -26,7 +26,7 @@ So I created an extremely simple model of majority voting (see [notebook](https:
 
 For every pair of fake classifiers with 60% accuracy, they will both be right `60% * 60% = 36%` of the time, and both wrong `40% * 40% = 16%`. So they will agree `36% + 16% = 52%` of the time at minimum.
 
-That's different from the real world. Machine learning algorithms trained on the same data will make a lot of the same mistakes. If there are outliers in the data, any classifier can overfit on them. And they're all going to find the same basic trends in the data. If there aren't a lot of good walrus pictures in the training data, every model is probably going to be bad at recognizing walruses. There's no way to make up for what isn't there.
+That's different from the real world. Machine learning algorithms trained on the same data will make a lot of the same mistakes and get a lot of the same questions right. If there are outliers in the data, any classifier can overfit on them. And they're all going to find the same basic trends in the data. If there aren't a lot of good walrus pictures in the training data, every model is probably going to be bad at recognizing walruses. There's no way to make up for what isn't there.
 
 ## Theory vs Reality
 
@@ -36,7 +36,7 @@ What is the probability of the ensemble being wrong about a particular classific
 
 That's the probability that the majority of the classifiers predict 0, given that the true value is 1 (and vice versa). If each classifier is more likely to be right than wrong, as the number of classifiers goes to infinity, the probability of the majority of predictions being wrong goes to 0.
 
-If each binary classifier has a probability > .5 of being right, we can make the ensemble arbitrarily precise if we add enough classifiers to the ensemble (assuming their errors are independent). We could use the normal approximation to the binomial distribution to get the exact number, if necessary.
+If each binary classifier has a probability > .5 of being right, we can make the ensemble arbitrarily precise if we add enough classifiers to the ensemble (assuming their errors are independent). We could grind the math using the normal approximation to get the exact number if need be.
 
 Let's say each classifier is only right 50.5% of the time. We might have to add 100,000 of them to the ensemble, but we can make the error rate arbitrarily small.
 
@@ -111,6 +111,6 @@ When I'm adding noise to emulate the soft voting case, is that *fair*? A differe
 4. Anyone thinking of using an ensemble should look at the amount of correlation between the responses from different classifiers. If the classifiers are all making basically the same mistakes, an ensemble won't help regardless of hard vs. soft voting. If models with very different architectures are failing in the same ways, that could be a weakness in the training data that can't be fixed by an ensemble.
 
 ### References
-[Bonab 2017] Bonab, Hamed; Can, Fazli (2017). "Less is More: A Comprehensive Framework for the Number of Components of Ensemble Classifiers". arXiv:1709.02925
+[1] Bonab, Hamed; Can, Fazli (2017). "Less is More: A Comprehensive Framework for the Number of Components of Ensemble Classifiers". arXiv:1709.02925
 
 Tsymbal, A., Pechenizkiy, M., & Cunningham, P. (2005). Diversity in search strategies for ensemble feature selection. Information Fusion, 6(1), 83–98. doi:10.1016/j.inffus.2004.04.003 

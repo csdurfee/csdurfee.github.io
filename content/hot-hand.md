@@ -1,4 +1,4 @@
-Title: The Hot Hand Doesn't Exist in the NBA, But The Lukewarm Hand Does
+Title: The hot hand doesn't exist in the NBA, but its opposite does
 Date: 2025-05-16 10:20
 Category: sports analytics
 
