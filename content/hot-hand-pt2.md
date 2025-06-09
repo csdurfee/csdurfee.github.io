@@ -6,13 +6,16 @@ Category: sports analytics
 
 In my last installment, I was looking at season long shooting records from the NBA, and I concluded that NBA players were less streaky than expected. They have fewer long strings of makes and misses than a series of coin flips would.
 
-I've been thinking this could be due to "heat check" shots -- a player has made a bunch of shots in a row, or are having a good shooting game in general, so they take harder shots than they normally take. Or it could be due to "get a bucket" shots -- a player is having a bad shooting game, so they force higher percentage shots and potentially free throws. 
 
-I think this theory also explains some players that casual fans consider streaky who are actually super un-streaky. Jordan Poole was the least streaky player over the last 4 seasons.  
+I've been thinking this could be due to "heat check" shots -- a player has made a bunch of shots in a row, or are having a good shooting game in general, so they take harder shots than they normally take. 
+It would explain some players that fans consider streaky or "heat check" players who are actually super un-streaky. Jordan Poole was the least streaky player over the last 4 seasons, which defies my expectations. Say he believes he is streaky, so tends to take bad shots when
+
+Or it could be due to "get a bucket" shots -- a player is having a bad shooting game, so they force higher percentage shots and potentially free throws. 
+
 
 There's a quirk of NBA stats to remember: if a player is fouled while shooting, it only counts as a field goal attempt if they make the shot. So driving to the hoop is guaranteed to not decrease a player's field goal percentage if they successfully draw a foul, or get called for an offensive foul.
 
-I'm not sure I've made an airtight case for the *lukewarm hand*. Combining every game in a season could hide the hot hand effect. So I looked at streakiness in individual games.
+I'm not sure I've made an airtight case for the *lukewarm hand*. Combining every game in a season could hide the hot hand effect. What about individual games?
 
 ## Game-level shooting statistics show a lukewarm tendency
 I am using the complete shooting statistics available from this kaggle project: [https://www.kaggle.com/datasets/mexwell/nba-shots](https://www.kaggle.com/datasets/mexwell/nba-shots)
@@ -59,12 +62,10 @@ Name: z_score, dtype: float64
 
 There definitely appears to be a bias towards the lukewarm hand in individual game data. The mean z scores aren't that much bigger than zero, but it's a huge sample size.
 
-When I started this project, I thought that combining games together into one long string of makes and misses was somehow masking the streakiness of players.
-
 ## Simulating streaky and non-streaky players
-I coded up a simulation of a non-streaky player. When they have hit a minimum number of attempts in the game, if their shooting percentage goes above a certain level, they get a penalty to it. If it goes below a certain level, they get a boost to shooting percentage.
+I coded up a simulation of a non-streaky player. When they have hit a minimum number of attempts in the game, if their shooting percentage goes above a certain level, they get a penalty. If it goes below a certain level, they get a boost.
 
-I was able to create results that look like NBA players even with an extremely simplified model -- basically normally distributed, but shifted to the unstreaky side just a bit. I tweaked some settings and found that the unstreakiness needs to kick in after about 4 shots.
+I was able to create results that look like NBA players in aggregate with an extremely simplified model. The parameters were arbitrarily chosen
 
 By default, the thresholds are 20% and 80%, and the boost/penalty is 20%. So a 50% shooter who has taken at least 4 shots and is shooting 80% or better for the game will get their FG% knocked down to 30% till their game percentage drops below the threshold. Likewise if they hit 20% or less, they get a boost until they're over the threshold.
 
@@ -96,7 +97,7 @@ Several big things to note:
 Which is to say, my simulation is kind of silly and seemingly over-exaggerated. And it's still not as lukewarm as real NBA players are.  Wild, isn't it?
 
 ## Streakiness in only one direction
-I also simulated players who were only streaky in one direction: "get a bucket" players who get a boost to shooting percentage when they are shooting poorly, but no penalty when they are doing well, and "heat check"players who only get the penalty.
+I also simulated players who were only streaky in one direction: "get a bucket" players who get a boost to shooting percentage when they are shooting poorly, but no penalty when they are doing well, and "heat check" players who only get the penalty.
 
 The results were biased to the unstreaky side, but about half as much as the ones that are streaky in both directions. I had to crank the penalties/boosts up to unrealistic levels to get the bias of the z-scores up to the .2-.3 range I'm seeing with real season-level data.
 
