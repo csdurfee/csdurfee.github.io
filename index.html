@@ -21,7 +21,131 @@
 
                 <aside id="featured" class="body">
                     <article>
-                        <h1 class="entry-title"><a href="/approximate-normality-and-continuity-corrections.html">Approximate Normality and Continuity Corrections</a></h1>
+                        <h1 class="entry-title"><a href="/lebron-james-the-unstreaky-king.html">LeBron James, the Unstreaky King</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2025-06-12T10:20:00-10:00">
+                Published: Thu 12 June 2025
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="/author/casey-durfee.html">casey durfee</a>
+                </address>
+        <p>In <a href="/category/sports-analytics.html">sports analytics</a>.</p>
+<p>tags: <a href="/tag/basketball.html">basketball</a> <a href="/tag/the-hot-hand.html">the hot hand</a> </p>        
+</footer><!-- /.post-info --><p>In previous installments, I've shown that NBA players are, as a whole, less streaky than they should be. This is apparent in game-level data, and more obvious looking at multi season trends.</p>
+<p>So far, I've only looked at the past few seasons of the NBA. I decided to gather as much data as I could, analyzing every single shot taken in the NBA from 2004 to 2024.</p>
+<p>Data is taken from https://www.kaggle.com/datasets/mexwell/nba-shots.</p>
+<h2>The streakiest games of the past 20 years</h2>
+<p>As I showed in the last installment, there are two ways of measuring how relatively streaky each individual game is. We can use the normal approximation from the Wald-Wolfowitz test, or we can calculate the percentile ranks from the exact probabilities.</p>
+<p>These two metrics give different answers to what is the streakiest game of the past 20 years.  According to percentile rank, the streakiest ever was Cedi Osman, who in 2022 missed 10 shots in a row, followed by making 6 shots in a row, for an equivalent z-score of -3.6.</p>
+<p>According to the normal approximation, the streakiest game ever was Chris Bosh in 2007, who made 15 shots in a row before missing his final 4. Bosh doesn't even make the top 5 by percentile rank. </p>
+<p>Other strong performances include Andre Iguodala, who had 16 straight misses followed by 3 makes in 2008, and Willie Green, who had 5 misses followed by 12 makes. The sheer length of those streaks is impressive, but to maximize the number of expected streaks, there need to be similar numbers of makes and misses. A game with 5 makes and 5 misses has a maximum of 10 streaks. A game with 15 makes and 4 misses, like Chris Bosh, has a maximum of 9 streaks.</p>
+<p>Kobe Bryant's final game in the NBA also deserves mention. He went an extremely streaky 22 for 50, earning the highest number of expected streaks in the data I have (25.64): <code>11111000100110000101110000101100001100001111100000</code></p>
+<h2>The least streaky games</h2>
+<p>The least streaky was by Richard Hamilton in 2006, who had 10 makes and 13 misses, no two makes in a row: <code>01001010101010010101010</code></p>
+<p>Kyrie Irving, Dejounte Murray (previously covered), and Kevin Martin also had strong showings. </p>
+<h1>The un-streaky king</h1>
+<p>The 4th most un-streaky game of the past 20 years belongs to LeBron James.  <a href="https://www.basketball-reference.com/boxscores/200511090CLE.html">LeBron scored 31 points in an easy win over the SuperSonics in 2005</a>. Aside from 2 makes in a row at the start of the game, he perfectly alternated makes and misses the rest of the game: <code>110101010101010101</code></p>
+<p>In the 20 years of shot data I analyzed, LeBron stands out as by far the most un-streaky player. Here are the career z scores of every player from 2004-2024:</p>
+<p><img alt="career-z-scores" src="/img/career-z-scores.png"></p>
+<p>LeBron can't even be seen on this chart. He is in a world of his own, with a career z score of 5.9. We have to go to the Jon Bois style scatterplot with one extreme outlier in the corner:</p>
+<p><img alt="career-z-scatter" src="/img/career-z-scatter.png"></p>
+<p>If this were a Youtube video, imagine me zooming in on the solitary dot in the upper right while the saxophone hook from <a href="https://youtu.be/BO1qcWa6blQ?t=22">Baker Street</a> kicks in.</p>
+<p>Which is to say, it's really, really unlikely. The odds are around 1 in 550 million. That puts him in the 99.9999998th percentile.</p>
+<p>If all 8.2 Billion people on the planet had LeBron's NBA career, taking over 29,000 shots like he has, at the same FG% he did, we'd expect 15 people to be that unstreaky or more. That's elite company. Not only is LeBron James the LeBron James of basketball, he's also the LeBron James of being unstreaky at basketball.</p>
+<p>As both the most unstreaky player of all time, and the most prolific scorer of all time, LeBron James makes a perfect test subject for understanding unstreakiness.</p>
+<p>He's had 15,159 shooting streaks in his career so far, which is 504 more streaks than expected.  Say LeBron takes a low percentage shot because he feels like he has the hot hand. It might be lower, but it's probably not dramatically worse than his regular shot. So for him to have 500 more streaks than expected, that's potentially thousands of choices LeBron has made over his career that increased the likelihood of streaks getting broken.</p>
+<h2>Streak lengths</h2>
+<p>I simulated LeBron's career 1000 times and compared the frequency of streak lengths to his actual career. Here are his actual streaks compared to the expected frequencies:</p>
+<p><img alt="lebron-make-streaks" src="/img/lebron-make-streaks.png"></p>
+<p><img alt="lebron-miss-streaks" src="/img/lebron-miss-streaks.png"></p>
+<p>He has slightly more 1 and 2 shot make/miss streaks than expected, and fewer streaks of 5-6 or more.</p>
+<p>Previously I discussed that players could cause unstreakiness because they "go get a bucket" when the "shot isn't falling" -- in other words, they take higher percentage shots when they're on a cold streak. They might try to draw contact from a defender, and if they do get fouled, it only counts as a shot attempt if the shot goes in. On the other hand, they might take risky "heat check" shots when they are performing relatively well because they feel like they can't miss.</p>
+<p>To capture "hot" versus "cold", I decided to track the FG% over the previous 5 shots in the game. So, it's undefined for the player's first 5 shots of the game, then defined from the 6th on. Because LeBron is such a high volume scorer and has been for so many years, that's still a lot of data to look at. </p>
+<p>here are the number of shot attempts by LeBron by each "last 5" shooting percentage.</p>
+<div class="highlight"><pre><span></span><code>NaN    7460
+0.6    7222
+0.4    6906
+0.8    3518
+0.2    3090
+1.0     612
+0.0     503
+</code></pre></div>
+
+<p>I have defined <em>cold</em> as making 0 or 1 of the last 5 shots, and <em>hot</em> as making 4 or 5 of the last 5. This was a semi-arbitrary choice based on make/miss streaks longer than 5 happening less frequently than chance would dictate. It also matches how my simulated un-streaky player works.</p>
+<p>There's a clear trend. LeBron's FG% is 10% higher when he's missed his last 5 shots than when he's made his last 5.</p>
+<p><img alt="lebron-last-5" src="/img/lebron-last-5.png"></p>
+<p>That's a pretty big swing.</p>
+<h2>LeBron is un-streaky due to shot selection</h2>
+<p>What's behind this trend?</p>
+<p>LeBron takes a lot more high percentage shots when he's <em>cold</em> versus when he's <em>hot</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">Change</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">shot</span><span class="w"> </span><span class="nv">rates</span><span class="w"> </span><span class="ss">(</span><span class="nv">cold</span><span class="w"> </span><span class="nv">minus</span><span class="w"> </span><span class="nv">hot</span><span class="ss">)</span>:
+
+<span class="nv">Above</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="k">Break</span><span class="w"> </span><span class="mi">3</span><span class="w">       </span><span class="o">-</span><span class="mi">0</span>.<span class="mi">119694</span>
+<span class="nv">Backcourt</span><span class="w">               </span><span class="o">-</span><span class="mi">0</span>.<span class="mi">001659</span>
+<span class="nv">In</span><span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">Paint</span><span class="w"> </span><span class="ss">(</span><span class="nv">Non</span><span class="o">-</span><span class="nv">RA</span><span class="ss">)</span><span class="w">    </span><span class="mi">0</span>.<span class="mi">023637</span>
+<span class="nv">Left</span><span class="w"> </span><span class="nv">Corner</span><span class="w"> </span><span class="mi">3</span><span class="w">            </span><span class="mi">0</span>.<span class="mi">000429</span>
+<span class="nv">Mid</span><span class="o">-</span><span class="nv">Range</span><span class="w">               </span><span class="o">-</span><span class="mi">0</span>.<span class="mi">056841</span>
+<span class="nv">Restricted</span><span class="w"> </span><span class="nv">Area</span><span class="w">          </span><span class="mi">0</span>.<span class="mi">159098</span>
+</code></pre></div>
+
+<p>When he's <em>hot</em>, he takes 29% of his shots in the restricted area (right near the basket, which is his highest percentage shot). When LeBron's <em>cold</em>, that jumps up to 45% of his shots. When he's hot, 29% of his shots are above the break 3's, but he only takes that shot 17% of the time when he's <em>cold</em>.</p>
+<p>LeBron's FG% at each type of shot doesn't change much between times when he's <em>hot</em> and <em>cold</em> and <em>in between</em>. He's a tiny biy better at corner 3's when he's cold vs. hot, but that's on very small volume. LeBron is usually attacking the middle of the court, not standing in the corner. </p>
+<p>He's actually slightly worse at his three most common shot types (above the break 3, mid-range, restricted area) when he's on a cold streak. He's not un-streaky because he suddenly becomes a better shooter. He chooses to "go get a bucket" and seek out a higher percentage shot.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">Change</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">FG</span><span class="o">%</span><span class="w"> </span><span class="ss">(</span><span class="nv">cold</span><span class="w"> </span><span class="nv">minus</span><span class="w"> </span><span class="nv">hot</span><span class="ss">)</span>:
+
+<span class="nv">Above</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="k">Break</span><span class="w"> </span><span class="mi">3</span><span class="w">       </span><span class="o">-</span><span class="mi">0</span>.<span class="mi">036856</span>
+<span class="nv">In</span><span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">Paint</span><span class="w"> </span><span class="ss">(</span><span class="nv">Non</span><span class="o">-</span><span class="nv">RA</span><span class="ss">)</span><span class="w">    </span><span class="mi">0</span>.<span class="mi">001647</span>
+<span class="nv">Left</span><span class="w"> </span><span class="nv">Corner</span><span class="w"> </span><span class="mi">3</span><span class="w">            </span><span class="mi">0</span>.<span class="mi">026525</span>
+<span class="nv">Mid</span><span class="o">-</span><span class="nv">Range</span><span class="w">               </span><span class="o">-</span><span class="mi">0</span>.<span class="mi">023709</span>
+<span class="nv">Restricted</span><span class="w"> </span><span class="nv">Area</span><span class="w">         </span><span class="o">-</span><span class="mi">0</span>.<span class="mi">013754</span>
+<span class="nv">Right</span><span class="w"> </span><span class="nv">Corner</span><span class="w"> </span><span class="mi">3</span><span class="w">           </span><span class="mi">0</span>.<span class="mi">157949</span>
+</code></pre></div>
+
+<p>It looks like it cuts both ways. LeBron takes lower percentage shots when he's shooting well, and higher percentage shots when he's shooting poorly over the past 5 shots, compared to the average performance.</p>
+<p>TODO: Visualization here</p>
+<h2>Shot order trends</h2>
+<p>LeBron's FG% appears to trend downward with the more shots that he takes in a game. The white line is his career average:</p>
+<p><img alt="seq-vs-fg" src="/img/seq-vs-fg.png"></p>
+<p>I haven't looked into it yet, but I suspect this is partially due to LeBron often taking the last shot of the game. Final shots of the game should be harder than average if it's a close game. Everybody knows the ball's going to LeBron for the final shot, so the defense is keying in on him. I'll save that for another installment, though.</p>
+<h2>Other unstreaky guys</h2>
+<p>Kyle Kuzma, Julius Randle, Elton Brand, and Anthony Edwards are all in the 4+ z score club, with Luka Doncic, Giannis, John Henson, Goran Dragic, and Jordan Poole also in the top 10.</p>
+<h2>League-wide trends</h2>
+<p>I went back and did the same analysis for every non-LeBron shot over the last 20 years. The league as a whole doesn't show the same trends that LeBron does. FG% isn't correlated with number of makes of the last 5. Here are the shooting percentages, graphed on the same scale as the one I used for LeBron:</p>
+<p><img alt="league-last-5" src="/img/league-last-5.png"></p>
+<p>There's a very slight uptick when a player has made all 5 of their last 5 shots in the game, but otherwise it's remarkably flat.</p>
+<p>Looking at the order of of shots taken, the NBA as a whole shows the same rough trend as LeBron's, though less dramatically. Lower FG% on the first shot of the game, and FG% slowly going down as the number of attempts goes up. (Again, I've locked the Y axis to match the scale of LeBron's.)</p>
+<p><img alt="league-shot-seq" src="/img/league-shot-seq.png"></p>
+<p>Not a lot there in aggregate. I also looked at just higher volume shooters, but there wasn't a trend I could see there.</p>
+<p>Finally, I looked at players with a z-score over 2 (aside from LeBron). Now, by artificially selecting players with a high z-score, I need to be careful with my analysis to avoid self-fulfilling prophecy. </p>
+<p>By definition, they're going to seem more unstreaky. But it's notable they're unstreaky in the same way as LeBron -- higher shooting percentage when they're <em>cold</em> and lower when they're <em>hot</em>. It's not a strong trend, but it's there. They shoot 47% when they've missed their last 5 in a row, and 44.8% when they've made their last 5 in a row. If the high Z scores were solely due to chance, I wouldn't expect to see such a clear pattern in the last 5 data.</p>
+<p><img alt="high-z-last5" src="/img/high-z-last5.png"></p>
+<h2>Streaky guys</h2>
+<p>There's only one super streaky guy in the last 20 years, Ivica Zubac, with a Z score of -3.98. That's pretty crazy, but still plausibly within the realm of chance, around 1 in 30,000.</p>
+<p>The other guys with extremely streaky behavior on high volume are Dwight Powell, Nemanja Bjelica, Erick Dampier, Aaron Nesmith and Rudy Gobert, with z scores around -3. Most of those guys are big men who aren't primarily scorers. I wonder if it has something to do with rebounding their own shot. Sometimes a big man who isn't good at shooting will do what I call the Moses Malone -- miss a shot, get their own rebound, miss that, get their own rebound again, shoot again, etc, which might produce longer streaks of misses than makes.</p>
+<p>However, I don't think there's a need to deeply analyze the streaky players at this point, because it could be due to chance alone. </p>
+<h2>Goofy Nonsense</h2>
+<p>Zydrunas Ilgauskas was a longtime player for the Cleveland Cavaliers who was nicknamed "The Big Z". However, his career z score was only 1.49, so I don't think it's a statistics based nickname. Which is too bad, because the game could use some of those. "Small Z" for Ivica Zubac's -3.98 score might be confusin to people, unfortunately.</p>
+<h2>Final thoughts</h2>
+<p>If I were LeBron's coach, I'd try to talk him out of believing he has the hot hand, because as we've seen, acting like it exists has caused him to be the most <em>lukewarm handed</em> player of the past 20 years.</p>
+<p>Shot selection shouldn't change for the worse just because a player is shooting well. LeBron on a hot streak has roughly the same shooting percentages for each type of shot as when he's not on a hot streak, or when he's on a cold streak. </p>
+<p>His innate shooting skill doesn't change, he just takes lower percentage shots, perhaps believing they're not really lower percentage shots when he's <em>feeling it</em>. It's feel vs. real, as it often is in sports, and life in general. Regardless of feel, they're still worse shots than he would normally take.</p>
+<p>Going the other way, it's like the old joke about an airplane's black box -- if black boxes are indestructible, why don't they just build the whole airplane out of that material? If LeBron has a higher shooting percentage when he's <em>cold</em> and decides to "go get a bucket", and that works, why doesn't he just do that on every play?</p>
+<p>I don't have a statistical answer to that question, but I do have a common sense one. In sports, part of the game is making the other team have to handle as many possibilities at a time. A quarterback in football shouldn't throw deep passes every play, because that's easy to defend. A baseball pitcher shouldn't just throw their best pitch every time, because that's easy for the hitter to anticipate. </p>
+<p>Likewise, LeBron probably shouldn't just put his head down and "get a bucket" every possession, because that's easy to plan against. LeBron wouldn't be an all time great if he only shot in the restricted area. While 3 pointers and midrange shots may have a lower expected value versus driving to the hoop, they force the defender to worry about LeBron no matter where he is on the court. But I think both as a hoops fan and a data nerd, trying to create a high percentage shot isn't a bad thing to do when a player is struggling in a game. That's especially true if a player can become less engaged in other aspects of the game when they are shooting poorly.</p>                    </article>
+                </aside><!-- /#featured -->
+                    <section id="content" class="body">
+                        <h1>Other articles</h1>
+                        <hr />
+                        <ol id="posts-list" class="hfeed">
+
+                <li><article class="hentry">
+                    <header>
+                        <h1><a href="/approximate-normality-and-continuity-corrections.html" rel="bookmark"
+                               title="Permalink to Approximate Normality and Continuity Corrections">Approximate Normality and Continuity Corrections</a></h1>
+                    </header>
+
+                    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2025-06-08T10:20:00-10:00">
                 Published: Sun 08 June 2025
@@ -31,169 +155,14 @@
                         By                                 <a class="url fn" href="/author/casey-durfee.html">casey durfee</a>
                 </address>
         <p>In <a href="/category/statistics.html">statistics</a>.</p>
-        
-</footer><!-- /.post-info --><p>(Notebooks and other code available at: <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>. As usual, there is stuff in there I'm not covering here.)</p>
+<p>tags: <a href="/tag/basketball.html">basketball</a> <a href="/tag/the-hot-hand.html">the hot hand</a> </p>        
+</footer><!-- /.post-info -->                        <p>(Notebooks and other code available at: <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>. As usual, there is stuff in there I'm not covering here.)</p>
 <h1>What is "approximately normal"?</h1>
-<p>In the last installment, I looked at game-level player data, which involve very small samples.</p>
-<p>Like a lot of things in statistics, the Wald Wolfowitz test says that the number of streaks is approximately normal. What does that mean in practical terms? How approximately are we talking?</p>
-<p>The number of streaks is a discrete value (0,1,2,3,...). In a small sample like 2 makes and 3 misses, which will be extremely common in player game level shooting data, how could that be <em>approximately normal</em>?</p>
-<p>Below is a bar chart of the exact probabilities of each number of streaks, overlaid with the normal approximation in white. Not very normal, is it?</p>
-<p><img alt="not very normal" src="/img/not-very-normal.png"></p>
-<p>To make things more interesting, let's say the player made 7 shots and missed 4. That's enough for the graph to look more like a proper bell curve.</p>
-<p><img alt="exact 7-4 (or 4-7)" src="/img/exact-7-4.png"></p>
-<p>The bell curve looks skewed relative to the histogram, right? That's what happens when you model a discrete distribution (the number of streaks) with a continuous one -- the normal distribution.</p>
-<p>A continuous distribution has zero probability at any single point, so we always calculate the area under the curve between a range of values. So the bar for exactly 7 streaks should line up with the probability of between 6.5 and 7.5 streaks in the normal approximation. The curve should be going through the middle of each bar.</p>
-<p>We need to shift the curve to the right a half a streak for things to line up right. Fixing this is called <a href="https://en.wikipedia.org/wiki/Continuity_correction">continuity correction</a>.</p>
-<p>Here's the same graph with the continuity correction applied:</p>
-<p><img alt="with cc" src="/img/with-cc.png"></p>
-<p>So... better, but there's still a problem. The normal approximation will assign a nonzero probability to impossible things. In this case of 7 wins and 7 losses, the minimum possible number of streaks is 2 and the max is 9 (alternate wins and losses till you run out of losses, then have a string of wins at the end.)</p>
-<p>Yet the normal approximation says there's a nonzero chance of 10, or 11, or even a million streaks. The odds are tiny, but the normal distribution never ends. These differences go away with big sample sizes, but they may be worth worrying about for small sample sizes.</p>
-<p>Is that interfering with my results? It's quite possible. I'm trying to use the mean and the standard deviation to decide how "weird" each player is in the form of a z score. The z score gives the likelihood of the data happening by chance, given certain assumptions. If the assumptions don't hold, the z score, and using it to interpret how <em>weird</em> things are, is suspect.</p>
-<h2>Exact-ish odds</h2>
-<p>We can just calculate the exact odds. In the notebook, I showed how to calculate the odds with brute force -- generate all permutations of seven 1's and four 0's, and measure the number of streaks for each one. That's impractical and silly, since the exact formula can be worked out using the rules of combinatorics, as this page nicely shows:  <a href="https://online.stat.psu.edu/stat415/lesson/21/21.1">https://online.stat.psu.edu/stat415/lesson/21/21.1</a></p>
-<p>In order to compare all these players, with different numbers of makes and misses, we'd want to calculate a percentile value for each one from the exact odds. The percentiles will be based on number of streaks, so 1st percentile would be super streaky, 99th percentile super un-streaky.</p>
-<p>Let's say we're looking at the case of 7 makes and 4 misses, and are trying to calculate the percentile value that should go with each number of streaks.  Here are the exact odds of each streak length:</p>
-<div class="highlight"><pre><span></span><code><span class="mf">2</span><span class="w">    </span><span class="mf">0.006061</span>
-<span class="mf">3</span><span class="w">    </span><span class="mf">0.027273</span>
-<span class="mf">4</span><span class="w">    </span><span class="mf">0.109091</span>
-<span class="mf">5</span><span class="w">    </span><span class="mf">0.190909</span>
-<span class="mf">6</span><span class="w">    </span><span class="mf">0.272727</span>
-<span class="mf">7</span><span class="w">    </span><span class="mf">0.227273</span>
-<span class="mf">8</span><span class="w">    </span><span class="mf">0.121212</span>
-<span class="mf">9</span><span class="w">    </span><span class="mf">0.045455</span>
-</code></pre></div>
-
-<p>Here are the cumulative odds (the odds of getting that number of streaks or fewer):</p>
-<div class="highlight"><pre><span></span><code><span class="mf">2</span><span class="w">    </span><span class="mf">0.006061</span>
-<span class="mf">3</span><span class="w">    </span><span class="mf">0.033333</span>
-<span class="mf">4</span><span class="w">    </span><span class="mf">0.142424</span>
-<span class="mf">5</span><span class="w">    </span><span class="mf">0.333333</span>
-<span class="mf">6</span><span class="w">    </span><span class="mf">0.606061</span>
-<span class="mf">7</span><span class="w">    </span><span class="mf">0.833333</span>
-<span class="mf">8</span><span class="w">    </span><span class="mf">0.954545</span>
-<span class="mf">9</span><span class="w">    </span><span class="mf">1.000000</span>
-</code></pre></div>
-
-<p>Let's say we get 6 streaks. Exactly 6 streaks happens 27% of the time. 5 or fewer streaks happens 33% of the time. So we could say 6 streaks is equal to the 33rd percentile, the <code>33.3%+27.3% = 61</code>st percentile, or some value in between those two numbers.</p>
-<p>The obvious way of deciding what's called the <a href="https://en.wikipedia.org/wiki/Percentile_rank">percentile rank</a> for a discrete distribution is to take the average of the upper and lower bound, in this case <code>mean(.333, .606) = .47</code>. You could also think of it as taking the probability of <code>streaks &lt;=5</code> and adding half the probability of <code>streaks=6</code>.</p>
-<p>If we want to compare the percentile ranks from the exact odds to Wald-Wolfowitz, we could convert them to an equivalent z score. Or, we can take the z-scores from the Wald Wolfowitz test and convert them to percentiles.</p>
-<p>The z-scores are bound to be a little different because the normal approximation is a bell curve, whereas we're getting the percentile rank from a linear interpolation of two values.</p>
-<p>Here's an illustration of what I mean. Here's a graph of the exact cumulative probabilities vs the CDF of the normal approximation.</p>
-<p><img alt="cdf-normal-exact" src="/img/cdf-normal-exact.png"></p>
-<p>Let's zoom in on the section between 4.5 and 5.5 streaks. Where the white line hits the red line is the percentile estimate we'd get from the z-score (.475).</p>
-<p><img alt="cdf-zoom" src="/img/cdf-zoom.png"></p>
-<p>The green line is a straight line that represents calculating the percentile rank. It goes from the middle of the top of the <code>runs &lt;= 5</code> bar to the middle of the top of the <code>runs &lt;=6</code> bar. Where it hits the red line is the average of the two, which is percentile rank (.470).</p>
-<p>In other situations, the Wald-Wolfowitz estimate will be less than the exact percentile rank.</p>
-<h2>Is Wald-Wolfowitz unbiased?</h2>
-<p>Yeah. The test provides the exact expected value of the number of streaks. It's not just, like, a pretty good estimate. It is the (weighted) mean of the exact probabilities.</p>
-<p>From the exact odds, the mean of all the streak lengths is 6.0909:</p>
-<div class="highlight"><pre><span></span><code>count    330.000000
-mean       6.090909
-std        1.445329
-min        2.000000
-25%        5.000000
-50%        6.000000
-75%        7.000000
-max        9.000000
-</code></pre></div>
-
-<p>The Wald-Wolfowitz test says the expected value is 1 plus the harmonic mean of 7 and 4, which is 6.0909...</p>
-<h2>Is the normal approximation throwing off my results?</h2>
-<p>Quite possibly. So I went back and calculated the percentile ranks for every player-game combo over the course of the season.</p>
-<p>Here's a scatter plot of the two ways to calculate the percentile on actual NBA player games. The dots above the x=y line are where the Wald-Wolfowitz percentile is bigger than the percentile rank one.</p>
-<p><img alt="percentile-vs-ww" src="/img/percentile-vs-ww.png"></p>
-<p>59% of the time, the Wald-Wolfowitz estimate produces a higher percentile value than the percentile rank. The same trend occurs if I restrict the data set to only high volume shooters (more than 10 makes or misses on the game).</p>
-<p>Here's a bar chart of the differences between the W-W percentile and the percentile rank:</p>
-<p><img alt="ww-minus-pr" src="/img/ww-minus-pr.png"></p>
-<p>A percentile over 50, or a positive z score, means more streaks than average, thus less streaky than average. In other words, on this data set, the Wald-Wolfowitz z-scores will be more flattering to the un-streaky side compared to percentile rank with the exact probabilities.</p>
-<h2>Interlude: our un-streaky king</h2>
-<p>For the record, the un-streakiest NBA game of the 2023-24 season was by Dejounte Murray on 4/9/2024. My dude went 12 for 31 and managed 25 streaks, the most possible for that number of makes and misses, by virtue of never making 2 shots in a row.</p>
-<p>It was a crazy game all around for Murray. A 29-13-13 triple double with 4 steals, and a Kobe-esque 29 points on 31 shots. He could've gotten more, too. The game went to double overtime, and he missed his last 4 in a row. If he had made the 2nd and the 4th of those, he could've gotten 4 more streaks on the game.</p>
-<p>The summary of the game doesn't mention this exceptional achievement. Of course they wouldn't. There's no clue of it in the box score. You couldn't bet on it. Why would anyone notice?</p>
-<p><a href="https://www.basketball-reference.com/boxscores/202404090ATL.html">box score on bbref</a>    </p>
-<p>Look at that unstreakiness. Isn't it beautiful?</p>
-<div class="highlight"><pre><span></span><code><span class="n">makes</span><span class="w">                                                  </span><span class="mi">12</span>
-<span class="n">misses</span><span class="w">                                                 </span><span class="mi">19</span>
-<span class="n">total_streaks</span><span class="w">                                          </span><span class="mi">25</span>
-<span class="n">raw_data</span><span class="w">                  </span><span class="n">LWLWLWLWLWLWLLWLLLWLWLWLWLWLLLL</span>
-<span class="n">expected_streaks</span><span class="w">                                </span><span class="mf">15.709677</span>
-<span class="n">variance</span><span class="w">                                         </span><span class="mf">6.722164</span>
-<span class="n">z_score</span><span class="w">                                          </span><span class="mf">3.583243</span>
-<span class="n">exact_percentile_rank</span><span class="w">                           </span><span class="mf">99.993423</span>
-<span class="n">z_from_percentile_rank</span><span class="w">                           </span><span class="mf">3.823544</span>
-<span class="n">ww_percentile</span><span class="w">                                   </span><span class="mf">99.983032</span>
-</code></pre></div>
-
-<p>On the other end, the streakiest performance of the year belonged to Jabari Walker of the Portland Trail Blazers. Made his first 6 shots in a row, then missed his last 8 in a row.</p>
-<div class="highlight"><pre><span></span><code><span class="n">makes</span><span class="w">                                  </span><span class="mi">6</span>
-<span class="n">misses</span><span class="w">                                 </span><span class="mi">8</span>
-<span class="n">total_streaks</span><span class="w">                          </span><span class="mi">2</span>
-<span class="n">raw_data</span><span class="w">                  </span><span class="n">WWWWWWLLLLLLLL</span>
-<span class="n">expected_streaks</span><span class="w">                </span><span class="mf">7.857143</span>
-<span class="n">variance</span><span class="w">                        </span><span class="mf">3.089482</span>
-<span class="n">z_score</span><span class="w">                        </span><span class="o">-</span><span class="mf">3.332292</span>
-<span class="n">exact_percentile_rank</span><span class="w">             </span><span class="mf">0.0333</span>
-<span class="n">z_from_percentile_rank</span><span class="w">         </span><span class="o">-</span><span class="mf">3.403206</span>
-<span class="n">ww_percentile</span><span class="w">                   </span><span class="mf">0.043067</span>
-</code></pre></div>
-
-<h2>Actual player performances</h2>
-<p>Let's look at actual NBA games where a player had exactly 7 makes and 4 misses. (We can also include the flip side, 4 makes and 7 misses, because it will be the same distribution of streak lengths)</p>
-<p>The green areas are where the players had more streaks than the exact probabilities; the red areas are where players had fewer streaks. The two are very close, except for a lot more games with 9 streaks in the player data, and fewer 6 streak games.</p>
-<p>The exact mean is 6.09 streaks. The mean for player performances is 6.20 streaks. Even in this little slice of data, there's a slight tendency towards unstreakiness.</p>
-<p><img alt="streaks-vs-probs" src="/img/streaks-vs-probs.png"></p>
-<h2>Percentile ranks are still unstreaky, though</h2>
-<p>Well, for all that windup, the percentile ranks didn't turn out all that different when I calcualted them for all 18,000+ player-game combos. The mean and median are still shifted to the un-streaky side, to a significant degree.</p>
-<p><img alt="z-from-percentile" src="/img/z-from-percentile.png"></p>
-<p>Plotting the deciles shows an interesting tendency: a lot more values in the 60-70th percentile range than expected. the shift to the un-streaky side comes pretty much from these values.</p>
-<p><img alt="perc-rank-deciles" src="/img/perc-rank-deciles.png"></p>
-<p>The bias towards the unstreaky side is still there, and still significant:</p>
-<div class="highlight"><pre><span></span><code>count    18982.000000
-mean         0.039683
-std          0.893720
-min         -3.403206
-25%         -0.643522
-50%          0.059717
-75%          0.674490
-max          3.823544
-</code></pre></div>
-
-<h2>A weird continuity correction that seems obviously bad</h2>
-<p>SAS, the granddaddy of statistics software, applies a continuity correction to the runs test whenever the count is less than 50.</p>
-<p>While it's true that we should be careful with normal approximations and small sample size, this ain't the way.</p>
-<p>The exact code used is here: https://support.sas.com/kb/33/092.html</p>
-<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nv">N</span><span class="w"> </span><span class="nv">GE</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">Z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">(</span><span class="nv">Runs</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">mu</span><span class="ss">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nv">sigma</span><span class="c1">;</span>
-<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">Runs</span><span class="o">-</span><span class="nv">mu</span><span class="w"> </span><span class="nv">LT</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">Z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">(</span><span class="nv">Runs</span><span class="o">-</span><span class="nv">mu</span><span class="o">+</span><span class="mi">0</span>.<span class="mi">5</span><span class="ss">)</span><span class="o">/</span><span class="nv">sigma</span><span class="c1">;</span>
-<span class="w">          </span><span class="k">else</span><span class="w"> </span><span class="nv">Z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">(</span><span class="nv">Runs</span><span class="o">-</span><span class="nv">mu</span><span class="o">-</span><span class="mi">0</span>.<span class="mi">5</span><span class="ss">)</span><span class="o">/</span><span class="nv">sigma</span><span class="c1">;</span>
-</code></pre></div>
-
-<p>Other implementations I looked at, like the one in R's <a href="https://www.rdocumentation.org/packages/randtests/versions/1.0.1/topics/runs.test"><code>randtests</code> package</a>, don't do the correction.</p>
-<p>What does this sort of correction look like?</p>
-<p>For starters, it gives us something that doesn't look like a z score. The std is way too small.</p>
-<div class="highlight"><pre><span></span><code>count    18982.000000
-mean        -0.031954
-std          0.687916
-min         -3.047828
-25%         -0.401101
-50%          0.000000
-75%          0.302765
-max          3.390395
-</code></pre></div>
-
-<p><img alt="sas-cc" src="/img/sas-cc.png"></p>
-<h3>What does this look like on random data?</h3>
-<p>I will generate a fake season of data like in the last installment, but the players will have no unstreaky/streaky tendencies. They will behave like a coin flip, weighted to their season FG%.</p>
-<p>Here are the z-scores. They're not obviously bad, but the center is a bit higher than it should be.</p>
-<p><img alt="sas-sim" src="/img/sas-sim.png"></p>
-<p>However, the continuity correction especially stands out when looking at small sample sizes (in this case, simulated players with fewer than 30 shooting streaks over the course of the season).</p>
-<p>In the below graph, red are the SAS corrected z-scores, green are the wald-wolfowitz z scores, brown are the overlap.</p>
-<p><img alt="sas-low-vol" src="/img/sas-low-vol.png"></p>
-<p>Continuity corrections are at best an imperfect substitute for calculating the exact odds. These days, there's no reason not to use exact odds for smaller sample sizes. Even though it ended up not mattering much, I should've started with the percentile rank for individual games.</p>                    </article>
-                </aside><!-- /#featured -->
-                    <section id="content" class="body">
-                        <h1>Other articles</h1>
-                        <hr />
-                        <ol id="posts-list" class="hfeed">
+<p>In the last installment, I looked at NBA game-level player data, which involve very small samples.</p>
+<p>Like a lot of things in statistics, the …</p>
+                        <a class="readmore" href="/approximate-normality-and-continuity-corrections.html">read more</a>
+                    </div><!-- /.entry-content -->
+                </article></li>
 
                 <li><article class="hentry">
                     <header>
@@ -211,7 +180,7 @@ max          3.390395
                         By                                 <a class="url fn" href="/author/casey-durfee.html">casey durfee</a>
                 </address>
         <p>In <a href="/category/sports-analytics.html">sports analytics</a>.</p>
-        
+<p>tags: <a href="/tag/basketball.html">basketball</a> <a href="/tag/the-hot-hand.html">the hot hand</a> </p>        
 </footer><!-- /.post-info -->                        <p>(Notebooks and other code available at: <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>. There's a bunch of stuff in the notebook about the Wald-Wolfowitz test that I will save for another week.)</p>
 <p>In my last installment, I was looking at season long shooting records from the NBA, and I concluded that NBA …</p>
                         <a class="readmore" href="/simulating-hot-and-lukewarm-hands.html">read more</a>
@@ -234,7 +203,7 @@ max          3.390395
                         By                                 <a class="url fn" href="/author/casey-durfee.html">casey durfee</a>
                 </address>
         <p>In <a href="/category/sports-analytics.html">sports analytics</a>.</p>
-        
+<p>tags: <a href="/tag/football.html">football</a> </p>        
 </footer><!-- /.post-info -->                        <p>(the code used is available at <a href="https://github.com/csdurfee/nfl_combine_data/">https://github.com/csdurfee/nfl_combine_data/</a>).</p>
 <h2>Intro</h2>
 <p>Every year, the National Football League hosts an event called the Combine, where teams can evaluate the top prospects before the upcoming draft.</p>
@@ -284,7 +253,7 @@ max          3.390395
                         By                                 <a class="url fn" href="/author/casey-durfee.html">casey durfee</a>
                 </address>
         <p>In <a href="/category/sports-analytics.html">sports analytics</a>.</p>
-        
+<p>tags: <a href="/tag/basketball.html">basketball</a> <a href="/tag/the-hot-hand.html">the hot hand</a> </p>        
 </footer><!-- /.post-info -->                        <p>(The code used, and ipython notebooks with a fuller investigation of the data is available at <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>.)</p>
 <h1>Streaks</h1>
 <p>When I'm watching a basketball game, sometimes it seems like a certain player just can't miss. Every shot looks like it's going to go in. Other times, it …</p>
@@ -308,7 +277,7 @@ max          3.390395
                         By                                 <a class="url fn" href="/author/casey-durfee.html">casey durfee</a>
                 </address>
         <p>In <a href="/category/sports-analytics.html">sports analytics</a>.</p>
-        
+<p>tags: <a href="/tag/basketball.html">basketball</a> </p>        
 </footer><!-- /.post-info -->                        <h2>What geology can tell us about Kevin Durant's next team</h2>
 <p>When NBA superstar Kevin Durant left the Oklahoma City Thunder to join the Golden State Warriors, he said that doing so was taking "the hardest road". This was met with a lot of mockery, because the Golden State Warriors had …</p>
                         <a class="readmore" href="/the-hardest-road.html">read more</a>
