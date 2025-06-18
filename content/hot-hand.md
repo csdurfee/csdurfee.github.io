@@ -1,6 +1,7 @@
 Title: The hot hand doesn't exist in the NBA, but its opposite does
 Date: 2025-05-16 10:20
 Category: sports analytics
+Tags: basketball, the hot hand
 
 (The code used, and ipython notebooks with a fuller investigation of the data is available at [https://github.com/csdurfee/hot_hand](https://github.com/csdurfee/hot_hand).)
 

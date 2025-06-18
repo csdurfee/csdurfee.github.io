@@ -1,6 +1,7 @@
 Title: Simulating hot and lukewarm hands
 Date: 2025-05-28 10:20
 Category: sports analytics
+Tags: basketball, the hot hand
 
 (Notebooks and other code available at: [https://github.com/csdurfee/hot_hand](https://github.com/csdurfee/hot_hand). There's a bunch of stuff in the notebook about the Wald-Wolfowitz test that I will save for another week.)
 

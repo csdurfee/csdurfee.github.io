@@ -1,6 +1,7 @@
 Title: What are the most important events at the NFL Combine?
 Date: 2025-05-23 10:20
 Category: sports analytics
+Tags: football
 (the code used is available at [https://github.com/csdurfee/nfl_combine_data/](https://github.com/csdurfee/nfl_combine_data/)).
 
 ## Intro
