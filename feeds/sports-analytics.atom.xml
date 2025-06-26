@@ -1,5 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>mathletix - sports analytics</title><link href="/" rel="alternate"></link><link href="/feeds/sports-analytics.atom.xml" rel="self"></link><id>/</id><updated>2025-06-12T10:20:00-10:00</updated><entry><title>LeBron James, the Unstreaky King</title><link href="/lebron-james-the-unstreaky-king.html" rel="alternate"></link><published>2025-06-12T10:20:00-10:00</published><updated>2025-06-12T10:20:00-10:00</updated><author><name>casey durfee</name></author><id>tag:None,2025-06-12:/lebron-james-the-unstreaky-king.html</id><summary type="html">&lt;p&gt;In previous installments, I've shown that NBA players are, as a whole, less streaky than they should be. This is apparent in game-level data, and more obvious looking at multi season trends.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>mathletix - sports analytics</title><link href="/" rel="alternate"></link><link href="/feeds/sports-analytics.atom.xml" rel="self"></link><id>/</id><updated>2025-06-18T10:20:00-10:00</updated><entry><title>LeSimulation</title><link href="/lesimulation.html" rel="alternate"></link><published>2025-06-18T10:20:00-10:00</published><updated>2025-06-18T10:20:00-10:00</updated><author><name>casey durfee</name></author><id>tag:None,2025-06-18:/lesimulation.html</id><summary type="html">&lt;p&gt;(As usual, all code and notebooks are available at &lt;a href="https://github.com/csdurfee/hot_hand"&gt;https://github.com/csdurfee/hot_hand&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;Last time, we saw that LeBron James was by far the un-streakiest player in the NBA over the last 20 years and found out that it's at least partly caused by shot selection. He takes both …&lt;/p&gt;</summary><content type="html">&lt;p&gt;(As usual, all code and notebooks are available at &lt;a href="https://github.com/csdurfee/hot_hand"&gt;https://github.com/csdurfee/hot_hand&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;Last time, we saw that LeBron James was by far the un-streakiest player in the NBA over the last 20 years and found out that it's at least partly caused by shot selection. He takes both lower percentage shots than average when he's shooting well and higher percentage shots than average when he's shooting poorly.&lt;/p&gt;
+&lt;h2&gt;LeMartingale&lt;/h2&gt;
+&lt;p&gt;I got the question of why it's OK to use a player's overall FG% to gauge their streakiness. We know that every shot a player takes has a slightly different level of difficulty, and thus a different probability that it will go in. Shouldn't that affect the streakiness?&lt;/p&gt;
+&lt;p&gt;It's a good question.  Let's say you've got a bag with 2 types of coins inside. One of them comes up heads 40% of the time, the other comes up heads 60% of the time. You can't tell which is which. If you pick a coin randomly out of the bag and flip it, what are the chances, on average, it comes up heads? &lt;/p&gt;
+&lt;p&gt;It's 50%, right? The selecting of the coin and the flipping of the coin are two independent steps. We can multiply the probabilities at each step together, so the overall chances of heads are &lt;code&gt;(.5 * .4) + (.5 * .6) = .5&lt;/code&gt;. If we kept randomly selecting from the bag and flipping a coin, the results would be indistinguishable from just flipping a single fair coin over and over.&lt;/p&gt;
+&lt;p&gt;In math, this is known as a &lt;a href="https://en.wikipedia.org/wiki/Martingale_(probability_theory)"&gt;Martingale&lt;/a&gt;. Previous outcomes don't give us information about the next event. (More in depth explanation &lt;a href="https://www.cs.yale.edu/homes/aspnes/pinewiki/Martingales.html"&gt;here&lt;/a&gt;).  That's different from LeBron. We know he essentially chooses the 60% heads coin when he's been getting a lot of tails recently, and the 60% tails coin when he's been getting a lot of heads recently.&lt;/p&gt;
+&lt;h2&gt;LeSimulation&lt;/h2&gt;
+&lt;p&gt;If I create a simulation of LeBron James that uses his exact shooting tendencies and FG percentages, and the shot selection is totally random, it shouldn't show any streaky or unstreaky tendencies beyond expected by chance. Let's see what LeSimulation looks like.&lt;/p&gt;
+&lt;p&gt;At the end of the last edition, I got LeBron's shooting stats:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;Above&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;Break&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;344598&lt;/span&gt;
+&lt;span class="nv"&gt;Backcourt&lt;/span&gt;&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;058824&lt;/span&gt;
+&lt;span class="nv"&gt;In&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;The&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Paint&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;Non&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;RA&lt;/span&gt;&lt;span class="ss"&gt;)&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;401369&lt;/span&gt;
+&lt;span class="nv"&gt;Left&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Corner&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;394799&lt;/span&gt;
+&lt;span class="nv"&gt;Mid&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;Range&lt;/span&gt;&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;379890&lt;/span&gt;
+&lt;span class="nv"&gt;Restricted&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Area&lt;/span&gt;&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;720138&lt;/span&gt;
+&lt;span class="nv"&gt;Right&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Corner&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="w"&gt;           &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;370370&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;And shooting tendencies (what percent of the time he takes each type of shot):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;Above&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;Break&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;204940&lt;/span&gt;
+&lt;span class="nv"&gt;Backcourt&lt;/span&gt;&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;001160&lt;/span&gt;
+&lt;span class="nv"&gt;In&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;The&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Paint&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;Non&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;RA&lt;/span&gt;&lt;span class="ss"&gt;)&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;109652&lt;/span&gt;
+&lt;span class="nv"&gt;Left&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Corner&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;014431&lt;/span&gt;
+&lt;span class="nv"&gt;Mid&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;Range&lt;/span&gt;&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;267715&lt;/span&gt;
+&lt;span class="nv"&gt;Restricted&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Area&lt;/span&gt;&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;386442&lt;/span&gt;
+&lt;span class="nv"&gt;Right&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Corner&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="w"&gt;           &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;015660&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The simulation randomly chooses a shot type, based on the actual tendencies, then attempts a shot at the corresponding FG%.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="le-fake-career" src="/img/le-fake-career.png"&gt;&lt;/p&gt;
+&lt;p&gt;The z-scores look like they should -- mean is very close to 0, standard deviation close to 1. No streaky/unstreaky tendencies, as promised. No evidence that shot attempts were at different FG%.&lt;/p&gt;
+&lt;h2&gt;LeSimulation 2 - last 5 FG%&lt;/h2&gt;
+&lt;p&gt;My next simulation uses LeBron's FG% over his last 5 shots. We've seen he shoots the best with 0 makes in his last 5; the worst with 5 makes in his last 5. The simulation uses his exact percentages at each level. For the first 5 shots of every game, it uses his career FG%.&lt;/p&gt;
+&lt;p&gt;I ran the simulation 1,000 times. Here are the z-scores:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="le-fake-career-2" src="/img/le-fake-career-2.png"&gt;&lt;/p&gt;
+&lt;p&gt;As expected, this simulation is pretty un-streaky:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;count    1000.000000
+mean        1.635843
+std         0.985464
+min        -1.665389
+25%         1.001550
+50%         1.623242
+75%         2.346864
+max         4.509869
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;It's still not nearly as unstreaky as the man himself, though -- Lebron's z score of 5.9 would be way bigger than the largest value in 1,000 simulations (4.5). So he'd still be an outlier compared to these simulated un-streaky players.&lt;/p&gt;
+&lt;h2&gt;LeSimulation 3 -- No resetting streaks&lt;/h2&gt;
+&lt;p&gt;What about a fake player where the streaks don't reset between games? That should make the simulated player even more unstreaky.&lt;/p&gt;
+&lt;p&gt;In this version of the simulation, every shot will be influenced by the FG% of the previous 5 shots, even if they happened in the previous game(s).&lt;/p&gt;
+&lt;p&gt;&lt;img alt="le-fake-career-3" src="/img/le-fake-career-3.png"&gt;&lt;/p&gt;
+&lt;p&gt;Here are the corresponding z-scores:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;count    1000.000000
+mean        2.179821
+std         0.963330
+min        -1.033468
+25%         1.536542
+50%         2.203681
+75%         2.865350
+max         5.073167
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;So, the mean went from 1.6 to 2.2, and the max z score went from 4.5 to 5.1. That's still not nearly unstreaky enough to match LeReal LeBron, but at least it's closer.&lt;/p&gt;
+&lt;p&gt;It's possible that if we tracked the last 7 shots, or 9, instead of 5, we would see even more of a dramatic change in FG percentage. Or there's some other factor I haven't considered that is adding unstreakiness, such as the fact that his FG percentage tends to go down the more shots he's taken in a game.&lt;/p&gt;
+&lt;h2&gt;DoppLeGangers&lt;/h2&gt;
+&lt;p&gt;I was curious if I could find similar players to LeBron. There's a good way to do that, but I wanted to try my own way first. I found players where, like LeBron, their FG% steadily declines the more shots they've made out of the last 5.  There are 18 such players: Karl Malone, Grant Hill, Ben Wallace, Eddie House, Michael Redd, Jarvis Hayes, Andres Nocioni, JJ Redick, Nicolas Batum, Goran Dragic, DeMar DeRozan, Patrick Beverley, Marcus Morris Sr., Bradley Beal, Kelly Oubre Jr., Norman Powell, Donte DiVincenzo, and Landry Shamet.&lt;/p&gt;
+&lt;p&gt;Overall, these players have a mean z-score of 1.47, which is pretty impressive, but except for Goran Dragic, there isn't much overlap over the players with the highest overall z scores. 18 players is a pretty small sample size, as well.&lt;/p&gt;
+&lt;p&gt;I also looked at a broader set of players where at least 4 out of the 5 comparisons were decreasing. This gave 180 players, with an average z score of 1.0. &lt;/p&gt;
+&lt;h3&gt;LeRight way&lt;/h3&gt;
+&lt;p&gt;The right way to identify LeBron-alikes is to use a similarity metric that I didn't invent. The fg percentages after 0..5/5 makes are sort of like a probability distribution. There's a lot of work in statistics and machine learning around comparing distributions -- could this data come from this distribution? Is it a good representation of the observed data? A common tool to use is relative entropy, also known as &lt;a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence"&gt;KL divergence&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If we normalize the shooting percentages and compare them to LeBron's, players with a low relative entropy should show the same tendency to shoot better when they're shooting worse than average over their last 5, and vice versa.&lt;/p&gt;
+&lt;p&gt;For example, LeBron's last 5 percentages are:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="mf"&gt;0&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="mf"&gt;0.564612&lt;/span&gt;
+&lt;span class="mf"&gt;1&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="mf"&gt;0.50712&lt;/span&gt;
+&lt;span class="mf"&gt;2&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="mf"&gt;0.505937&lt;/span&gt;
+&lt;span class="mf"&gt;3&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="mf"&gt;0.496538&lt;/span&gt;
+&lt;span class="mf"&gt;4&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="mf"&gt;0.473849&lt;/span&gt;
+&lt;span class="mf"&gt;5&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="mf"&gt;0.464052&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;By normalizing them, they look like a probability distribution (they all add up to one) but it still has the same shape as the raw values if we made a bar chart. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="mf"&gt;0&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="mf"&gt;0.187448&lt;/span&gt;
+&lt;span class="mf"&gt;1&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="mf"&gt;0.16836&lt;/span&gt;
+&lt;span class="mf"&gt;2&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="mf"&gt;0.167968&lt;/span&gt;
+&lt;span class="mf"&gt;3&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="mf"&gt;0.164847&lt;/span&gt;
+&lt;span class="mf"&gt;4&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="mf"&gt;0.157315&lt;/span&gt;
+&lt;span class="mf"&gt;5&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="mf"&gt;0.154062&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The normalization also corrects for the fact that some shooters have higher FG% overall than other players.&lt;/p&gt;
+&lt;p&gt;Normalized values can then be compared to other players' values. The lower the entropy, the more similar their shapes are.&lt;/p&gt;
+&lt;p&gt;I also calculated the Jensen-Shannon distance, which is like relative entropy, but symmetrical (&lt;code&gt;distance(le_bron, le_other_guy) = distance(le_other_guy, le_bron)&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;The closest guys to LeBron by this measure are CJ McCollum, Terry Rozier, Andrea Bargnani, Marcus Morris, Richard Hamilton, Nikola Vucevic, Zach Randolph, Lauri Markkanen, Kawhi Leonard, and Kevin Huerter. &lt;/p&gt;
+&lt;p&gt;Since Richard Hamilton had the streakiest game in the last 20 years, it's not surpring to see him. But except for Randolph and Vucevic, none of the top 10 had exceptional z scores, though they were all positive.&lt;/p&gt;
+&lt;p&gt;The Jensen-Shannon distance results were extremely similar to entropy. It agreed exactly with the entropy as far as ordering 73 of the top 100 players. The average z score for those players was 1.16, versus 1.15 for entropy. So, in aggregate, both were better than my homegrown metric at identifying unstreaky players.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="most-similar-last5" src="/img/most-similar-last5.png"&gt;&lt;/p&gt;
+&lt;p&gt;I haven't looked at whether the reason for the trend in last 5 FG% is due to shot selection for these other players, which is probably the interesting part. Some of the players flagged here are inevitably due to chance. It's based on five 50/50 measurements, so 1 in 32 players would get flagged as "LeBron like" even if the data was randomly generated.&lt;/p&gt;
+&lt;p&gt;None of my queries here turned up the un-streakiest players like Luka Doncic and Anthony Edwards. Whatever causes their extreme unstreakiness (beyond randomness) must be different from LeBron's tendencies. Stay tuned!&lt;/p&gt;</content><category term="sports analytics"></category><category term="basketball"></category><category term="the hot hand"></category></entry><entry><title>LeBron James, the Unstreaky King</title><link href="/lebron-james-the-unstreaky-king.html" rel="alternate"></link><published>2025-06-12T10:20:00-10:00</published><updated>2025-06-12T10:20:00-10:00</updated><author><name>casey durfee</name></author><id>tag:None,2025-06-12:/lebron-james-the-unstreaky-king.html</id><summary type="html">&lt;p&gt;In previous installments, I've shown that NBA players are, as a whole, less streaky than they should be. This is apparent in game-level data, and more obvious looking at multi season trends.&lt;/p&gt;
 &lt;p&gt;So far, I've only looked at the past few seasons of the NBA. I decided to gather as …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In previous installments, I've shown that NBA players are, as a whole, less streaky than they should be. This is apparent in game-level data, and more obvious looking at multi season trends.&lt;/p&gt;
 &lt;p&gt;So far, I've only looked at the past few seasons of the NBA. I decided to gather as much data as I could, analyzing every single shot taken in the NBA from 2004 to 2024.&lt;/p&gt;
 &lt;p&gt;Data is taken from https://www.kaggle.com/datasets/mexwell/nba-shots.&lt;/p&gt;
@@ -71,7 +170,6 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;It looks like it cuts both ways. LeBron takes lower percentage shots when he's shooting well, and higher percentage shots when he's shooting poorly over the past 5 shots, compared to the average performance.&lt;/p&gt;
-&lt;p&gt;TODO: Visualization here&lt;/p&gt;
 &lt;h2&gt;Shot order trends&lt;/h2&gt;
 &lt;p&gt;LeBron's FG% appears to trend downward with the more shots that he takes in a game. The white line is his career average:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="seq-vs-fg" src="/img/seq-vs-fg.png"&gt;&lt;/p&gt;

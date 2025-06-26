@@ -4,9 +4,10 @@
                         <meta charset="utf-8" />
                         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                         <meta name="generator" content="Pelican" />
-                        <title>mathletix - the hot hand</title>
+                        <title>LeSimulation</title>
                         <link rel="stylesheet" href="/theme/css/main.css" />
                                 <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="mathletix Atom Feed" />
+    <meta name="description" content="(As usual, all code and notebooks are available at https://github.com/csdurfee/hot_hand) Last time, we saw that LeBron James was by far the..." />
         </head>
 
         <body id="index" class="home">
@@ -14,14 +15,19 @@
                         <h1><a href="/">mathletix</a></h1>
                         <nav><ul>
                                                 <li><a href="/category/machine-learning.html">machine learning</a></li>
-                                                <li><a href="/category/sports-analytics.html">sports analytics</a></li>
+                                                <li class="active"><a href="/category/sports-analytics.html">sports analytics</a></li>
                                                 <li><a href="/category/statistics.html">statistics</a></li>
                         </ul></nav>
                 </header><!-- /#banner -->
+  <section id="content" class="body">
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="/lesimulation.html" rel="bookmark"
+             title="Permalink to LeSimulation">LeSimulation</a></h1>
+      </header>
 
-                <aside id="featured" class="body">
-                    <article>
-                        <h1 class="entry-title"><a href="/lesimulation.html">LeSimulation</a></h1>
+      <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2025-06-18T10:20:00-10:00">
                 Published: Wed 18 June 2025
@@ -32,7 +38,7 @@
                 </address>
         <p>In <a href="/category/sports-analytics.html">sports analytics</a>.</p>
 <p>tags: <a href="/tag/basketball.html">basketball</a> <a href="/tag/the-hot-hand.html">the hot hand</a> </p>        
-</footer><!-- /.post-info --><p>(As usual, all code and notebooks are available at <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>)</p>
+</footer><!-- /.post-info -->        <p>(As usual, all code and notebooks are available at <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>)</p>
 <p>Last time, we saw that LeBron James was by far the un-streakiest player in the NBA over the last 20 years and found out that it's at least partly caused by shot selection. He takes both lower percentage shots than average when he's shooting well and higher percentage shots than average when he's shooting poorly.</p>
 <h2>LeMartingale</h2>
 <p>I got the question of why it's OK to use a player's overall FG% to gauge their streakiness. We know that every shot a player takes has a slightly different level of difficulty, and thus a different probability that it will go in. Shouldn't that affect the streakiness?</p>
@@ -130,109 +136,11 @@ max         5.073167
 <p>The Jensen-Shannon distance results were extremely similar to entropy. It agreed exactly with the entropy as far as ordering 73 of the top 100 players. The average z score for those players was 1.16, versus 1.15 for entropy. So, in aggregate, both were better than my homegrown metric at identifying unstreaky players.</p>
 <p><img alt="most-similar-last5" src="/img/most-similar-last5.png"></p>
 <p>I haven't looked at whether the reason for the trend in last 5 FG% is due to shot selection for these other players, which is probably the interesting part. Some of the players flagged here are inevitably due to chance. It's based on five 50/50 measurements, so 1 in 32 players would get flagged as "LeBron like" even if the data was randomly generated.</p>
-<p>None of my queries here turned up the un-streakiest players like Luka Doncic and Anthony Edwards. Whatever causes their extreme unstreakiness (beyond randomness) must be different from LeBron's tendencies. Stay tuned!</p>                    </article>
-                </aside><!-- /#featured -->
-                    <section id="content" class="body">
-                        <h1>Other articles</h1>
-                        <hr />
-                        <ol id="posts-list" class="hfeed">
+<p>None of my queries here turned up the un-streakiest players like Luka Doncic and Anthony Edwards. Whatever causes their extreme unstreakiness (beyond randomness) must be different from LeBron's tendencies. Stay tuned!</p>
+      </div><!-- /.entry-content -->
 
-                <li><article class="hentry">
-                    <header>
-                        <h1><a href="/lebron-james-the-unstreaky-king.html" rel="bookmark"
-                               title="Permalink to LeBron James, the Unstreaky King">LeBron James, the Unstreaky King</a></h1>
-                    </header>
-
-                    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2025-06-12T10:20:00-10:00">
-                Published: Thu 12 June 2025
-        </abbr>
-
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="/author/casey-durfee.html">casey durfee</a>
-                </address>
-        <p>In <a href="/category/sports-analytics.html">sports analytics</a>.</p>
-<p>tags: <a href="/tag/basketball.html">basketball</a> <a href="/tag/the-hot-hand.html">the hot hand</a> </p>        
-</footer><!-- /.post-info -->                        <p>In previous installments, I've shown that NBA players are, as a whole, less streaky than they should be. This is apparent in game-level data, and more obvious looking at multi season trends.</p>
-<p>So far, I've only looked at the past few seasons of the NBA. I decided to gather as …</p>
-                        <a class="readmore" href="/lebron-james-the-unstreaky-king.html">read more</a>
-                    </div><!-- /.entry-content -->
-                </article></li>
-
-                <li><article class="hentry">
-                    <header>
-                        <h1><a href="/approximate-normality-and-continuity-corrections.html" rel="bookmark"
-                               title="Permalink to Approximate Normality and Continuity Corrections">Approximate Normality and Continuity Corrections</a></h1>
-                    </header>
-
-                    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2025-06-08T10:20:00-10:00">
-                Published: Sun 08 June 2025
-        </abbr>
-
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="/author/casey-durfee.html">casey durfee</a>
-                </address>
-        <p>In <a href="/category/statistics.html">statistics</a>.</p>
-<p>tags: <a href="/tag/basketball.html">basketball</a> <a href="/tag/the-hot-hand.html">the hot hand</a> </p>        
-</footer><!-- /.post-info -->                        <p>(Notebooks and other code available at: <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>. As usual, there is stuff in there I'm not covering here.)</p>
-<h1>What is "approximately normal"?</h1>
-<p>In the last installment, I looked at NBA game-level player data, which involve very small samples.</p>
-<p>Like a lot of things in statistics, the …</p>
-                        <a class="readmore" href="/approximate-normality-and-continuity-corrections.html">read more</a>
-                    </div><!-- /.entry-content -->
-                </article></li>
-
-                <li><article class="hentry">
-                    <header>
-                        <h1><a href="/simulating-hot-and-lukewarm-hands.html" rel="bookmark"
-                               title="Permalink to Simulating hot and lukewarm hands">Simulating hot and lukewarm hands</a></h1>
-                    </header>
-
-                    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2025-05-28T10:20:00-10:00">
-                Published: Wed 28 May 2025
-        </abbr>
-
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="/author/casey-durfee.html">casey durfee</a>
-                </address>
-        <p>In <a href="/category/sports-analytics.html">sports analytics</a>.</p>
-<p>tags: <a href="/tag/basketball.html">basketball</a> <a href="/tag/the-hot-hand.html">the hot hand</a> </p>        
-</footer><!-- /.post-info -->                        <p>(Notebooks and other code available at: <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>. There's a bunch of stuff in the notebook about the Wald-Wolfowitz test that I will save for another week.)</p>
-<p>In my last installment, I was looking at season long shooting records from the NBA, and I concluded that NBA …</p>
-                        <a class="readmore" href="/simulating-hot-and-lukewarm-hands.html">read more</a>
-                    </div><!-- /.entry-content -->
-                </article></li>
-
-                <li><article class="hentry">
-                    <header>
-                        <h1><a href="/the-hot-hand-doesnt-exist-in-the-nba-but-its-opposite-does.html" rel="bookmark"
-                               title="Permalink to The hot hand doesn't exist in the NBA, but its opposite does">The hot hand doesn't exist in the NBA, but its opposite does</a></h1>
-                    </header>
-
-                    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2025-05-16T10:20:00-10:00">
-                Published: Fri 16 May 2025
-        </abbr>
-
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="/author/casey-durfee.html">casey durfee</a>
-                </address>
-        <p>In <a href="/category/sports-analytics.html">sports analytics</a>.</p>
-<p>tags: <a href="/tag/basketball.html">basketball</a> <a href="/tag/the-hot-hand.html">the hot hand</a> </p>        
-</footer><!-- /.post-info -->                        <p>(The code used, and ipython notebooks with a fuller investigation of the data is available at <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>.)</p>
-<h1>Streaks</h1>
-<p>When I'm watching a basketball game, sometimes it seems like a certain player just can't miss. Every shot looks like it's going to go in. Other times, it …</p>
-                        <a class="readmore" href="/the-hot-hand-doesnt-exist-in-the-nba-but-its-opposite-does.html">read more</a>
-                    </div><!-- /.entry-content -->
-                </article></li>
-                    </ol><!-- /#posts-list -->
-                    </section><!-- /#content -->
+    </article>
+  </section>
                 <section id="extras" class="body">
                                 <div class="social">
                                         <h2>social</h2>
