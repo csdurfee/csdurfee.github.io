@@ -115,8 +115,6 @@ Right Corner 3           0.157949
 
 It looks like it cuts both ways. LeBron takes lower percentage shots when he's shooting well, and higher percentage shots when he's shooting poorly over the past 5 shots, compared to the average performance.
 
-TODO: Visualization here
-
 ## Shot order trends
 
 LeBron's FG% appears to trend downward with the more shots that he takes in a game. The white line is his career average:
