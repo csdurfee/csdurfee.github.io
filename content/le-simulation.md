@@ -103,9 +103,11 @@ I also looked at a broader set of players where at least 4 out of the 5 comparis
 
 ### LeRight way
 
-The right way to identify LeBron-alikes is probably to use a similarity metric that I didn't invent. The fg percentages after 0..5/5 makes are sort of like a probability distribution. There's a lot of work in statistics and machine learning around deciding whether could this data come from this distribution? Is it a good representation of the observed data? Do their distributions have the same sort of shape? The standard measure is relative entropy, also known as [KL divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence).
+The right way to identify LeBron-alikes is probably to use a similarity metric that I didn't invent. The fg percentages after 0,1,2...5/5 makes are sort of like a probability distribution. 
 
-If we normalize the shooting percentages and compare them to LeBron's, players with a low relative entropy should show the same tendency to shoot better when they're shooting worse than average over their last 5, and vice versa.
+In statistics and machine learning, we are often fitting a theoretical distribution to the actual observed data. Is it a good representation of the observed data? Do their distributions have the same sort of shape? The standard measure is relative entropy, also known as [KL divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence).
+
+If I normalize the shooting percentages and compare them to LeBron's, players with a low relative entropy should show the same tendency to shoot better when they're shooting worse than average over their last 5, and vice versa.
 
 For example, LeBron's last 5 percentages are:
 ```
@@ -116,7 +118,7 @@ For example, LeBron's last 5 percentages are:
 4    0.473849
 5    0.464052
 ```
-By normalizing them, they look like a probability distribution (they all add up to one) but it still has the same shape as the raw values if we made a bar chart. 
+By normalizing them, they act like a probability distribution (they all add up to one) but still have the same relative proportions.
 
 ```
 0    0.187448
@@ -126,7 +128,7 @@ By normalizing them, they look like a probability distribution (they all add up 
 4    0.157315
 5    0.154062
 ```
-The normalization also corrects for the fact that some shooters have higher FG% overall than other players.
+The normalization also corrects for the fact that shooters have different overall FG percentages.
 
 Normalized values can then be compared to other players' values. The lower the entropy, the more similar their shapes are.
 
@@ -136,10 +138,12 @@ The closest guys to LeBron by this measure are CJ McCollum, Terry Rozier, Andrea
 
 Since Richard Hamilton had the streakiest game in the last 20 years, it's not surpring to see him. But except for Randolph and Vucevic, none of the top 10 had exceptional z scores, though they were all positive.
 
-The Jensen-Shannon distance results were extremely similar to entropy. It agreed exactly with the entropy as far as ordering 73 of the top 100 players. The average z score for those players was 1.16, versus 1.15 for entropy. So, in aggregate, both were better than my homegrown metric at identifying unstreaky players.
+The Jensen-Shannon distance results were extremely similar to entropy. It agreed exactly with the entropy on 73 of the top 100 players. The average z score for those players was 1.16, versus 1.15 for entropy. So, in aggregate, both were better than my homegrown metric at identifying unstreaky players.
+
+This graph shows the shape of the 10 players most similar to LeBron. They all have the same downward trend
 
 ![most-similar-last5](/img/most-similar-last5.png)
 
-I haven't looked at whether the reason for the trend in last 5 FG% is due to shot selection for these other players, which is probably the interesting part. Some of the players flagged here are inevitably due to chance. It's based on five 50/50 measurements, so 1 in 32 players would get flagged as "LeBron like" even if the data was randomly generated.
+I haven't looked at whether the reason for the trend in last 5 FG% is due to shot selection for these other players, which is probably the interesting part. Some of the players flagged here are inevitably due to chance. It's based on six 50/50 measurements, so 1 in 64 players would get flagged as "LeBron like" even if the data was randomly generated.
 
 None of my queries here turned up the un-streakiest players like Luka Doncic and Anthony Edwards. Whatever causes their extreme unstreakiness (beyond randomness) must be different from LeBron's tendencies. Stay tuned!
