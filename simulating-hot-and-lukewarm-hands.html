@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang="english">
-        <head>
-                        <meta charset="utf-8" />
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                        <meta name="generator" content="Pelican" />
-                        <title>Simulating hot and lukewarm hands</title>
-                        <link rel="stylesheet" href="/theme/css/main.css" />
-                                <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="mathletix Atom Feed" />
-    <meta name="description" content="(Notebooks and other code available at: https://github.com/csdurfee/hot_hand. There's a bunch of stuff in the notebook about the Wald-Wolfowitz..." />
-        </head>
+<head>
+        <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>mathletix | Simulating hot and lukewarm hands</title>
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="mathletix Full Atom Feed" />
+    <link href="/feeds/sports-analytics.atom.xml" type="application/atom+xml" rel="alternate" title="mathletix Categories Atom Feed" />
+    <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css" />
+    <meta name="generator" content="Pelican" />
+    <meta name="description" content="" />
+    <meta name="author" content="casey durfee" />
 
-        <body id="index" class="home">
-                <header id="banner" class="body">
-                        <h1><a href="/">mathletix</a></h1>
-                        <nav><ul>
-                                                <li><a href="/category/machine-learning.html">machine learning</a></li>
-                                                <li class="active"><a href="/category/sports-analytics.html">sports analytics</a></li>
-                                                <li><a href="/category/statistics.html">statistics</a></li>
-                        </ul></nav>
-                </header><!-- /#banner -->
-  <section id="content" class="body">
-    <article>
-      <header>
-        <h1 class="entry-title">
-          <a href="/simulating-hot-and-lukewarm-hands.html" rel="bookmark"
-             title="Permalink to Simulating hot and lukewarm hands">Simulating hot and lukewarm hands</a></h1>
-      </header>
+    <meta name="keywords" content="basketball,the hot hand" />
+</head>
+<body>
+    <header>
+        <nav style="overflow: hidden;">
+            <ul>
+                <li><a href="/">Home</a></li>
+            </ul>
+        </nav>
+        <div class="header_box" style="height: 50px">
+        <h1><a href="/">
+            <image src='' class="avatar" width="50px" /><span class="site_title">mathletix</span>
+            </a></h1></div>
+        </div>
+    </header>
+    <div id="wrapper">
+        <div id="content">            <h4 class="date">May 28, 2025</h4>
 
-      <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2025-05-28T10:20:00-10:00">
-                Published: Wed 28 May 2025
-        </abbr>
+            <article class="post">
+                <h2 class="title">
+                    <a href="/simulating-hot-and-lukewarm-hands.html" rel="bookmark" title="Permanent Link to &quot;Simulating hot and lukewarm hands&quot;">Simulating hot and lukewarm hands</a>
+                </h2>
 
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="/author/casey-durfee.html">casey durfee</a>
-                </address>
-        <p>In <a href="/category/sports-analytics.html">sports analytics</a>.</p>
-<p>tags: <a href="/tag/basketball.html">basketball</a> <a href="/tag/the-hot-hand.html">the hot hand</a> </p>        
-</footer><!-- /.post-info -->        <p>(Notebooks and other code available at: <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>. There's a bunch of stuff in the notebook about the Wald-Wolfowitz test that I will save for another week.)</p>
+                
+                
+
+                <p>(Notebooks and other code available at: <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>. There's a bunch of stuff in the notebook about the Wald-Wolfowitz test that I will save for another week.)</p>
 <p>In my last installment, I was looking at season long shooting records from the NBA, and I concluded that NBA players were less streaky than expected. They have fewer long strings of makes and misses than a series of coin flips would.</p>
 <p>I've been thinking this could be due to "heat check" shots -- a player has made a bunch of shots in a row, or are having a good shooting game in general, so they take harder shots than they normally take. 
 It would explain some players that fans consider streaky or "heat check" players who are actually super un-streaky. Jordan Poole was the least streaky player over the last 4 seasons, which defies my expectations. Say he believes he is streaky, so tends to take bad shots when</p>
@@ -125,27 +127,27 @@ max        2.486584
 <h2>What next?</h2>
 <p>I could certainly sim a mixture of streaky and unstreaky players, and eventually maybe get something that matches the real numbers pretty closely. But there are so many parameters to fit that it would be pretty arbitrary. Someone else could produce a different model that works just as well. </p>
 <p>Most importantly, it couldn't tell us which players might be streaky due to chance versus streaky due to behavior/shot selection. So I think the next step is looking at the shot selection in the "hot hand" vs. "get a bucket" situations -- do players switch to higher percentage shots when they're having a bad game, and worse shots when they're shooting better than usual?</p>
-      </div><!-- /.entry-content -->
+                <div class="clear"></div>
 
-    </article>
-  </section>
-                <section id="extras" class="body">
-                                <div class="social">
-                                        <h2>social</h2>
-                                        <ul>
-                                                        <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
-
-                                        </ul>
-                                </div><!-- /.social -->
-                </section><!-- /#extras -->
-
-                <footer id="contentinfo" class="body">
-                        <address id="about" class="vcard body">
-                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
-                        </address><!-- /#about -->
-
-                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-                </footer><!-- /#contentinfo -->
-
-        </body>
+                <div class="info">
+                    <a href="/simulating-hot-and-lukewarm-hands.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
+                    &nbsp;<a href="/tag/the-hot-hand.html" class="tags">the hot hand</a>
+                </div>
+            </article>
+            <div class="clear"></div>
+            <footer>
+                <p>
+                <a href="https://github.com/tcarwash/blue-penguin-dark">Blue Penguin Dark</a> Theme
+                &middot;
+                Powered by <a href="http://getpelican.com">Pelican</a>
+                &middot;
+                <a href="/feeds/all.atom.xml" rel="alternate">Atom Feed</a>
+            </footer>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
 </html>
