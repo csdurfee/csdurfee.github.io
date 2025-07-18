@@ -5,9 +5,9 @@ Tags: basketball, the hot hand
 
 (Notebooks and other code available at: [https://github.com/csdurfee/hot_hand](https://github.com/csdurfee/hot_hand).)
 
-Last time, we found that there are many players like LeBron, where their FG% is higher when they've missed most of their last 5 shots than when they've made most of them. However, most players don't have enough attempts when they've gone 0 or 5 out of their last 5
+Last time, we found that there are many players like LeBron, where their FG% is higher when they've missed most of their last 5 shots than when they've made most of them. However, most players don't have enough attempts when they've gone 0 or 5 out of their last 5 for a good statistical analysis.
 
-For this analysis, I will be looking at a binary split -- I will call a player *cold* when they've made 0, 1 or 2 of their last 5 shots, and *hot* when they've made 3, 4 or 5 of their last 5. Most players have a FG% between 40 and 60%, so this nicely splits them into shooting better than average or worse than average.
+So instead I will be looking at a binary split -- I will call a player *cold* when they've made 0, 1 or 2 of their last 5 shots, and *hot* when they've made 3, 4 or 5 of their last 5. Most players have a FG% between 40 and 60%, so this nicely splits them into times when they're shooting better than average versus worse than average.
 
 ## Anthony Edwards
 Anthony Edwards ("Ant") is particularly unstreaky for a young player. He's only completed 5 seasons in the league, but has the 5th biggest z score of the last 20 years. He could definitely catch LeBron someday.
@@ -20,6 +20,7 @@ The trend appears to be due to shot selection. He takes far more above the break
 
 Here are the changes in tendencies:
 
+<pre>
 | BASIC_ZONE            |   hot |   cold |   diff |
 |:----------------------|------:|-------:|-------:|
 | Above the Break 3     |  41.5 |   31.7 |    9.8 |
@@ -27,11 +28,13 @@ Here are the changes in tendencies:
 | In The Paint (Non-RA) |  13.4 |   14.6 |   -1.1 |
 | Mid-Range             |  14.1 |   12.2 |    1.9 |
 | Restricted Area       |  27.4 |   36.7 |   -9.4 |
+</pre>
 
 Of course, this would be justified if Ant shot above the break 3's better when he's *hot*, but he doesn't. He makes 37% of his above the break 3's when he's *cold* but that drops to 34% when he's hot. So he's trading restricted area shots, with an expected value of .601 * 2 = 1.202 points, for above the break 3's, with an expected value of .34 * 3 = 1.02 points.
 
 Here are the changes in FG percentages. His FG% on corner 3's goes up, but it's on insignificant volume:
 
+<pre>
 | BASIC_ZONE            |   hot |   cold |   diff |
 |:----------------------|------:|-------:|-------:|
 | Above the Break 3     |  34   |   37.1 |   -3.1 |
@@ -39,12 +42,13 @@ Here are the changes in FG percentages. His FG% on corner 3's goes up, but it's 
 | In The Paint (Non-RA) |  40.8 |   34   |    6.8 |
 | Mid-Range             |  36.3 |   34.8 |    1.5 |
 | Restricted Area       |  60.1 |   65.4 |   -5.2 |
-
+</pre>
 
 ## The rest of the league
 
 I looked at league-wide shot selection in *hot*/*cold* situations. I restricted to the last 10 seasons, since the rise of the 3 pointer has dramatically changed shot selection. Here are changes in shot selection for all players:
 
+<pre>
 | BASIC_ZONE            |   hot |   cold |   diff |
 |:----------------------|------:|-------:|-------:|
 | Above the Break 3     |  22.1 |   22.3 |   -0.2 |
@@ -52,11 +56,13 @@ I looked at league-wide shot selection in *hot*/*cold* situations. I restricted 
 | In The Paint (Non-RA) |  15.8 |   15.3 |    0.4 |
 | Mid-Range             |  25.3 |   23.5 |    1.8 |
 | Restricted Area       |  30.7 |   31.8 |   -1.2 |
+</pre>
 
 The mid-range shot is the lowest value shot type, so it's notable that the rate goes up when players are *hot*. These additional mid ranges come at the expense of Corner 3's and Restricted Area shots, the two most valuable types of shots.
 
 As before, changes in shot selection could be justified if players actually shoot differently based on their last 5 results, but they don't. Here are the changes in shooting percentages (hot minus cold) for all players:
 
+<pre>
 | BASIC_ZONE            |   hot |   cold |   diff |
 |:----------------------|------:|-------:|-------:|
 | Above the Break 3     |  34.7 |   35   |   -0.3 |
@@ -64,6 +70,7 @@ As before, changes in shot selection could be justified if players actually shoo
 | In The Paint (Non-RA) |  41.7 |   41.2 |    0.5 |
 | Mid-Range             |  39.8 |   40.1 |   -0.3 |
 | Restricted Area       |  62.7 |   60.7 |    2   |
+</pre>
 
 For 3 out of 5 shot types, the *hot* FG percentages are lower than the *cold* ones. Combined with the changes in shot selection, I think there's evidence that the league as a whole is scoring less efficiently because of the false belief in the hot hand. 
 
@@ -91,7 +98,7 @@ Now, there should be some correlation between z-scores and hot/cold shooting ten
 
 But if players behaved by coin flips, we should see roughly the same number of players with positive and negative z scores, and roughly the same number of players who shoot better when they're hot and better when they're cold.
 
-I simulated all 3.5 million shots by these players, using their career average FG% for every shot. So any streakiness or unstreakiness is going to be totally random.
+I simulated all 3.5 million shots by these players, using their career average FG% for every shot. So any streakiness or unstreakiness is going to be totally random. As you can see, the data is much less spread out across both the X and Y axis.
 
 ![sim-z-hot-cold](/img/sim-z-hot-cold.png)
 
@@ -105,7 +112,7 @@ Here are the crosstabs from the simulation:
 
 As promised, the marginal values are pretty close to one another. That's what happens when "better hot" vs. "better cold" and "positive z" vs. "negative z" are determined purely by chance.
 
-Here are the actual crosstabs:
+Here are the actual crosstabs. The marginal values are much more imbalanced.
 
 | |better cold|better hot| margin |
 |---|---------|----------|-------|
