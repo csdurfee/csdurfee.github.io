@@ -20,6 +20,7 @@
 
                 <li class="ephemeral selected"><a href="/author/casey-durfee.html">casey durfee</a></li>
                 <li><a href="/">Home</a></li>
+                <li><a href="/pages/about.html">About</a></li>
             </ul>
         </nav>
         <div class="header_box" style="height: 50px">
@@ -29,7 +30,198 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Jul 12, 2025</h4>
+        <div id="content">            <h4 class="date">Jul 17, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/last-fair-deal-in-the-country.html" rel="bookmark" title="Permanent Link to &quot;Last fair deal in the country&quot;">Last fair deal in the country</a>
+                </h2>
+
+                
+                
+
+                <p>(This is an excerpt from my book about sports gambling. Code used, and early drafts of some of the chapters can be found at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.)</p>
+<h2>Efficiency of betting markets</h2>
+<p>The efficient market hypothesis is that given enough time and competition, free markets are able to establish the correct price for a commodity. In the case of sports betting, we could think of it as the price of a money line bet. (On a money line bet, you are betting on who will win the game, and you get a smaller payout for betting on the favorite, and a larger payout betting on the underdog. If the money line is negative, that's how much money you have to risk in order to win $100. If it is positive, that's how much money you win if you risk $100. I go into further detail in the book. If it sounds like a bad way to write the odds, you're correct.)</p>
+<p>The market maker will respond to an imbalance in bets by adjusting the price. If CLE -300 is a good value, people will rationally want to take it, driving the price up to, say -400. If it is a bad value, people will rationally want to take the other side and the price will go down to -200. These rational actors will collectively push the price towards the best possible estimate that humans can make. It serves as a sort of collective intelligence.</p>
+<p>In the first installment, I showed that humans are irrational when it comes to sports betting, so I was skeptical of how good, or fair, the lines could be. Could I find proof of this collective intelligence in action? Are there any obvious market inefficiencies?</p>
+<h3>The data</h3>
+<p>Stats are from the NBA season. I screen-scraped the data from <a href="https://www.sportsbookreview.com/betting-odds/nba-basketball/">sportsbookreview.com</a>. All data is from the MGM Grand. Unfortunately, some data is missing from around Christmas time, and a few random days in between. In total, 32 games are missing from the data set out of 1230 total, 2.6% of all games. These are games that don't appear on sportsbookreview's website, or have incomplete data on there.</p>
+<p>This is an analysis of the MGM Grand's NBA lines for 2025. It's not a comprehensive guide to how the lines work.</p>
+<p>There are always two lines on each game, one for the home team and one for the away team. Each side may have different vigs. Say for instance Bucks @ Pacers starts out at IND +3.5 -110/MIL -3.5 -110. It could close at IND +3.5 -115/MIL -3.5 -105. So it costs more to bet on the Pacers, but the actual line didn't move.  I'm mostly ignoring that, but will point out when it's relevant.</p>
+<p>"Line" and "spread" mean the same thing.</p>
+<h3>A note about pushes</h3>
+<p>When the final score agrees with the line exactly, neither side of the bet can be declared a winner. This is called a push. The bet is cancelled and everybody gets their money back. The casino makes nothing.</p>
+<p>The MGM Grand always keeps point spreads on the half point (eg +6.5 or +7.5 rather than +7) so that they will never push. I don't think it's a bad policy, and I'm surprised more sportsbooks don't do it. The sportsbooks know how good their customers are at betting, so they should probably shade the point spread a half a point towards the side of the bet that has the less savvy bettors on it. (More about this in the book.) </p>
+<h3>Analysis</h3>
+<p>If there is a wisdom of crowds, the final lines should be more accurate than the opening lines. Are they?</p>
+<p>My code calculates difference between the final score and the line, called the error.  Because the MGM's lines always end in a half point, that means the error is going to be artificially high -- there will never be a game where it is exactly zero.</p>
+<p>The opening and closing lines are essentially a set of predictions. The smaller the difference between the line and reality, the better the prediction. <a href="https://en.wikipedia.org/wiki/Mean_squared_error">Mean Squared Error</a> is a standard way to compare two prediction systems in statistics and machine learning.</p>
+<p>The MSE for the opening lines is 191.06, and the closing lines is 184.8. So we can say that in aggregate, the betting market does "know" a little bit more about basketball than the handicappers creating the original lines. </p>
+<p>MSE can't tell us how good the closing lines are, though, just that one set of predictions is better than another set. It's a relative measure. As I'll show, the lines <em>should</em> be off by a little bit, because they're a prediction of the mean outcome.</p>
+<p>Let's look at how far the lines were off by. the Os are the opening lines, and X's are the closing lines. If the <em>X</em> is closer to the center line than the <em>O</em>, the market action made the line more accurate. I've plotted a random sample of 300 games to make the plot more readable.</p>
+<p><img alt="/img/scatter-mess.png" src="/img/scatter-mess.png"></p>
+<p>Unfortunately, that doesn't really show us much about how the closing lines are better than the opening ones. Let's dig into the details.</p>
+<h3>Adam Smith, Handicapper</h3>
+<p>I looked at how often the closing lines were more accurate than the opening lines: </p>
+<p>Closing lines better:    467  <br>
+Opening lines better:    384  <br>
+Tied:                    347    </p>
+<p>If the free market were a handicapper, and we interpreted the line movements as a bet on one side, they would have a 54.88% winning percentage (and 347 pushes).</p>
+<p>While that's a respectable win percentage for a human trying to beat the spread, I was expecting better from the free market. The market only being right 55% of the time holds true for a couple of previous seasons I have looked at as well. NBA betting, as a market, is not very efficient.</p>
+<p>The people that set the opening lines aren't trying that hard to be accurate. It's just a first guess. Only a tiny percentage is wagered at the opening line number. However, there are good reasons why lines tend not to move very much, even when the opening line is a bad one. I talk about this further in my book, though for a truly in-depth explanation, check out <em>The Logic of Sports Betting</em>, by Miller and Davidow.</p>
+<h3>Closing Line Value</h3>
+<p><a href="https://www.pinnacle.com/betting-resources/en/betting-strategy/using-the-closing-line-to-test-your-skill-in-betting/7e6jwjm5ykejuwkq">The conventional wisdom</a> is that sports betting markets are efficient, so that the only way to make money over the long run is by doing better than the closing lines, picking up on any inefficiencies in the opening lines before the market eliminates them. Anyone else can only make a profit due to chance. From this perspective, the right way to measure a handicapper's skill is how their picks compare to the closing line. This is known as closing line value (CLV). </p>
+<p>There's good statistical evidence that beating the closing line is positively correlated with higher profits. But when the market is wrong 45% of the time, overindexing on CLV seems like a bad idea.</p>
+<p>CLV gets described as being the best way to test a handicapper's skill, but that also seems silly to me. Statistically, the best way to test a handicapper is to have them write out what they think the lines should be, rather than making a binary decision (favorite or underdog) versus somebody else's line. If a handicapper's lines are closer to the truth than the closing lines, they are good at handicapping. Looking at what bets they took is only a secondary signal of that. If they took Nuggets -7, is it because they thought the true line should be Nuggets -8, or Nuggets -12? </p>
+<h3>When the line doesn't move</h3>
+<p>Setting aside why the market moves in the wrong direction 45% of the time, I'm curious about the games where the spread didn't move at all. Maybe those lines were perfect as-is? If so, we'd expect to see equal splits of home vs. away winners, and underdog vs. favorite winners.  There shouldn't be any bias to those games. The free market is essentially labelling these the pinnacle of the handicapper's art, impossible to be improved upon. </p>
+<p>The difference between the predicted outcome (the line) and the actual outcome is a combination of how much the line maker got it wrong, plus random variation. So the games where the line didn't move should be totally random, right?</p>
+<p>They're not. If we look at games where the line didn't move, the away team went 184-163 in those games. Someone betting the away team in every game where the line didn't move would win 53% of their bets, for 4.7 units of profit at full vig, or 11.2 units of profit at "reduced juice" (both "units" and "reduced juice" are explained in detail in the book.)</p>
+<p>There's also a bias towards underdogs, who went 186-161 in this situation. Always taking the underdog would give a 53.6% winning percentage, for 8.9 units at full vig, or 15.3 units at reduced juice.</p>
+<p>There's an even bigger bias if we combine the two. Away underdogs went 122-92 in these games, which is a 55.2% winning percentage, for 13.1 units of profit at full vig, and 17.06 at reduced juice.</p>
+<p>None of these results are statistically significant, but they are very :thinking_face_emoji:</p>
+<h3>About the vig</h3>
+<p>When the vig is imbalanced, the side with the higher vig should be more likely to win, because they're winning less money in return. Moving the vig from -110 to -115 is a way for the bookmaker to encourage bets on the other side without moving the line. Likewise moving it to -105 is a way to encourage bets on that side.</p>
+<p>Since the MGM Grand always keeps their line on the half point, we'd expect them to adjust the vig often rather than change the spread. They do for most of the games where they didn't move the lines, but 39% of the time the vig stays at -110.</p>
+<p>If we break down the games where the line didn't move by vig, the underdogs went 62-43 when the vig was high (-115), 74-62 when the vig was at the standard level (-110), and 50-56 at low vig (-105).</p>
+<p>Someone taking the underdogs when the line doesn't move, and the vig is -110 or -115, would've gone 136-105 this season, a 56.4% winning percentage, and around 18 units of profit (factoring in the additional -115 vig on some bets).</p>
+<p>Now, the strategy is pretty convoluted, and won't necessarily hold for future seasons, but it's definitely proof that there could be irrational factors at work in the market. It certainly doesn't show the market to be the well oiled machine that Closing Line Value assumes it is.</p>
+<h3>Underdogs and aways</h3>
+<p>Winners ended up being pretty evenly divided between favorites and underdogs by the end of the season, but underdogs were way ahead for most of the year.  </p>
+<p>Betting every single underdog against the spread over the first quarter of the season would've been fairly profitable -- a 165-136 record (54.8 winning percentage), and 15.4 units at full vig. People betting favorites got killed at the beginning of the season.</p>
+<p>Dogs and favorites were basically even through the middle half of the season, before favorites finished off 167-144 (53.7% win percentage) to even things out.</p>
+<p>Here's a plot of the winning percentage of favorites over the course of the season. I skipped the first 50 games because of noise. The yellow line represents the winning percentage necessary for betting all underdogs to be profitable (at standard vig). That happens when the favorites win less than 47.6% of the time (which means underdogs win more than 52.4% of the time.)</p>
+<p>It wasn't until the last month of the season that blindly betting all favorites started being a losing proposition, even factoring in the vig.</p>
+<p><img alt="/img/wp-vs-gameno.png" src="/img/wp-vs-gameno.png"></p>
+<h3>Did the lines improve over time?</h3>
+<p>I was curious if there was evidence that the errors were getting smaller, or more predictable over time.</p>
+<p>The raw errors are too noisy to see any sort of pattern:</p>
+<p><img alt="/img/err-vs-line.png" src="/img/err-vs-line.png"></p>
+<p>This is a plot of the 100 game moving average of the absolute error of the closing line. I don't see any trends to suggest the lines got better with time (though perhaps this isn't the best way to visualize it):</p>
+<p><img alt="/img/closing-line-err.png" src="/img/closing-line-err.png"></p>
+<p>The size of the error against the closing line isn't the ideal metric, because not all points are created equal -- the higher the line, the less surprising the error. (I'm going to skip discussing that for now, but it's explained in the book.)</p>
+<h3>Did the lines change over time?</h3>
+<p>I wondered whether the size of the lines changed over time -- did the games get more or less competitive over the course of the season?</p>
+<p>This is a 100 game moving average of the average size of the spread. As we can see, they did get bigger near the end of the year.</p>
+<p><img alt="/img/spread-over-time.png" src="/img/spread-over-time.png"></p>
+<p>It's possible the trend is due to scheduling, but the change at the end seems significant -- teams tend to give up near the end of the year. Bad teams want to be as bad as possible in order to get the best odds in the NBA draft, so they're not that competitive.</p>
+<h3>What type of games are affected by line movement?</h3>
+<p>There are 130 games where the winner flipped from the favorite to the underdog, or the underdog to the favorite, because of the line movement. In other words, these are games where either side could have won the bet, depending on whether you took the opening line or the closing line.</p>
+<p>These games were perfectly balanced -- 65 times, the favorite won (vs the closing line); 65 times the underdog won.</p>
+<p>What about games where the spread was extremely accurate (off by 3 points or less)? Underdogs went 138-121 in those games (53.2%).</p>
+<p>The difference is more dramatic in games where the line was off by 1 point or less. The underdogs went 56-33 (63% win percentage). Of course, there's no way to use that as a betting strategy since we can't identify these games before the fact, but it does show a small potential bias in favor of underdogs. </p>
+<h3>What would "perfect" lines even look like?</h3>
+<p>It's rare to see NBA lines that are bigger than +15/-15 points. There were 15 this season, about 4.4% of all games. That's around one NBA game a week with a line that high.</p>
+<p>By contrast, 31% of NBA games end with a score differential of over 15 points. That's 7x more often, roughly one game a day.</p>
+<p>The lines really shouldn't be as large as the final score differential, because they are an estimate of the mean outcome of the game. If the Celtics beat the Raptors by 54 points, that doesn't mean the line <em>should</em> have been Celtics -54. The Celtics and Raptors played 4 times last season (data taken from <a href="https://www.basketball-reference.com/teams/TOR/2025_games.html">basketball-reference</a>). The first game, Boston won by 3. The second, Boston won by 54. The third game, the Raptors won by 13. The last game, Boston won by 10.</p>
+<p>Boston won by an average of 13.5 points, so BOS -13.5 would be a reasonable line for all four games, as that's the best estimate we can make of their difference in skill. (A slightly better line would've been BOS -12.5, because then both teams would've gone 2-2 against the spread.)</p>
+<p>The actual outcomes might be all over the place, but the spread isn't meant to predict the actual outcome, just the point where both sides are equally likely to win the bet. So the errors against the spread end up being bigger on average than the spreads themselves.</p>
+<p>Here's a histogram of the spreads (for the away team) overlaid on a histogram of the errors against the spread:</p>
+<p><img alt="/img/spread-vs-score-diff.png" src="/img/spread-vs-score-diff.png"></p>
+<p>If we look at just the score differential, we can stick a bell curve over the top and it looks pretty normal:</p>
+<p><img alt="/img/score-diff-normal.png" src="/img/score-diff-normal.png"></p>
+<h3>Simulating games from the spreads</h3>
+<p>The problem is, these aren't outcomes from one distribution. Every game is a sample from a different distribution. Each one has a different mean (the spread) and a different variance (how predictable games are between the two teams). The results end up looking kinda normal (because a lot of things do).</p>
+<p>I decided to simulate the NBA, to show how the point differentials are going to be much bigger than the original lines. </p>
+<p>For every game, I simulated the point differential by sampling from a normal distribution with the mean set to that game's spread, and the variance equal to the sample variance of all games that season with that spread. That's kind of a rough way to simulate things, but I want to show the overall shape is close to the actual point differentials.</p>
+<p>Here's how they match up:</p>
+<p><img alt="/img/point-differential.png" src="/img/point-differential.png"></p>
+<p>I know that's a pretty rough simulation. NBA games end in a one point difference less often than expected due to tactical reasons, so there's a little notch right in the center of the green curve. If a team is down one, they foul the other team and hope they miss at least one of their free throws. There's also more simulated games than I would expect that end with a differential of +1 or -1.</p>
+<p>Setting that aside, hopefully the simulation shows that the lines shouldn't be bigger than they are, even though they are frequently off by many multiples compared to the final result. If the line is Dallas -3 and the other team wins by 27, that doesn't mean the line was off by 30 points. The line is meant to be an estimate of the mean outcome, if the teams played each other a large number of times. We only get one sample, though.</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/last-fair-deal-in-the-country.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
+                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
+                </div>
+            </article>            <h4 class="date">Jul 16, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/cool-parlay-bro.html" rel="bookmark" title="Permanent Link to &quot;Cool Parlay, Bro&quot;">Cool Parlay, Bro</a>
+                </h2>
+
+                
+                
+
+                <p>(This is an excerpt from my book about sports gambling. Code and early drafts of some of the chapters can be found at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.)</p>
+<p>Sportsbooks have many ways of encouraging people to lose their money as quickly and efficiently as possible. One of the best ways to do this is a type of bet called the parlay. "Parlez" means "to talk" in French, so it's no surprise dudes always want to talk about them online.</p>
+<p>The idea behind a parlay is that you can bet on multiple events at once and if they all win, you make a nice profit, otherwise you lose. On a technical level, if the first bet on the parlay wins, the winnings are immediately placed on the second bet in the parlay, if that wins, it rolls over to the third bet, and so on. It's a sequence of bets, with the stakes going up with each bet. The individual bets in the parlay are known as "legs".   </p>
+<p>I'm going to keep asking this question: why would they be offering this bet if it was good for you?  Parlays might be more fun, but that just means they found a way to get you to part with your money easier, which sounds like a bad thing.</p>
+<p>We can compare different bets by using Expected Value (EV). EV is the weighted average of all the possible outcomes. If the expected value is positive, we will make money over the long run; if it's negative, we will lose money. </p>
+<p><a href="https://www.vegasinsider.com/parlay-calculator/">The traditional payout on a 4 team parlay is 10:1</a>. What is the expected value of such a play? is it higher or lower than taking the individual bets?</p>
+<p>It's easy to grind the math on this one, and see which option is better. I can't say "make us more money" because both types of bets are guaranteed losers without some sort of edge.</p>
+<p>Parlays are such a bad type of bet on the surface that to understand them, I have to give a little taste of parlay culture first.</p>
+<h3>Nephew Doug</h3>
+<p>Say you want to place some bets. You just learned about betting on sports, so as a newbie you're trying to learn from experts by listening to gambling podcasts. These guys have been gambling for decades. Surely they must know what's up. Their wisdom will give you the edge for sure. Surely they will keep you from making costly mistakes.</p>
+<p>You've listened to Nephew Doug's podcast, and wrote down his Locks of the Week. You're ready to enter them into your betting app, which has been hand-optimized to be as much of a dopamine and money sink as possible.</p>
+<p>Because you listen every week, you know Nephew Doug has been burdened by the Gods with the gift of prophecy. Just ask him. He's like a modern day Cassandra, only it's about how the Cowboys are always going to suck. </p>
+<p>Now, the Gods like a little competition. The Olympics were invented as a religious ceremony in their honor, after all. But they're not above making a call from on high to nudge the result a little bit. Yes, Zeus is definitely a Chiefs fan.</p>
+<p>So you believe ahead of time Nephew Doug's picks will win 55% of the time. Which way of betting these picks will bring you the most money in the long run?</p>
+<p>1) "throw 'em all in a 4 team parlay" like Doug and his buddy Jorts Guy do  <br>
+2) randomly choose 3 of Nephew Doug's picks and bet them individually. Don't do anything with the 4th one.</p>
+<p>Maybe option 2 seems insane to you. But let's game it out. </p>
+<p>You listen to Nephew Doug, but I don't. My assumption would be this guy is no better than a coin flip -- he only wins 50% of the time, or close to it. Parlays at old school casinos pay at 10:1 and online sportsbooks pay 12.28:1. Let's see how that works out at 10:1 payout, the ones Jorts Guy and Nephew Doug were cutting their teeth on back in the day.</p>
+<p>There are two ways to do the comparison. We could bet $100 on the parlay, and compare to putting $25 on each leg. Or we could compare $100 on the parlay to $100 on each leg.</p>
+<p>Neither way of comparing is entirely fair, though, because the stakes increase throughout each leg of the parlay. If a gambler bets $100 on a 4 team parlay, they're risking $100 on the first leg. Assuming they keep winning, they're risking $190 on the 2nd leg, $300ish dollars on the 3rd leg, and $600ish dollars on the 4th leg. </p>
+<p>For each leg of the parlay, the gambler should consider the risk of losing out on $600 if they took a 3 team parlay and it won. Risking $100 on the 4 leg parlay is sort of like taking 4 different $600 bets, because each one could cost the gambler that much if it loses.</p>
+<p>I will be comparing risking $100 on the parlay versus $25 on each of the legs.</p>
+<h3>7x worse</h3>
+<p>This difference only matters for bettors with a high degree of skill. For the beginner, who we can reasonably assume will no better than a coin flip, the parlay is always a worse option. Almost 7 times worse. The parlays lose about 30% per bet, versus 4.5% for the straight bets.</p>
+<p>Yikes. Maybe parlays are fun, but it's like blowing the whole week's vig budget on Sunday when compared to taking one regular bet a day.</p>
+<p>Even a stretch of good luck is going to get swallowed up real fast if you're losing 30% of the stake on average. These types of parlays are a sadness machine.</p>
+<h3>Partially blessed</h3>
+<p>What if Nephew Doug truly has been partially blessed by the Gods, and can beat the lines 55% of the time? That's pretty good. Only a small percentage of sports bettors can achieve that, in my research.</p>
+<p>The gambler should turn a profit either way, but maybe parlays offer a better return? </p>
+<p>The parlays have an expected return of +0.66%, versus +5% for the straight bets. The straight bets make 7.6x as much money.</p>
+<p>OK, what about if we just don't play the 4th bet? We will bet on the first three legs, and don't play the 4th one. We put the $25 for the fourth bet in our piggy bank and earn a 0% interest rate.</p>
+<p>We're throwing out a bet with positive expected value, and risking angering the Gods by ignoring their chosen sports prophet, Nephew Doug. Perhaps that will tilt things in the parlay's favor.</p>
+<p>Nope! The straight bets have a return of +3.75%, which is still 5.7x better than the parlays.</p>
+<p>Finally, let's say we flip a coin to decide the 4th bet. It will only win 50% of the time, which means it's a guaranteed loser because of the vig -- you win less than you have to risk. (There is much more about the vig in the book.)</p>
+<p>Nope! The coin flip hurts our profitability, but we're still clearing +2.6%, which is 4x better than the parlays. We'd have to do 2 of 4 bets by coin flip for the parlays to be more profitable.</p>
+<p>To be fair, 55% is just <em>barely</em> profitable for an old-school parlay. The profitability increases exponentially as the win rate goes up. There is a win rate where parlays would make more money than the straight bets. If you win 100% of the time, the parlay is definitely a better deal, right? 10x profits taking the parlay versus 4x taking the original bets. </p>
+<p>Successful handicappers who sell their picks on the internet are only winning around 55% of the time. If you have to do as well at something as people who do it for a living just to break even, that's not a great plan.</p>
+<h3>Online Parlays</h3>
+<p>Online 4 leg parlays pay out $1228 per $100 risked, which make them a little less bad. However, they're still way worse for the average gambler than taking the straight bets. At a 50% win rate, online parlays have an expected return of -17%, versus -4.5% for the straight bets. So they're 3.7x worse. They're half as bad as the old school parlays, but still terrible.</p>
+<p>That $1228.33 payout for online parlays was chosen deliberately. It means that online parlays have the same break-even point as the individual bets (at standard vig) -- winning 52.4% of the individual bets. Because parlay profits climb exponentially, that means a skilled bettor with a 55% win rate will have a much higher EV with the parlays. They will have a +21.6% rate of return, versus +5%.</p>
+<h3>EV doesn't describe the range of outcomes</h3>
+<p>Expected Value is a good way of determining whether you can make money taking a certain type of bet, but it doesn't describe the range of possible outcomes.  With parlays, a lot of those outcomes are bad, even for a gambler with enough skill to make them more profitable on paper.</p>
+<p>Simulations are great in this sort of situation, because they can convey the range of possible outcomes in a way EV can't.  I simulated 200 individual bets versus 50 parlays, and ran that 10,000 times. Our virtual gambler wins 55% of the time, and bets $100 on parlays, $25 on each individual bet.</p>
+<p>The individual bets made more money (or lost less money) than the parlays 38% of the time. Just because the expected value is higher for the parlays, that doesn't mean they will always be more profitable. </p>
+<p>More concerningly, the parlays had big losses (down more than $1000 on $100 bets) 33% of the time. That only happened 0.2% of the time on the straight bets. There were almost no small losses with the parlays, because the payout is so high and the number of bets (50 parlays) is so low. Winning one more parlay could be the difference between being down $1000, and breaking even.</p>
+<p>Expected Value can't be the only thing we consider, because we don't live an infinite life. Our whole life is a small sample size, if the variance is high enough. Our bankrolls are always finite. The fact that we might make more money over 100 years is undercut by the fact that we'll die or go broke before then.</p>
+<p>Even for the skilled bettor, parlays make it more of a game of luck. Let's say my simulation represents an entire season of betting on basketball. Imagine playing the parlays with a 55% win rate, being better than almost everybody at handicapping, and still having massive losses one season in three? When you'd make more money taking the individual bets 40% of the time?</p>
+<h3>Parlay psychology</h3>
+<p>There's a weird psychology to the parlay as well. These parlays only win once every couple of weeks, so they'd be kind of a grim strategy in practice. A good bettor taking the individual bets will have winning days over half the time. Is it better to feel like a winner most days, or every other week?</p>
+<p>Most people don't have to consider that question, though. Without a huge amount of skill at betting, the only scenario where they might make sense is as a lottery: something that can deliver a tiny chance of massive payouts without any skill. </p>
+<p>What happens if we do the same simulation, but the win rate is 50%, like a coin flip, or most sports bettors? The parlays make money 38% of the time! Taking 200 straight bets will only make money 26% of the time. Isn't that a little surprising?  Even though the straight bets have better expected value (well, less bad), they also offer less of an opportunity to make money based on chance alone. </p>
+<p>What about over a longer time frame? I simulated 500 parlays versus 2,000 straight bets by flipping a coin. The parlays make money 12% of the time, versus only 1.74% of the time for the straight bets. However, the losses are much, much bigger than the wins:</p>
+<p><img alt="img/parlay-500.png" src="img/parlay-500.png"></p>
+<p>12% is 1 in 8, which isn't that rare. 500 parlays could end up stretching over multiple seasons, perhaps a lifetime of sports betting. That means somebody who was making picks by flipping a coin could end up looking like a pretty good bettor for a long stretch if they are taking parlays. Of course, 88% of people will lose money, far more money than the 12% of profitable bettors win. In practical terms, it's like a lottery where you have a 12% chance of winning $3617, but an 88% chance of losing $10,221.</p>
+<p>It's really, really hard to tell if someone taking bets at long odds is actually good at betting, not without thousands of documented bets. Over 50 parlays, or even 500, it's not that surprising for some people to look smart on parlays by chance alone. It would be much better to assess their skill based on the individual bets they took within the parlays.</p>
+<h3>Other parlays</h3>
+<p>Parlays with only 2 or 3 legs have higher relative payouts compared to 4 leg parlays, so they're not nearly as bad. They'll also have less variance in outcomes than the 4+ leggers. I'll leave those calculations to the reader, though. While they're one of the least bad bets offered by the average sportsbook, it's extremely rare to see people talking about 2 or 3 leg parlays online. Gamblers love the higher payouts and drama of parlays with a bunch of legs. I will have a lot more to say about how people actually play the parlays in a future installment.</p>
+<p>Same Game Parlays (SGPs) are a new type of bet which allows the player to make multiple wagers on the same game. For instance, someone could bet on their favorite team winning and their favorite player scoring over a certain amount of points and the guy they hate on the other team scoring under a certain amount of points, with a big payout if all 3 things happen. SGPs have become the most popular type of bet I see online, and deserve their own lengthy discussion. For now just think of them as the vape pens of betting. They're obviously super addictive, extremely popular with younger people, and you can't really know what's in them, but it's probably bad.</p>
+<h3>Gambling gurus</h3>
+<p>I've taken up lot of hobbies over the years. It seems like every time I take up a new hobby, I end up spending a lot of money on stupid stuff at the beginning. Then I get into it more, and realize what matters.</p>
+<p>There is an adverse selection process, where people who are new to a hobby have no idea what's actually good, what they actually need, or what things should actually cost. Filled with zeal to get started, they end up overpaying for inferior goods. Same thing for travelling in a new country. The guys at the train station trying to hustle you into a taxi are definitely not hooking you up with the cheapest way to get around.</p>
+<p>Betting experts, the kind who have podcasts and big followings on social media, are supposed to know more about this stuff than the average person. They're supposed to be like the guidebooks, or the seasoned traveller telling the newbie to walk 2 blocks and take the metro for $2 instead of paying $100 for a taxi. Yet they're pushing parlays and other sucker bets, and pushing sportsbooks that charge full vig and ban anybody who wins too much. The "experts" are pushing beginners into bad situations.</p>
+<p>Most of them don't do any better than flipping a coin, so I doubt they're actually making money on their "can't miss locks of the week". Gambling ads, sure. Everybody's taking gambling money right now, regardless of how it will hurt their brand, their audience, and sports long term. Clearly there's a lot of money in talking about it. That gambling money is there because these self-styled experts bring the sportsbooks more customers -- losing customers, specifically. </p>
+<p>Where's all that ad money coming from? The sportsbooks wouldn't be throwing money at influencers who were actually winning consistently. Any gambling show they sponsor is pretty much guaranteed to lose you money, or it wouldn't be sponsored. Any bet they're promoting heavily, like they do with parlays, is because it makes them more money that way. You shouldn't need to know any math to figure out why they're pushing teasers and parlays and "profit boosters". I love that last one. It's like saying Idi Amin served mankind. Why would they care about boosting YOUR profits? </p>
+<p>Unlike gamblers, sportsbooks don't make negative expected value plays due to emotions or lack of information. Your irrationality is their entire business.</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/cool-parlay-bro.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
+                </div>
+            </article>            <h4 class="date">Jul 12, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -39,16 +231,17 @@
                 
                 
 
-                <p>Earlier this year, I wrote a book about the psychology and mathematics of sports called "Your Parlay Sucks". The book never quite came together, but it had some interesting bits, so I figured I'd share them here.</p>
-<p>Why did I get interested enough in sports betting to write a whole book about it? I think it's because I'm fascinated by the limits of rationality. Philosophers, economists and social scientists would like to treat humans as though they are capable of making rational decisions. That conflicts with the real world, where even pretty smart people make irrational choices. I certainly have. It can be hard to pin down when someone is being irrational in the real world, but sports betting is a sort of rationality lab. You and I might not have the same values or ethical beliefs. In many areas, what is rational to me may be irrational to you, but we should both be able to agree that placing bets that are guaranteed to lose money is irrational.</p>
-<p><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1553935">This paper</a> is a wonderful illustration of cognitive bias and irrationality in the realm of sports betting.  The researchers had people bet on NFL football against the point spread. </p>
-<p>If you're not familiar, the idea behind the point spread is to attract an equal amount of action on both sides of the bet by handicapping one of the teams. If you bet on the favorite, to win the bet, they need to win by at least the amount of the spread. The underdog side wins if the team loses by less than the spread, or wins the game outright.</p>
-<p>Gamblers can bet either side, and if there are more bets on one side than the other, the sportsbook can change the spread to attract equal action. So there's a potential for the wisdom of crowds to kick in, moving the line towards the best collective estimate possible.</p>
+                <p>Earlier this year, I wrote most of a book about the psychology and mathematics of sports gambling called <em>Your Parlay Sucks</em>. The book never quite came together, and is probably too weird to ever get published, but it has some interesting bits, so I figured I'd share them here.</p>
+<p>Why did I get interested enough in sports betting to write a whole book about it? I think it's because I'm fascinated by the limits of rationality. Philosophers, economists and social scientists would like to treat humans as though they are capable of making rational decisions. That conflicts with the real world, where even pretty smart people make irrational choices. I certainly have. </p>
+<p>Sports betting is a sort of rationality lab. You and I might have different values or beliefs. What's crazy to me might be normal to you, or vice versa, but we should both be able to agree that placing bets that are guaranteed to lose money is irrational.</p>
+<p><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1553935">This paper</a>, "Intuitive Biases in Choice versus Estimation", is a wonderful illustration of cognitive bias and irrationality in the realm of sports betting.  </p>
+<p>The researchers had people bet on NFL football against the point spread. If you're not familiar, the idea behind the point spread is to attract an equal amount of action on both sides of the bet by handicapping one of the teams. If you bet on the favorite, they need to win by at least the amount of the spread for the bet to win. The other side side wins if the team loses by less than the spread, or wins the game outright.</p>
+<p>Gamblers can bet either side, and if there are more bets on one side than the other, the sportsbook can change the spread to attract equal action. So there's a potential for the wisdom of crowds to kick in, the invisible hand of the market moving the line towards the best estimate possible.</p>
 <p>Of course, that depends on gamblers being rational. A rational gambler has to be willing to take either side of a bet (or not bet at all), depending on the spread. If the spread is biased towards the underdog, they should be willing to take the underdog. If it's biased towards the favorite, they should take the favorite. And if the line is perfectly fair, they shouldn't bet at all.</p>
-<p>As I showed a while back with <a href="/majority-voting-in-ensemble-learning.html">ensemble learning</a>, the wisdom of crowds only works if the errors that people make are uncorrelated with each other. If most people are wrong about a particular thing, as we saw with machine learning algorithms, the "wisdom of crowds" will be wrong, too.</p>
-<p>This study found that people are consistently irrational when it comes to point spreads. They will tend to bet the favorite, even though both sides should have an equal chance of winning. I think it's easier for naive gamblers to just focus on which team is better, and assume that the better team is more likely to win against the point spread. It's harder to imagine the underdog losing the game but winning the bet, or pulling an upset and winning outright. </p>
-<p>The study took things a bit further and adjusted the lines to be biased against the favorite team, so that taking the favorite would be guaranteed to lose more than 50% of the time. They even told the gamblers that they did this. And the gamblers still overwhelmingly picked the favorites. The researchers continued the study for the whole season. Even after weeks and weeks of steadily losing, being told over and over that the lines are unfair, the gamblers still preferred to take the favorites. They never learned. The participants got to keep their winnings, so they had an incentive to be right. And they still couldn't do it.</p>
-<p>Sportsbooks have a lot of ways of trick people into taking extra bad bets, as I will show. But they don't really need to. As the experiment showed, most people will consistently take bad bets even if they know they're bad bets. All a sportsbook has to do is ban anybody not taking stupid bets and they basically have a license to print money.</p>
+<p>As I showed a while back with <a href="/majority-voting-in-ensemble-learning.html">ensemble learning</a>, the wisdom of crowds only works if the errors that people make are uncorrelated with each other. If most people are wrong about a particular thing, the "wisdom of crowds" will be wrong, too.</p>
+<p>This study found that people are consistently irrational when it comes to point spreads. They will tend to bet the favorite, even though both sides should have an equal chance of winning. It's probably easier to focus on which team is better, and assume that the better team is more likely to win against the point spread as well. It's harder to imagine the underdog losing the game but winning the bet, or pulling an upset and winning outright. </p>
+<p>The study took things further and adjusted the lines to be biased against the favorite team, so that taking the favorite would be guaranteed to lose more than 50% of the time. They even told the gamblers that they did this. And the gamblers still overwhelmingly picked the favorites. The researchers continued the study for the whole season. Even after weeks and weeks of steadily losing, being told over and over that the lines are unfair, the gamblers still preferred to take the favorites. They never learned. The participants got to keep their winnings, so they had an incentive to be right. And they still couldn't do it.</p>
+<p>Sportsbooks have a lot of ways of trick people into taking extra bad bets, as I will show. But they don't really need to. People will consistently take bad bets even if they should know they're bad bets. </p>
                 <div class="clear"></div>
 
                 <div class="info">
@@ -69,188 +262,60 @@
                 
 
                 <p>(Notebooks and other code available at: <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>.)</p>
-<p>Last time, we found that there are many players like LeBron, where their FG% is higher when they've missed most of their last 5 shots than when they've made most of them. However, most players don't have enough attempts when they've gone 0 or 5 out of their last 5</p>
-<p>For this analysis, I will be looking at a binary split -- I will call a player <em>cold</em> when they've made 0, 1 or 2 of their last 5 shots, and <em>hot</em> when they've made 3, 4 or 5 of their last 5. Most players have a FG% between 40 and 60%, so this nicely splits them into shooting better than average or worse than average.</p>
+<p>Last time, we found that there are many players like LeBron, where their FG% is higher when they've missed most of their last 5 shots than when they've made most of them. However, most players don't have enough attempts when they've gone 0 or 5 out of their last 5 for a good statistical analysis.</p>
+<p>So instead I will be looking at a binary split -- I will call a player <em>cold</em> when they've made 0, 1 or 2 of their last 5 shots, and <em>hot</em> when they've made 3, 4 or 5 of their last 5. Most players have a FG% between 40 and 60%, so this nicely splits them into times when they're shooting better than average versus worse than average.</p>
 <h2>Anthony Edwards</h2>
 <p>Anthony Edwards ("Ant") is particularly unstreaky for a young player. He's only completed 5 seasons in the league, but has the 5th biggest z score of the last 20 years. He could definitely catch LeBron someday.</p>
 <p>Ant has the LeBron-like pattern of FG% trending downward when he's <em>hot</em>. He doesn't have anywhere near the volume of LeBron, so the spike at 20% (1/5) might just be noise. But overall, he shoots worse when he's been shooting well.</p>
 <p><img alt="ant-last-5" src="/img/ant-last-5.png"></p>
 <p>The trend appears to be due to shot selection. He takes far more above the break 3 pointers when he's <em>hot</em> than when he's cold. The additional 3 point attempts come at the expense of shots in the restricted area.</p>
 <p>Here are the changes in tendencies:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">BASIC_ZONE</th>
-<th style="text-align: right;">hot</th>
-<th style="text-align: right;">cold</th>
-<th style="text-align: right;">diff</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Above the Break 3</td>
-<td style="text-align: right;">41.5</td>
-<td style="text-align: right;">31.7</td>
-<td style="text-align: right;">9.8</td>
-</tr>
-<tr>
-<td style="text-align: left;">Corner 3</td>
-<td style="text-align: right;">3.6</td>
-<td style="text-align: right;">4.8</td>
-<td style="text-align: right;">-1.2</td>
-</tr>
-<tr>
-<td style="text-align: left;">In The Paint (Non-RA)</td>
-<td style="text-align: right;">13.4</td>
-<td style="text-align: right;">14.6</td>
-<td style="text-align: right;">-1.1</td>
-</tr>
-<tr>
-<td style="text-align: left;">Mid-Range</td>
-<td style="text-align: right;">14.1</td>
-<td style="text-align: right;">12.2</td>
-<td style="text-align: right;">1.9</td>
-</tr>
-<tr>
-<td style="text-align: left;">Restricted Area</td>
-<td style="text-align: right;">27.4</td>
-<td style="text-align: right;">36.7</td>
-<td style="text-align: right;">-9.4</td>
-</tr>
-</tbody>
-</table>
+<pre>
+| BASIC_ZONE            |   hot |   cold |   diff |
+|:----------------------|------:|-------:|-------:|
+| Above the Break 3     |  41.5 |   31.7 |    9.8 |
+| Corner 3              |   3.6 |    4.8 |   -1.2 |
+| In The Paint (Non-RA) |  13.4 |   14.6 |   -1.1 |
+| Mid-Range             |  14.1 |   12.2 |    1.9 |
+| Restricted Area       |  27.4 |   36.7 |   -9.4 |
+</pre>
+
 <p>Of course, this would be justified if Ant shot above the break 3's better when he's <em>hot</em>, but he doesn't. He makes 37% of his above the break 3's when he's <em>cold</em> but that drops to 34% when he's hot. So he's trading restricted area shots, with an expected value of .601 * 2 = 1.202 points, for above the break 3's, with an expected value of .34 * 3 = 1.02 points.</p>
 <p>Here are the changes in FG percentages. His FG% on corner 3's goes up, but it's on insignificant volume:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">BASIC_ZONE</th>
-<th style="text-align: right;">hot</th>
-<th style="text-align: right;">cold</th>
-<th style="text-align: right;">diff</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Above the Break 3</td>
-<td style="text-align: right;">34</td>
-<td style="text-align: right;">37.1</td>
-<td style="text-align: right;">-3.1</td>
-</tr>
-<tr>
-<td style="text-align: left;">Corner 3</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">12</td>
-</tr>
-<tr>
-<td style="text-align: left;">In The Paint (Non-RA)</td>
-<td style="text-align: right;">40.8</td>
-<td style="text-align: right;">34</td>
-<td style="text-align: right;">6.8</td>
-</tr>
-<tr>
-<td style="text-align: left;">Mid-Range</td>
-<td style="text-align: right;">36.3</td>
-<td style="text-align: right;">34.8</td>
-<td style="text-align: right;">1.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Restricted Area</td>
-<td style="text-align: right;">60.1</td>
-<td style="text-align: right;">65.4</td>
-<td style="text-align: right;">-5.2</td>
-</tr>
-</tbody>
-</table>
+<pre>
+| BASIC_ZONE            |   hot |   cold |   diff |
+|:----------------------|------:|-------:|-------:|
+| Above the Break 3     |  34   |   37.1 |   -3.1 |
+| Corner 3              |  45   |   33   |   12   |
+| In The Paint (Non-RA) |  40.8 |   34   |    6.8 |
+| Mid-Range             |  36.3 |   34.8 |    1.5 |
+| Restricted Area       |  60.1 |   65.4 |   -5.2 |
+</pre>
+
 <h2>The rest of the league</h2>
 <p>I looked at league-wide shot selection in <em>hot</em>/<em>cold</em> situations. I restricted to the last 10 seasons, since the rise of the 3 pointer has dramatically changed shot selection. Here are changes in shot selection for all players:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">BASIC_ZONE</th>
-<th style="text-align: right;">hot</th>
-<th style="text-align: right;">cold</th>
-<th style="text-align: right;">diff</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Above the Break 3</td>
-<td style="text-align: right;">22.1</td>
-<td style="text-align: right;">22.3</td>
-<td style="text-align: right;">-0.2</td>
-</tr>
-<tr>
-<td style="text-align: left;">Corner 3</td>
-<td style="text-align: right;">6.2</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">-0.9</td>
-</tr>
-<tr>
-<td style="text-align: left;">In The Paint (Non-RA)</td>
-<td style="text-align: right;">15.8</td>
-<td style="text-align: right;">15.3</td>
-<td style="text-align: right;">0.4</td>
-</tr>
-<tr>
-<td style="text-align: left;">Mid-Range</td>
-<td style="text-align: right;">25.3</td>
-<td style="text-align: right;">23.5</td>
-<td style="text-align: right;">1.8</td>
-</tr>
-<tr>
-<td style="text-align: left;">Restricted Area</td>
-<td style="text-align: right;">30.7</td>
-<td style="text-align: right;">31.8</td>
-<td style="text-align: right;">-1.2</td>
-</tr>
-</tbody>
-</table>
+<pre>
+| BASIC_ZONE            |   hot |   cold |   diff |
+|:----------------------|------:|-------:|-------:|
+| Above the Break 3     |  22.1 |   22.3 |   -0.2 |
+| Corner 3              |   6.2 |    7   |   -0.9 |
+| In The Paint (Non-RA) |  15.8 |   15.3 |    0.4 |
+| Mid-Range             |  25.3 |   23.5 |    1.8 |
+| Restricted Area       |  30.7 |   31.8 |   -1.2 |
+</pre>
+
 <p>The mid-range shot is the lowest value shot type, so it's notable that the rate goes up when players are <em>hot</em>. These additional mid ranges come at the expense of Corner 3's and Restricted Area shots, the two most valuable types of shots.</p>
 <p>As before, changes in shot selection could be justified if players actually shoot differently based on their last 5 results, but they don't. Here are the changes in shooting percentages (hot minus cold) for all players:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">BASIC_ZONE</th>
-<th style="text-align: right;">hot</th>
-<th style="text-align: right;">cold</th>
-<th style="text-align: right;">diff</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Above the Break 3</td>
-<td style="text-align: right;">34.7</td>
-<td style="text-align: right;">35</td>
-<td style="text-align: right;">-0.3</td>
-</tr>
-<tr>
-<td style="text-align: left;">Corner 3</td>
-<td style="text-align: right;">38.4</td>
-<td style="text-align: right;">38.9</td>
-<td style="text-align: right;">-0.4</td>
-</tr>
-<tr>
-<td style="text-align: left;">In The Paint (Non-RA)</td>
-<td style="text-align: right;">41.7</td>
-<td style="text-align: right;">41.2</td>
-<td style="text-align: right;">0.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Mid-Range</td>
-<td style="text-align: right;">39.8</td>
-<td style="text-align: right;">40.1</td>
-<td style="text-align: right;">-0.3</td>
-</tr>
-<tr>
-<td style="text-align: left;">Restricted Area</td>
-<td style="text-align: right;">62.7</td>
-<td style="text-align: right;">60.7</td>
-<td style="text-align: right;">2</td>
-</tr>
-</tbody>
-</table>
+<pre>
+| BASIC_ZONE            |   hot |   cold |   diff |
+|:----------------------|------:|-------:|-------:|
+| Above the Break 3     |  34.7 |   35   |   -0.3 |
+| Corner 3              |  38.4 |   38.9 |   -0.4 |
+| In The Paint (Non-RA) |  41.7 |   41.2 |    0.5 |
+| Mid-Range             |  39.8 |   40.1 |   -0.3 |
+| Restricted Area       |  62.7 |   60.7 |    2   |
+</pre>
+
 <p>For 3 out of 5 shot types, the <em>hot</em> FG percentages are lower than the <em>cold</em> ones. Combined with the changes in shot selection, I think there's evidence that the league as a whole is scoring less efficiently because of the false belief in the hot hand. </p>
 <p>The data says that players are essentially trading Restricted Area (.627 * 2 = 1.25 points per shot) and Corner 3 (.384 * 3 = 1.15 points per shot) attempts for Mid-Ranges (.398 * 2 = .796 points per shot) when they think they've got the <em>hot hand</em>. That's clearly bad! If it happens once a game, that's 38 points a year lost, which might be enough to swing a game or two.</p>
 <p>The change in restricted area and in the paint (non-RA) FG% is intriguing, but if the hot hand did exist, wouldn't we see it on 3 point or mid-range shots, rather than restricted area shots? The announcer doesn't say "he's heating up" after a guy has made 3 layups in a row, they say it after 3 longer range shots in a row, right?</p>
@@ -264,7 +329,7 @@
 <p>Players with negative values on the x axis shoot better when they're cold, and positive values shoot better when they're hot.</p>
 <p>Now, there should be some correlation between z-scores and hot/cold shooting tendency. I've shown simulations where a tendency to shoot <em>better cold</em> produces unstreaky results (skewed towards positive z scores), and <em>better hot</em> will produce streaky results (negative z scores). So there should be more dots in the upper left and bottom right quadrants compared to the other diagonal.</p>
 <p>But if players behaved by coin flips, we should see roughly the same number of players with positive and negative z scores, and roughly the same number of players who shoot better when they're hot and better when they're cold.</p>
-<p>I simulated all 3.5 million shots by these players, using their career average FG% for every shot. So any streakiness or unstreakiness is going to be totally random.</p>
+<p>I simulated all 3.5 million shots by these players, using their career average FG% for every shot. So any streakiness or unstreakiness is going to be totally random. As you can see, the data is much less spread out across both the X and Y axis.</p>
 <p><img alt="sim-z-hot-cold" src="/img/sim-z-hot-cold.png"></p>
 <p>Here are the crosstabs from the simulation:</p>
 <table>
@@ -298,7 +363,7 @@
 </tbody>
 </table>
 <p>As promised, the marginal values are pretty close to one another. That's what happens when "better hot" vs. "better cold" and "positive z" vs. "negative z" are determined purely by chance.</p>
-<p>Here are the actual crosstabs:</p>
+<p>Here are the actual crosstabs. The marginal values are much more imbalanced.</p>
 <table>
 <thead>
 <tr>
@@ -1055,195 +1120,16 @@ The Cohen kappa score is .64, on a scale from -1 to 1, so they aren't as correla
                     <a href="/majority-voting-in-ensemble-learning.html">posted at 10:20</a>
                     &nbsp;&middot;&nbsp;<a href="/category/machine-learning.html" rel="tag">machine learning</a>
                 </div>
-            </article>            <h4 class="date">May 16, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/the-hot-hand-doesnt-exist-in-the-nba-but-its-opposite-does.html" rel="bookmark" title="Permanent Link to &quot;The hot hand doesn't exist in the NBA, but its opposite does&quot;">The hot hand doesn't exist in the NBA, but its opposite does</a>
-                </h2>
-
-                
-                
-
-                <p>(The code used, and ipython notebooks with a fuller investigation of the data is available at <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>.)</p>
-<h1>Streaks</h1>
-<p>When I'm watching a basketball game, sometimes it seems like a certain player just can't miss. Every shot looks like it's going to go in. Other times, it seems like they've gone cold. They can't get a shot to go in no matter what they do. </p>
-<p>This phenomenon is known as the "hot hand" and whether it exists or not has been debated for decades, even as it's taken for granted in the common language around sports. We're used to commentators saying that a player is  "heating up", or, "that was a heat check".</p>
-<p>As a fan of the game, it certainly seems like the hot hand exists. If you follow basketball, some names probably come to mind. JR Smith, Danny Green, Dion Waiters, Jamal Crawford. When they're on, they just can't miss. It doesn't matter how crazy the shot is, it's going in. And when they're cold, they're <em>cold</em>.</p>
-<p>It's a thing we collectively believe in, but it turns out that there isn't clear statistical evidence to support it.</p>
-<p>We have to be careful with our feelings about the hot hand. It certainly feels real, but that doesn't mean that it is. Within the drama of a basketball game, we're inclined to notice and assign stories to runs of makes or misses. Just because we notice them, that doesn't mean they're significant. This is sometimes called "the law of small numbers" -- our brains have a tendency to reach spurious conclusions from a very small amount of data.</p>
-<p><a href="https://en.wikipedia.org/wiki/Pareidolia">Pareidolia</a> is the human tendency to see human faces in inanimate objects -- clouds, the bark of a tree, a tortilla. While the faces might seem real, they are just a product of our brain's natural inclination to identify patterns. It's possible the "hot hand" is a similar phenomenon -- a product of the way human brains are wired to see patterns, rather than an objective truth.</p>
-<h2>Defining Streakiness</h2>
-<p>Streaks of 1's and 0's in randomly generated binary data follow regular mathematical laws, ones our brains can't realy replicate. Writer <a href="https://www.football-data.co.uk/blog/Wald_Wolfowitz.php">Joseph Buchdal</a> found that he couldn't create a random-looking sequence by hand that would fool a statistical test called the Wald-Wolfowitz test, even though he knew exactly how the statistical test worked.</p>
-<p>I think at some level, we're physically incapable of generating truly random data, so it makes sense to me that our intuitions about randomness are a little off. Our brains are wired to notice the streaks, but we seem to have no such circuitry for noticing when something is a little bit too un-streaky. Our brains are too quick to see meaningless patterns in small amounts of data, and not clever enough to see subtle, meaningful patterns in large amounts of data. Good thing we have statistics to help us escape those biases!</p>
-<p>For the sake of this discussion, a streak starts whenever a sequence of outcomes changes from wins (W) to losses (L), or vice-versa. (I'm talking about makes and misses, but those start with the same letter, so I'll use "W" and "L".)</p>
-<p>The sequence <code>WLWLWL</code> has 6 streaks: <code>W, L, W, L, W, L</code>      <br>
-The sequence <code>WWLLLW</code> has 3 streaks: <code>WW, LLL, W</code></p>
-<p>Imagine I asked someone to produce a random-looking string of 3 W's and 3 L's. If they were making the results up, I think the average person would be more likely to write the first string. It just looks "more random", right? </p>
-<p>If they flipped a coin, it would be more likely to produce something with longer streaks, like the second example. With a fair coin, both of those <em>exact</em> sequences are equally likely to occur. But the second sequence has a more probable number of streaks, according to the <a href="https://en.wikipedia.org/wiki/Wald%E2%80%93Wolfowitz_runs_test">Wald-Wolfowitz Runs Test</a>. The expected number in 3 wins and 3 losses is (2 * (3 * 3) / (3+3)) + 1 = 4.</p>
-<p>The expected number of streaks is the <a href="https://en.wikipedia.org/wiki/Harmonic_mean">harmonic mean</a> of the number of wins and the number of losses, plus one. Neat, right?</p>
-<p>Around 500 players attempted a shot in the NBA this season. Let's say we create a custom coin for each player. It comes up heads with the same percentage as the player's shooting percentage on the season. If we took those coins and simulated every shot in the NBA this season, some of the coins would inevitably appear to be "streakier" than others.</p>
-<p>Players never intend to miss shots, yet most players shoot around 50%, so there has to be some element of chance as far as which shots go in or not. Otherwise, why wouldn't players just choose to make all of them?</p>
-<p>So makes versus misses are at least somewhat random, which means if we look at the shooting records of 500 players in an NBA season, some will seem more or less consistent due to the laws of probability. That means a player with longer or shorter streaks than expected could just be due to chance, not due to the player actively doing something that makes them more streaky.</p>
-<h2>The Lukewarm Hand</h2>
-<p>We might call players who have fewer streaks than expected by chance <em>consistent</em>. Maybe they go exactly 5 for 10 every single game, never being especially good or especially bad. Or maybe they go 1 for 3 every game, always being pretty bad.</p>
-<p>But that feels like the wrong word, and I don't think our brains aren't really wired to notice a player that has fewer streaks than average. As we already saw, the "right" number of streaks is counterintuitive. </p>
-<p>I might notice a player is unusually consistent after the fact when looking at their basketball-reference page, but the feeling of a player having the <em>hot hand</em> is visceral, experienced in the moment. Even without consulting the box score, sometimes players look like they just can't miss, or can't make, a shot. They seem more confident, or their shot seems more natural, than usual. Both the shooter and the spectator seem to have a higher expectation that the shot will go in than usual. The hot hand is a social phenomenon.</p>
-<p><img alt="there's always an xkcd" src="/img/xkcd-sports.png">  <br>
-(from <a href="https://xkcd.com/904/">https://xkcd.com/904/</a>)</p>
-<p>If we look at the makes and misses of every player in the league, do they look like the results of flipping a coin (weighted to match their shooting percentage), or is there a tendency for players to be more or less streaky than expected by chance? </p>
-<p>We don't really have a formal word for players who are less streaky than they should be, so I'm going to call the opposite of the <em>hot hand</em> the <em>lukewarm hand</em>. While the <em>lukewarm hand</em> isn't a thing we would viscerally notice the way we do the <em>hot hand</em>, it's certainly possible to exist. And it's just as surprising, from the perspective of treating basketball players like weighted coins. </p>
-<p>Some people I've seen analyze the hot hand treat the question as <em>streaky</em> versus <em>non-streaky</em>. But it's not a binary thing. There are two possible extremes, and a region in between. It's <em>unusually streaky</em> versus <em>normal amount of streaky</em> versus <em>unusually non-streaky</em>.</p>
-<p>The Wald-Wolfowitz test says that the number of streaks in randomly-generated data will be normally distributed, and gives a formula for the variance of the number of streaks. The normal distribution is symmetrical, so there should be as many <em>hot hand</em> players as <em>lukewarm hand</em> ones. Players have varying numbers of shots taken over the course of the season so we can't compare them directly, but we can calculate the z score for each player's expected vs. actual number of streaks. The z score represents how "weird" the player is. If we look at all the z-scores together, we can see whether NBA players as a whole are streakier or less streaky than chance alone would predict. We can also see if the outliers correspond to the popular notions of who the streaky shooters in the NBA are.</p>
-<h2>Simplifying Assumptions</h2>
-<p>We should start with the assumption that athletes really are weighted random number generators. A coin might have "good days" and "bad days" based on the results, but it's not because the coin is "in the zone" one day, or a little injured the next day. At least some of the variance in a player's streakiness is due to randomness, so we have to be looking for effects that can't be explained by randomness alone.</p>
-<p>So I am analyzing all shots a player took, across all games. This could cause problems, which I will discuss later on, but splitting the results up game-by-game or week-by-week leads to other problems. Looking at shooting percentages by game or by week means smaller sample sizes, and thus more sampling error. It also means that comparisions between high volume shooters and low volume shooters can be misinterpreted. The high volume shooters may appear more "consistent" simply because it's a larger sample size.</p>
-<p>I think I need to prove that <em>streakiness</em> exists before making assumptions about how it works. Let's say the "hot hand" does exist. If a player makes a bunch of shots in a row, how long might they stay hot? Does it last through halftime? Does it carry over to the next game? How many makes in a row before they "heat up"? How much does a player's field goal percentage go up? Does a player have cold streaks and hot streaks, or are they only streaky in one direction?</p>
-<p>There are an infinite number of ways to model how it could work, which means it's ripe for overfitting. So I wanted to start with the simplest, most easily justifiable model. The <a href="https://www.sciencedirect.com/science/article/abs/pii/0010028585900106?via%3Dihub">original paper about the hot hand</a> was co-written by Amos Tversky, who went on to win a Nobel Prize for helping to invent behavioral economics. I figure any time you can crib off of a Nobel Prize winner's homework, you probably should!</p>
-<h2>Results</h2>
-<p>I started off by getting data on every shot taken in the 2024-25 NBA regular season. I calculated the expected number of streaks and actual number, then a z-score for every player.</p>
-<p>Players with a z-score of 0 are just like what we'd expect from flipping a coin. A positive z-score indicates there were more streaks than expected. More streaks than expected means the streaks were shorter than expected, which means less streaky than expected. </p>
-<p>A negative z-score indicates the opposite. Those players had fewer streaks than expected, which means the streaks were longer.  When people talk about the "hot hand" or "streaky shooters", they are talking about players who should have a negative z-score by this test.</p>
-<p><img alt="all players, 2024-5" src="/img/all-players-2024.png"></p>
-<p>The curve over the top is the distribution of z-scores we'd expect if the players worked like weighted coin flips. </p>
-<p>Just eyeballing it, it's pretty close. It's definitely a bell curve, centered pretty close to zero. If there is a skew, it's actually to the positive, un-streaky side, though.  The mean z-score is .21, when we'd expect it to be zero.</p>
-<div class="highlight"><pre><span></span><code>count    554.000000
-mean       0.212491
-std        1.075563
-min       -3.081194
-25%       -0.546340
-50%        0.236554
-75%        0.951653
-max        3.054836
-</code></pre></div>
-
-<p>The Wilk-Shapiro test is way to decide whether a set of data plausibly came from a normal distribution. It passed. There is no conclusive evidence that players in general are streakier or less streaky than predicted by chance. This data very well could've come from flipping a bunch of coins.</p>
-<p>But it's still sorta skewed. There were 320 players with a positive z-score (un-streaky) versus 232 with a negative z-score (streaky). That's suspicious.</p>
-<h2>Outliers</h2>
-<p>A whole lot of those 554 players didn't make very many shots.  </p>
-<p><img alt="numer of makes, 2024-5" src="/img/makes-2024.png"></p>
-<p>I decided to split up players with over 100 makes versus under 100 makes. Unlike high volume shooters, the low volume shooters had no bias towards unstreakiness. They look like totally random data.</p>
-<p>Here are just the high volume shooters (323 players in total). Notice how none of them have a z-score less than about -2. It should be symmetrical.</p>
-<p><img alt="over 100 makes, 2024-5" src="/img/over-100-makes.png"></p>
-<div class="highlight"><pre><span></span><code>count    323.000000
-mean       0.347452
-std        1.068341
-min       -2.082528
-25%       -0.454794
-50%        0.363949
-75%        1.091244
-max        3.054836
-</code></pre></div>
-
-<p>There were 20 players with a z-score less than -2 versus only 2 players with a score greater than 2.</p>
-<h2>The Eye Test</h2>
-<p>I looked at which players had exceptionally high or low z scores. The names don't really make sense to me as an NBA fan. There were players like Jordan Poole and Jalen Green, who I think fans would consider streaky, but they had exceptionally un-streaky z-scores. I don't think the average NBA fan would say Jalen Green is less streaky than 97.5% of the players in the league, but he is (by this test).</p>
-<p>On the other hand, two streakiest players in the NBA this year were Goga Bitadze and Thomas Bryant, two players who don't fit the profile of the stereotypical streaky shooter by any means.</p>
-<h2>Makes vs. Streakiness</h2>
-<p>The more shots a player made this season, the less streaky they tended to be. Here's a plot of makes on the 2024-25 season versus the z-score.</p>
-<p><img alt="makes vs z-score" src="/img/makes-vs-zscore.png"></p>
-<p>That's pretty odd, isn't it?</p>
-<h2>Getting more data: 2021-present</h2>
-<p>I figured a bigger sample size would be better. Maybe this season was just weird. So got the last 4 seasons of data (2021-22,2022-2023, 2023-2024, 2024-2025) for players who made a shot in the NBA this season and combined them.</p>
-<p>The four year data is even more skewed towards the <em>lukewarm hand</em>, or un-streaky side, than the single year data.</p>
-<p><img alt="all players, 2021-2025" src="/img/all-players-four-year.png"></p>
-<div class="highlight"><pre><span></span><code>count    562.000000
-mean       0.443496
-std        1.157664
-min       -4.031970
-25%       -0.312044
-50%        0.449647
-75%        1.184918
-max        4.184025
-</code></pre></div>
-
-<p>The correlation between number of makes and z-score is quite strong in the 4 year data:</p>
-<p><img alt="2021-2025 z score vs makes" src="/img/four-year-makes-vs-zscore.png"></p>
-<p>There were 48 players with a z-score &gt; 2, versus only 9 with a score &lt;-2. That's like flipping a coin and getting 48 heads and 9 tails. There's around a 2 in 10 million chance of that happening with a fair coin.</p>
-<h2>High Volume Shooters, Redux</h2>
-<p>The bias towards the lukewarm hand is even stronger among high volume shooters. Here are players with more than 500 makes over the past 4 years.</p>
-<p><img alt="over 500 makes" src="/img/over-500-makes.png"></p>
-<p>The z-scores are normally distributed according to the Wilk-Shapiro test, but they're no longer even close to being centered at zero. They're also overdispersed (the std is bigger than the expected 1.) It's not plausible that the true mean is 0, given the sample mean is .680.</p>
-<div class="highlight"><pre><span></span><code>count    265.000000
-mean       0.680097
-std        1.217946
-min       -2.392061
-25%       -0.149211
-50%        0.776917
-75%        1.485595
-max        4.184025
-</code></pre></div>
-
-<p><img alt="high volume hist" src="/img/high-volume-hist.png"></p>
-<h2>Streak Lengths</h2>
-<p>I looked at the length of make/miss streaks for the actual NBA players versus simulating the results. The results were simulated by taking the exact number of makes and misses for each NBA player, and then shuffling those results randomly. What I found confirmed the "lukewarm hand" -- overall, NBA players have slightly more 1 and 2 shot streaks than expected, and fewer long streaks than expected.</p>
-<p><img alt="streaks" src="/img/streaks.png"></p>
-<h2>Obvious objections, and what about free throws?</h2>
-<p>I'm treating every field goal attempt like it has the same chance of going in. Clearly that's not the case. Players, especially high volume scorers, can choose which shots they take. It's easy to imagine a player that has missed several shots in a row and is feeling "cold" would concentrate on only taking higher percentage shots. There's also the fact that I'm combining games together. That could potentially lead to players looking less streaky than they are within the course of a single game. But it should also make truly unstreaky players look less <em>unstreaky</em>. Streaks getting "reset" by the end of the game should make players act more like a purely random process -- not too streaky or unstreaky. It shouldn't increase the standard deviation of the z-scores like we're seeing, or cause a shift towards unstreakiness. </p>
-<p>I may do a simulation to illustrate that, but in the meantime, the most controlled shot data we have is free throw data. Every free throw should have exactly the same level of difficulty for the player. </p>
-<p>I got the data for the 200,000+ free throws in the NBA regular season over the past four years (October 2021 through April 2025).</p>
-<p>Here are the z-scores for all players. There's a big chunk taken out of the middle of the bell curve, but it's normal-ish other than that.</p>
-<p><img alt="free throws" src="/img/free-throws.png"></p>
-<p>240 players have made over 200 free throws in the past 4 years. When I restrict to just those players, there's a slight skew towards the "hot hand", or being more streaky than expected. There are no exceptionally <em>lukewarm hands</em> when it comes to free throws. It's sort of the mirror image of what we saw with high volume field goal shooters.</p>
-<p><img alt="free throws, over 200 makes" src="/img/over-200-ft.png"></p>
-<div class="highlight"><pre><span></span><code>count    240.000000
-mean      -0.144277
-std        1.021330
-min       -2.686543
-25%       -0.854723
-50%       -0.174146
-75%        0.660302
-max        1.845302
-</code></pre></div>
-
-<h2>Conclusions, for now</h2>
-<p>I feel comfortable concluding that the hot hand doesn't exist when it comes to field goals. I can't say why there's a tendency towards <em>unstreakiness</em> yet, but I suspect it is due to shot selection. Players who have made a bunch of shots may take more difficult shots than average, and players who have missed a bunch of shots will go for an easier shot than average. While players can't choose when to "heat up" or "go cold", they can certainly change shot selection based on their emotions or the momentum of the game.</p>
-<p>There may be a slight tendency towards the hot hand when it comes to free throws. It's worth investigating further, I think. But the effect there doesn't appear to be nearly as strong as the <em>lukewarm hand</em> tendency for field goals.</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/the-hot-hand-doesnt-exist-in-the-nba-but-its-opposite-does.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
-                    &nbsp;<a href="/tag/the-hot-hand.html" class="tags">the hot hand</a>
-                </div>
-            </article>            <h4 class="date">May 01, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/the-hardest-road.html" rel="bookmark" title="Permanent Link to &quot;The Hardest Road&quot;">The Hardest Road</a>
-                </h2>
-
-                
-                
-
-                <h2>What geology can tell us about Kevin Durant's next team</h2>
-<p>When NBA superstar Kevin Durant left the Oklahoma City Thunder to join the Golden State Warriors, he said that doing so was taking "the hardest road". This was met with a lot of mockery, because the Golden State Warriors had just won 73 games, the most in NBA history, the previous year.</p>
-<p>It was widely regarded as an uncool move, ring chasing, the ultimate bandwagon riding. It was clearly an absurd thing to say about the level of challenge he chose. It also made the NBA less interesting for several years, so he deserved some hate for it.</p>
-<p>What people missed was that according to geology, he wasn't totally off-base. Streets are paved with asphalt, which is a combination of local rocks (aggregate) and tar. That means that some regions of America have harder roads than others, based on the local geology:</p>
-<p><img alt="taken from https://www.forconstructionpros.com/equipment/worksite/article/10745911/aggregate-hardness-map-of-the-united-states" src="/img/aggregate-map.jpg">
-(<a href="https://www.forconstructionpros.com/equipment/worksite/article/10745911/aggregate-hardness-map-of-the-united-states">source: https://www.forconstructionpros.com/equipment/worksite/article/10745911/aggregate-hardness-map-of-the-united-states</a>)</p>
-<p>Oklahoma City is located right in the center of Oklahoma, with some of the softest aggregate in the United States. It's reasonable for someone who cares about road hardness to want to leave. Just about anywhere (except for Florida) would have been an improvement.</p>
-<p>The "hardest road" out of OKC at that time would've been the one to New Orleans. It's about a 700 mile drive, and it looks like it's a nice gradient from some of the softest roads in the United States to the very hardest ones. </p>
-<p>The New Orleans Pelicans at the time were <a href="https://www.basketball-reference.com/teams/NOP/2016.html">pretty bad</a>, basically just Anthony Davis, a couple good role players (Ryan Anderson, Jrue Holiday), and a rich collection of "Let's Remember Some Guys" Guys (Jimmer Fredette, Nate Robinson, Luke Babbitt, Ish Smith, Alonzo Gee, Norris Cole). KD and AD on the same team would have been cool, but even with Kevin Durant, the Pelicans would likely have been pretty bad. Certainly worse than the OKC team that Durant wanted to leave.</p>
-<p>Although technically the "hardest road" out of Oklahoma City, going to New Orleans would have been a poor career choice for KD. The Pelicans have always been a cheap, poorly run team. I can't imagine it being a destination for any free agent of Kevin Durant's caliber. </p>
-<p>He really should have said "I'm taking the hardest road that doesn't lead to a mismanaged tire fire of a team. Also by "hardest" I mean on the <a href="https://en.wikipedia.org/wiki/Mohs_scale">Mohs scale</a>, not the challenge" and everybody would have understood.</p>
-<p>Northern California has a medium-hard substrate, so his choice to go to the Warriors was definitely a harder road than a lot of other places he could have gone. Since leaving the Warriors, he's played for two other teams with medium-hard roads: the Brooklyn Nets and the Phoenix Suns. He's never chosen to take a softer road. Give him credit for that. </p>
-<p>Now that there are rumors about Kevin Durant being traded from the Suns, what can geology tell us about Durant's next destination?</p>
-<p>The other NBA cities with medium-hard to hard roads are New Orleans, Boston, Charlotte, Houston, New York, Sacramento, Utah, and Washington DC. He's from DC so that might be nice. But Durant always says he wants to compete for a championship. So we can rule them out, as well as New Orleans, Charlotte and Utah. </p>
-<p>I can't really see Boston or New York wanting to tweak their rosters too much, because they're both already good enough to win a championship and don't have a lot of tradeable assets. Sacramento's not a great fit. The Kings would be dreadful on defense, and have too many players who need the ball at once.</p>
-<p>That leaves Houston. Durant would fix the Rockets' biggest weakness -- not having a go-to scorer -- and Houston could surround him with a bunch of guys who can play defense. Most importantly, he'd get to continue to drive on medium-hard roads. </p>
-<p>Kevin Durant to the Houston Rockets. The geology doesn't lie.</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/the-hardest-road.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
-                </div>
             </article>
+
+                <div class="clear"></div>
+                <div class="pages">
+
+
+                    <a href="/author/casey-durfee2.html" class="next_page">Next&nbsp;&rarr;</a>
+
+                    <span>Page 1 of 2</span>
+                </div>
 
             <div class="clear"></div>
             <footer>
