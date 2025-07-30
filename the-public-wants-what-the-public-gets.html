@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="english">
+<head>
+        <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>mathletix | The public wants what the public gets</title>
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="mathletix Full Atom Feed" />
+    <link href="/feeds/sports-betting.atom.xml" type="application/atom+xml" rel="alternate" title="mathletix Categories Atom Feed" />
+    <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css" />
+    <meta name="generator" content="Pelican" />
+    <meta name="description" content="" />
+    <meta name="author" content="casey durfee" />
+
+    <meta name="keywords" content="basketball,your parlay sucks" />
+</head>
+<body>
+    <header>
+        <nav style="overflow: hidden;">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/pages/about.html">About</a></li>
+                <li><a href="/pages/best-of.html">Best Of</a></li>
+            </ul>
+        </nav>
+        <div class="header_box" style="height: 50px">
+        <h1><a href="/">
+            <image src='' class="avatar" width="50px" /><span class="site_title">mathletix</span>
+            </a></h1></div>
+        </div>
+    </header>
+    <div id="wrapper">
+        <div id="content">            <h4 class="date">Jul 18, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/the-public-wants-what-the-public-gets.html" rel="bookmark" title="Permanent Link to &quot;The public wants what the public gets&quot;">The public wants what the public gets</a>
+                </h2>
+
+                
+                
+
+                <p>(This is an excerpt from a larger project about sports gambling. Code and early drafts of some of the materials can be found at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.)</p>
+<p><a href="https://www.youtube.com/watch?v=AE1ct5yEuVY" target="_blank"><img alt="The Jam, &quot;Going Underground&quot;" src="https://img.youtube.com/vi/AE1ct5yEuVY/0.jpg"></a></p>
+<h3>Two types of people</h3>
+<p>Lots of sportsbooks publish info on how much <em>action</em> they've gotten on each side.</p>
+<p>Here's DraftKings':  <a href="https://dknetwork.draftkings.com/draftkings-sportsbook-betting-splits/">https://dknetwork.draftkings.com/draftkings-sportsbook-betting-splits/</a></p>
+<p>It's a smart move. It's good for SEO (to the extent that still matters). And I'm sure they get a lot of people who decide to take bets from that page. </p>
+<p>For example, the Pacers were playing Brooklyn the night I wrote this. 27% of the bets were on Brooklyn at +10.5. 73% are on Pacers -10.5.</p>
+<p>Somebody who sees that and decides to make a bet based on that information could bet either way. They could either tell themselves, "Everybody's taking the Pacers, so it must be a good bet" or "Everybody's taking the Pacers, so it must be a bad bet". </p>
+<p>What are those two groups like when they're not betting on basketball, do you think? Do they use the same kind of toothpaste? Watch the same kind of TV shows? Vote the same way?</p>
+<h3>The public gets what the public wants</h3>
+<p>One bit of gambling lore is that there are "public" teams that get bet on more frequently, regardless of the line. Like, your cousin who's a Cowboys fan is going to bet the Cowboys on Thanksgiving regardless of whether it's a fair line or not.  He'd watch the game and root for the Cowboys anyway, but it's a little more fun that way. The Cowboys aren't just a random number generator to him.</p>
+<p>There's a social aspect to gambling now that I imagine didn't exist when it was underground. Lots of gamblers will "follow" bets that other people have placed. If the bet wins, I'm sure it's a cool communal thing to be a part of. But social media can act in opposition to the "wisdom of crowds" -- in places like reddit where users vote content up and down, the conventional wisdom is going to be amplified, and people with minority opinions are going to be suppressed. If well over 90% of sports gamblers lose money long term, the majority opinions are going to be bad.</p>
+<p>I scraped betting percentage data from <a href="https://www.sportsbookreview.com/betting-odds/nba-basketball/">sportsbookreview</a> (SBR) for the 2024-5 season. They don't say where they get the betting percentages from. If I had to guess, it would be MGM Grand, their primary source of other data. The SBR numbers seemed to indicate more <em>action</em> overall than a couple other sources I found -- the betting percentages were closer together. Other sites had games where there's 10% action on one side and 90% on the other, which seems implausible on a large volume of bets. So it's probably a pretty big site, whatever it is.</p>
+<p>As with the data from the previous installment, there are 32 games out of 1230 missing data.</p>
+<p>The <code>money_percents</code> column is the median amount bet on each team. The <code>money_game_winners</code> column tracks the number of games where that team got the majority of the money bet on their side. Both of these can be taken as indicators of how much teams are favored by the public.</p>
+<p>Here are the teams sorted by money_percents. The teams near the top were less popular with gamblers, the teams at the bottom more popular.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">winner</th>
+<th style="text-align: right;">loser</th>
+<th style="text-align: right;">ats_win_pct</th>
+<th style="text-align: right;">money_percents</th>
+<th style="text-align: right;">money_game_winners</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">New Orleans</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">39.5</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr>
+<td style="text-align: left;">Charlotte</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">41.5</td>
+<td style="text-align: right;">24</td>
+</tr>
+<tr>
+<td style="text-align: left;">Miami</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr>
+<td style="text-align: left;">Philadelphia</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">43.5</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr>
+<td style="text-align: left;">Portland</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">43.5</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr>
+<td style="text-align: left;">Orlando</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr>
+<td style="text-align: left;">Utah</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">33</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sacramento</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">32</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Clippers</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr>
+<td style="text-align: left;">San Antonio</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">31</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chicago</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">36</td>
+</tr>
+<tr>
+<td style="text-align: left;">New York</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">38</td>
+</tr>
+<tr>
+<td style="text-align: left;">Phoenix</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">36</td>
+</tr>
+<tr>
+<td style="text-align: left;">Washington</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">37</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Lakers</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr>
+<td style="text-align: left;">Indiana</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr>
+<td style="text-align: left;">Atlanta</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr>
+<td style="text-align: left;">Boston</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr>
+<td style="text-align: left;">Minnesota</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dallas</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr>
+<td style="text-align: left;">Detroit</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr>
+<td style="text-align: left;">Brooklyn</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr>
+<td style="text-align: left;">Toronto</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">47</td>
+</tr>
+<tr>
+<td style="text-align: left;">Golden State</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">51</td>
+</tr>
+<tr>
+<td style="text-align: left;">Houston</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">49</td>
+</tr>
+<tr>
+<td style="text-align: left;">Oklahoma City</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">54.5</td>
+<td style="text-align: right;">54</td>
+</tr>
+<tr>
+<td style="text-align: left;">Milwaukee</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">56.5</td>
+<td style="text-align: right;">56</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cleveland</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">53</td>
+</tr>
+<tr>
+<td style="text-align: left;">Memphis</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">51</td>
+</tr>
+<tr>
+<td style="text-align: left;">Denver</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">58.5</td>
+<td style="text-align: right;">63</td>
+</tr>
+</tbody>
+</table>
+<h3>The public favorites</h3>
+<p>The most popular teams with NBA gamblers were Denver, Cleveland, Memphis, Milwaukee, and Oklahoma City.</p>
+<p>Cleveland, OKC and Memphis were dominant for most of the season.</p>
+<p>Denver and Milwaukee have two of the best and most entertaining players in the league. Both Giannis for Milwaukee and Jokic for Denver are fun to root for. People like to take bets on games that are fun to follow. </p>
+<h3>The ugly dogs</h3>
+<p>The bottom teams were New Orleans, Charlotte, Miami, Philadelphia and Portland. All these teams except for Portland were totall bummers to watch and cheer for this year. They all had injuries and organizational dysfunction that led to wasted seasons. People don't like to take bets on games that are a bummer to follow.</p>
+<h3>Against the spread</h3>
+<p>Here's the same data sorted by record against the spread.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">winner</th>
+<th style="text-align: right;">loser</th>
+<th style="text-align: right;">ats_win_pct</th>
+<th style="text-align: right;">money_percents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Philadelphia</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">43.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Phoenix</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">48</td>
+</tr>
+<tr>
+<td style="text-align: left;">Washington</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">49</td>
+</tr>
+<tr>
+<td style="text-align: left;">New Orleans</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">39.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sacramento</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">45</td>
+</tr>
+<tr>
+<td style="text-align: left;">Denver</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">58.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dallas</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr>
+<td style="text-align: left;">Charlotte</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">41.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Minnesota</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr>
+<td style="text-align: left;">New York</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">48</td>
+</tr>
+<tr>
+<td style="text-align: left;">Indiana</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">51</td>
+</tr>
+<tr>
+<td style="text-align: left;">Atlanta</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr>
+<td style="text-align: left;">San Antonio</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">47</td>
+</tr>
+<tr>
+<td style="text-align: left;">Boston</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr>
+<td style="text-align: left;">Miami</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr>
+<td style="text-align: left;">Memphis</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">57</td>
+</tr>
+<tr>
+<td style="text-align: left;">Orlando</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr>
+<td style="text-align: left;">Utah</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">45</td>
+</tr>
+<tr>
+<td style="text-align: left;">Golden State</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">54</td>
+</tr>
+<tr>
+<td style="text-align: left;">Detroit</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">53</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chicago</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">47</td>
+</tr>
+<tr>
+<td style="text-align: left;">Houston</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">54</td>
+</tr>
+<tr>
+<td style="text-align: left;">Milwaukee</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">56.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Brooklyn</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">53</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Clippers</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">46</td>
+</tr>
+<tr>
+<td style="text-align: left;">Portland</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">43.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Lakers</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">51</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cleveland</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">57</td>
+</tr>
+<tr>
+<td style="text-align: left;">Toronto</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">53</td>
+</tr>
+<tr>
+<td style="text-align: left;">Oklahoma City</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">54.5</td>
+</tr>
+</tbody>
+</table>
+<p>Philadelphia, Washington and Phoenix were just as terrible at the sportsbook as they were on the basketball court. OKC and Cleveland had outstanding seasons in both places.</p>
+<p>However, there's only a rough correlation between how good the teams were at actual basketball, and at beating the spread. Minnesota, New York and Denver were in the bottom 10 by winning % against the spread, even though they had good records and were doing their best to win. Toronto and Brooklyn weren't really trying to win a lot of basketball games, but ended up in the top 10.</p>
+<h3>Which teams should the public love and hate?</h3>
+<p>I calculated the amount of units a gambler would win if they bet on each team when they got the majority of the bets.  <code>public_units</code> is the amount won/lost betting in favor of the team, and <code>fade_units</code> by betting against them, when they are the public team. (The two values are different because of the vig.)</p>
+<p>Phoenix, Sacramento, Dallas, Denver and Indiana disappointed the public the most.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">public_units</th>
+<th style="text-align: right;">fade_units</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Phoenix</td>
+<td style="text-align: right;">-16.5</td>
+<td style="text-align: right;">12.9</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sacramento</td>
+<td style="text-align: right;">-14.2</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dallas</td>
+<td style="text-align: right;">-13.6</td>
+<td style="text-align: right;">9.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Denver</td>
+<td style="text-align: right;">-12.6</td>
+<td style="text-align: right;">6.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">Indiana</td>
+<td style="text-align: right;">-12.6</td>
+<td style="text-align: right;">8.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">Atlanta</td>
+<td style="text-align: right;">-11.5</td>
+<td style="text-align: right;">7.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">Utah</td>
+<td style="text-align: right;">-11.1</td>
+<td style="text-align: right;">7.8</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chicago</td>
+<td style="text-align: right;">-10.2</td>
+<td style="text-align: right;">6.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">Minnesota</td>
+<td style="text-align: right;">-9.5</td>
+<td style="text-align: right;">5.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">Detroit</td>
+<td style="text-align: right;">-7.4</td>
+<td style="text-align: right;">3.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">Philadelphia</td>
+<td style="text-align: right;">-6.7</td>
+<td style="text-align: right;">3.8</td>
+</tr>
+<tr>
+<td style="text-align: left;">New York</td>
+<td style="text-align: right;">-6.1</td>
+<td style="text-align: right;">2.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">Brooklyn</td>
+<td style="text-align: right;">-5.2</td>
+<td style="text-align: right;">1.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">Washington</td>
+<td style="text-align: right;">-5</td>
+<td style="text-align: right;">1.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">Boston</td>
+<td style="text-align: right;">-3.2</td>
+<td style="text-align: right;">-1.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">New Orleans</td>
+<td style="text-align: right;">-3.1</td>
+<td style="text-align: right;">1.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">Memphis</td>
+<td style="text-align: right;">-1.5</td>
+<td style="text-align: right;">-3.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">Charlotte</td>
+<td style="text-align: right;">-1.2</td>
+<td style="text-align: right;">-1.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">Miami</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">-1</td>
+</tr>
+<tr>
+<td style="text-align: left;">San Antonio</td>
+<td style="text-align: right;">-0.5</td>
+<td style="text-align: right;">-2.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">Orlando</td>
+<td style="text-align: right;">-0.4</td>
+<td style="text-align: right;">-2.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Milwaukee</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">-7</td>
+</tr>
+<tr>
+<td style="text-align: left;">Golden State</td>
+<td style="text-align: right;">2.7</td>
+<td style="text-align: right;">-7.8</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Lakers</td>
+<td style="text-align: right;">4.2</td>
+<td style="text-align: right;">-8.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">Houston</td>
+<td style="text-align: right;">4.9</td>
+<td style="text-align: right;">-9.8</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cleveland</td>
+<td style="text-align: right;">6.8</td>
+<td style="text-align: right;">-12.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">Portland</td>
+<td style="text-align: right;">10.3</td>
+<td style="text-align: right;">-12.8</td>
+</tr>
+<tr>
+<td style="text-align: left;">Toronto</td>
+<td style="text-align: right;">11.3</td>
+<td style="text-align: right;">-16</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Clippers</td>
+<td style="text-align: right;">12.3</td>
+<td style="text-align: right;">-15</td>
+</tr>
+<tr>
+<td style="text-align: left;">Oklahoma City</td>
+<td style="text-align: right;">18.3</td>
+<td style="text-align: right;">-23.7</td>
+</tr>
+</tbody>
+</table>
+<p>This is a pretty random list of teams, in both directions. It's a good illustration that gamblingball is different from basketball. It's not clear whether gamblingball is a game with an element of skill, or if it's all chance.</p>
+<h3>Are records against the spread due to chance?</h3>
+<p>If we assume that all variations are due to randomess, each game should be a coin flip whether the underdog or favorite wins against the spread.</p>
+<p>Calculating exact odds using the binomial distribution, 94% of NBA teams should have between 33 and 49 wins against the spread over an 82 game season.</p>
+<p>We'd expect 2 teams to be outside that range, and there are 3. Philadelphia went 26-52 in 78 games we have data for. Even if they won the other 4 games that are missing data, they'd only have 30 wins. So that record was definitely an outlier, but overall the season was about what we'd expect based on chance.</p>
+<p>I find it very believable that some teams are more likely to have a winning record against the spread, because they are underestimated by the handicappers or the betting public. They end up getting lines that are too generous, and thus do better than expected against the spread. Toronto could be an example of that. They were bad, but they weren't really as bad as people thought.</p>
+<p>Other teams could be inherently worse against the spread, as well. Perhaps they are super popular to bet on, so the lines tend to move against them -- a <em>public team</em>. Or perhaps gamblers and sportsbooks overvalue the team -- the conventional wisdom is that they'll be good when they're not. That definitely describes Philadelphia and Phoenix.</p>
+<p>In both cases, <em>the teams themselves</em> aren't necessarily doing anything to be better or worse against the spread than an average team would be. It's about the perceptions of the bookmakers and gamblers.</p>
+<h3>Do gamblers follow the record against the spread?</h3>
+<p>If a team's record against the spread is due solely to random error, then we've got a <a href="/LeSimulation.html">LeMartingale</a> on our hands. The current record would have no bearing on the future record. So gamblers shouldn't factor it in when deciding to take a bet or not.</p>
+<p>By the end of the season, there was a significant correlation between money percents and win percentage against the spread. I wanted to see how that might've changed over time. So I generated the table shown above for every single day of the season, and calculated the Spearman rank correlation on that day.  Here's what that looks like over time:</p>
+<p><img alt="/img/money-ats-win-pct.png" src="/img/money-ats-win-pct.png"></p>
+<p>The money percentages are cumulative,the mean of all games in the season that have come before -- it's not showing gamblers' betting behavior on a particular day, compared to records against the spread on that day. The graph is a lot smoother that way, but we're losing something.</p>
+<p>It also doesn't show whether records against the spread are a Martingale or not. The correlation between betting percentages and win records increases over time, but that doesn't mean this is because gamblers are behaving <em>rationally</em>. </p>
+<p>The jump in correlation around mid-Februrary corresponds to the All-Star break, which is curious.</p>
+<p>Stay tuned; I'll have more on this.</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/the-public-wants-what-the-public-gets.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
+                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
+                </div>
+            </article>
+            <div class="clear"></div>
+            <footer>
+                <p>
+                <a href="https://github.com/tcarwash/blue-penguin-dark">Blue Penguin Dark</a> Theme
+                &middot;
+                Powered by <a href="http://getpelican.com">Pelican</a>
+                &middot;
+                <a href="/feeds/all.atom.xml" rel="alternate">Atom Feed</a>
+            </footer>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>
