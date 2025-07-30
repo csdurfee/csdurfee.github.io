@@ -1,7 +1,7 @@
 Title: Cool Parlay, Bro
 Date: 2025-07-16 10:20
 Category: sports betting
-Tags: your parlay sucks
+Tags: basketball, your parlay sucks
 
 (This is an excerpt from my book about sports gambling. Code and early drafts of some of the chapters can be found at [https://github.com/csdurfee/book](https://github.com/csdurfee/book).)
 
