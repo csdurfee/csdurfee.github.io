@@ -244,7 +244,7 @@
 <p>Here's a simulation, calculating the sum of two random uniform variables over and over, and counting their frequencies:</p>
 <p><img alt="/img/shaggy-triangle.png" src="/img/shaggy-triangle.png"></p>
 <h1>3 is the magic number</h1>
-<p>The sum (or average) of 3 Uniform random variables looks a whole lot like the normal distribution. The sides of the triangle round out, and we get something more like a parabola. Here's what it looks like in simulation:</p>
+<p>The sum (or average) of 3 Uniform random variables looks a whole lot like the normal distribution. The sides of the triangle round out, and we get something more like a bell curve. It's more than a parabola because the slope is changing on the sides. Here's what it looks like in simulation:</p>
 <p><img alt="/img/shaggy-parabola.png" src="/img/shaggy-parabola.png"></p>
 <p>Here are three 5 sided dice. It's no longer going up and down by one step per column. The slope is changing as we go up and down the sides.</p>
 <table>
@@ -421,18 +421,18 @@
 <p>The probability density function of the arcsine distribution looks like this:</p>
 <p>It goes up to infinity at the edges!</p>
 <p><img alt="/img/arcsine-pdf.png" src="/img/arcsine-pdf.png"></p>
-<p>The derivative of the <code>arcsin</code> function is <code>1/sqrt(1-x**2)</code> which goes to infinity as x approaches 0 or 1. That's what gives the arcsine distribution its shape. That also sort of breaks the toast analogy. Are we putting an infinite amount of butter on the bread for an infinetesimal amount of time at the ends of the bread? You can break your brain thinking about that, but we can be confident that we put a finite amount of butter on the toast between any two intervals of time. We're always concerned with the defined amount of area underneath the PDF, not the value at a singular point.</p>
+<p>The derivative of the <code>arcsin</code> function is <code>1/sqrt(1-x**2)</code> which goes to infinity as x approaches 0 or 1. That's what gives the arcsine distribution its shape. That also sort of breaks the toast analogy. Are we putting an infinite amount of butter on the bread for an infinetesimal amount of time at the ends of the bread? You can break your brain thinking about that, but you should feel confident that we put a finite amount of butter on the toast between any two intervals of time. We're always concerned with the defined amount of area underneath the PDF, not the value at a singular point.</p>
 <p>Here's a histogram of the actual arcsine distribution -- 100,000 sample points put into 1,000 bins:</p>
 <p><img alt="/img/arcsine-hist.png" src="/img/arcsine-hist.png"></p>
-<p>About 9% of the total probability is in the leftmost and rightmost 0.5% of the distribution, so the bins at the edges get really, really tall, but they're also really, really skinny. </p>
+<p>About 9% of the total probability is in the leftmost and rightmost 0.5% of the distribution, so the bins at the edges get really, really tall, but they're also really, really skinny. there's a bound on how big they can be.</p>
 <p>The CDF (area under the curve of the PDF) of the arcsine distribution is well behaved, but its slope goes to infinity at the very edges.</p>
 <p><img alt="/img/arcsine-cdf.png" src="/img/arcsine-cdf.png"></p>
 <h2>One for the road</h2>
 <p>The <code>sinc()</code> function is defined as <code>sin(x)/x</code>. It doesn't lead to a well-known distribution as far as I know, but it looks cool, like the logo of some aerospace company from the 1970's, so here you go:</p>
 <p><img alt="/img/sinc.png" src="/img/sinc.png"></p>
-<p>Would I buy a Camaro with that painted on the hood? Yes, I would.</p>
+<p>Would I buy a Camaro with that painted on the hood? Yeah, probably.</p>
 <h2>An arcsine of things to come</h2>
-<p>The arcsine distribution is extremely important in the field of random walks. Say you flip a coin to decide whether to turn north or south every block. How far north or south of where you started will you end up?</p>
+<p>The arcsine distribution is extremely important in the field of random walks. Say you flip a coin to decide whether to turn north or south every block. How far north or south of where you started will you end up? How many times will you cross the street you started on?</p>
 <p>I showed with the hot hand research that our intuitions about randomness are bad. When it comes to random walks, I think we do even worse. Certain <em>sensible</em> things almost never happen, while <em>weird</em> things happen all the time, and the arcsine distribution explains a lot of that.</p>
 <h3>References/further reading</h3>
 <ul>
