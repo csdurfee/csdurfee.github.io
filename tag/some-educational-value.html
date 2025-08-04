@@ -448,6 +448,148 @@
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/some-educational-value.html" class="tags selected">some educational value</a>
                 </div>
+            </article>            <h4 class="date">Jul 31, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/harmonics.html" rel="bookmark" title="Permanent Link to &quot;Harmonics&quot;">Harmonics</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=5Ocq8UlLuuw" target="_blank"><img alt="Donna Summer and Giorgio Moroder, &quot;I Feel Love&quot; (Patrick Cowley Remix)" src="https://img.youtube.com/vi/5Ocq8UlLuuw/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=5Ocq8UlLuuw" target="_blank">Donna Summer and Giorgio Moroder, "I Feel Love" (Patrick Cowley Remix)</a></p>
+<p>Notebook: <a href="https://github.com/csdurfee/csdurfee.github.io/blob/main/harmonics.ipynb">https://github.com/csdurfee/csdurfee.github.io/blob/main/harmonics.ipynb</a></p>
+<p>I was gonna do random walks this week, but the thing about random walks is you don't know where you're gonna end up, and I ended up back at last week's topic again. </p>
+<p>Last time, we saw that the sine wave, sawtooth wave and square wave produced very different distributions.</p>
+<p>All three waveforms are used in electronic music, and they all have different acoustic properties. A sine wave sounds like a "boop" -- think of the sound they play to censor someone who says a swear word on the TV.  That's a sine wave with a frequency of 1000Hz. Sawtooth waves are extremely buzzy. A square wave has, ironically, kind of a round sound, at least as far as how it gets used in electronic music.  A good example is the bass line to this week's song. </p>
+<p>It's not a pure square wave, and it's rare to ever hear pure sawtooth or square waves because they're harsh on the ears. Usually multiple waveforms are combined together and then passed through various filters and effects -- in other words, synthesized. </p>
+<p>Pretty much every sound you've ever heard is a mix of different frequencies. Only sine waves are truly pure, just a single frequency. I tried looking for an actual musical instrument that produces pure sine waves, and the closest thing (according to the internet, at least) is a tuning fork. </p>
+<p>Any other musical instrument, or human voice, or backfiring car, will produce overtones. There's one note that is perceived as the <em>fundamental frequency</em>, but every sound is kind of like a little chord when the overtones are included. </p>
+<p>For musical instruments, the loudest overtones are generally at frequencies that are a multiple of the original frequency. These overtones are called <em>harmonics</em>.</p>
+<p>For instance, if I play a note at 400 Hz on a guitar, it will also produce harmonics at 800 Hz (2x the fundamental frequency), 1200 Hz (3x), 1600 Hz (4x), 2000 Hz (5x), and so on. This corresponds to the <a href="https://en.wikipedia.org/wiki/Harmonic_series_(mathematics)">harmonic series in mathematics</a>. It's the sum of the ratios of the wavelengths of the harmonics to the fundamental frequency: 1 + 1/2 + 1/3 + 1/4 + 1/5 + ...</p>
+<h3>The clarinet is the squarest instrument</h3>
+<p>I played the clarinet in grade school and I am the biggest dork on the planet, so it's certainly metaphorically true. But it's also literally true.</p>
+<p>There's a lot that goes into exactly which overtones get produced by a physical instrument, but most instruments put out the whole series of harmonics. <a href="https://newt.phys.unsw.edu.au/jw/clarinetacoustics.html#harmonics">The clarinet is different</a>. Because of a clarinet's physical shape, it pretty much only produces odd harmonics. So, in our example, 400 Hz, 1200 Hz, 2000 Hz, etc.</p>
+<p>The square wave is like an idealized version of a clarinet -- it also only puts out odd harmonics. This is a result of how a square wave is constructed. In the real world, they're formed out of a combination of sine waves. Which sine waves? You guessed it -- the ones that correspond to the odd harmonic frequencies.</p>
+<p>Here's the fundamental frequency combined with the 3rd harmonic:</p>
+<p><img alt="/img/square3.png" src="/img/square3.png"></p>
+<p>It already looks a bit square-wavey. Additional harmonics make the square parts a bit more square.  Here's what it looks like going up to the 19th harmonic:</p>
+<p><img alt="/img/square21.png" src="/img/square21.png"></p>
+<p>In the real world, we can only add a finite number of harmonics, but if we could combine an infinite number of them, we would get the ideal square wave. This is called the <a href="https://en.wikipedia.org/wiki/Fourier_series">Fourier series</a> of the square wave.</p>
+<p>Here's an illustration to help show how the square wave gets built up:</p>
+<p><img alt="/img/square-buildup.png" src="/img/square-buildup.png"></p>
+<p>The red wave is the fundamental frequency. The orange square-ish wave is the result of combining the other colored waves with the red wave.</p>
+<p>The sum normally would be scaled up a bit (multiplied by 4/pi), but it's easier without the scaling to see how the other waves sort of hammer the fundamental frequency into the shape of the square wave. At some points they are pushing it up, and other points pulling it down.</p>
+<p>Perhaps this graph makes it clearer. The red is the fundamental, the yellow is the sum of all the other harmonics, and the orange is the combination of the two:</p>
+<p><img alt="/img/combine-harmonics-square.png" src="/img/combine-harmonics-square.png"></p>
+<p>Where the yellow is above the X axis, it's pulling the fundamental frequency up, and where it's below, it's pulling the fundamental down.</p>
+<h3>The sawtooth</h3>
+<p>A sawtooth wave is what you get when you combine all the harmonics, odd and even. Like the square wave, it starts to take its basic shape right away. Here's the fundamental plus the second harmonic:</p>
+<p><img alt="/img/sawtooth2.png" src="/img/sawtooth2.png"></p>
+<p>And here it is going all the way up to the 10th harmonic:</p>
+<p><img alt="/img/sawtooth10.png" src="/img/sawtooth10.png"></p>
+<p>Here are the red fundamental plus the yellow harmonics to produce the orange sawtooth wave:</p>
+<p><img alt="/img/combine-harmonics-saw.png" src="/img/combine-harmonics-saw.png"></p>
+<h3>Getting even</h3>
+<p>What about only the even harmonics? Is that a thing? Not in the natural world as far as I know, but there's nothing stopping me from making one. (It wouldn't be the worst musical crime I've ever committed.)</p>
+<p>Here's what a combo of just the even harmonics looks like:</p>
+<p><img alt="/img/even-harmonics.png" src="/img/even-harmonics.png"></p>
+<p>Thanks to a little code from the pygame project, it's easy to turn that waveform into a sound file. It sounds like an angry computer beep, with a little flutter mixed in.</p>
+<p><a href="/audio/evens_clean.wav" target="_blank">Here's an audio sample</a></p>
+<h3>In my prime</h3>
+<p>The <a href="https://mathworld.wolfram.com/HarmonicSeriesofPrimes.html">harmonic series of primes</a> is what it sounds like: the harmonic series, but just the prime numbers: 1 + 1/2 + 1/3 + 1/5 + 1/7 + 1/11 + 1/13 + ....</p>
+<p>Although it's important in mathematics, I don't have a good musical reason to do this. But if you can throw the prime numbers into something, you gotta do it.</p>
+<p>As a sound, I kinda like it. It's nice and throaty. <a href="/audio/primes.wav" target="_blank">Here's what it sounds like.</a></p>
+<p>It doesn't really sound like a sawtooth wave or a square wave to me. Here's the waveform:</p>
+<p><img alt="/img/prime-waveform.png" src="/img/prime-waveform.png"></p>
+<p>Here's what the distribution of amplitudes looks like:</p>
+<p><img alt="/img/prime-amp.png" src="/img/prime-amp.png"></p>
+<h3>Dissonance</h3>
+<p>Some of the overtones of the harmonic series don't correspond with the 12 notes of the modern western musical scale (called 12 tone equal temprament, or 12TET). The first 4 harmonics of the series are nice and clean, but after that they get weird. Each harmonic in the series is smaller in amplitude than the previous one, so it has less of an effect on the shape of the final wave. So the dissonance is there, but it's way in the background.</p>
+<p>The prime number bloop I made above should be extra <em>weird</em>. The 2nd and 3rd harmonics are included, so those will sound nice, but after that they are at least a little off the standard western scale.</p>
+<p>Say we're playing the <em>prime bloop</em> at A4 (the standard pitch used for tuning).  Here's how the harmonics work out. A cent is 1% of a semitone. So a note that is off by 50 cents is right between two notes on the 12 tone scale.</p>
+<table>
+<thead>
+<tr>
+<th>harmonic #</th>
+<th>frequency</th>
+<th>pitch</th>
+<th>error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>440 Hz</td>
+<td>A4</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>880 Hz</td>
+<td>A5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1320</td>
+<td>E6</td>
+<td>+2 cents</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2200</td>
+<td>C#7</td>
+<td>-14 cents</td>
+</tr>
+<tr>
+<td>7</td>
+<td>3080</td>
+<td>G7</td>
+<td>+31 cents</td>
+</tr>
+<tr>
+<td>11</td>
+<td>4840</td>
+<td>D#8</td>
+<td>-49 cents</td>
+</tr>
+<tr>
+<td>13</td>
+<td>5720</td>
+<td>F8</td>
+<td>+41 cents</td>
+</tr>
+<tr>
+<td>17</td>
+<td>7480</td>
+<td>A#8</td>
+<td>+5 cents</td>
+</tr>
+</tbody>
+</table>
+<p>(Note the 3rd harmonic, E6, is a little <em>off</em> in 12TET, despite being a <em>perfect fifth</em> -- an exact 3:2 ratio with the A5.)</p>
+<h3>Harmonics aren't everything</h3>
+<p>While it's true that any audio can be decomposed into a bunch of sine waves, the fundamental frequency and the harmonics aren't really what gives an instrument its unique timbre. It's hundreds or thousands of tiny overtones that don't line up with the harmonics.</p>
+<p>Here are the spectra of two different piano sounds playing at 220 Hz. One is a somewhat fake piano sound (Fruity DX10), the other a natural, rich sounding one (LABS Soft Piano, which you might've heard before if you listen to those "Lofi Hip Hop Beats to Doomscroll/Not Study To" type playlists). Can you guess which is which?</p>
+<p><img alt="/img/real-piano.png" src="/img/real-piano.png"></p>
+<p><img alt="/img/fake-piano.png" src="/img/fake-piano.png"></p>
+<p>The answer may surprise you. I mean, it can't be that surprising since there are only 2 options. But I'd probably get it wrong, if I didn't already know which is which.</p>
+<h3>Sources/Notes</h3>
+<p><a href="https://www.phys.unsw.edu.au/music/">This website from UNSW was invaluable</a>, particularly <a href="https://newt.phys.unsw.edu.au/jw/harmonics.html">https://newt.phys.unsw.edu.au/jw/harmonics.html</a></p>
+<p>Code used to generate the audio: <a href="https://stackoverflow.com/questions/56592522/python-simple-audio-tone-generator">https://stackoverflow.com/questions/56592522/python-simple-audio-tone-generator</a></p>
+<p>"The internet" claiming the sound of a tuning fork is a sine wave here (no citation given): <a href="https://en.wikipedia.org/wiki/Tuning_fork#Description">https://en.wikipedia.org/wiki/Tuning_fork#Description</a>.</p>
+<p>There are many good videos on Youtube about 12TET and Just Intonation, by people who know more about music than me. Here's one from David Bennett: <a href="https://www.youtube.com/watch?v=7JhVcGtT8z4">https://www.youtube.com/watch?v=7JhVcGtT8z4</a></p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/harmonics.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/math.html" rel="tag">math</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/some-educational-value.html" class="tags selected">some educational value</a>
+                </div>
             </article>
 
             <div class="clear"></div>
