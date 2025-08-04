@@ -140,7 +140,7 @@ Since Richard Hamilton had the streakiest game in the last 20 years, it's not su
 
 The Jensen-Shannon distance results were extremely similar to entropy. It agreed exactly with the entropy on 73 of the top 100 players. The average z score for those players was 1.16, versus 1.15 for entropy. So, in aggregate, both were better than my homegrown metric at identifying unstreaky players.
 
-This graph shows the shape of the 10 players most similar to LeBron. They all have the same downward trend
+This graph shows the shape of the 10 players most similar to LeBron. They all have the same downward trend.
 
 ![most-similar-last5](/img/most-similar-last5.png)
 

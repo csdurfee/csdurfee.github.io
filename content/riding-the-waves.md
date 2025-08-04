@@ -125,7 +125,7 @@ Here's a simulation, calculating the sum of two random uniform variables over an
 
 # 3 is the magic number
 
-The sum (or average) of 3 Uniform random variables looks a whole lot like the normal distribution. The sides of the triangle round out, and we get something more like a parabola. Here's what it looks like in simulation:
+The sum (or average) of 3 Uniform random variables looks a whole lot like the normal distribution. The sides of the triangle round out, and we get something more like a bell curve. It's more than a parabola because the slope is changing on the sides. Here's what it looks like in simulation:
 
 ![/img/shaggy-parabola.png](/img/shaggy-parabola.png)
 
@@ -169,28 +169,27 @@ It goes up to infinity at the edges!
 
 ![/img/arcsine-pdf.png](/img/arcsine-pdf.png)
 
-The derivative of the `arcsin` function is `1/sqrt(1-x**2)` which goes to infinity as x approaches 0 or 1. That's what gives the arcsine distribution its shape. That also sort of breaks the toast analogy. Are we putting an infinite amount of butter on the bread for an infinetesimal amount of time at the ends of the bread? You can break your brain thinking about that, but we can be confident that we put a finite amount of butter on the toast between any two intervals of time. We're always concerned with the defined amount of area underneath the PDF, not the value at a singular point.
+The derivative of the `arcsin` function is `1/sqrt(1-x**2)` which goes to infinity as x approaches 0 or 1. That's what gives the arcsine distribution its shape. That also sort of breaks the toast analogy. Are we putting an infinite amount of butter on the bread for an infinetesimal amount of time at the ends of the bread? You can break your brain thinking about that, but you should feel confident that we put a finite amount of butter on the toast between any two intervals of time. We're always concerned with the defined amount of area underneath the PDF, not the value at a singular point.
 
 Here's a histogram of the actual arcsine distribution -- 100,000 sample points put into 1,000 bins:
 
 ![/img/arcsine-hist.png](/img/arcsine-hist.png)
 
-About 9% of the total probability is in the leftmost and rightmost 0.5% of the distribution, so the bins at the edges get really, really tall, but they're also really, really skinny. 
+About 9% of the total probability is in the leftmost and rightmost 0.5% of the distribution, so the bins at the edges get really, really tall, but they're also really, really skinny. there's a bound on how big they can be.
 
 The CDF (area under the curve of the PDF) of the arcsine distribution is well behaved, but its slope goes to infinity at the very edges.
 
 ![/img/arcsine-cdf.png](/img/arcsine-cdf.png)
-
 
 ## One for the road
 The `sinc()` function is defined as `sin(x)/x`. It doesn't lead to a well-known distribution as far as I know, but it looks cool, like the logo of some aerospace company from the 1970's, so here you go:
 
 ![/img/sinc.png](/img/sinc.png)
 
-Would I buy a Camaro with that painted on the hood? Yes, I would.
+Would I buy a Camaro with that painted on the hood? Yeah, probably.
 
 ## An arcsine of things to come
-The arcsine distribution is extremely important in the field of random walks. Say you flip a coin to decide whether to turn north or south every block. How far north or south of where you started will you end up?
+The arcsine distribution is extremely important in the field of random walks. Say you flip a coin to decide whether to turn north or south every block. How far north or south of where you started will you end up? How many times will you cross the street you started on?
 
 I showed with the hot hand research that our intuitions about randomness are bad. When it comes to random walks, I think we do even worse. Certain *sensible* things almost never happen, while *weird* things happen all the time, and the arcsine distribution explains a lot of that.
 

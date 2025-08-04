@@ -89,10 +89,10 @@ More concerningly, the parlays had big losses (down more than $1000 on $100 bets
 
 Expected Value can't be the only thing we consider, because we don't live an infinite life. Our whole life is a small sample size, if the variance is high enough. Our bankrolls are always finite. The fact that we might make more money over 100 years is undercut by the fact that we'll die or go broke before then.
 
-Even for the skilled bettor, parlays make it more of a game of luck. Let's say my simulation represents an entire season of betting on basketball. Imagine playing the parlays with a 55% win rate, being better than almost everybody at handicapping, and still having massive losses one season in three? When you'd make more money taking the individual bets 40% of the time?
+Even for the skilled bettor, parlays make it more of a game of luck. Let's say my simulation represents an entire season of betting on basketball. Imagine playing the parlays with a 55% win rate, being better than almost everybody at handicapping, and still having massive losses one season in three? When you'd make more money taking the individual bets 40% of the time, and only have a 1 in 500 chance of bad losses?
 
 ### Parlay psychology
-There's a weird psychology to the parlay as well. These parlays only win once every couple of weeks, so they'd be kind of a grim strategy in practice. A good bettor taking the individual bets will have winning days over half the time. Is it better to feel like a winner most days, or every other week?
+There's a weird psychology to the parlay as well. Even if you played every day, these parlays only win once every couple of weeks, so they'd be kind of a grim strategy in practice. A good bettor taking the individual bets will have winning days over half the time. Is it better to feel like a winner most days, or every other week?
 
 Most people don't have to consider that question, though. Without a huge amount of skill at betting, the only scenario where they might make sense is as a lottery: something that can deliver a tiny chance of massive payouts without any skill. 
 
@@ -102,7 +102,7 @@ What about over a longer time frame? I simulated 500 parlays versus 2,000 straig
 
 ![img/parlay-500.png](img/parlay-500.png)
 
-12% is 1 in 8, which isn't that rare. 500 parlays could end up stretching over multiple seasons, perhaps a lifetime of sports betting. That means somebody who was making picks by flipping a coin could end up looking like a pretty good bettor for a long stretch if they are taking parlays. Of course, 88% of people will lose money, far more money than the 12% of profitable bettors win. In practical terms, it's like a lottery where you have a 12% chance of winning $3617, but an 88% chance of losing $10,221.
+12% is 1 in 8, which isn't that rare. 500 parlays could end up stretching over multiple seasons, perhaps a lifetime of sports betting. That means somebody who was making picks by flipping a coin could end up looking like a pretty good bettor for a long stretch if they are taking parlays. Of course, 88% of people will lose money, far more money than the 12% of profitable bettors win. In practical terms, it's like a lottery where you have a 12% chance of winning $3617, but an 88% chance of losing $10,221. Sound like fun?
 
 It's really, really hard to tell if someone taking bets at long odds is actually good at betting, not without thousands of documented bets. Over 50 parlays, or even 500, it's not that surprising for some people to look smart on parlays by chance alone. It would be much better to assess their skill based on the individual bets they took within the parlays.
 
@@ -111,14 +111,14 @@ Parlays with only 2 or 3 legs have higher relative payouts compared to 4 leg par
 
 Same Game Parlays (SGPs) are a new type of bet which allows the player to make multiple wagers on the same game. For instance, someone could bet on their favorite team winning and their favorite player scoring over a certain amount of points and the guy they hate on the other team scoring under a certain amount of points, with a big payout if all 3 things happen. SGPs have become the most popular type of bet I see online, and deserve their own lengthy discussion. For now just think of them as the vape pens of betting. They're obviously super addictive, extremely popular with younger people, and you can't really know what's in them, but it's probably bad.
 
-### Gambling gurus
+### Gambling gurus, and the people who listen to them
 I've taken up lot of hobbies over the years. It seems like every time I take up a new hobby, I end up spending a lot of money on stupid stuff at the beginning. Then I get into it more, and realize what matters.
 
 There is an adverse selection process, where people who are new to a hobby have no idea what's actually good, what they actually need, or what things should actually cost. Filled with zeal to get started, they end up overpaying for inferior goods. Same thing for travelling in a new country. The guys at the train station trying to hustle you into a taxi are definitely not hooking you up with the cheapest way to get around.
 
-Betting experts, the kind who have podcasts and big followings on social media, are supposed to know more about this stuff than the average person. They're supposed to be like the guidebooks, or the seasoned traveller telling the newbie to walk 2 blocks and take the metro for $2 instead of paying $100 for a taxi. Yet they're pushing parlays and other sucker bets, and pushing sportsbooks that charge full vig and ban anybody who wins too much. The "experts" are pushing beginners into bad situations.
+Betting experts, the kind who have podcasts and big followings on social media, are supposed to know more about this stuff than the average person. They're supposed to be like the guidebooks, or the seasoned traveller telling the newbie to walk 2 blocks and take the metro for $2 instead of paying $100 for a taxi. Yet they're pushing parlays and other sucker bets, and pushing sportsbooks that charge full vig and ban anybody who wins too much. The "experts" are pushing beginners into bad situations. They're the creeps at the train station hustling naive tourists into their buddy's taxi.
 
-Most of them don't do any better than flipping a coin, so I doubt they're actually making money on their "can't miss locks of the week". Gambling ads, sure. Everybody's taking gambling money right now, regardless of how it will hurt their brand, their audience, and sports long term. Clearly there's a lot of money in talking about it. That gambling money is there because these self-styled experts bring the sportsbooks more customers -- losing customers, specifically. 
+Most of these experts don't do any better than flipping a coin, so I doubt they're actually making money on their "can't miss locks of the week". Gambling ads, sure. Everybody's taking gambling money right now, regardless of how it will hurt their brand, their audience, and sports long term. Clearly there's a lot of money in talking about it. That gambling money is there because these self-styled experts bring the sportsbooks more customers -- losing customers, specifically. 
 
 Where's all that ad money coming from? The sportsbooks wouldn't be throwing money at influencers who were actually winning consistently. Any gambling show they sponsor is pretty much guaranteed to lose you money, or it wouldn't be sponsored. Any bet they're promoting heavily, like they do with parlays, is because it makes them more money that way. You shouldn't need to know any math to figure out why they're pushing teasers and parlays and "profit boosters". I love that last one. It's like saying Idi Amin served mankind. Why would they care about boosting YOUR profits? 
 

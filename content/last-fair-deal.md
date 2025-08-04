@@ -55,9 +55,7 @@ Unfortunately, that doesn't really show us much about how or when the closing li
 
 When were the closing lines more accurate than the opening lines?
 
-Closing lines better:	 467    
-Opening lines better:	 384
-Tied:			         347    
+The closing lines were better in 467 games, versus 384 games where the opening lines were better, and 347 games where the line never changed.
 
 If the free market were a handicapper, and we interpreted the line movements as a bet on one side, they would have a 54.88% winning percentage (and 347 pushes).
 
@@ -70,7 +68,7 @@ There are good reasons for that. Sportsbooks that set the opening lines aren't t
 
 Beating the closing line might be positively correlated with higher profits when analyzing betting records of touts -- people who sell betting picks for money. But when the market is wrong 45% of the time, focusing too much on CLV seems like a bad idea. There's no good reason to believe that a gambler is destined to lose money by picking against the closing lines. What if their strategy is to mostly bet against the prevailing wisdom on the 45% of games where the market is wrong?
 
-CLV is a prime example of [Goodhart's Law](https://en.wikipedia.org/wiki/Goodhart's_law). As a measure of a handicapper's skill, it's probably fine (though not ideal). But it shouldn't be the target. A gambler shouldn't make picks explicitly to capture as much CLV as possible.
+CLV is a prime example of [Goodhart's Law](https://en.wikipedia.org/wiki/Goodhart's_law). As a measure of a handicapper's skill, it's probably fine (though not ideal). But it shouldn't be the target. A gambler shouldn't make picks explicitly to capture as much CLV as possible. That could be different on other sports. Football -- both forms of it -- attracts a lot more betting than the NBA does, so if you're looking for the wisdom of crowds, maybe look there.
 
 Say the opening line is Nuggets -3 against the Timberwolves. I like the Nuggets in this matchup, but I think the public will go for the Timberwolves and it will finish at Nuggets -1/Timberwolves +1.
 
@@ -104,7 +102,7 @@ If we break down the games where the line didn't move by vig, the underdogs went
 
 Someone taking the underdogs when the line doesn't move, and the vig is -110 or -115, would've gone 136-105 this season, a 56.4% winning percentage, and around 18 units of profit (factoring in the additional -115 vig on some bets).
 
-Now, the strategy is pretty convoluted, and won't necessarily hold for future seasons, but it's definitely evidence there could be irrational factors at work in the market. It certainly doesn't show the market to be the well oiled machine that Closing Line Value assumes it is.
+Now, the strategy is pretty convoluted, and I wouldn't bet on it holding for future seasons, but it's definitely evidence there could be irrational factors at work in the market. It certainly doesn't show the market to be the well oiled machine that Closing Line Value assumes it is.
 
 ### Must love dogs
 Winners ended up being pretty evenly divided between favorites and underdogs by the end of the season, but underdogs were way ahead for most of the year.  
@@ -141,7 +139,10 @@ This is a 100 game moving average of the average size of the spread. As we can s
 
 ![/img/spread-over-time.png](/img/spread-over-time.png)
 
-It's possible the trend is due to scheduling, but the change at the end seems significant -- teams tend to give up near the end of the year. Bad teams want to be as bad as possible in order to get the best odds in the NBA draft, so they're not that competitive.
+It's possible the trend is due to scheduling, but the change at the end seems significant -- teams tend to give up near the end of the year. Bad teams want to be as bad as possible in order to get the best odds in the NBA draft, so they're not that competitive. 
+
+(I have a lot more to say about tanking, but I'll stay off my soapbox for now.)
+
 
 ### What type of games are affected by line movement?
 There were 130 games where the winner flipped from the favorite to the underdog, or the underdog to the favorite, because of the line movement. In other words, these are games where either side could have won the bet, depending on whether you took the opening line or the closing line.
