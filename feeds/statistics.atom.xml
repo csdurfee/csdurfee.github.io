@@ -10,7 +10,7 @@
 &lt;p&gt;How big is "big enough"? Well, it partly depends on the shape of the data being sampled from. If the data itself is distributed like a normal distribution, it makes sense that the sample means would also be normally shaped. It takes a smaller sample size to get the sampling distributions looking like a normal distribution.&lt;/p&gt;
 &lt;p&gt;While a lot of things in life are normally distributed, some of them aren't. The uniform distribution is when every possible outcome is equally likely. Rolling a single die, for instance. 1-6 are all equally likely. Imagine we're trying to estimate the mean value for rolling a standard 6 sided die. &lt;/p&gt;
 &lt;p&gt;A clever way would be to team up sets of sides - 6 goes with 1, 5 goes with 2, 4 goes with 3. Clearly the mean value has to be 3.5, right?&lt;/p&gt;
-&lt;p&gt;A less clever way would be to roll a 6 sided die a bunch of times and take the average. We could repeat that process, and track all of these averages. Those averages will make a nice bell curve, with the center at 3.5.&lt;/p&gt;
+&lt;p&gt;A less clever way would be to roll a 6 sided die a bunch of times and take the average. We could repeat that process, and track all of these averages. If the sample size is big enough, those averages will make a nice bell curve, with the center at 3.5.&lt;/p&gt;
 &lt;p&gt;The uniform distribution is sort of obnoxious if you want to calculate the sample mean. The normal distribution, and a lot of other distributions, have a big peak in the middle and tail off towards the edges. If you pick randomly from one of these distributions, it's far more likely to be close to the middle than it is to be far from the middle. With the uniform distribution, every outcome is equally likely:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="/img/uniform.png" src="/img/uniform.png"&gt;&lt;/p&gt;
 &lt;p&gt;Couldn't we do even worse than the uniform distribution, though? What if the tails/outliers were even higher than the center? When I first learned about the Central Limit Theorem, I remember thinking about that - how could you define a distribution to be the most obnoxious one possible? The normal distribution is like a frowny face. The Uniform distribution is like a "not impressed" face. Couldn't we have a smiley face distribution to be the anti-normal distribution?&lt;/p&gt;
@@ -21,7 +21,6 @@
 &lt;p&gt;&lt;img alt="/img/sawtooth.png" src="/img/sawtooth.png"&gt;&lt;/p&gt;
 &lt;p&gt;If we randomly sample from this wave (following a uniform distribution -- all numbers on the x axis are equally likely) and record the y value, then plot the values as a histogram, what would it look like? Think of it like we put a piece of toast on the Y axis of the graph, the X axis is time. How will the butter be distributed? &lt;/p&gt;
 &lt;p&gt;It should be a flat line, like the Uniform distribution, since each stroke of butter is at a constant rate. We're alternating between a very fast wipe and a slower one, but in both cases, it doesn't spend any more time on one section of bread than another because it's a straight line.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="/img/sawtooth-distro.png" src="/img/sawtooth-distro.png"&gt;&lt;/p&gt;
 &lt;h2&gt;Advanced breakfast techniques&lt;/h2&gt;
 &lt;p&gt;A square wave spends almost no time in the middle of the bread, so nearly all the butter will be at the edges. That's not a very interesting graph. What about a sine wave?&lt;/p&gt;
 &lt;p&gt;The sawtooth wave always has a constant slope, so the butter is evenly applied. With the sine wave, the slope changes over time. Because of that, the butter knife ends up spending more time at the extreme ends of the bread, where the slope is shallow, compared to the middle of the bread. The more vertical the slope, the faster the knife passes over that bit of bread, and the less butter it gets.&lt;/p&gt;
@@ -377,7 +376,7 @@
 &lt;p&gt;This isn't a Normal distribution, but it sure looks close to one.   &lt;/p&gt;
 &lt;h2&gt;Toast triangles&lt;/h2&gt;
 &lt;p&gt;What if we feed the triangular distribution through the &lt;code&gt;sin()&lt;/code&gt; function? To keep the toast analogy going, I guess we're spreading the butter with a sine wave pattern, but changing how hard we're pressing down on the knife to match the triangular distribution -- slow at first, then ramping up, then ramping down.&lt;/p&gt;
-&lt;p&gt;Turns out, if we take the sine of the sum of two uniform random variables (defined from the range of -pi to +pi), we'll get the arcsin distribution again! I don't know if that's surprising or not, but there you go.&lt;/p&gt;
+&lt;p&gt;Turns out, if we take the sine of the sum of two uniform random variables (defined from the range of -pi to +pi), we'll get the arcsin distribution again! [2] I don't know if that's surprising or not, but there you go.&lt;/p&gt;
 &lt;h2&gt;Knowing your limits&lt;/h2&gt;
 &lt;p&gt;There's a problem with the toast analogy. (Well, at least one. There may be more, but I ate the evidence.)&lt;/p&gt;
 &lt;p&gt;The probability density function of the arcsine distribution looks like this:&lt;/p&gt;
@@ -399,7 +398,7 @@
 &lt;h3&gt;References/further reading&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://www.johndcook.com/blog/2009/02/12/sums-of-uniform-random-values/"&gt;https://www.johndcook.com/blog/2009/02/12/sums-of-uniform-random-values/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://www.jstor.org/stable/2287407"&gt;https://www.jstor.org/stable/2287407&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[2] &lt;a href="https://www.jstor.org/stable/2287407"&gt;https://www.jstor.org/stable/2287407&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://archive.org/details/dli.ernet.5666/"&gt;https://archive.org/details/dli.ernet.5666/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</content><category term="statistics"></category><category term="some educational value"></category></entry><entry><title>Approximate Normality and Continuity Corrections</title><link href="/approximate-normality-and-continuity-corrections.html" rel="alternate"></link><published>2025-06-08T10:20:00-10:00</published><updated>2025-06-08T10:20:00-10:00</updated><author><name>casey durfee</name></author><id>tag:None,2025-06-08:/approximate-normality-and-continuity-corrections.html</id><summary type="html">&lt;p&gt;(Notebooks and other code available at: &lt;a href="https://github.com/csdurfee/hot_hand"&gt;https://github.com/csdurfee/hot_hand&lt;/a&gt;. As usual, there is stuff in there I'm not covering here.)&lt;/p&gt;
 &lt;h1&gt;What is "approximately normal"?&lt;/h1&gt;

@@ -19,8 +19,7 @@
             <ul>
                 <li class="ephemeral selected"><a href="/tag/some-educational-value.html">some educational value</a></li>
                 <li><a href="/">Home</a></li>
-                <li><a href="/pages/about.html">About</a></li>
-                <li><a href="/pages/best-of.html">Best Of</a></li>
+                <li><a href="/pages/aboutbest-of.html">About/Best Of</a></li>
             </ul>
         </nav>
         <div class="header_box" style="height: 50px">
@@ -48,7 +47,7 @@
 <p>How big is "big enough"? Well, it partly depends on the shape of the data being sampled from. If the data itself is distributed like a normal distribution, it makes sense that the sample means would also be normally shaped. It takes a smaller sample size to get the sampling distributions looking like a normal distribution.</p>
 <p>While a lot of things in life are normally distributed, some of them aren't. The uniform distribution is when every possible outcome is equally likely. Rolling a single die, for instance. 1-6 are all equally likely. Imagine we're trying to estimate the mean value for rolling a standard 6 sided die. </p>
 <p>A clever way would be to team up sets of sides - 6 goes with 1, 5 goes with 2, 4 goes with 3. Clearly the mean value has to be 3.5, right?</p>
-<p>A less clever way would be to roll a 6 sided die a bunch of times and take the average. We could repeat that process, and track all of these averages. Those averages will make a nice bell curve, with the center at 3.5.</p>
+<p>A less clever way would be to roll a 6 sided die a bunch of times and take the average. We could repeat that process, and track all of these averages. If the sample size is big enough, those averages will make a nice bell curve, with the center at 3.5.</p>
 <p>The uniform distribution is sort of obnoxious if you want to calculate the sample mean. The normal distribution, and a lot of other distributions, have a big peak in the middle and tail off towards the edges. If you pick randomly from one of these distributions, it's far more likely to be close to the middle than it is to be far from the middle. With the uniform distribution, every outcome is equally likely:</p>
 <p><img alt="/img/uniform.png" src="/img/uniform.png"></p>
 <p>Couldn't we do even worse than the uniform distribution, though? What if the tails/outliers were even higher than the center? When I first learned about the Central Limit Theorem, I remember thinking about that - how could you define a distribution to be the most obnoxious one possible? The normal distribution is like a frowny face. The Uniform distribution is like a "not impressed" face. Couldn't we have a smiley face distribution to be the anti-normal distribution?</p>
@@ -59,7 +58,6 @@
 <p><img alt="/img/sawtooth.png" src="/img/sawtooth.png"></p>
 <p>If we randomly sample from this wave (following a uniform distribution -- all numbers on the x axis are equally likely) and record the y value, then plot the values as a histogram, what would it look like? Think of it like we put a piece of toast on the Y axis of the graph, the X axis is time. How will the butter be distributed? </p>
 <p>It should be a flat line, like the Uniform distribution, since each stroke of butter is at a constant rate. We're alternating between a very fast wipe and a slower one, but in both cases, it doesn't spend any more time on one section of bread than another because it's a straight line.</p>
-<p><img alt="/img/sawtooth-distro.png" src="/img/sawtooth-distro.png"></p>
 <h2>Advanced breakfast techniques</h2>
 <p>A square wave spends almost no time in the middle of the bread, so nearly all the butter will be at the edges. That's not a very interesting graph. What about a sine wave?</p>
 <p>The sawtooth wave always has a constant slope, so the butter is evenly applied. With the sine wave, the slope changes over time. Because of that, the butter knife ends up spending more time at the extreme ends of the bread, where the slope is shallow, compared to the middle of the bread. The more vertical the slope, the faster the knife passes over that bit of bread, and the less butter it gets.</p>
@@ -415,7 +413,7 @@
 <p>This isn't a Normal distribution, but it sure looks close to one.   </p>
 <h2>Toast triangles</h2>
 <p>What if we feed the triangular distribution through the <code>sin()</code> function? To keep the toast analogy going, I guess we're spreading the butter with a sine wave pattern, but changing how hard we're pressing down on the knife to match the triangular distribution -- slow at first, then ramping up, then ramping down.</p>
-<p>Turns out, if we take the sine of the sum of two uniform random variables (defined from the range of -pi to +pi), we'll get the arcsin distribution again! I don't know if that's surprising or not, but there you go.</p>
+<p>Turns out, if we take the sine of the sum of two uniform random variables (defined from the range of -pi to +pi), we'll get the arcsin distribution again! [2] I don't know if that's surprising or not, but there you go.</p>
 <h2>Knowing your limits</h2>
 <p>There's a problem with the toast analogy. (Well, at least one. There may be more, but I ate the evidence.)</p>
 <p>The probability density function of the arcsine distribution looks like this:</p>
@@ -437,7 +435,7 @@
 <h3>References/further reading</h3>
 <ul>
 <li><a href="https://www.johndcook.com/blog/2009/02/12/sums-of-uniform-random-values/">https://www.johndcook.com/blog/2009/02/12/sums-of-uniform-random-values/</a></li>
-<li><a href="https://www.jstor.org/stable/2287407">https://www.jstor.org/stable/2287407</a></li>
+<li>[2] <a href="https://www.jstor.org/stable/2287407">https://www.jstor.org/stable/2287407</a></li>
 <li><a href="https://archive.org/details/dli.ernet.5666/">https://archive.org/details/dli.ernet.5666/</a></li>
 </ul>
                 <div class="clear"></div>
@@ -490,8 +488,11 @@
 <p><img alt="/img/sawtooth2.png" src="/img/sawtooth2.png"></p>
 <p>And here it is going all the way up to the 10th harmonic:</p>
 <p><img alt="/img/sawtooth10.png" src="/img/sawtooth10.png"></p>
-<p>Here are the red fundamental plus the yellow harmonics to produce the orange sawtooth wave:</p>
+<p>Red fundamental plus yellow harmonics produce the orange sawtooth wave:</p>
 <p><img alt="/img/combine-harmonics-saw.png" src="/img/combine-harmonics-saw.png"></p>
+<p>Last time, I talked about the sawtooth wave producing a uniform distribution of amplitudes -- the butter gets spread evenly over the toast. The graph above isn't a very smooth stroke of butter. It's not steadily decreasing, particularly at the ends. Here's what the distribution looks like at this point:</p>
+<p><img alt="/img/sawtooth10-amps.png" src="/img/sawtooth10-amps.png"></p>
+<p>With an infinite series of harmonics, that graph will even out to a uniform distribution</p>
 <h3>Getting even</h3>
 <p>What about only the even harmonics? Is that a thing? Not in the natural world as far as I know, but there's nothing stopping me from making one. (It wouldn't be the worst musical crime I've ever committed.)</p>
 <p>Here's what a combo of just the even harmonics looks like:</p>
@@ -573,7 +574,7 @@
 <p>(Note the 3rd harmonic, E6, is a little <em>off</em> in 12TET, despite being a <em>perfect fifth</em> -- an exact 3:2 ratio with the A5.)</p>
 <h3>Harmonics aren't everything</h3>
 <p>While it's true that any audio can be decomposed into a bunch of sine waves, the fundamental frequency and the harmonics aren't really what gives an instrument its unique timbre. It's hundreds or thousands of tiny overtones that don't line up with the harmonics.</p>
-<p>Here are the spectra of two different piano sounds playing at 220 Hz. One is a somewhat fake piano sound (Fruity DX10), the other a natural, rich sounding one (LABS Soft Piano, which you might've heard before if you listen to those "Lofi Hip Hop Beats to Doomscroll/Not Study To" type playlists). Can you guess which is which?</p>
+<p>Here are the spectra of two different piano sounds playing at 220 Hz. One is a somewhat fake piano sound (Fruity DX10), the other a natural, rich sounding one (LABS Soft Piano, which you might've heard before if you listen to those "Lofi Hip Hop Beats to Doomscroll/Not Study To" playlists). Can you guess which is which?</p>
 <p><img alt="/img/real-piano.png" src="/img/real-piano.png"></p>
 <p><img alt="/img/fake-piano.png" src="/img/fake-piano.png"></p>
 <p>The answer may surprise you. I mean, it can't be that surprising since there are only 2 options. But I'd probably get it wrong, if I didn't already know which is which.</p>

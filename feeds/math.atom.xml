@@ -34,8 +34,11 @@
 &lt;p&gt;&lt;img alt="/img/sawtooth2.png" src="/img/sawtooth2.png"&gt;&lt;/p&gt;
 &lt;p&gt;And here it is going all the way up to the 10th harmonic:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="/img/sawtooth10.png" src="/img/sawtooth10.png"&gt;&lt;/p&gt;
-&lt;p&gt;Here are the red fundamental plus the yellow harmonics to produce the orange sawtooth wave:&lt;/p&gt;
+&lt;p&gt;Red fundamental plus yellow harmonics produce the orange sawtooth wave:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="/img/combine-harmonics-saw.png" src="/img/combine-harmonics-saw.png"&gt;&lt;/p&gt;
+&lt;p&gt;Last time, I talked about the sawtooth wave producing a uniform distribution of amplitudes -- the butter gets spread evenly over the toast. The graph above isn't a very smooth stroke of butter. It's not steadily decreasing, particularly at the ends. Here's what the distribution looks like at this point:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="/img/sawtooth10-amps.png" src="/img/sawtooth10-amps.png"&gt;&lt;/p&gt;
+&lt;p&gt;With an infinite series of harmonics, that graph will even out to a uniform distribution&lt;/p&gt;
 &lt;h3&gt;Getting even&lt;/h3&gt;
 &lt;p&gt;What about only the even harmonics? Is that a thing? Not in the natural world as far as I know, but there's nothing stopping me from making one. (It wouldn't be the worst musical crime I've ever committed.)&lt;/p&gt;
 &lt;p&gt;Here's what a combo of just the even harmonics looks like:&lt;/p&gt;
@@ -117,7 +120,7 @@
 &lt;p&gt;(Note the 3rd harmonic, E6, is a little &lt;em&gt;off&lt;/em&gt; in 12TET, despite being a &lt;em&gt;perfect fifth&lt;/em&gt; -- an exact 3:2 ratio with the A5.)&lt;/p&gt;
 &lt;h3&gt;Harmonics aren't everything&lt;/h3&gt;
 &lt;p&gt;While it's true that any audio can be decomposed into a bunch of sine waves, the fundamental frequency and the harmonics aren't really what gives an instrument its unique timbre. It's hundreds or thousands of tiny overtones that don't line up with the harmonics.&lt;/p&gt;
-&lt;p&gt;Here are the spectra of two different piano sounds playing at 220 Hz. One is a somewhat fake piano sound (Fruity DX10), the other a natural, rich sounding one (LABS Soft Piano, which you might've heard before if you listen to those "Lofi Hip Hop Beats to Doomscroll/Not Study To" type playlists). Can you guess which is which?&lt;/p&gt;
+&lt;p&gt;Here are the spectra of two different piano sounds playing at 220 Hz. One is a somewhat fake piano sound (Fruity DX10), the other a natural, rich sounding one (LABS Soft Piano, which you might've heard before if you listen to those "Lofi Hip Hop Beats to Doomscroll/Not Study To" playlists). Can you guess which is which?&lt;/p&gt;
 &lt;p&gt;&lt;img alt="/img/real-piano.png" src="/img/real-piano.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="/img/fake-piano.png" src="/img/fake-piano.png"&gt;&lt;/p&gt;
 &lt;p&gt;The answer may surprise you. I mean, it can't be that surprising since there are only 2 options. But I'd probably get it wrong, if I didn't already know which is which.&lt;/p&gt;
