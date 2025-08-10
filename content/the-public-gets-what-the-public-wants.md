@@ -70,14 +70,14 @@ Here are the teams sorted by money_percents. The teams near the top were less po
 
 ### The public favorites
 
-The most popular teams with NBA gamblers were Denver, Cleveland, Memphis, Milwaukee, and Oklahoma City.
+The most popular teams with NBA gamblers were Denver, Cleveland, Memphis, Milwaukee, and Oklahoma City. Denver got the most money in 63 of 82 games they played, which is remarkable.
 
 Cleveland, OKC and Memphis were dominant for most of the season.
 
-Denver and Milwaukee have two of the best and most entertaining players in the league. Both Giannis for Milwaukee and Jokic for Denver are fun to root for. People like to take bets on games that are fun to follow. 
+Denver and Milwaukee have two of the best and most entertaining players in the league. Both Giannis for Milwaukee and Jokic for Denver are fun to root for. People like to take bets on teams that are fun to follow. 
 
 ### The ugly dogs
-The bottom teams were New Orleans, Charlotte, Miami, Philadelphia and Portland. All these teams except for Portland were totall bummers to watch and cheer for this year. They all had injuries and organizational dysfunction that led to wasted seasons. People don't like to take bets on games that are a bummer to follow.
+The bottom teams were New Orleans, Charlotte, Miami, Philadelphia and Portland. All these teams except for Portland were total bummers to watch and cheer for this year. They had injuries and organizational dysfunction that led to totally wasted seasons. People don't like to take bets on teams that are a bummer to follow.
 
 
 ### Against the spread
@@ -118,7 +118,7 @@ Here's the same data sorted by record against the spread.
 
 Philadelphia, Washington and Phoenix were just as terrible at the sportsbook as they were on the basketball court. OKC and Cleveland had outstanding seasons in both places.
 
-However, there's only a rough correlation between how good the teams were at actual basketball, and at beating the spread. Minnesota, New York and Denver were in the bottom 10 by winning % against the spread, even though they had good records and were doing their best to win. Toronto and Brooklyn weren't really trying to win a lot of basketball games, but ended up in the top 10.
+However, there's only a rough correlation between how good the teams were at actual basketball, and at beating the spread. Minnesota, New York and Denver were in the bottom 10 by winning % against the spread, even though they had good records and were doing their best to win. Denver lost to the eventual champs, and New York and Minnesota made the conference finals. Indiana was the 10th worst team against the spread, and made the NBA finals. Toronto and Brooklyn weren't really trying to win a lot of basketball games, but ended up in the top 10.
 
 ### Which teams should the public love and hate?
 I calculated the amount of units a gambler would win if they bet on each team when they got the majority of the bets.  `public_units` is the amount won/lost betting in favor of the team, and `fade_units` by betting against them, when they are the public team. (The two values are different because of the vig.)

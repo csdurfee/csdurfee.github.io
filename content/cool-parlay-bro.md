@@ -100,7 +100,7 @@ What happens if we do the same simulation, but the win rate is 50%, like a coin 
 
 What about over a longer time frame? I simulated 500 parlays versus 2,000 straight bets by flipping a coin. The parlays make money 12% of the time, versus only 1.74% of the time for the straight bets. However, the losses are much, much bigger than the wins:
 
-![img/parlay-500.png](img/parlay-500.png)
+![/img/parlay-500.png](/img/parlay-500.png)
 
 12% is 1 in 8, which isn't that rare. 500 parlays could end up stretching over multiple seasons, perhaps a lifetime of sports betting. That means somebody who was making picks by flipping a coin could end up looking like a pretty good bettor for a long stretch if they are taking parlays. Of course, 88% of people will lose money, far more money than the 12% of profitable bettors win. In practical terms, it's like a lottery where you have a 12% chance of winning $3617, but an 88% chance of losing $10,221. Sound like fun?
 

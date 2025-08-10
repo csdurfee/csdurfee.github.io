@@ -11,7 +11,7 @@ I'll be talking about "the public" in this installment, by which I mean the side
 
 I talk about the vig a lot without explaining it. It's explained in the book, but the short version is on standard bets, a gambler needs to win at least 52.4% of the time against the spread to break even due to needing to risk $110 to win $100. That $10 difference is the vig -- how the sportsbook makes their money.
 
-In gambling circles, bets are often framed as *Vegas* or *the sharps* versus *the public*. *Sharp* started out as a term for cheaters -- dishonest bookies setting unfair lines, or *card sharps* who win thru deception rather than skill. The meaning has changed a bit over time. In modern parlance, a *sharp* is someone who wagers on sports as a game of skill, making money over the long term by placing bets with positive expected value. But the negative connotation persists in popular chatter about gambling.
+In gambling circles, bets are often framed as *Vegas* or *the sharps* versus *the public*. *Sharp* started out as a term for cheaters -- dishonest bookies setting unfair lines, or *card sharps* who win thru deception rather than skill. The meaning has changed a bit over time. In modern parlance, a *sharp* is someone who wagers on sports as a game of skill, making money over the long term by placing bets with positive expected value. But the negative connotation persists in popular chatter about gambling. There's something unseemly about using math to decide which bets to take.
 
 Say there's a game between the Lakers and the Charlotte Hornets, and the Hornets win against the spread. *The public* lost. What degenerate is betting the Hornets? Sharps, that's who. You'd think *the public* wouldn't have a problem with *the sharps* -- at least someone won money off *Vegas* tonight. Without the *sharps*, all the money that the public lost would go to Vegas. But *Vegas* and *sharps* are often conflated together. It's *the public* versus everybody.
 
@@ -55,7 +55,7 @@ On the cumulative graph, while fading the public (yellow line) would have been p
 ### 2022-23 season
 I have data for 1176 off 1230 games in 2022-23.
 
-The public went 587-589 for the season, for a loss of 61 units on the season. Here's the moving average:
+The public went 587-589 for the season, for a loss of 61 units on the season. That's remarkably fair, if the vig weren't a factor. Here's the moving average:
 
 ![2022-ma](/img/2022-ma.png)
 
@@ -65,16 +65,16 @@ And the cumulative:
 
 This one is similar to the 2023-24 graph, where the public pretty consistently lost a little bit more the 50% of the time, but not often enough to make fading the public a viable strategy.
 
-### Are team records against the spread a Martingale?
+### Are team records against the spread random?
 I started to answer this last time, but didn't have time to go deeper. If betting records are random, previous performance gives no information about future performance. Each game is like a coin flip, with equal chances of heads and tails. Teams will have good or bad records against the spread due to chance alone.
 
 However, I gave some plausible reasons why this might not be the case.
 
 The simplest way to test this I could think of was comparing records against the spread in the 1st half of the season to the 2nd half of the season. If the records are random, there should be no correlation between 1st half and 2nd half records.
 
-I found there was a positive correlation between 1st half and 2nd half records in all three seasons I have data for. In 2023-24, the correlation coefficient was .10. In 2022-23, it was .40, and in 2021-22 it was .27. Only 2022023 was statistically significant. Assuming randomness, positive and negative correlation should be equally likely. So all three being positive is suspicious. I definitely can't rule out there being a non-random aspect to records against the spread over time.
+I found there was a positive correlation between 1st half and 2nd half records in all three seasons I have data for. In 2023-24, the correlation coefficient was .10. In 2022-23, it was .40, and in 2021-22 it was .27. Only 2022-23 was statistically significant. Assuming randomness, positive and negative correlation should be equally likely. So all three being positive is suspicious. I don't think records against ths spread are totally random.
 
-It's not quite good enough for an automated betting strategy, though it's close. Say we track which teams had winning records against the spread over the 1st half of the season, then bet on those teams for the 2nd half of the season. (I didn't bother to filter out the games where teams with winning records play each other, so this analysis isn't perfect.)
+Say we track which teams had winning records against the spread over the 1st half of the season, then bet on those teams for the 2nd half of the season. (I didn't bother to filter out the games where teams with winning records play each other, so this analysis isn't perfect.)
 
 In 2024-25, that would give a record of 297-297 ATS -- can't get more fair than that.
 
@@ -82,9 +82,9 @@ In 2022-23, it would have gone 279-241, for a profit of 13.9 units at standard v
 
 In 2021-22, it would have gone 247-225, for a loss of .5 units and a 52.3% winning percentage.
 
-So, it's definitely not enough to be profitable as a strategy on its own. But for such a simple strategy to be close to profitable in 2/3 years is interesting. 
+So, it's definitely not enough to be profitable as a strategy on its own. But it's close, and that's interesting. 
 
-A gambler needs to win at least 52.4% of the time to break even against the vig. Say they're  picking from a subset of bets that have a 52.3% chance of winning, as the naive strategy achieved in 2021-22. They'd just barely need to do better than flipping a coin to be profitable. That could be much easier than picking from a set of bets with a 50% chance of winning, right?
+A gambler needs to win at least 52.4% of the time to break even against the vig. Say they're picking from a subset of bets that have a 52.3% chance of winning, as the naive strategy achieved in 2021-22. They'd just barely need to do better than flipping a coin to be profitable. That could be much easier than picking from a set of bets with a 50% chance of winning, right?
 
 
 ### Final thoughts

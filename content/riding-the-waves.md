@@ -18,7 +18,7 @@ While a lot of things in life are normally distributed, some of them aren't. The
 
 A clever way would be to team up sets of sides - 6 goes with 1, 5 goes with 2, 4 goes with 3. Clearly the mean value has to be 3.5, right?
 
-A less clever way would be to roll a 6 sided die a bunch of times and take the average. We could repeat that process, and track all of these averages. Those averages will make a nice bell curve, with the center at 3.5.
+A less clever way would be to roll a 6 sided die a bunch of times and take the average. We could repeat that process, and track all of these averages. If the sample size is big enough, those averages will make a nice bell curve, with the center at 3.5.
 
 The uniform distribution is sort of obnoxious if you want to calculate the sample mean. The normal distribution, and a lot of other distributions, have a big peak in the middle and tail off towards the edges. If you pick randomly from one of these distributions, it's far more likely to be close to the middle than it is to be far from the middle. With the uniform distribution, every outcome is equally likely:
 
@@ -38,8 +38,6 @@ Here's the sawtooth waveform:
 If we randomly sample from this wave (following a uniform distribution -- all numbers on the x axis are equally likely) and record the y value, then plot the values as a histogram, what would it look like? Think of it like we put a piece of toast on the Y axis of the graph, the X axis is time. How will the butter be distributed? 
 
 It should be a flat line, like the Uniform distribution, since each stroke of butter is at a constant rate. We're alternating between a very fast wipe and a slower one, but in both cases, it doesn't spend any more time on one section of bread than another because it's a straight line.
-
-![/img/sawtooth-distro.png](/img/sawtooth-distro.png)
 
 ## Advanced breakfast techniques
 A square wave spends almost no time in the middle of the bread, so nearly all the butter will be at the edges. That's not a very interesting graph. What about a sine wave?
@@ -158,7 +156,7 @@ This isn't a Normal distribution, but it sure looks close to one.
 
 What if we feed the triangular distribution through the `sin()` function? To keep the toast analogy going, I guess we're spreading the butter with a sine wave pattern, but changing how hard we're pressing down on the knife to match the triangular distribution -- slow at first, then ramping up, then ramping down.
 
-Turns out, if we take the sine of the sum of two uniform random variables (defined from the range of -pi to +pi), we'll get the arcsin distribution again! I don't know if that's surprising or not, but there you go.
+Turns out, if we take the sine of the sum of two uniform random variables (defined from the range of -pi to +pi), we'll get the arcsin distribution again! [2] I don't know if that's surprising or not, but there you go.
 
 ## Knowing your limits
 There's a problem with the toast analogy. (Well, at least one. There may be more, but I ate the evidence.)
@@ -196,5 +194,5 @@ I showed with the hot hand research that our intuitions about randomness are bad
 
 ### References/further reading
 * [https://www.johndcook.com/blog/2009/02/12/sums-of-uniform-random-values/](https://www.johndcook.com/blog/2009/02/12/sums-of-uniform-random-values/)
-* [https://www.jstor.org/stable/2287407](https://www.jstor.org/stable/2287407)
+* [2] [https://www.jstor.org/stable/2287407](https://www.jstor.org/stable/2287407)
 * [https://archive.org/details/dli.ernet.5666/](https://archive.org/details/dli.ernet.5666/)
