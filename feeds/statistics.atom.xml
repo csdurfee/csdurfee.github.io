@@ -1,5 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>mathletix - statistics</title><link href="/" rel="alternate"></link><link href="/feeds/statistics.atom.xml" rel="self"></link><id>/</id><updated>2025-07-26T10:20:00-10:00</updated><entry><title>Riding the waves</title><link href="/riding-the-waves.html" rel="alternate"></link><published>2025-07-26T10:20:00-10:00</published><updated>2025-07-26T10:20:00-10:00</updated><author><name>casey durfee</name></author><id>tag:None,2025-07-26:/riding-the-waves.html</id><summary type="html">&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=ko8cJucsbBU" target="_blank"&gt;&lt;img alt="Roy of the Ravers, &amp;quot;Emotinium&amp;quot;" src="https://img.youtube.com/vi/ko8cJucsbBU/0.jpg"&gt;&lt;/a&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>mathletix - statistics</title><link href="/" rel="alternate"></link><link href="/feeds/statistics.atom.xml" rel="self"></link><id>/</id><updated>2025-09-10T10:20:00-10:00</updated><entry><title>One in e</title><link href="/one-in-e.html" rel="alternate"></link><published>2025-09-10T10:20:00-10:00</published><updated>2025-09-10T10:20:00-10:00</updated><author><name>casey durfee</name></author><id>tag:None,2025-09-10:/one-in-e.html</id><summary type="html">&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank"&gt;&lt;img alt="Klonhertz, &amp;quot;Three Girl Rhumba&amp;quot;" src="https://img.youtube.com/vi/16At3u6Nz0Y/0.jpg"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Song: &lt;a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank"&gt;Klonhertz, "Three Girl Rhumba"&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Think of a number&lt;/h3&gt;
+&lt;p&gt;Pick a number between 1-100.&lt;/p&gt;
+&lt;p&gt;Say I write down the numbers from 1-100 on pieces of paper and put them in a big bag, and randomly select from them. After every selection, I put the paper back in the bag, so …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank"&gt;&lt;img alt="Klonhertz, &amp;quot;Three Girl Rhumba&amp;quot;" src="https://img.youtube.com/vi/16At3u6Nz0Y/0.jpg"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Song: &lt;a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank"&gt;Klonhertz, "Three Girl Rhumba"&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Think of a number&lt;/h3&gt;
+&lt;p&gt;Pick a number between 1-100.&lt;/p&gt;
+&lt;p&gt;Say I write down the numbers from 1-100 on pieces of paper and put them in a big bag, and randomly select from them. After every selection, I put the paper back in the bag, so the same number can get picked more than once.  If I do that 100 times, what is the chance of your number being chosen?&lt;/p&gt;
+&lt;p&gt;The math isn't too tricky. It's often easier to calculate the chances of a thing not happening, then subtract that from 1, to get the chances of the thing happening. There's a 99/100 chance it doesn't get picked each time. So the probability of never getting selected is &lt;span class="math"&gt;\((99/100)^{100} = .366\)&lt;/span&gt;. Subtract that from one, and there's a 63.4% chance your number will be chosen. Alternately, we'd expect to get 63.4 unique numbers in 100 selections.&lt;/p&gt;
+&lt;p&gt;When I start picking numbers, there's a low chance of getting a duplicate, but that increases as I go along. On my second pick, there's only a 1/100 chance of getting a duplicate. But if I'm near the end and have gotten 60 uniques so far, there's a 60/100 chance.&lt;/p&gt;
+&lt;p&gt;It's kind of a self-correcting process. Every time I pick a unique number, it increases the odds of getting a duplicate on the next pick.&lt;/p&gt;
+&lt;p&gt;I could choose the numbers by flipping a biased coin that comes up heads 63.4% of the time for each one instead. I will get the same number of values on average, and they will be randomly chosen, but the count of values will be much more variable:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="/img/distinct-binomial.png" src="/img/distinct-binomial.png"&gt;&lt;/p&gt;
+&lt;p&gt;Of course, if the goal is to select exactly 63 items out of 100, the best way would be to randomly select 63 without replacement so there is no variance in the number of items selected.&lt;/p&gt;
+&lt;h3&gt;A number's a number&lt;/h3&gt;
+&lt;p&gt;Instead of selecting 100 times from 100 numbers, what if we selected a bajillion times from a bajillion numbers? To put it in math terms, what is &lt;span class="math"&gt;\(\lim\limits_{n\to\infty} (\frac{n-1}{n})^{n}\)&lt;/span&gt; ?&lt;/p&gt;
+&lt;p&gt;It turns out this is equal to &lt;span class="math"&gt;\(\frac{1}{e}\)&lt;/span&gt; ! Yeah, e! Your old buddy from calculus class. You know, the &lt;span class="math"&gt;\(e^{i\pi}\)&lt;/span&gt; guy?&lt;/p&gt;
+&lt;p&gt;As n goes to infinity, the probability of a number being selected is &lt;span class="math"&gt;\(1-\frac{1}{e} = .632\)&lt;/span&gt;. This leads to a technique called bootstrapping, or ".632 selection" in machine learning (back to that in a minute).&lt;/p&gt;
+&lt;h3&gt;Don't think of an answer&lt;/h3&gt;
+&lt;p&gt;What are the chances that a number gets selected exactly once? Turns out, it's &lt;span class="math"&gt;\(\frac{1}{e}\)&lt;/span&gt;, same as the chances of not getting selected! This was surprising enough to me to bother to work out the proof, given at the end.&lt;/p&gt;
+&lt;p&gt;That means the chances of a number getting selected more than once is &lt;span class="math"&gt;\(1 - \frac{2}{e}\)&lt;/span&gt;. &lt;/p&gt;
+&lt;p&gt;The breakdown:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1/e (36.8%) of numbers don't get selected&lt;/li&gt;
+&lt;li&gt;1/e (36.8%) get selected exactly once&lt;/li&gt;
+&lt;li&gt;1-2/e (26.4%) get selected 2+ times&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;As before, the variance in number of items picked 2+ times is much lower than flipping a coin that comes up heads 26.4% of the time:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="/img/more-than-once.png" src="/img/more-than-once.png"&gt;&lt;/p&gt;
+&lt;h3&gt;Derangements&lt;/h3&gt;
+&lt;p&gt;Say I'm handing out coats randomly after a party. What are the chances that nobody gets their own coat back? &lt;/p&gt;
+&lt;p&gt;This is called a derangement, and the probability is also 1/e. An almost correct way to think about this is the chance of each person not getting their own coat (or each coat not getting their own person, depending on your perspective) is &lt;span class="math"&gt;\(\frac{(x-1)}{x}\)&lt;/span&gt; and there are &lt;span class="math"&gt;\(x\)&lt;/span&gt; coats, so the chances of a derangement are &lt;span class="math"&gt;\(\frac{x-1}{x}^{x}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;This is wrong because each round isn't independent. In the first case, we were doing selection with replacement, so a number being picked one round doesn't affect its probability of being picked next round.  That's not the case here. Say we've got the numbers 1 thru 4. To make a derangement, the first selection can be 2, 3 or 4. The second selection can be 1, 3 or 4. But 3 or 4 might have been picked in the first selection and can't be chosen again. 2/3rds of the time, there will only be two options for the second selection, not three.&lt;/p&gt;
+&lt;p&gt;The &lt;a href="https://en.wikipedia.org/wiki/Rencontres_numbers"&gt;long way 'round the mountain&lt;/a&gt; involves introducing a new mathematical function called the subfactorial, denoted as &lt;span class="math"&gt;\(!x\)&lt;/span&gt;, which is equal to the integer closest to &lt;span class="math"&gt;\(\frac{x!}{e}\)&lt;/span&gt;. &lt;span class="math"&gt;\(e\)&lt;/span&gt; gets in there because in the course of counting the number of possible derangements, we encounter a series that converges to &lt;span class="math"&gt;\(1/e\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;The number of derangements for a set of size x is &lt;span class="math"&gt;\(!x\)&lt;/span&gt; and the number of permutations is &lt;span class="math"&gt;\(x!\)&lt;/span&gt; so the probability of a derangement as x gets big is &lt;span class="math"&gt;\(\frac{!x}{x!} = \frac{1}{e}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;What about the chances of only one person getting their coat back? It's also &lt;span class="math"&gt;\(\frac{1}{e}\)&lt;/span&gt;, just like the chances of a number getting selected exactly once when drawing numbers with replacement.  The number of fixed points -- number of people who get their own coat back -- follows a Poisson distribution with mean 1.&lt;/p&gt;
+&lt;p&gt;The second process seems very different from the first one. It is selection with replacement versus without replacement. But &lt;span class="math"&gt;\(e\)&lt;/span&gt; is sort of the horizon line of mathematics -- a lot of things tend towards it (or its inverse) in the distance.&lt;/p&gt;
+&lt;h3&gt;Bootstrapping&lt;/h3&gt;
+&lt;p&gt;Say we're working on a typical statistics/machine learning problem. We're given some training data where we already know the right answer, and we're trying to predict for future results. There are a ton of ways we could build a model. Which model will do the best on the unknown data, and how variable might the accuracy be? &lt;/p&gt;
+&lt;p&gt;Bootstrapping is a way to answer those questions. A good way to estimate how accurate a model will be in the future is to train it over and over with different random subsets of the training data, and see how accurate the model is on the data that was held out. That will give a range of accuracy scores which can be used to estimate how accurate the model will be on new inputs, where we don't know the answers ahead of time. &lt;/p&gt;
+&lt;p&gt;Bootstrapping is a way of doing that, using the process described before -- pick x numbers without replacement x times. The ones that get selected at least once are used to train the models, and the ones that didn't get selected are used to generate an estimate of accuracy on unseen data. We can do that over and over again and get different splits every time. &lt;/p&gt;
+&lt;p&gt;It's a fine way to split up the training data and the validation data to generate a range of plausible accuracy scores, but I couldn't find a good reason other than tradition for doing it that way. The 63.2/36.8 split isn't some magical value. Instead of having the numbers that weren't picked be the holdout group, we could instead leave out the numbers that were only picked once (also 1/e of the numbers), and train on the ones not selected or selected more than once. But picking 63% of values (or some other percentage) without replacement is the best way to do it, in my opinion. &lt;/p&gt;
+&lt;p&gt;The &lt;a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf"&gt;original paper&lt;/a&gt; doesn't give any statistical insight into why the choice was made, but a remark at the end says, "it is remarkably easy to implement on the computer", and notes the $4 cost of running the experiments on Stanford's &lt;a href="https://www.ibm.com/history/system-370"&gt;IBM 370/168 mainframe&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;A chance encounter&lt;/h3&gt;
+&lt;p&gt;A quick proof of the chances of being selected exactly once.&lt;/p&gt;
+&lt;p&gt;Doing x selections with replacement, the chance of a number being chosen as the very first selection (and no other times) is 
+&lt;span class="math"&gt;\(\frac{1}{x} * \frac{x-1}{x}^{x-1}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;There are x possible positions for a number to be selected exactly once. Multiply the above by x, which cancels out 1/x. So the chances of a number being selected exactly once at any position is &lt;span class="math"&gt;\((\frac{x-1}{x})^{x-1}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Let's try to find a number &lt;span class="math"&gt;\(q\)&lt;/span&gt; so that &lt;span class="math"&gt;\(\lim\limits_{x\to\infty} (\frac{x-1}{x})^{x-1} = e^{q}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Taking the log of both sides:&lt;br&gt;
+&lt;span class="math"&gt;\(q = \lim\limits_{x\to\infty} (x-1) * log(\frac{x-1}{x}) = \lim\limits_{x\to\infty} \frac{log(\frac{x-1}{x})}{1/(x-1)}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Let 
+&lt;span class="math"&gt;\(f(x) = log(\frac{x-1}{x})\)&lt;/span&gt;
+and 
+&lt;span class="math"&gt;\(g(x) = \frac{1}{x-1}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;By L'Hopital's rule, &lt;span class="math"&gt;\(\lim\limits_{x\to\infty} \frac{f(x)}{g(x)} = \lim\limits_{x\to\infty}\frac{f'(x)}{g'(x)}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The derivative of a log of a function is the derivative of the function divided by the function itself, so:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math"&gt;\(f'(x) = \frac{d}{dx} log(\frac{x-1}{x}) = \frac{d}{dx} log(1 - \frac{1}{x}) = \frac{\frac{d}{dx}(1-\frac{1}{x})}{1-\frac{1}{x}} =\frac{\frac{1}{x^{2}}}{{1-\frac{1}{x}}} = \frac{1}{x^{2}-x} = \frac{1}{x(x-1)}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;and&lt;/p&gt;
+&lt;p&gt;&lt;span class="math"&gt;\(g'(x) = \frac{-1}{(x-1)^{2}}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Canceling out (x-1) from both, &lt;span class="math"&gt;\(\frac{f'(x)}{g'(x)} = \frac{1}{x}  * \frac{x-1}{-1} = -1 * \frac{x-1}{x}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;So &lt;span class="math"&gt;\(q = \lim\limits_{x\to\infty} -1 * \frac{x-1}{x} = -1\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;At the limit, the probability of being selected exactly once is &lt;span class="math"&gt;\(e^{-1} = \frac{1}{e}\)&lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;References/Further Reading&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://oeis.org/A068985"&gt;https://oeis.org/A068985&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://mathworld.wolfram.com/Derangement.html"&gt;https://mathworld.wolfram.com/Derangement.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/"&gt;https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf"&gt;https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The original bootstrap paper: &lt;a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf"&gt;https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf&lt;/a&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</content><category term="statistics"></category><category term="machine learning"></category><category term="some educational value"></category></entry><entry><title>Riding the waves</title><link href="/riding-the-waves.html" rel="alternate"></link><published>2025-07-26T10:20:00-10:00</published><updated>2025-07-26T10:20:00-10:00</updated><author><name>casey durfee</name></author><id>tag:None,2025-07-26:/riding-the-waves.html</id><summary type="html">&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=ko8cJucsbBU" target="_blank"&gt;&lt;img alt="Roy of the Ravers, &amp;quot;Emotinium&amp;quot;" src="https://img.youtube.com/vi/ko8cJucsbBU/0.jpg"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;After spending several weeks in the degenerate world of sports gambling, I figured we should go get some fresh air in the land of pure statistics.&lt;/p&gt;
 &lt;h2&gt;The Abnormal Distribution&lt;/h2&gt;
 &lt;p&gt;Everybody knows what the normal distribution looks like, even if they don't know it as such. You know, the bell curve …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=ko8cJucsbBU" target="_blank"&gt;&lt;img alt="Roy of the Ravers, &amp;quot;Emotinium&amp;quot;" src="https://img.youtube.com/vi/ko8cJucsbBU/0.jpg"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -400,10 +531,10 @@
 &lt;li&gt;&lt;a href="https://www.johndcook.com/blog/2009/02/12/sums-of-uniform-random-values/"&gt;https://www.johndcook.com/blog/2009/02/12/sums-of-uniform-random-values/&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;[2] &lt;a href="https://www.jstor.org/stable/2287407"&gt;https://www.jstor.org/stable/2287407&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://archive.org/details/dli.ernet.5666/"&gt;https://archive.org/details/dli.ernet.5666/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><category term="statistics"></category><category term="some educational value"></category></entry><entry><title>Approximate Normality and Continuity Corrections</title><link href="/approximate-normality-and-continuity-corrections.html" rel="alternate"></link><published>2025-06-08T10:20:00-10:00</published><updated>2025-06-08T10:20:00-10:00</updated><author><name>casey durfee</name></author><id>tag:None,2025-06-08:/approximate-normality-and-continuity-corrections.html</id><summary type="html">&lt;p&gt;(Notebooks and other code available at: &lt;a href="https://github.com/csdurfee/hot_hand"&gt;https://github.com/csdurfee/hot_hand&lt;/a&gt;. As usual, there is stuff in there I'm not covering here.)&lt;/p&gt;
+&lt;/ul&gt;</content><category term="statistics"></category><category term="some educational value"></category></entry><entry><title>Approximate Normality and Continuity Corrections</title><link href="/approximate-normality-and-continuity-corrections.html" rel="alternate"></link><published>2025-06-08T10:20:00-10:00</published><updated>2025-06-08T10:20:00-10:00</updated><author><name>casey durfee</name></author><id>tag:None,2025-06-08:/approximate-normality-and-continuity-corrections.html</id><summary type="html">&lt;p&gt;(Notebooks and other code available at: &lt;a href="https://github.com/csdurfee/hot_hand"&gt;https://github.com/csdurfee/hot_hand&lt;/a&gt;)&lt;/p&gt;
 &lt;h1&gt;What is "approximately normal"?&lt;/h1&gt;
 &lt;p&gt;In the last installment, I looked at NBA game-level player data, which involve very small samples.&lt;/p&gt;
-&lt;p&gt;Like a lot of things in statistics, the …&lt;/p&gt;</summary><content type="html">&lt;p&gt;(Notebooks and other code available at: &lt;a href="https://github.com/csdurfee/hot_hand"&gt;https://github.com/csdurfee/hot_hand&lt;/a&gt;. As usual, there is stuff in there I'm not covering here.)&lt;/p&gt;
+&lt;p&gt;Like a lot of things in statistics, the Wald Wolfowitz test says that the number of streaks is approximately …&lt;/p&gt;</summary><content type="html">&lt;p&gt;(Notebooks and other code available at: &lt;a href="https://github.com/csdurfee/hot_hand"&gt;https://github.com/csdurfee/hot_hand&lt;/a&gt;)&lt;/p&gt;
 &lt;h1&gt;What is "approximately normal"?&lt;/h1&gt;
 &lt;p&gt;In the last installment, I looked at NBA game-level player data, which involve very small samples.&lt;/p&gt;
 &lt;p&gt;Like a lot of things in statistics, the Wald Wolfowitz test says that the number of streaks is approximately normal. What does that mean in practical terms? How approximately are we talking?&lt;/p&gt;

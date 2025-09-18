@@ -28,7 +28,154 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Aug 08, 2025</h4>
+        <div id="content">            <h4 class="date">Sep 10, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/one-in-e.html" rel="bookmark" title="Permanent Link to &quot;One in e&quot;">One in e</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank"><img alt="Klonhertz, &quot;Three Girl Rhumba&quot;" src="https://img.youtube.com/vi/16At3u6Nz0Y/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank">Klonhertz, "Three Girl Rhumba"</a></p>
+<h3>Think of a number</h3>
+<p>Pick a number between 1-100.</p>
+<p>Say I write down the numbers from 1-100 on pieces of paper and put them in a big bag, and randomly select from them. After every selection, I put the paper back in the bag, so the same number can get picked more than once.  If I do that 100 times, what is the chance of your number being chosen?</p>
+<p>The math isn't too tricky. It's often easier to calculate the chances of a thing not happening, then subtract that from 1, to get the chances of the thing happening. There's a 99/100 chance it doesn't get picked each time. So the probability of never getting selected is <span class="math">\((99/100)^{100} = .366\)</span>. Subtract that from one, and there's a 63.4% chance your number will be chosen. Alternately, we'd expect to get 63.4 unique numbers in 100 selections.</p>
+<p>When I start picking numbers, there's a low chance of getting a duplicate, but that increases as I go along. On my second pick, there's only a 1/100 chance of getting a duplicate. But if I'm near the end and have gotten 60 uniques so far, there's a 60/100 chance.</p>
+<p>It's kind of a self-correcting process. Every time I pick a unique number, it increases the odds of getting a duplicate on the next pick.</p>
+<p>I could choose the numbers by flipping a biased coin that comes up heads 63.4% of the time for each one instead. I will get the same number of values on average, and they will be randomly chosen, but the count of values will be much more variable:</p>
+<p><img alt="/img/distinct-binomial.png" src="/img/distinct-binomial.png"></p>
+<p>Of course, if the goal is to select exactly 63 items out of 100, the best way would be to randomly select 63 without replacement so there is no variance in the number of items selected.</p>
+<h3>A number's a number</h3>
+<p>Instead of selecting 100 times from 100 numbers, what if we selected a bajillion times from a bajillion numbers? To put it in math terms, what is <span class="math">\(\lim\limits_{n\to\infty} (\frac{n-1}{n})^{n}\)</span> ?</p>
+<p>It turns out this is equal to <span class="math">\(\frac{1}{e}\)</span> ! Yeah, e! Your old buddy from calculus class. You know, the <span class="math">\(e^{i\pi}\)</span> guy?</p>
+<p>As n goes to infinity, the probability of a number being selected is <span class="math">\(1-\frac{1}{e} = .632\)</span>. This leads to a technique called bootstrapping, or ".632 selection" in machine learning (back to that in a minute).</p>
+<h3>Don't think of an answer</h3>
+<p>What are the chances that a number gets selected exactly once? Turns out, it's <span class="math">\(\frac{1}{e}\)</span>, same as the chances of not getting selected! This was surprising enough to me to bother to work out the proof, given at the end.</p>
+<p>That means the chances of a number getting selected more than once is <span class="math">\(1 - \frac{2}{e}\)</span>. </p>
+<p>The breakdown:</p>
+<ul>
+<li>1/e (36.8%) of numbers don't get selected</li>
+<li>1/e (36.8%) get selected exactly once</li>
+<li>1-2/e (26.4%) get selected 2+ times</li>
+</ul>
+<p>As before, the variance in number of items picked 2+ times is much lower than flipping a coin that comes up heads 26.4% of the time:</p>
+<p><img alt="/img/more-than-once.png" src="/img/more-than-once.png"></p>
+<h3>Derangements</h3>
+<p>Say I'm handing out coats randomly after a party. What are the chances that nobody gets their own coat back? </p>
+<p>This is called a derangement, and the probability is also 1/e. An almost correct way to think about this is the chance of each person not getting their own coat (or each coat not getting their own person, depending on your perspective) is <span class="math">\(\frac{(x-1)}{x}\)</span> and there are <span class="math">\(x\)</span> coats, so the chances of a derangement are <span class="math">\(\frac{x-1}{x}^{x}\)</span>.</p>
+<p>This is wrong because each round isn't independent. In the first case, we were doing selection with replacement, so a number being picked one round doesn't affect its probability of being picked next round.  That's not the case here. Say we've got the numbers 1 thru 4. To make a derangement, the first selection can be 2, 3 or 4. The second selection can be 1, 3 or 4. But 3 or 4 might have been picked in the first selection and can't be chosen again. 2/3rds of the time, there will only be two options for the second selection, not three.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Rencontres_numbers">long way 'round the mountain</a> involves introducing a new mathematical function called the subfactorial, denoted as <span class="math">\(!x\)</span>, which is equal to the integer closest to <span class="math">\(\frac{x!}{e}\)</span>. <span class="math">\(e\)</span> gets in there because in the course of counting the number of possible derangements, we encounter a series that converges to <span class="math">\(1/e\)</span>.</p>
+<p>The number of derangements for a set of size x is <span class="math">\(!x\)</span> and the number of permutations is <span class="math">\(x!\)</span> so the probability of a derangement as x gets big is <span class="math">\(\frac{!x}{x!} = \frac{1}{e}\)</span></p>
+<p>What about the chances of only one person getting their coat back? It's also <span class="math">\(\frac{1}{e}\)</span>, just like the chances of a number getting selected exactly once when drawing numbers with replacement.  The number of fixed points -- number of people who get their own coat back -- follows a Poisson distribution with mean 1.</p>
+<p>The second process seems very different from the first one. It is selection with replacement versus without replacement. But <span class="math">\(e\)</span> is sort of the horizon line of mathematics -- a lot of things tend towards it (or its inverse) in the distance.</p>
+<h3>Bootstrapping</h3>
+<p>Say we're working on a typical statistics/machine learning problem. We're given some training data where we already know the right answer, and we're trying to predict for future results. There are a ton of ways we could build a model. Which model will do the best on the unknown data, and how variable might the accuracy be? </p>
+<p>Bootstrapping is a way to answer those questions. A good way to estimate how accurate a model will be in the future is to train it over and over with different random subsets of the training data, and see how accurate the model is on the data that was held out. That will give a range of accuracy scores which can be used to estimate how accurate the model will be on new inputs, where we don't know the answers ahead of time. </p>
+<p>Bootstrapping is a way of doing that, using the process described before -- pick x numbers without replacement x times. The ones that get selected at least once are used to train the models, and the ones that didn't get selected are used to generate an estimate of accuracy on unseen data. We can do that over and over again and get different splits every time. </p>
+<p>It's a fine way to split up the training data and the validation data to generate a range of plausible accuracy scores, but I couldn't find a good reason other than tradition for doing it that way. The 63.2/36.8 split isn't some magical value. Instead of having the numbers that weren't picked be the holdout group, we could instead leave out the numbers that were only picked once (also 1/e of the numbers), and train on the ones not selected or selected more than once. But picking 63% of values (or some other percentage) without replacement is the best way to do it, in my opinion. </p>
+<p>The <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">original paper</a> doesn't give any statistical insight into why the choice was made, but a remark at the end says, "it is remarkably easy to implement on the computer", and notes the $4 cost of running the experiments on Stanford's <a href="https://www.ibm.com/history/system-370">IBM 370/168 mainframe</a>.</p>
+<h3>A chance encounter</h3>
+<p>A quick proof of the chances of being selected exactly once.</p>
+<p>Doing x selections with replacement, the chance of a number being chosen as the very first selection (and no other times) is 
+<span class="math">\(\frac{1}{x} * \frac{x-1}{x}^{x-1}\)</span></p>
+<p>There are x possible positions for a number to be selected exactly once. Multiply the above by x, which cancels out 1/x. So the chances of a number being selected exactly once at any position is <span class="math">\((\frac{x-1}{x})^{x-1}\)</span>.</p>
+<p>Let's try to find a number <span class="math">\(q\)</span> so that <span class="math">\(\lim\limits_{x\to\infty} (\frac{x-1}{x})^{x-1} = e^{q}\)</span>.</p>
+<p>Taking the log of both sides:<br>
+<span class="math">\(q = \lim\limits_{x\to\infty} (x-1) * log(\frac{x-1}{x}) = \lim\limits_{x\to\infty} \frac{log(\frac{x-1}{x})}{1/(x-1)}\)</span></p>
+<p>Let 
+<span class="math">\(f(x) = log(\frac{x-1}{x})\)</span>
+and 
+<span class="math">\(g(x) = \frac{1}{x-1}\)</span></p>
+<p>By L'Hopital's rule, <span class="math">\(\lim\limits_{x\to\infty} \frac{f(x)}{g(x)} = \lim\limits_{x\to\infty}\frac{f'(x)}{g'(x)}\)</span></p>
+<p>The derivative of a log of a function is the derivative of the function divided by the function itself, so:</p>
+<p><span class="math">\(f'(x) = \frac{d}{dx} log(\frac{x-1}{x}) = \frac{d}{dx} log(1 - \frac{1}{x}) = \frac{\frac{d}{dx}(1-\frac{1}{x})}{1-\frac{1}{x}} =\frac{\frac{1}{x^{2}}}{{1-\frac{1}{x}}} = \frac{1}{x^{2}-x} = \frac{1}{x(x-1)}\)</span></p>
+<p>and</p>
+<p><span class="math">\(g'(x) = \frac{-1}{(x-1)^{2}}\)</span></p>
+<p>Canceling out (x-1) from both, <span class="math">\(\frac{f'(x)}{g'(x)} = \frac{1}{x}  * \frac{x-1}{-1} = -1 * \frac{x-1}{x}\)</span>.</p>
+<p>So <span class="math">\(q = \lim\limits_{x\to\infty} -1 * \frac{x-1}{x} = -1\)</span></p>
+<p>At the limit, the probability of being selected exactly once is <span class="math">\(e^{-1} = \frac{1}{e}\)</span></p>
+<h3>References/Further Reading</h3>
+<p><a href="https://oeis.org/A068985">https://oeis.org/A068985</a></p>
+<p><a href="https://mathworld.wolfram.com/Derangement.html">https://mathworld.wolfram.com/Derangement.html</a></p>
+<p><a href="https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/">https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/</a></p>
+<p><a href="https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf">https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf</a></p>
+<p>The original bootstrap paper: <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf</a></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/one-in-e.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/statistics.html" rel="tag">statistics</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/machine-learning.html" class="tags">machine learning</a>
+                    &nbsp;<a href="/tag/some-educational-value.html" class="tags">some educational value</a>
+                </div>
+            </article>            <h4 class="date">Aug 08, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -57,19 +204,20 @@
 <p>Imagine going on a walk. Every time you get to an intersection, you flip a coin. If it's heads, you go one block north and one block east. If it's tails, you go one block south and one block east. This is called a random walk. It's a bit like a gambler's profits or losses plotted on a graph as a function of time.</p>
 <p>I think there's a huge value in knowing what random walks look like. Do they remind you of anything?</p>
 <p><img alt="/img/rw0.5.png" src="/img/rw0.5.png"></p>
-<p>Touts are people who sell recommendations about which bets to take. Pay $30 and they'll tell you which side to bet on the big game tonight. (I have a whole section about touts in the book.) The best tout I could find has had pretty steady success for nearly 20 years, with a win rate of 54.1% against the standard vig.  That's statistically significant, but it's not enough to guarantee success moving forwards. Let's look at some random walks at 54.1% win rate:</p>
+<p>Touts are people who sell recommendations about which bets to take. Pay $30 and they'll tell you which side to bet on the big game tonight. (I have a whole section about touts in the book.) The best tout I could find has had pretty steady success for nearly 20 years, with a win rate of 54.1% against the standard vig.  That's statistically significant, but it's not enough to guarantee success moving forwards. Even if they continue to place bets that should win 54.1% of the time -- they're flipping a slightly biased coin -- that doesn't mean they'll make money on those bets. Let's look at some random walks at 54.1% win rate:</p>
 <p><img alt="/img/rw0.541.png" src="/img/rw0.541.png"></p>
-<p>Most of them ended up +25-50 units after 1000 bets, which is pretty good. But a couple of them ended up being losers, even with the advantage.  The touts I looked at generally don't sell picks for every single game. So with 1200 games in an NBA season, this could be several years' worth of results.</p>
+<p>Three of the random walks ended up around 50 units after 1000 bets, which is pretty good. Two of them made a tiny bit of money. The other four lost money. This is a small sample size, but a 44% chance of losing money after paying for 1,000 picks at $30 a pop isn't great. (More info on the economics of touts in the book.)</p>
+<p>The touts I looked at generally don't sell picks for every single game. So with 1200 games in an NBA season, this could be several years' worth of results.</p>
 <p>Imagine all of these as 9 different touts, with the exact same level of skill at picking games. But some of them look like geniuses, and some look like bozos. There would probably be some selection bias. The ones with the bad records would drop out -- who's buying their picks if they're losing money?  And the ones who did better than their true skill level of 54.1% would be more likely to stick with it. Yet all these random walks were generated with the same 54.1% win rate.</p>
-<p>If you bought 1,000 picks from this tout, you don't get to choose which of the <span class="math">\(2^{1000} = (2^{10})^{100} \approx 10^{300}\)</span> possible random walks you will actually get. If each bet has a 54.1% chance of winning, there's no guarantee you will have exactly 541 wins and 459 losses at the end of 1000 bets.</p>
+<p>If you bought 1,000 picks from this tout, you don't get to choose which of the <span class="math">\(2^{1000} = (2^{10})^{100} \approx 10^{300}\)</span> possible random walks you will actually get. If each bet has a 54.1% chance of winning, there's no guarantee you will have exactly 541 wins and 459 losses at the end of 1000 bets. </p>
 <p>Here's what someone who is right 60% of the time looks like. </p>
 <p><img alt="/img/rw0.6.png" src="/img/rw0.6.png"></p>
 <p>Success is pretty boring.</p>
 <p>I've always said it's much harder to learn from success than from failure. At a 60% win rate, none of them really have long cold streaks, just small breaks between hot streaks. It wouldn't be interesting to tell stories about those graphs. There's nothing to learn, really.</p>
-<p>I don't think it's possible to win 60% against the spread, for reasons discussed in the book. The short version is we can convert a gambler's win rate to points on the spread. Even people who do have an advantage over the house are probably going to be closer to that 54.1% mark.</p>
+<p>I don't think it's possible to win 60% against the spread, based on what are called push charts, discussed in the book.</p>
 <p>The graphs at the 54.1% success rate appear a lot more human. They have hot and cold streaks, swoons, periods where they seem stuck in a range of values. Some of them <em>scuffled the whole time</em>, a couple <em>finally got locked in near the end</em>, a couple were <em>consistently good</em>. Some had good years, some had bad years. Even though they are randomly generated, they look like they have more to teach us, like they offer more opportunities to tell stories. But they all have the exact same win rate, or level of skill at handicapping.</p>
 <p>No outcome is guaranteed, but the higher the win rate, the more consistently the graph is going to go up and to the right at a steady pace. </p>
-<p>Finally, here are some walks at 52.4% win rate, the break-even point. Most results end up close to zero after 1000 bets, but there is always a possibility of an extended run towards the positive or negative side (4/9 times in this sample).</p>
+<p>Finally, here are some walks at 52.4% win rate, the break-even point. Most results end up close to zero after 1000 bets, but there is always a possibility of an extended run towards the positive or negative side -- it happened 4/9 times in this sample:</p>
 <p><img alt="/img/rw0.524.png" src="/img/rw0.524.png"></p>
 <h3>The Axe Forgets, The Tree Remembers</h3>
 <p>If those 9 graphs were stock prices, which one would you consider the best investment? </p>
@@ -78,9 +226,9 @@
 <p>This is what's known in math as a <a href="https://en.wikipedia.org/wiki/Martingale_(probability_theory)">Martingale</a>, named after a betting system that was popular in France hundreds of years ago. (I previously talked about Martingales in the series on the hot hand.)</p>
 <p>The basic idea behind all these betting systems is to <em>chase</em> losses by betting more when you're losing. Hopefully it's obvious that these chase systems are crazy, though formally proving it led to a lot of interesting math.</p>
 <h3>Fallacy and ruin</h3>
-<p>Even though chase systems are crazy, they've persisted through the centuries. Human beings are wired to be semi-rational -- we use previous data to try and predict the future, but we use it even when the data was randomly generated, and even when we don't have a significant amount of data. We need coherent stories to tell about why things happened. There is no rational reason to believe in a chase system, but I think there are semi-rational reasons to fall prey to <a href="https://en.wikipedia.org/wiki/Gambler%27s_fallacy">the gambler's fallacy</a>. </p>
+<p>Even though chase systems are irrational, they've persisted through the centuries. Human beings are wired to be semi-rational -- we use previous data to try and predict the future, but we use it even when the data was randomly generated, and even when we don't have a significant amount of data. We need coherent stories to tell about why things happened. There is no rational reason to believe in a chase system, but I think there are semi-rational reasons to fall prey to <a href="https://en.wikipedia.org/wiki/Gambler%27s_fallacy">the gambler's fallacy</a>. </p>
 <p>I hope these random walks show that having a modest, plausible advantage over the house isn't a guarantee of success, even over a really long timespan. Positive Expected Value is necessary, but not sufficient, for making money long term.</p>
-<p>The vast majority of gamblers bet with negative expected value due to the vig, and possibly biases in the lines, as we saw in a previous installment. If each bet the average gambler makes has a negative expected value, they can't fix that by betting MORE.  </p>
+<p>The vast majority of gamblers bet with negative expected value due to the vig, and possibly biases in the lines against <em>public teams</em>, as we saw in a previous installment. If each bet the average gambler makes has a negative expected value, they can't fix that by betting MORE.  </p>
 <p>"If I keep doubling down, eventually I'll win it all back." Maybe if you have infinite capital and unlimited time. Otherwise the <a href="https://en.wikipedia.org/wiki/Gambler%27s_ruin">Gambler's Ruin</a> is certain. The market can stay liquid longer than you can stay irrational.</p>
 <h2>Maximizing profits: the Kelly criterion</h2>
 <p>Let's say a bettor really does have an edge over the house -- they can beat the spreads on NBA basketball 56% of the time.</p>
@@ -813,7 +961,7 @@
                 
                 
 
-                <p>(This is an excerpt from a larger project about sports gambling. Code and early drafts of some of the materials can be found at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.)</p>
+                <p>code available at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.</p>
 <p><a href="https://www.youtube.com/watch?v=AE1ct5yEuVY" target="_blank"><img alt="The Jam, &quot;Going Underground&quot;" src="https://img.youtube.com/vi/AE1ct5yEuVY/0.jpg"></a></p>
 <h3>Two types of people</h3>
 <p>Lots of sportsbooks publish info on how much <em>action</em> they've gotten on each side.</p>
@@ -1490,9 +1638,9 @@
 <p>In both cases, <em>the teams themselves</em> aren't necessarily doing anything to be better or worse against the spread than an average team would be. It's about the perceptions of the bookmakers and gamblers.</p>
 <h3>Do gamblers follow the record against the spread?</h3>
 <p>If a team's record against the spread is due solely to random error, then we've got a <a href="/LeSimulation.html">LeMartingale</a> on our hands. The current record would have no bearing on the future record. So gamblers shouldn't factor it in when deciding to take a bet or not.</p>
-<p>By the end of the season, there was a significant correlation between money percents and win percentage against the spread. I wanted to see how that might've changed over time. So I generated the table shown above for every single day of the season, and calculated the Spearman rank correlation on that day.  Here's what that looks like over time:</p>
+<p>By the end of the season, there was a significant correlation between money percents and win percentage against the spread. I wanted to see how that might've changed over time. So I generated the table shown above for every single day of the season, and calculated the correlation on that day.  Here's what that looks like over time:</p>
 <p><img alt="/img/money-ats-win-pct.png" src="/img/money-ats-win-pct.png"></p>
-<p>The money percentages are cumulative,the mean of all games in the season that have come before -- it's not showing gamblers' betting behavior on a particular day, compared to records against the spread on that day. The graph is a lot smoother that way, but we're losing something.</p>
+<p>The money percentages are cumulative, the mean of all games in the season that have come before -- it's not showing gamblers' betting behavior on a particular day. The graph is a lot smoother that way, but we're losing something.</p>
 <p>It also doesn't show whether records against the spread are a Martingale or not. The correlation between betting percentages and win records increases over time, but that doesn't mean this is because gamblers are behaving <em>rationally</em>. </p>
 <p>The jump in correlation around mid-Februrary corresponds to the All-Star break, which is curious.</p>
 <p>Stay tuned; I'll have more on this.</p>
@@ -1597,7 +1745,7 @@
 <p>It's rare to see NBA lines that are bigger than +15/-15 points. There were 15 this season, about 4.4% of all games. That's around one NBA game a week with a line that high.</p>
 <p>By contrast, 31% of NBA games end with a score differential of over 15 points. That's 7x more often, roughly one game a day.</p>
 <p>The lines really shouldn't be as large as the final score differential, because they are an estimate of the mean outcome of the game. If the Celtics beat the Raptors by 54 points, that doesn't mean the line <em>should</em> have been Celtics -54. The Celtics and Raptors played 4 times last season (data taken from <a href="https://www.basketball-reference.com/teams/TOR/2025_games.html">basketball-reference</a>). I'm going to ignore home court advantage -- imagine these are played at a neutral gym. The first game, Boston won by 3. The second, Boston won by 54. The third game, the Raptors won by 13. The last game, Boston won by 10.</p>
-<p>Boston won by an average of 13.5 points, so BOS -13.5 would be a reasonable line for all four games, as that's the best estimate we can make of their difference in skill. Only 1 of the 4 games ended up close to that line. For the other 3 games, the error was at least 10 points. And Boston -- despite being the better team -- would have gone 1-3 against the spread. If the line for all four games was BOS -9.5, they would have gone 2-2, but the error would stukk be 44.5 points on the second game, and 23.5 on the third one.</p>
+<p>Boston won by an average of 13.5 points, so BOS -13.5 would be a reasonable line for all four games, as that's the best estimate we can make of their difference in skill. Only 1 of the 4 games ended up close to that line. For the other 3 games, the error was at least 10 points. And Boston -- despite being the better team -- would have gone 1-3 against the spread. If the line for all four games was BOS -9.5, they would have gone 2-2, but the error would still be 44.5 points on the second game, and 23.5 on the third one.</p>
 <p>The actual outcomes might be all over the place, but the spread isn't meant to predict the actual outcome, just the point where both sides are equally likely to win the bet. </p>
 <p>Here's a histogram of the spreads (for the away team) overlaid on a histogram of the errors against the spread:</p>
 <p><img alt="/img/spread-vs-score-diff.png" src="/img/spread-vs-score-diff.png"></p>
@@ -1630,7 +1778,7 @@
                 
                 
 
-                <p>(This is an excerpt from my book about sports gambling. Code and early drafts of some of the chapters can be found at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.)</p>
+                <p>Code at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a></p>
 <p>Sportsbooks have many ways of encouraging people to lose their money as quickly and efficiently as possible. One of the best ways to do this is a type of bet called the parlay. "Parlez" means "to talk" in French, so it's no surprise dudes always want to talk about them online.</p>
 <p>The idea behind a parlay is that you can bet on multiple events at once and if they all win, you make a nice profit, otherwise you lose. On a technical level, if the first bet on the parlay wins, the winnings are immediately placed on the second bet in the parlay, if that wins, it rolls over to the third bet, and so on. It's a sequence of bets, with the stakes going up with each bet. The individual bets in the parlay are known as "legs".   </p>
 <p>I'm going to keep asking this question: why would they be offering this bet if it was good for you?  Parlays might be more fun, but that just means they found a way to get you to part with your money easier, which sounds like a bad thing.</p>
@@ -1891,126 +2039,6 @@
 
                 <div class="info">
                     <a href="/the-final-word-on-the-hot-hand-for-now.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
-                    &nbsp;<a href="/tag/the-hot-hand.html" class="tags">the hot hand</a>
-                </div>
-            </article>            <h4 class="date">Jun 18, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/lesimulation.html" rel="bookmark" title="Permanent Link to &quot;LeSimulation&quot;">LeSimulation</a>
-                </h2>
-
-                
-                
-
-                <p>(As usual, all code and notebooks are available at <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>)</p>
-<p>Last time, we saw that LeBron James was by far the un-streakiest player in the NBA over the last 20 years and found out that it's at least partly caused by shot selection. He takes both lower percentage shots than average when he's shooting well and higher percentage shots than average when he's shooting poorly.</p>
-<h2>LeMartingale</h2>
-<p>I got the question of why it's OK to use a player's overall FG% to gauge their streakiness. We know that every shot a player takes has a slightly different level of difficulty, and thus a different probability that it will go in. Shouldn't that affect the streakiness?</p>
-<p>It's a good question.  Let's say you've got a bag with 2 types of coins inside. One of them comes up heads 40% of the time, the other comes up heads 60% of the time. You can't tell which is which. If you pick a coin randomly out of the bag and flip it, what are the chances, on average, it comes up heads? </p>
-<p>It's 50%, right? The selecting of the coin and the flipping of the coin are two independent steps. We can multiply the probabilities at each step together, so the overall chances of heads are <code>(.5 * .4) + (.5 * .6) = .5</code>. If we kept randomly selecting from the bag and flipping a coin, the results would be indistinguishable from just flipping a single fair coin over and over.</p>
-<p>In math, this is known as a <a href="https://en.wikipedia.org/wiki/Martingale_(probability_theory)">Martingale</a>. Previous outcomes don't give us information about the next event. (More in depth explanation <a href="https://www.cs.yale.edu/homes/aspnes/pinewiki/Martingales.html">here</a>).  That's different from LeBron. We know he essentially chooses the 60% heads coin when he's been getting a lot of tails recently, and the 60% tails coin when he's been getting a lot of heads recently.</p>
-<h2>LeSimulation</h2>
-<p>If I create a simulation of LeBron James that uses his exact shooting tendencies and FG percentages, and the shot selection is totally random, it shouldn't show any streaky or unstreaky tendencies beyond expected by chance. Let's see what LeSimulation looks like.</p>
-<p>At the end of the last edition, I got LeBron's shooting stats:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">Above</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="k">Break</span><span class="w"> </span><span class="mi">3</span><span class="w">        </span><span class="mi">0</span>.<span class="mi">344598</span>
-<span class="nv">Backcourt</span><span class="w">                </span><span class="mi">0</span>.<span class="mi">058824</span>
-<span class="nv">In</span><span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">Paint</span><span class="w"> </span><span class="ss">(</span><span class="nv">Non</span><span class="o">-</span><span class="nv">RA</span><span class="ss">)</span><span class="w">    </span><span class="mi">0</span>.<span class="mi">401369</span>
-<span class="nv">Left</span><span class="w"> </span><span class="nv">Corner</span><span class="w"> </span><span class="mi">3</span><span class="w">            </span><span class="mi">0</span>.<span class="mi">394799</span>
-<span class="nv">Mid</span><span class="o">-</span><span class="nv">Range</span><span class="w">                </span><span class="mi">0</span>.<span class="mi">379890</span>
-<span class="nv">Restricted</span><span class="w"> </span><span class="nv">Area</span><span class="w">          </span><span class="mi">0</span>.<span class="mi">720138</span>
-<span class="nv">Right</span><span class="w"> </span><span class="nv">Corner</span><span class="w"> </span><span class="mi">3</span><span class="w">           </span><span class="mi">0</span>.<span class="mi">370370</span>
-</code></pre></div>
-
-<p>And shooting tendencies (what percent of the time he takes each type of shot):</p>
-<div class="highlight"><pre><span></span><code><span class="nv">Above</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="k">Break</span><span class="w"> </span><span class="mi">3</span><span class="w">        </span><span class="mi">0</span>.<span class="mi">204940</span>
-<span class="nv">Backcourt</span><span class="w">                </span><span class="mi">0</span>.<span class="mi">001160</span>
-<span class="nv">In</span><span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">Paint</span><span class="w"> </span><span class="ss">(</span><span class="nv">Non</span><span class="o">-</span><span class="nv">RA</span><span class="ss">)</span><span class="w">    </span><span class="mi">0</span>.<span class="mi">109652</span>
-<span class="nv">Left</span><span class="w"> </span><span class="nv">Corner</span><span class="w"> </span><span class="mi">3</span><span class="w">            </span><span class="mi">0</span>.<span class="mi">014431</span>
-<span class="nv">Mid</span><span class="o">-</span><span class="nv">Range</span><span class="w">                </span><span class="mi">0</span>.<span class="mi">267715</span>
-<span class="nv">Restricted</span><span class="w"> </span><span class="nv">Area</span><span class="w">          </span><span class="mi">0</span>.<span class="mi">386442</span>
-<span class="nv">Right</span><span class="w"> </span><span class="nv">Corner</span><span class="w"> </span><span class="mi">3</span><span class="w">           </span><span class="mi">0</span>.<span class="mi">015660</span>
-</code></pre></div>
-
-<p>The simulation randomly chooses a shot type, based on the actual tendencies, then attempts a shot at the corresponding FG%.</p>
-<p><img alt="le-fake-career" src="/img/le-fake-career.png"></p>
-<p>The z-scores look like they should -- mean is very close to 0, standard deviation close to 1. No streaky/unstreaky tendencies, as promised. No evidence that shot attempts were at different FG%.</p>
-<h2>LeSimulation 2 - last 5 FG%</h2>
-<p>My next simulation uses LeBron's FG% over his last 5 shots. We've seen he shoots the best with 0 makes in his last 5; the worst with 5 makes in his last 5. The simulation uses his exact percentages at each level. For the first 5 shots of every game, it uses his career FG%.</p>
-<p>I ran the simulation 1,000 times. Here are the z-scores:</p>
-<p><img alt="le-fake-career-2" src="/img/le-fake-career-2.png"></p>
-<p>As expected, this simulation is pretty un-streaky:</p>
-<div class="highlight"><pre><span></span><code>count    1000.000000
-mean        1.635843
-std         0.985464
-min        -1.665389
-25%         1.001550
-50%         1.623242
-75%         2.346864
-max         4.509869
-</code></pre></div>
-
-<p>It's still not nearly as unstreaky as the man himself, though -- Lebron's z score of 5.9 would be way bigger than the largest value in 1,000 simulations (4.5). So he'd still be an outlier compared to these simulated un-streaky players.</p>
-<h2>LeSimulation 3 -- No resetting streaks</h2>
-<p>What about a fake player where the streaks don't reset between games? That should make the simulated player even more unstreaky.</p>
-<p>In this version of the simulation, every shot will be influenced by the FG% of the previous 5 shots, even if they happened in the previous game(s).</p>
-<p><img alt="le-fake-career-3" src="/img/le-fake-career-3.png"></p>
-<p>Here are the corresponding z-scores:</p>
-<div class="highlight"><pre><span></span><code>count    1000.000000
-mean        2.179821
-std         0.963330
-min        -1.033468
-25%         1.536542
-50%         2.203681
-75%         2.865350
-max         5.073167
-</code></pre></div>
-
-<p>So, the mean went from 1.6 to 2.2, and the max z score went from 4.5 to 5.1. That's still not nearly unstreaky enough to match LeReal LeBron, but at least it's closer.</p>
-<p>It's possible that if we tracked the last 7 shots, or 9, instead of 5, we would see even more of a dramatic change in FG percentage. Or there's some other factor I haven't considered that is adding unstreakiness, such as the fact that his FG percentage tends to go down the more shots he's taken in a game.</p>
-<h2>DoppLeGangers</h2>
-<p>I was curious if I could find similar players to LeBron. There's a good way to do that, but I wanted to try my own way first. I found players where, like LeBron, their FG% steadily declines the more shots they've made out of the last 5.  There are 18 such players in the 2004-2024 years: Karl Malone (his last season), Grant Hill, Ben Wallace, Eddie House, Michael Redd, Jarvis Hayes, Andres Nocioni, JJ Redick, Nicolas Batum, Goran Dragic, DeMar DeRozan, Patrick Beverley, Marcus Morris Sr., Bradley Beal, Kelly Oubre Jr., Norman Powell, Donte DiVincenzo, and Landry Shamet.</p>
-<p>Overall, these players have a mean z-score of 1.47, which is pretty impressive, but except for Goran Dragic, there isn't much overlap over the players with the highest overall z scores. 18 players is a pretty small sample size, as well.</p>
-<p>I also looked at a broader set of players where at least 4 out of the 5 comparisons were decreasing. This gave 180 players, with an average z score of 1.0. </p>
-<h3>LeRight way</h3>
-<p>The right way to identify LeBron-alikes is probably to use a similarity metric that I didn't invent. The fg percentages after 0,1,2...5/5 makes are sort of like a probability distribution. </p>
-<p>In statistics and machine learning, we are often fitting a theoretical distribution to the actual observed data. Is it a good representation of the observed data? Do their distributions have the same sort of shape? The standard measure is relative entropy, also known as <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">KL divergence</a>.</p>
-<p>If I normalize the shooting percentages and compare them to LeBron's, players with a low relative entropy should show the same tendency to shoot better when they're shooting worse than average over their last 5, and vice versa.</p>
-<p>For example, LeBron's last 5 percentages are:</p>
-<div class="highlight"><pre><span></span><code><span class="mf">0</span><span class="w">    </span><span class="mf">0.564612</span>
-<span class="mf">1</span><span class="w">     </span><span class="mf">0.50712</span>
-<span class="mf">2</span><span class="w">    </span><span class="mf">0.505937</span>
-<span class="mf">3</span><span class="w">    </span><span class="mf">0.496538</span>
-<span class="mf">4</span><span class="w">    </span><span class="mf">0.473849</span>
-<span class="mf">5</span><span class="w">    </span><span class="mf">0.464052</span>
-</code></pre></div>
-
-<p>By normalizing them, they act like a probability distribution (they all add up to one) but still have the same relative proportions.</p>
-<div class="highlight"><pre><span></span><code><span class="mf">0</span><span class="w">    </span><span class="mf">0.187448</span>
-<span class="mf">1</span><span class="w">     </span><span class="mf">0.16836</span>
-<span class="mf">2</span><span class="w">    </span><span class="mf">0.167968</span>
-<span class="mf">3</span><span class="w">    </span><span class="mf">0.164847</span>
-<span class="mf">4</span><span class="w">    </span><span class="mf">0.157315</span>
-<span class="mf">5</span><span class="w">    </span><span class="mf">0.154062</span>
-</code></pre></div>
-
-<p>The normalization also corrects for the fact that shooters have different overall FG percentages.</p>
-<p>Normalized values can then be compared to other players' values. The lower the entropy, the more similar their shapes are.</p>
-<p>I also calculated the Jensen-Shannon distance, which is like relative entropy, but symmetrical (<code>distance(le_bron, le_other_guy) = distance(le_other_guy, le_bron)</code>).</p>
-<p>The closest guys to LeBron by this measure are CJ McCollum, Terry Rozier, Andrea Bargnani, Marcus Morris, Richard Hamilton, Nikola Vucevic, Zach Randolph, Lauri Markkanen, Kawhi Leonard, and Kevin Huerter. </p>
-<p>Since Richard Hamilton had the streakiest game in the last 20 years, it's not surpring to see him. But except for Randolph and Vucevic, none of the top 10 had exceptional z scores, though they were all positive.</p>
-<p>The Jensen-Shannon distance results were extremely similar to entropy. It agreed exactly with the entropy on 73 of the top 100 players. The average z score for those players was 1.16, versus 1.15 for entropy. So, in aggregate, both were better than my homegrown metric at identifying unstreaky players.</p>
-<p>This graph shows the shape of the 10 players most similar to LeBron. They all have the same downward trend.</p>
-<p><img alt="most-similar-last5" src="/img/most-similar-last5.png"></p>
-<p>I haven't looked at whether the reason for the trend in last 5 FG% is due to shot selection for these other players, which is probably the interesting part. Some of the players flagged here are inevitably due to chance. It's based on six 50/50 measurements, so 1 in 64 players would get flagged as "LeBron like" even if the data was randomly generated.</p>
-<p>None of my queries here turned up the un-streakiest players like Luka Doncic and Anthony Edwards. Whatever causes their extreme unstreakiness (beyond randomness) must be different from LeBron's tendencies. Stay tuned!</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/lesimulation.html">posted at 10:20</a>
                     &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>

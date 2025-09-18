@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="english">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>mathletix | articles tagged "machine learning"</title>
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="mathletix Full Atom Feed" />
+    <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css" />
+    <meta name="generator" content="Pelican" />
+    <meta name="description" content="" />
+    <meta name="author" content="casey durfee" />
+</head>
+<body>
+    <header>
+        <nav style="overflow: hidden;">
+            <ul>
+                <li class="ephemeral selected"><a href="/tag/machine-learning.html">machine learning</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/pages/aboutbest-of.html">About/Best Of</a></li>
+            </ul>
+        </nav>
+        <div class="header_box" style="height: 50px">
+        <h1><a href="/">
+            <image src='' class="avatar" width="50px" /><span class="site_title">mathletix</span>
+            </a></h1></div>
+        </div>
+    </header>
+    <div id="wrapper">
+        <div id="content">            <h4 class="date">Sep 10, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/one-in-e.html" rel="bookmark" title="Permanent Link to &quot;One in e&quot;">One in e</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank"><img alt="Klonhertz, &quot;Three Girl Rhumba&quot;" src="https://img.youtube.com/vi/16At3u6Nz0Y/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank">Klonhertz, "Three Girl Rhumba"</a></p>
+<h3>Think of a number</h3>
+<p>Pick a number between 1-100.</p>
+<p>Say I write down the numbers from 1-100 on pieces of paper and put them in a big bag, and randomly select from them. After every selection, I put the paper back in the bag, so the same number can get picked more than once.  If I do that 100 times, what is the chance of your number being chosen?</p>
+<p>The math isn't too tricky. It's often easier to calculate the chances of a thing not happening, then subtract that from 1, to get the chances of the thing happening. There's a 99/100 chance it doesn't get picked each time. So the probability of never getting selected is <span class="math">\((99/100)^{100} = .366\)</span>. Subtract that from one, and there's a 63.4% chance your number will be chosen. Alternately, we'd expect to get 63.4 unique numbers in 100 selections.</p>
+<p>When I start picking numbers, there's a low chance of getting a duplicate, but that increases as I go along. On my second pick, there's only a 1/100 chance of getting a duplicate. But if I'm near the end and have gotten 60 uniques so far, there's a 60/100 chance.</p>
+<p>It's kind of a self-correcting process. Every time I pick a unique number, it increases the odds of getting a duplicate on the next pick.</p>
+<p>I could choose the numbers by flipping a biased coin that comes up heads 63.4% of the time for each one instead. I will get the same number of values on average, and they will be randomly chosen, but the count of values will be much more variable:</p>
+<p><img alt="/img/distinct-binomial.png" src="/img/distinct-binomial.png"></p>
+<p>Of course, if the goal is to select exactly 63 items out of 100, the best way would be to randomly select 63 without replacement so there is no variance in the number of items selected.</p>
+<h3>A number's a number</h3>
+<p>Instead of selecting 100 times from 100 numbers, what if we selected a bajillion times from a bajillion numbers? To put it in math terms, what is <span class="math">\(\lim\limits_{n\to\infty} (\frac{n-1}{n})^{n}\)</span> ?</p>
+<p>It turns out this is equal to <span class="math">\(\frac{1}{e}\)</span> ! Yeah, e! Your old buddy from calculus class. You know, the <span class="math">\(e^{i\pi}\)</span> guy?</p>
+<p>As n goes to infinity, the probability of a number being selected is <span class="math">\(1-\frac{1}{e} = .632\)</span>. This leads to a technique called bootstrapping, or ".632 selection" in machine learning (back to that in a minute).</p>
+<h3>Don't think of an answer</h3>
+<p>What are the chances that a number gets selected exactly once? Turns out, it's <span class="math">\(\frac{1}{e}\)</span>, same as the chances of not getting selected! This was surprising enough to me to bother to work out the proof, given at the end.</p>
+<p>That means the chances of a number getting selected more than once is <span class="math">\(1 - \frac{2}{e}\)</span>. </p>
+<p>The breakdown:</p>
+<ul>
+<li>1/e (36.8%) of numbers don't get selected</li>
+<li>1/e (36.8%) get selected exactly once</li>
+<li>1-2/e (26.4%) get selected 2+ times</li>
+</ul>
+<p>As before, the variance in number of items picked 2+ times is much lower than flipping a coin that comes up heads 26.4% of the time:</p>
+<p><img alt="/img/more-than-once.png" src="/img/more-than-once.png"></p>
+<h3>Derangements</h3>
+<p>Say I'm handing out coats randomly after a party. What are the chances that nobody gets their own coat back? </p>
+<p>This is called a derangement, and the probability is also 1/e. An almost correct way to think about this is the chance of each person not getting their own coat (or each coat not getting their own person, depending on your perspective) is <span class="math">\(\frac{(x-1)}{x}\)</span> and there are <span class="math">\(x\)</span> coats, so the chances of a derangement are <span class="math">\(\frac{x-1}{x}^{x}\)</span>.</p>
+<p>This is wrong because each round isn't independent. In the first case, we were doing selection with replacement, so a number being picked one round doesn't affect its probability of being picked next round.  That's not the case here. Say we've got the numbers 1 thru 4. To make a derangement, the first selection can be 2, 3 or 4. The second selection can be 1, 3 or 4. But 3 or 4 might have been picked in the first selection and can't be chosen again. 2/3rds of the time, there will only be two options for the second selection, not three.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Rencontres_numbers">long way 'round the mountain</a> involves introducing a new mathematical function called the subfactorial, denoted as <span class="math">\(!x\)</span>, which is equal to the integer closest to <span class="math">\(\frac{x!}{e}\)</span>. <span class="math">\(e\)</span> gets in there because in the course of counting the number of possible derangements, we encounter a series that converges to <span class="math">\(1/e\)</span>.</p>
+<p>The number of derangements for a set of size x is <span class="math">\(!x\)</span> and the number of permutations is <span class="math">\(x!\)</span> so the probability of a derangement as x gets big is <span class="math">\(\frac{!x}{x!} = \frac{1}{e}\)</span></p>
+<p>What about the chances of only one person getting their coat back? It's also <span class="math">\(\frac{1}{e}\)</span>, just like the chances of a number getting selected exactly once when drawing numbers with replacement.  The number of fixed points -- number of people who get their own coat back -- follows a Poisson distribution with mean 1.</p>
+<p>The second process seems very different from the first one. It is selection with replacement versus without replacement. But <span class="math">\(e\)</span> is sort of the horizon line of mathematics -- a lot of things tend towards it (or its inverse) in the distance.</p>
+<h3>Bootstrapping</h3>
+<p>Say we're working on a typical statistics/machine learning problem. We're given some training data where we already know the right answer, and we're trying to predict for future results. There are a ton of ways we could build a model. Which model will do the best on the unknown data, and how variable might the accuracy be? </p>
+<p>Bootstrapping is a way to answer those questions. A good way to estimate how accurate a model will be in the future is to train it over and over with different random subsets of the training data, and see how accurate the model is on the data that was held out. That will give a range of accuracy scores which can be used to estimate how accurate the model will be on new inputs, where we don't know the answers ahead of time. </p>
+<p>Bootstrapping is a way of doing that, using the process described before -- pick x numbers without replacement x times. The ones that get selected at least once are used to train the models, and the ones that didn't get selected are used to generate an estimate of accuracy on unseen data. We can do that over and over again and get different splits every time. </p>
+<p>It's a fine way to split up the training data and the validation data to generate a range of plausible accuracy scores, but I couldn't find a good reason other than tradition for doing it that way. The 63.2/36.8 split isn't some magical value. Instead of having the numbers that weren't picked be the holdout group, we could instead leave out the numbers that were only picked once (also 1/e of the numbers), and train on the ones not selected or selected more than once. But picking 63% of values (or some other percentage) without replacement is the best way to do it, in my opinion. </p>
+<p>The <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">original paper</a> doesn't give any statistical insight into why the choice was made, but a remark at the end says, "it is remarkably easy to implement on the computer", and notes the $4 cost of running the experiments on Stanford's <a href="https://www.ibm.com/history/system-370">IBM 370/168 mainframe</a>.</p>
+<h3>A chance encounter</h3>
+<p>A quick proof of the chances of being selected exactly once.</p>
+<p>Doing x selections with replacement, the chance of a number being chosen as the very first selection (and no other times) is 
+<span class="math">\(\frac{1}{x} * \frac{x-1}{x}^{x-1}\)</span></p>
+<p>There are x possible positions for a number to be selected exactly once. Multiply the above by x, which cancels out 1/x. So the chances of a number being selected exactly once at any position is <span class="math">\((\frac{x-1}{x})^{x-1}\)</span>.</p>
+<p>Let's try to find a number <span class="math">\(q\)</span> so that <span class="math">\(\lim\limits_{x\to\infty} (\frac{x-1}{x})^{x-1} = e^{q}\)</span>.</p>
+<p>Taking the log of both sides:<br>
+<span class="math">\(q = \lim\limits_{x\to\infty} (x-1) * log(\frac{x-1}{x}) = \lim\limits_{x\to\infty} \frac{log(\frac{x-1}{x})}{1/(x-1)}\)</span></p>
+<p>Let 
+<span class="math">\(f(x) = log(\frac{x-1}{x})\)</span>
+and 
+<span class="math">\(g(x) = \frac{1}{x-1}\)</span></p>
+<p>By L'Hopital's rule, <span class="math">\(\lim\limits_{x\to\infty} \frac{f(x)}{g(x)} = \lim\limits_{x\to\infty}\frac{f'(x)}{g'(x)}\)</span></p>
+<p>The derivative of a log of a function is the derivative of the function divided by the function itself, so:</p>
+<p><span class="math">\(f'(x) = \frac{d}{dx} log(\frac{x-1}{x}) = \frac{d}{dx} log(1 - \frac{1}{x}) = \frac{\frac{d}{dx}(1-\frac{1}{x})}{1-\frac{1}{x}} =\frac{\frac{1}{x^{2}}}{{1-\frac{1}{x}}} = \frac{1}{x^{2}-x} = \frac{1}{x(x-1)}\)</span></p>
+<p>and</p>
+<p><span class="math">\(g'(x) = \frac{-1}{(x-1)^{2}}\)</span></p>
+<p>Canceling out (x-1) from both, <span class="math">\(\frac{f'(x)}{g'(x)} = \frac{1}{x}  * \frac{x-1}{-1} = -1 * \frac{x-1}{x}\)</span>.</p>
+<p>So <span class="math">\(q = \lim\limits_{x\to\infty} -1 * \frac{x-1}{x} = -1\)</span></p>
+<p>At the limit, the probability of being selected exactly once is <span class="math">\(e^{-1} = \frac{1}{e}\)</span></p>
+<h3>References/Further Reading</h3>
+<p><a href="https://oeis.org/A068985">https://oeis.org/A068985</a></p>
+<p><a href="https://mathworld.wolfram.com/Derangement.html">https://mathworld.wolfram.com/Derangement.html</a></p>
+<p><a href="https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/">https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/</a></p>
+<p><a href="https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf">https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf</a></p>
+<p>The original bootstrap paper: <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf</a></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/one-in-e.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/statistics.html" rel="tag">statistics</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/machine-learning.html" class="tags selected">machine learning</a>
+                    &nbsp;<a href="/tag/some-educational-value.html" class="tags">some educational value</a>
+                </div>
+            </article>
+
+            <div class="clear"></div>
+            <footer>
+                <p>
+                <a href="https://github.com/tcarwash/blue-penguin-dark">Blue Penguin Dark</a> Theme
+                &middot;
+                Powered by <a href="http://getpelican.com">Pelican</a>
+                &middot;
+                <a href="/feeds/all.atom.xml" rel="alternate">Atom Feed</a>
+            </footer>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>
