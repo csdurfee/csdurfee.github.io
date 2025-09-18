@@ -3,7 +3,7 @@ Date: 2025-06-08 10:20
 Category: statistics
 Tags: basketball, the hot hand
 
-(Notebooks and other code available at: [https://github.com/csdurfee/hot_hand](https://github.com/csdurfee/hot_hand). As usual, there is stuff in there I'm not covering here.)
+(Notebooks and other code available at: [https://github.com/csdurfee/hot_hand](https://github.com/csdurfee/hot_hand))
 
 # What is "approximately normal"?
 In the last installment, I looked at NBA game-level player data, which involve very small samples.

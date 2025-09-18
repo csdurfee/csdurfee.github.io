@@ -3,7 +3,7 @@ Date: 2025-07-18 10:20
 Category: sports betting
 Tags: basketball, your parlay sucks
 
-(This is an excerpt from a larger project about sports gambling. Code and early drafts of some of the materials can be found at [https://github.com/csdurfee/book](https://github.com/csdurfee/book).)
+code available at [https://github.com/csdurfee/book](https://github.com/csdurfee/book).
 
 [![The Jam, "Going Underground"](https://img.youtube.com/vi/AE1ct5yEuVY/0.jpg)](https://www.youtube.com/watch?v=AE1ct5yEuVY){:target="_blank"}
 
@@ -177,11 +177,11 @@ In both cases, *the teams themselves* aren't necessarily doing anything to be be
 ### Do gamblers follow the record against the spread?
 If a team's record against the spread is due solely to random error, then we've got a [LeMartingale](/LeSimulation.html) on our hands. The current record would have no bearing on the future record. So gamblers shouldn't factor it in when deciding to take a bet or not.
 
-By the end of the season, there was a significant correlation between money percents and win percentage against the spread. I wanted to see how that might've changed over time. So I generated the table shown above for every single day of the season, and calculated the Spearman rank correlation on that day.  Here's what that looks like over time:
+By the end of the season, there was a significant correlation between money percents and win percentage against the spread. I wanted to see how that might've changed over time. So I generated the table shown above for every single day of the season, and calculated the correlation on that day.  Here's what that looks like over time:
 
 ![/img/money-ats-win-pct.png](/img/money-ats-win-pct.png)
 
-The money percentages are cumulative,the mean of all games in the season that have come before -- it's not showing gamblers' betting behavior on a particular day, compared to records against the spread on that day. The graph is a lot smoother that way, but we're losing something.
+The money percentages are cumulative, the mean of all games in the season that have come before -- it's not showing gamblers' betting behavior on a particular day. The graph is a lot smoother that way, but we're losing something.
  
 It also doesn't show whether records against the spread are a Martingale or not. The correlation between betting percentages and win records increases over time, but that doesn't mean this is because gamblers are behaving *rationally*. 
 

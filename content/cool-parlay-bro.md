@@ -3,7 +3,7 @@ Date: 2025-07-16 10:20
 Category: sports betting
 Tags: basketball, your parlay sucks
 
-(This is an excerpt from my book about sports gambling. Code and early drafts of some of the chapters can be found at [https://github.com/csdurfee/book](https://github.com/csdurfee/book).)
+Code at [https://github.com/csdurfee/book](https://github.com/csdurfee/book)
 
 Sportsbooks have many ways of encouraging people to lose their money as quickly and efficiently as possible. One of the best ways to do this is a type of bet called the parlay. "Parlez" means "to talk" in French, so it's no surprise dudes always want to talk about them online.
 

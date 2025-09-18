@@ -38,15 +38,17 @@ I think there's a huge value in knowing what random walks look like. Do they rem
 
 ![/img/rw0.5.png](/img/rw0.5.png)
 
-Touts are people who sell recommendations about which bets to take. Pay $30 and they'll tell you which side to bet on the big game tonight. (I have a whole section about touts in the book.) The best tout I could find has had pretty steady success for nearly 20 years, with a win rate of 54.1% against the standard vig.  That's statistically significant, but it's not enough to guarantee success moving forwards. Let's look at some random walks at 54.1% win rate:
+Touts are people who sell recommendations about which bets to take. Pay $30 and they'll tell you which side to bet on the big game tonight. (I have a whole section about touts in the book.) The best tout I could find has had pretty steady success for nearly 20 years, with a win rate of 54.1% against the standard vig.  That's statistically significant, but it's not enough to guarantee success moving forwards. Even if they continue to place bets that should win 54.1% of the time -- they're flipping a slightly biased coin -- that doesn't mean they'll make money on those bets. Let's look at some random walks at 54.1% win rate:
 
 ![/img/rw0.541.png](/img/rw0.541.png)
 
-Most of them ended up +25-50 units after 1000 bets, which is pretty good. But a couple of them ended up being losers, even with the advantage.  The touts I looked at generally don't sell picks for every single game. So with 1200 games in an NBA season, this could be several years' worth of results.
+Three of the random walks ended up around 50 units after 1000 bets, which is pretty good. Two of them made a tiny bit of money. The other four lost money. This is a small sample size, but a 44% chance of losing money after paying for 1,000 picks at $30 a pop isn't great. (More info on the economics of touts in the book.)
+
+The touts I looked at generally don't sell picks for every single game. So with 1200 games in an NBA season, this could be several years' worth of results.
 
 Imagine all of these as 9 different touts, with the exact same level of skill at picking games. But some of them look like geniuses, and some look like bozos. There would probably be some selection bias. The ones with the bad records would drop out -- who's buying their picks if they're losing money?  And the ones who did better than their true skill level of 54.1% would be more likely to stick with it. Yet all these random walks were generated with the same 54.1% win rate.
 
-If you bought 1,000 picks from this tout, you don't get to choose which of the $2^{1000} = (2^{10})^{100} \approx 10^{300}$ possible random walks you will actually get. If each bet has a 54.1% chance of winning, there's no guarantee you will have exactly 541 wins and 459 losses at the end of 1000 bets.
+If you bought 1,000 picks from this tout, you don't get to choose which of the $2^{1000} = (2^{10})^{100} \approx 10^{300}$ possible random walks you will actually get. If each bet has a 54.1% chance of winning, there's no guarantee you will have exactly 541 wins and 459 losses at the end of 1000 bets. 
 
 Here's what someone who is right 60% of the time looks like. 
 
@@ -56,13 +58,13 @@ Success is pretty boring.
 
 I've always said it's much harder to learn from success than from failure. At a 60% win rate, none of them really have long cold streaks, just small breaks between hot streaks. It wouldn't be interesting to tell stories about those graphs. There's nothing to learn, really.
 
-I don't think it's possible to win 60% against the spread, for reasons discussed in the book. The short version is we can convert a gambler's win rate to points on the spread. Even people who do have an advantage over the house are probably going to be closer to that 54.1% mark.
+I don't think it's possible to win 60% against the spread, based on what are called push charts, discussed in the book.
 
 The graphs at the 54.1% success rate appear a lot more human. They have hot and cold streaks, swoons, periods where they seem stuck in a range of values. Some of them *scuffled the whole time*, a couple *finally got locked in near the end*, a couple were *consistently good*. Some had good years, some had bad years. Even though they are randomly generated, they look like they have more to teach us, like they offer more opportunities to tell stories. But they all have the exact same win rate, or level of skill at handicapping.
 
 No outcome is guaranteed, but the higher the win rate, the more consistently the graph is going to go up and to the right at a steady pace. 
 
-Finally, here are some walks at 52.4% win rate, the break-even point. Most results end up close to zero after 1000 bets, but there is always a possibility of an extended run towards the positive or negative side (4/9 times in this sample).
+Finally, here are some walks at 52.4% win rate, the break-even point. Most results end up close to zero after 1000 bets, but there is always a possibility of an extended run towards the positive or negative side -- it happened 4/9 times in this sample:
 
 ![/img/rw0.524.png](/img/rw0.524.png)
 
@@ -78,11 +80,11 @@ This is what's known in math as a [Martingale](https://en.wikipedia.org/wiki/Mar
 The basic idea behind all these betting systems is to *chase* losses by betting more when you're losing. Hopefully it's obvious that these chase systems are crazy, though formally proving it led to a lot of interesting math.
 
 ### Fallacy and ruin
-Even though chase systems are crazy, they've persisted through the centuries. Human beings are wired to be semi-rational -- we use previous data to try and predict the future, but we use it even when the data was randomly generated, and even when we don't have a significant amount of data. We need coherent stories to tell about why things happened. There is no rational reason to believe in a chase system, but I think there are semi-rational reasons to fall prey to [the gambler's fallacy](https://en.wikipedia.org/wiki/Gambler%27s_fallacy). 
+Even though chase systems are irrational, they've persisted through the centuries. Human beings are wired to be semi-rational -- we use previous data to try and predict the future, but we use it even when the data was randomly generated, and even when we don't have a significant amount of data. We need coherent stories to tell about why things happened. There is no rational reason to believe in a chase system, but I think there are semi-rational reasons to fall prey to [the gambler's fallacy](https://en.wikipedia.org/wiki/Gambler%27s_fallacy). 
 
 I hope these random walks show that having a modest, plausible advantage over the house isn't a guarantee of success, even over a really long timespan. Positive Expected Value is necessary, but not sufficient, for making money long term.
 
-The vast majority of gamblers bet with negative expected value due to the vig, and possibly biases in the lines, as we saw in a previous installment. If each bet the average gambler makes has a negative expected value, they can't fix that by betting MORE.  
+The vast majority of gamblers bet with negative expected value due to the vig, and possibly biases in the lines against *public teams*, as we saw in a previous installment. If each bet the average gambler makes has a negative expected value, they can't fix that by betting MORE.  
 
 "If I keep doubling down, eventually I'll win it all back." Maybe if you have infinite capital and unlimited time. Otherwise the [Gambler's Ruin](https://en.wikipedia.org/wiki/Gambler%27s_ruin) is certain. The market can stay liquid longer than you can stay irrational.
 
