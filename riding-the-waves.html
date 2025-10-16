@@ -79,7 +79,7 @@
 <h2>Particle man vs triangle man</h2>
 <p>The Uniform distribution isn't really that ab-Normal. It's flat, but it's very malleable. It turns into the normal distribution almost instantly. The symmetry helps.</p>
 <p>If we take a single sample from a Uniform distribution over and over again, and plot a histogram, it's going to look flat, because every outcome is equally likely.</p>
-<p>If we take the sum (or average) of two Uniform random variables, what would that look like? We're going to randomly select two numbers between 0 and 1 and sum them up. The result will be between 0 and 2. But some outcomes will be more likely than others.  The extremes (0 and 2) should be extremely unlikely, right? Both the random numbers would have to be close to 0 for the sum to be, and vice versa. There are a lot of ways to get a sum of .5, though. It could be .9 and .1, or .8 and .2, and so on.</p>
+<p>If we take the sum (or average) of two Uniform random variables, what would that look like? We're going to randomly select two numbers between 0 and 1 and sum them up. The result will be between 0 and 2. But some outcomes will be more likely than others.  The extremes (0 and 2) should be extremely unlikely, right? Both the random numbers would have to be close to 0 for the sum to be, and vice versa. There are a lot of ways to get a sum of 1, though. It could be .9 and .1, or .8 and .2, and so on.</p>
 <p>If you look online, you can find many explanations of how to get the PDF of the sum of two Uniform distributions using calculus. (<a href="https://courses.cs.washington.edu/courses/cse312/20su/files/student_drive/5.5.pdf">Here's a good one</a>). While formal proofs are important, it's not very intuitive. So, here's another way to think of it.</p>
 <p>Let's say we're taking the sum of two dice instead of two Uniform random variables.  We're gonna start with two 4 sided dice. It will be obvious that we can scale the number of faces up, and the pattern will hold.</p>
 <p>What are the possible combinations of dice? The dice are independent, so each combination is equally likely. Let's write them out by columns according to their totals:</p>
@@ -246,7 +246,7 @@
 <h1>3 is the magic number</h1>
 <p>The sum (or average) of 3 Uniform random variables looks a whole lot like the normal distribution. The sides of the triangle round out, and we get something more like a bell curve. It's more than a parabola because the slope is changing on the sides. Here's what it looks like in simulation:</p>
 <p><img alt="/img/shaggy-parabola.png" src="/img/shaggy-parabola.png"></p>
-<p>Here are three 5 sided dice. It's no longer going up and down by one step per column. The slope is changing as we go up and down the sides.</p>
+<p>Here are three 4 sided dice. It's no longer going up and down by one step per column. The slope is changing as we go up and down the sides.</p>
 <table>
 <thead>
 <tr>

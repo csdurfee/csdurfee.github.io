@@ -83,8 +83,8 @@ It would explain some players that fans consider streaky or "heat check" players
 <p>There definitely appears to be a bias towards the lukewarm hand in individual game data. The mean z scores aren't that much bigger than zero, but it's a huge sample size.</p>
 <h2>Simulating streaky and non-streaky players</h2>
 <p>I coded up a simulation of a non-streaky player. When they have hit a minimum number of attempts in the game, if their shooting percentage goes above a certain level, they get a penalty. If it goes below a certain level, they get a boost.</p>
-<p>I was able to create results that look like NBA players in aggregate with an extremely simplified model. The parameters were arbitrarily chosen</p>
-<p>By default, the thresholds are 20% and 80%, and the boost/penalty is 20%. So a 50% shooter who has taken at least 4 shots and is shooting 80% or better for the game will get their FG% knocked down to 30% till their game percentage drops below the threshold. Likewise if they hit 20% or less, they get a boost until they're over the threshold.</p>
+<p>I was able to create results that look like NBA players in aggregate with an extremely simplified model. </p>
+<p>The parameters were arbitrarily chosen. By default, the thresholds are 20% and 80%, and the boost/penalty is 20%. So a 50% shooter who has taken at least 4 shots and is shooting 80% or better for the game will get their FG% knocked down to 30% till their game percentage drops below the threshold. Likewise if they hit 20% or less, they get a boost until they're over the threshold.</p>
 <p>I used the game level shooting statistics I got for the individual game-by-game analysis. I then replayed every shot in the NBA in the 2023-24 season using the simulated lukewarm player (and the actual fg% and number of shots attempted in each game). This is what I got:</p>
 <p><img alt="sim-z-scores" src="/img/sim-z-scores.png"></p>
 <div class="highlight"><pre><span></span><code><span class="nx">count</span><span class="w">    </span><span class="m m-Double">526.000000</span>

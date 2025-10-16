@@ -41,15 +41,16 @@
 
                 <p><a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank"><img alt="Klonhertz, &quot;Three Girl Rhumba&quot;" src="https://img.youtube.com/vi/16At3u6Nz0Y/0.jpg"></a></p>
 <p>Song: <a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank">Klonhertz, "Three Girl Rhumba"</a></p>
+<p>Notebook available <a href="https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/632%20selection.ipynb">here</a></p>
 <h3>Think of a number</h3>
 <p>Pick a number between 1-100.</p>
 <p>Say I write down the numbers from 1-100 on pieces of paper and put them in a big bag, and randomly select from them. After every selection, I put the paper back in the bag, so the same number can get picked more than once.  If I do that 100 times, what is the chance of your number being chosen?</p>
-<p>The math isn't too tricky. It's often easier to calculate the chances of a thing not happening, then subtract that from 1, to get the chances of the thing happening. There's a 99/100 chance it doesn't get picked each time. So the probability of never getting selected is <span class="math">\((99/100)^{100} = .366\)</span>. Subtract that from one, and there's a 63.4% chance your number will be chosen. Alternately, we'd expect to get 63.4 unique numbers in 100 selections.</p>
+<p>The math isn't too tricky. It's often easier to calculate the chances of a thing not happening, then subtract that from 1, to get the chances of the thing happening. There's a 99/100 chance your number doesn't get picked each time. So the probability of never getting selected is <span class="math">\((99/100)^{100} = .366\)</span>. Subtract that from one, and there's a 63.4% chance your number will be chosen. Alternately, we'd expect to get 634 unique numbers in 1000 selections.</p>
 <p>When I start picking numbers, there's a low chance of getting a duplicate, but that increases as I go along. On my second pick, there's only a 1/100 chance of getting a duplicate. But if I'm near the end and have gotten 60 uniques so far, there's a 60/100 chance.</p>
-<p>It's kind of a self-correcting process. Every time I pick a unique number, it increases the odds of getting a duplicate on the next pick.</p>
+<p>It's kind of a self-correcting process. Every time I pick a unique number, it increases the odds of getting a duplicate on the next pick. Each pick is independent, but the likelihood of getting a duplicate is not.</p>
 <p>I could choose the numbers by flipping a biased coin that comes up heads 63.4% of the time for each one instead. I will get the same number of values on average, and they will be randomly chosen, but the count of values will be much more variable:</p>
 <p><img alt="/img/distinct-binomial.png" src="/img/distinct-binomial.png"></p>
-<p>Of course, if the goal is to select exactly 63 items out of 100, the best way would be to randomly select 63 without replacement so there is no variance in the number of items selected.</p>
+<p>Of course, if the goal is to select exactly 63 items out of 100, the best way would be to randomly select 63 without replacement so there is no variation in the number of items selected.</p>
 <h3>A number's a number</h3>
 <p>Instead of selecting 100 times from 100 numbers, what if we selected a bajillion times from a bajillion numbers? To put it in math terms, what is <span class="math">\(\lim\limits_{n\to\infty} (\frac{n-1}{n})^{n}\)</span> ?</p>
 <p>It turns out this is equal to <span class="math">\(\frac{1}{e}\)</span> ! Yeah, e! Your old buddy from calculus class. You know, the <span class="math">\(e^{i\pi}\)</span> guy?</p>
@@ -69,16 +70,17 @@
 <p>Say I'm handing out coats randomly after a party. What are the chances that nobody gets their own coat back? </p>
 <p>This is called a derangement, and the probability is also 1/e. An almost correct way to think about this is the chance of each person not getting their own coat (or each coat not getting their own person, depending on your perspective) is <span class="math">\(\frac{(x-1)}{x}\)</span> and there are <span class="math">\(x\)</span> coats, so the chances of a derangement are <span class="math">\(\frac{x-1}{x}^{x}\)</span>.</p>
 <p>This is wrong because each round isn't independent. In the first case, we were doing selection with replacement, so a number being picked one round doesn't affect its probability of being picked next round.  That's not the case here. Say we've got the numbers 1 thru 4. To make a derangement, the first selection can be 2, 3 or 4. The second selection can be 1, 3 or 4. But 3 or 4 might have been picked in the first selection and can't be chosen again. 2/3rds of the time, there will only be two options for the second selection, not three.</p>
-<p>The <a href="https://en.wikipedia.org/wiki/Rencontres_numbers">long way 'round the mountain</a> involves introducing a new mathematical function called the subfactorial, denoted as <span class="math">\(!x\)</span>, which is equal to the integer closest to <span class="math">\(\frac{x!}{e}\)</span>. <span class="math">\(e\)</span> gets in there because in the course of counting the number of possible derangements, we encounter a series that converges to <span class="math">\(1/e\)</span>.</p>
-<p>The number of derangements for a set of size x is <span class="math">\(!x\)</span> and the number of permutations is <span class="math">\(x!\)</span> so the probability of a derangement as x gets big is <span class="math">\(\frac{!x}{x!} = \frac{1}{e}\)</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/Rencontres_numbers">long way 'round the mountain</a> involves introducing a new mathematical function called the subfactorial, denoted as <span class="math">\(!x\)</span>, which is equal to the integer closest to <span class="math">\(\frac{x!}{e}\)</span>. <span class="math">\(e\)</span> gets in there because in the course of counting the number of possible derangements, a series is produced that converges to <span class="math">\(1/e\)</span>.</p>
+<p>The number of derangements for a set of size x is <span class="math">\(!x\)</span> and the number of permutations is <span class="math">\(x!\)</span>, so the probability of a derangement as x gets big is <span class="math">\(\frac{!x}{x!} = \frac{1}{e}\)</span></p>
 <p>What about the chances of only one person getting their coat back? It's also <span class="math">\(\frac{1}{e}\)</span>, just like the chances of a number getting selected exactly once when drawing numbers with replacement.  The number of fixed points -- number of people who get their own coat back -- follows a Poisson distribution with mean 1.</p>
 <p>The second process seems very different from the first one. It is selection with replacement versus without replacement. But <span class="math">\(e\)</span> is sort of the horizon line of mathematics -- a lot of things tend towards it (or its inverse) in the distance.</p>
 <h3>Bootstrapping</h3>
 <p>Say we're working on a typical statistics/machine learning problem. We're given some training data where we already know the right answer, and we're trying to predict for future results. There are a ton of ways we could build a model. Which model will do the best on the unknown data, and how variable might the accuracy be? </p>
-<p>Bootstrapping is a way to answer those questions. A good way to estimate how accurate a model will be in the future is to train it over and over with different random subsets of the training data, and see how accurate the model is on the data that was held out. That will give a range of accuracy scores which can be used to estimate how accurate the model will be on new inputs, where we don't know the answers ahead of time. </p>
-<p>Bootstrapping is a way of doing that, using the process described before -- pick x numbers without replacement x times. The ones that get selected at least once are used to train the models, and the ones that didn't get selected are used to generate an estimate of accuracy on unseen data. We can do that over and over again and get different splits every time. </p>
+<p>Bootstrapping is a way to answer those questions. A good way to estimate how accurate a model will be in the future is to train it over and over with different random subsets of the training data, and see how accurate the model is on the data that was held out. That will give a range of accuracy scores which can be used to estimate how well the model will be on new inputs, where we don't know the answers ahead of time. If the model we're building has a small set of parameters we're fitting (like the coefficients in a linear regression), we can also estimate a range of plausible values for those parameters. If that range is really wide, it indicates a certain parameter isn't that important to the model, because it doesn't matter if it's big or small.</p>
+<p>Bootstrapping is a way of answering those questions, using the process described before -- if we have x datapoints, pick x numbers without replacement x times. The ones that get selected at least once are used to train the models, and the ones that don't get selected are used to generate an estimate of accuracy on unseen data. We can do that over and over again and get different splits every time. </p>
 <p>It's a fine way to split up the training data and the validation data to generate a range of plausible accuracy scores, but I couldn't find a good reason other than tradition for doing it that way. The 63.2/36.8 split isn't some magical value. Instead of having the numbers that weren't picked be the holdout group, we could instead leave out the numbers that were only picked once (also 1/e of the numbers), and train on the ones not selected or selected more than once. But picking 63% of values (or some other percentage) without replacement is the best way to do it, in my opinion. </p>
-<p>The <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">original paper</a> doesn't give any statistical insight into why the choice was made, but a remark at the end says, "it is remarkably easy to implement on the computer", and notes the $4 cost of running the experiments on Stanford's <a href="https://www.ibm.com/history/system-370">IBM 370/168 mainframe</a>.</p>
+<p>The <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">original paper</a> doesn't give any statistical insight into why the choice was made, but a remark at the end says, "it is remarkably easy to implement on the computer", and notes the $4 cost of running the experiments on Stanford's <a href="https://www.ibm.com/history/system-370">IBM 370/168 mainframe</a>. Maybe it's just the engineer in me, but it seems like a goofy way to do things, unless you actually want a variable number of items selected each run.</p>
+<p>In the notebook, I showed that bootstrapping is about 40% slower than selection without replacement when using numpy's <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html">choice()</a> function. However, the cost of selecting which items to use for training vs. testing should be insignificant compared to the cost of actually training the models using that train/test split.</p>
 <h3>A chance encounter</h3>
 <p>A quick proof of the chances of being selected exactly once.</p>
 <p>Doing x selections with replacement, the chance of a number being chosen as the very first selection (and no other times) is 
@@ -102,8 +104,8 @@ and
 <h3>References/Further Reading</h3>
 <p><a href="https://oeis.org/A068985">https://oeis.org/A068985</a></p>
 <p><a href="https://mathworld.wolfram.com/Derangement.html">https://mathworld.wolfram.com/Derangement.html</a></p>
-<p><a href="https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/">https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/</a></p>
-<p><a href="https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf">https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf</a></p>
+<p>Great explanation of how to calculate derangements using the inclusion-exclusion principle: <a href="https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/">https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/</a></p>
+<p>The bible of machine learning introduces bootstrapping, but no talk of why that selection process. <a href="https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf">https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf</a></p>
 <p>The original bootstrap paper: <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf</a></p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
@@ -173,6 +175,62 @@ and
                     <a href="/one-in-e.html">posted at 10:20</a>
                     &nbsp;&middot;&nbsp;<a href="/category/statistics.html" rel="tag">statistics</a>
                     &nbsp;&middot;
+                    &nbsp;<a href="/tag/machine-learning.html" class="tags selected">machine learning</a>
+                    &nbsp;<a href="/tag/some-educational-value.html" class="tags">some educational value</a>
+                </div>
+            </article>            <h4 class="date">Sep 23, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/primes-and-self-similarity.html" rel="bookmark" title="Permanent Link to &quot;Primes and self-similarity&quot;">Primes and self-similarity</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank"><img alt="John Hollenbeck &amp; NDR Big Band, &quot;Entitlement&quot;" src="https://img.youtube.com/vi/ncmIlVdL8po/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank">John Hollenbeck &amp; NDR Big Band, "Entitlement"</a></p>
+<p>I've been messing around with prime numbers, because there are several places where they intersect with both random walks and the arcsine distribution.  It's going to take a while to finally tie that bow, though.</p>
+<p>So it's a quick one this week: a kinda-cool story, and a kinda-cool graph.</p>
+<h3>Random Primes</h3>
+<p>The prime numbers are simple to find, but not easy. They're not randomly distributed, but it's hard to come up with simple ways to find them, and they act like random numbers in certain ways.  Why is 47 prime and 57 non-prime?</p>
+<p>To find the primes, we can write down every number from, say, 1 to 1000. Then we cross out 2, and every number divisible by 2 (4, 6, 8, etc.). Repeat that with 3 (6, 9, 12, etc.), and so on. The numbers left behind are prime. This is the famous <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes</a> -- it's a tedious way to find prime numbers, but it's by far the easiest to understand.</p>
+<p>The sieve gave mathematician David Hawkins an idea [1]: what about doing that same process, but randomly?  For each number, flip a coin, if it comes up heads, cross the number out. That will eliminate half of the numbers on the first pass. Take the lowest number <code>k</code> that remains and eliminate each of the remaining numbers with probability <code>1/k</code>. Say it's 4. For each remaining number, we flip a 4 sided die and if it comes up 4, we cross it out. </p>
+<p>If we go through all the numbers, what's left over won't look like real prime numbers -- there should be as many even fake primes as odd ones, for starters. But the remaining numbers will be as sparse as the actual prime numbers. As the sample size N heads to infinity, the chances of a random number being a real prime, and being a fake prime, are the same -- <code>1/log(N)</code>.</p>
+<p>This is a brilliant way to figure out what we know about prime numbers are due to their density, and what are due to other, seemingly more magical (but still non-random) factors. </p>
+<p>Several characteristics of real primes apply to the random primes. And tantalizingly, things that can't be proven about real primes can be proven about the fake ones. It's been conjectured that there are infinitely many pairs of twin primes -- primes that are separated by 2 numbers. An example would be 5 and 7, or 11 and 13. It makes sense for a lot of reasons that there should be an infinite number of twin primes.  But mathematicians have been trying to prove it for over 150 years, without success.</p>
+<p>Random primes can be odd or even, so the analogy to twin primes would be two random primes that are only one apart, say 5 and 6. It's relatively simple to prove that there are an infinite number of random twin primes [2]. That could easily be fool's gold -- treating the primes like they're randomly distributed gives mathematicians a whole toolbox of statistical techniques to use on them, but they're not random, or arbitrary. They're perfectly logical, and yet still inscrutible, hidden in plain sight.</p>
+<h3>Largest prime factors of composite numbers</h3>
+<p>I was intrigued by the largest prime factor of composite (non-prime) numbers. Are there any patterns?</p>
+<p>As background, every number can be split into a unique set of prime factors. For instance, the number 24 can be factored into <code>24 = 8 * 3 = 2 * 2 * 2 * 3</code>. Let's say we knock off the biggest prime factor. We get: <code>2 * 2 * 2 = 8</code>. The raw numbers rapidly get too big, so I looked at the log of the ratio</p>
+<p><img alt="/img/logratios100k.png" src="/img/logratios100k.png"></p>
+<p>The red curve is the distribution of the first 100,000 composite numbers, the orange is the next 100,000 composite numbers, and so on. </p>
+<p>What if we bump up an order of magnitude? This time, the red curve is the first million composite numbers, the orange is the next million, and so on. Here's what that looks like:</p>
+<p><img alt="/img/logratios1M.png" src="/img/logratios1M.png"></p>
+<p>Pretty much the same graph, right? The X axis is different, but the shapes are very similar to the first one. </p>
+<p>Let's go another order of magnitude up. The first 10,000,000 versus the next 10,000,000, and so on?</p>
+<p><img alt="/img/logratios10M.png" src="/img/logratios10M.png"></p>
+<p>We get the same basic shapes again! The self-similarity is kinda cool. It may be possible to come up with some function for the distribution for this quantity. </p>
+<h3>The perils of interpolation</h3>
+<p>These graphs are flawed. I'm generating these graphs using Kernel Density Estimation, a technique for visualizing the density of data. Histograms, another common way, can be misleading. The choice of bin size can radically alter what the histogram looks like.</p>
+<p>But KDE can also be misleading. These graphs make it look like the curve starts at zero.  That's not true. The minimum possible value happens when a number is of the form <code>2*p</code>, where p is a prime -- the value will be <code>log(2)</code>, about .693.</p>
+<p>This data is actually way <em>chunkier</em> than KDE is treating it.  Every point of data is the log of a whole number. So there aren't that many unique values. For instance, between 0 and 1 on the X axis, there's only one possible value -- <code>log(2)</code>. Between 1 and 3, there are only 18 possible values, <code>log(2)</code> thru <code>log(19)</code> -- those being the only integers with a <code>log</code> less than 3 and greater than 1.</p>
+<p>This makes it hard to visualize the data accurately. There are too many possible values to display each one individually, but not enough for KDE's smoothing to be appropriate.</p>
+<p>The <em>kernel</em> in Kernel Density Estimation is the algorithm used to smooth the data --  it's basically a moving average that assumes something about the distribution of the data. People usually use the Gaussian kernel, which treats the data like a normal distribution -- smooth and bell curvy. A better choice for chunky data is the <em>tophat</em> kernel, which treats the space between points like a uniform distribution -- in other words, a flat line. If the sparseness of the data on the X axis were due to a small sample size, the tophat kernel would display plateaus that aren't in the real data. But here, I calculated data for the first 100 Million numbers, so there's no lack of data. The sparseness of the data is by construction. <code>log(2)</code> will be the only value between 0 and 1, no matter how many numbers we go up to. So the left side of the graph should look fairly chunky.</p>
+<p>The tophat kernel does a much better job of conveying the non-smoothness of the distribution:</p>
+<p><img alt="/img/tophat.png" src="/img/tophat.png"></p>
+<h3>References</h3>
+<p>[1] https://chance.dartmouth.edu/chance_news/recent_news/chance_primes_chapter2.html</p>
+<p>[2] for sufficiently large values of <em>simple</em></p>
+<p>[3] https://scikit-learn.org/stable/auto_examples/neighbors/plot_kde_1d.html</p>
+<p>[4] https://en.wikipedia.org/wiki/Kernel_density_estimation</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/primes-and-self-similarity.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/math.html" rel="tag">math</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/number-theory.html" class="tags">number theory</a>
                     &nbsp;<a href="/tag/machine-learning.html" class="tags selected">machine learning</a>
                     &nbsp;<a href="/tag/some-educational-value.html" class="tags">some educational value</a>
                 </div>

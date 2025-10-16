@@ -111,16 +111,15 @@ min       -2.082528
 max        3.054836
 </code></pre></div>
 
-<p>There were 20 players with a z-score less than -2 versus only 2 players with a score greater than 2.</p>
 <h2>The Eye Test</h2>
 <p>I looked at which players had exceptionally high or low z scores. The names don't really make sense to me as an NBA fan. There were players like Jordan Poole and Jalen Green, who I think fans would consider streaky, but they had exceptionally un-streaky z-scores. I don't think the average NBA fan would say Jalen Green is less streaky than 97.5% of the players in the league, but he is (by this test).</p>
 <p>On the other hand, two streakiest players in the NBA this year were Goga Bitadze and Thomas Bryant, two players who don't fit the profile of the stereotypical streaky shooter by any means.</p>
 <h2>Makes vs. Streakiness</h2>
-<p>The more shots a player made this season, the less streaky they tended to be. Here's a plot of makes on the 2024-25 season versus the z-score.</p>
+<p>The more shots a player made this season, the more un-streaky they tended to be. Here's a plot of makes on the 2024-25 season versus the z-score.</p>
 <p><img alt="makes vs z-score" src="/img/makes-vs-zscore.png"></p>
 <p>That's pretty odd, isn't it?</p>
 <h2>Getting more data: 2021-present</h2>
-<p>I figured a bigger sample size would be better. Maybe this season was just weird. So got the last 4 seasons of data (2021-22,2022-2023, 2023-2024, 2024-2025) for players who made a shot in the NBA this season and combined them.</p>
+<p>I figured a bigger sample size would be better. Maybe this season was just weird. So got the last 4 seasons of data (2021-22, 2022-2023, 2023-2024, 2024-2025) for players who made a shot in the NBA this season and combined them.</p>
 <p>The four year data is even more skewed towards the <em>lukewarm hand</em>, or un-streaky side, than the single year data.</p>
 <p><img alt="all players, 2021-2025" src="/img/all-players-four-year.png"></p>
 <div class="highlight"><pre><span></span><code>count    562.000000
@@ -135,7 +134,7 @@ max        4.184025
 
 <p>The correlation between number of makes and z-score is quite strong in the 4 year data:</p>
 <p><img alt="2021-2025 z score vs makes" src="/img/four-year-makes-vs-zscore.png"></p>
-<p>There were 48 players with a z-score &gt; 2, versus only 9 with a score &lt;-2. That's like flipping a coin and getting 48 heads and 9 tails. There's around a 2 in 10 million chance of that happening with a fair coin.</p>
+<p>There were 48 players with a z-score &gt; 2, versus only 9 with a score &lt; -2. That's like flipping a coin and getting 48 heads and 9 tails. There's around a 2 in 10 million chance of that happening with a fair coin.</p>
 <h2>High Volume Shooters, Redux</h2>
 <p>The bias towards the lukewarm hand is even stronger among high volume shooters. Here are players with more than 500 makes over the past 4 years.</p>
 <p><img alt="over 500 makes" src="/img/over-500-makes.png"></p>
@@ -174,7 +173,7 @@ max        1.845302
 
 <h2>Conclusions, for now</h2>
 <p>I feel comfortable concluding that the hot hand doesn't exist when it comes to field goals. I can't say why there's a tendency towards <em>unstreakiness</em> yet, but I suspect it is due to shot selection. Players who have made a bunch of shots may take more difficult shots than average, and players who have missed a bunch of shots will go for an easier shot than average. While players can't choose when to "heat up" or "go cold", they can certainly change shot selection based on their emotions or the momentum of the game.</p>
-<p>There may be a slight tendency towards the hot hand when it comes to free throws. It's worth investigating further, I think. But the effect there doesn't appear to be nearly as strong as the <em>lukewarm hand</em> tendency for field goals.</p>
+<p>There may be a slight tendency towards the <em>hot hand</em> when it comes to free throws. It's worth investigating further, I think. But the effect there doesn't appear to be nearly as strong as the <em>lukewarm hand</em> tendency for field goals.</p>
                 <div class="clear"></div>
 
                 <div class="info">

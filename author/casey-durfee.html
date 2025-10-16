@@ -30,7 +30,63 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Sep 10, 2025</h4>
+        <div id="content">            <h4 class="date">Sep 23, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/primes-and-self-similarity.html" rel="bookmark" title="Permanent Link to &quot;Primes and self-similarity&quot;">Primes and self-similarity</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank"><img alt="John Hollenbeck &amp; NDR Big Band, &quot;Entitlement&quot;" src="https://img.youtube.com/vi/ncmIlVdL8po/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank">John Hollenbeck &amp; NDR Big Band, "Entitlement"</a></p>
+<p>I've been messing around with prime numbers, because there are several places where they intersect with both random walks and the arcsine distribution.  It's going to take a while to finally tie that bow, though.</p>
+<p>So it's a quick one this week: a kinda-cool story, and a kinda-cool graph.</p>
+<h3>Random Primes</h3>
+<p>The prime numbers are simple to find, but not easy. They're not randomly distributed, but it's hard to come up with simple ways to find them, and they act like random numbers in certain ways.  Why is 47 prime and 57 non-prime?</p>
+<p>To find the primes, we can write down every number from, say, 1 to 1000. Then we cross out 2, and every number divisible by 2 (4, 6, 8, etc.). Repeat that with 3 (6, 9, 12, etc.), and so on. The numbers left behind are prime. This is the famous <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes</a> -- it's a tedious way to find prime numbers, but it's by far the easiest to understand.</p>
+<p>The sieve gave mathematician David Hawkins an idea [1]: what about doing that same process, but randomly?  For each number, flip a coin, if it comes up heads, cross the number out. That will eliminate half of the numbers on the first pass. Take the lowest number <code>k</code> that remains and eliminate each of the remaining numbers with probability <code>1/k</code>. Say it's 4. For each remaining number, we flip a 4 sided die and if it comes up 4, we cross it out. </p>
+<p>If we go through all the numbers, what's left over won't look like real prime numbers -- there should be as many even fake primes as odd ones, for starters. But the remaining numbers will be as sparse as the actual prime numbers. As the sample size N heads to infinity, the chances of a random number being a real prime, and being a fake prime, are the same -- <code>1/log(N)</code>.</p>
+<p>This is a brilliant way to figure out what we know about prime numbers are due to their density, and what are due to other, seemingly more magical (but still non-random) factors. </p>
+<p>Several characteristics of real primes apply to the random primes. And tantalizingly, things that can't be proven about real primes can be proven about the fake ones. It's been conjectured that there are infinitely many pairs of twin primes -- primes that are separated by 2 numbers. An example would be 5 and 7, or 11 and 13. It makes sense for a lot of reasons that there should be an infinite number of twin primes.  But mathematicians have been trying to prove it for over 150 years, without success.</p>
+<p>Random primes can be odd or even, so the analogy to twin primes would be two random primes that are only one apart, say 5 and 6. It's relatively simple to prove that there are an infinite number of random twin primes [2]. That could easily be fool's gold -- treating the primes like they're randomly distributed gives mathematicians a whole toolbox of statistical techniques to use on them, but they're not random, or arbitrary. They're perfectly logical, and yet still inscrutible, hidden in plain sight.</p>
+<h3>Largest prime factors of composite numbers</h3>
+<p>I was intrigued by the largest prime factor of composite (non-prime) numbers. Are there any patterns?</p>
+<p>As background, every number can be split into a unique set of prime factors. For instance, the number 24 can be factored into <code>24 = 8 * 3 = 2 * 2 * 2 * 3</code>. Let's say we knock off the biggest prime factor. We get: <code>2 * 2 * 2 = 8</code>. The raw numbers rapidly get too big, so I looked at the log of the ratio</p>
+<p><img alt="/img/logratios100k.png" src="/img/logratios100k.png"></p>
+<p>The red curve is the distribution of the first 100,000 composite numbers, the orange is the next 100,000 composite numbers, and so on. </p>
+<p>What if we bump up an order of magnitude? This time, the red curve is the first million composite numbers, the orange is the next million, and so on. Here's what that looks like:</p>
+<p><img alt="/img/logratios1M.png" src="/img/logratios1M.png"></p>
+<p>Pretty much the same graph, right? The X axis is different, but the shapes are very similar to the first one. </p>
+<p>Let's go another order of magnitude up. The first 10,000,000 versus the next 10,000,000, and so on?</p>
+<p><img alt="/img/logratios10M.png" src="/img/logratios10M.png"></p>
+<p>We get the same basic shapes again! The self-similarity is kinda cool. It may be possible to come up with some function for the distribution for this quantity. </p>
+<h3>The perils of interpolation</h3>
+<p>These graphs are flawed. I'm generating these graphs using Kernel Density Estimation, a technique for visualizing the density of data. Histograms, another common way, can be misleading. The choice of bin size can radically alter what the histogram looks like.</p>
+<p>But KDE can also be misleading. These graphs make it look like the curve starts at zero.  That's not true. The minimum possible value happens when a number is of the form <code>2*p</code>, where p is a prime -- the value will be <code>log(2)</code>, about .693.</p>
+<p>This data is actually way <em>chunkier</em> than KDE is treating it.  Every point of data is the log of a whole number. So there aren't that many unique values. For instance, between 0 and 1 on the X axis, there's only one possible value -- <code>log(2)</code>. Between 1 and 3, there are only 18 possible values, <code>log(2)</code> thru <code>log(19)</code> -- those being the only integers with a <code>log</code> less than 3 and greater than 1.</p>
+<p>This makes it hard to visualize the data accurately. There are too many possible values to display each one individually, but not enough for KDE's smoothing to be appropriate.</p>
+<p>The <em>kernel</em> in Kernel Density Estimation is the algorithm used to smooth the data --  it's basically a moving average that assumes something about the distribution of the data. People usually use the Gaussian kernel, which treats the data like a normal distribution -- smooth and bell curvy. A better choice for chunky data is the <em>tophat</em> kernel, which treats the space between points like a uniform distribution -- in other words, a flat line. If the sparseness of the data on the X axis were due to a small sample size, the tophat kernel would display plateaus that aren't in the real data. But here, I calculated data for the first 100 Million numbers, so there's no lack of data. The sparseness of the data is by construction. <code>log(2)</code> will be the only value between 0 and 1, no matter how many numbers we go up to. So the left side of the graph should look fairly chunky.</p>
+<p>The tophat kernel does a much better job of conveying the non-smoothness of the distribution:</p>
+<p><img alt="/img/tophat.png" src="/img/tophat.png"></p>
+<h3>References</h3>
+<p>[1] https://chance.dartmouth.edu/chance_news/recent_news/chance_primes_chapter2.html</p>
+<p>[2] for sufficiently large values of <em>simple</em></p>
+<p>[3] https://scikit-learn.org/stable/auto_examples/neighbors/plot_kde_1d.html</p>
+<p>[4] https://en.wikipedia.org/wiki/Kernel_density_estimation</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/primes-and-self-similarity.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/math.html" rel="tag">math</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/number-theory.html" class="tags">number theory</a>
+                    &nbsp;<a href="/tag/machine-learning.html" class="tags">machine learning</a>
+                    &nbsp;<a href="/tag/some-educational-value.html" class="tags">some educational value</a>
+                </div>
+            </article>            <h4 class="date">Sep 10, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -42,15 +98,16 @@
 
                 <p><a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank"><img alt="Klonhertz, &quot;Three Girl Rhumba&quot;" src="https://img.youtube.com/vi/16At3u6Nz0Y/0.jpg"></a></p>
 <p>Song: <a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank">Klonhertz, "Three Girl Rhumba"</a></p>
+<p>Notebook available <a href="https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/632%20selection.ipynb">here</a></p>
 <h3>Think of a number</h3>
 <p>Pick a number between 1-100.</p>
 <p>Say I write down the numbers from 1-100 on pieces of paper and put them in a big bag, and randomly select from them. After every selection, I put the paper back in the bag, so the same number can get picked more than once.  If I do that 100 times, what is the chance of your number being chosen?</p>
-<p>The math isn't too tricky. It's often easier to calculate the chances of a thing not happening, then subtract that from 1, to get the chances of the thing happening. There's a 99/100 chance it doesn't get picked each time. So the probability of never getting selected is <span class="math">\((99/100)^{100} = .366\)</span>. Subtract that from one, and there's a 63.4% chance your number will be chosen. Alternately, we'd expect to get 63.4 unique numbers in 100 selections.</p>
+<p>The math isn't too tricky. It's often easier to calculate the chances of a thing not happening, then subtract that from 1, to get the chances of the thing happening. There's a 99/100 chance your number doesn't get picked each time. So the probability of never getting selected is <span class="math">\((99/100)^{100} = .366\)</span>. Subtract that from one, and there's a 63.4% chance your number will be chosen. Alternately, we'd expect to get 634 unique numbers in 1000 selections.</p>
 <p>When I start picking numbers, there's a low chance of getting a duplicate, but that increases as I go along. On my second pick, there's only a 1/100 chance of getting a duplicate. But if I'm near the end and have gotten 60 uniques so far, there's a 60/100 chance.</p>
-<p>It's kind of a self-correcting process. Every time I pick a unique number, it increases the odds of getting a duplicate on the next pick.</p>
+<p>It's kind of a self-correcting process. Every time I pick a unique number, it increases the odds of getting a duplicate on the next pick. Each pick is independent, but the likelihood of getting a duplicate is not.</p>
 <p>I could choose the numbers by flipping a biased coin that comes up heads 63.4% of the time for each one instead. I will get the same number of values on average, and they will be randomly chosen, but the count of values will be much more variable:</p>
 <p><img alt="/img/distinct-binomial.png" src="/img/distinct-binomial.png"></p>
-<p>Of course, if the goal is to select exactly 63 items out of 100, the best way would be to randomly select 63 without replacement so there is no variance in the number of items selected.</p>
+<p>Of course, if the goal is to select exactly 63 items out of 100, the best way would be to randomly select 63 without replacement so there is no variation in the number of items selected.</p>
 <h3>A number's a number</h3>
 <p>Instead of selecting 100 times from 100 numbers, what if we selected a bajillion times from a bajillion numbers? To put it in math terms, what is <span class="math">\(\lim\limits_{n\to\infty} (\frac{n-1}{n})^{n}\)</span> ?</p>
 <p>It turns out this is equal to <span class="math">\(\frac{1}{e}\)</span> ! Yeah, e! Your old buddy from calculus class. You know, the <span class="math">\(e^{i\pi}\)</span> guy?</p>
@@ -70,16 +127,17 @@
 <p>Say I'm handing out coats randomly after a party. What are the chances that nobody gets their own coat back? </p>
 <p>This is called a derangement, and the probability is also 1/e. An almost correct way to think about this is the chance of each person not getting their own coat (or each coat not getting their own person, depending on your perspective) is <span class="math">\(\frac{(x-1)}{x}\)</span> and there are <span class="math">\(x\)</span> coats, so the chances of a derangement are <span class="math">\(\frac{x-1}{x}^{x}\)</span>.</p>
 <p>This is wrong because each round isn't independent. In the first case, we were doing selection with replacement, so a number being picked one round doesn't affect its probability of being picked next round.  That's not the case here. Say we've got the numbers 1 thru 4. To make a derangement, the first selection can be 2, 3 or 4. The second selection can be 1, 3 or 4. But 3 or 4 might have been picked in the first selection and can't be chosen again. 2/3rds of the time, there will only be two options for the second selection, not three.</p>
-<p>The <a href="https://en.wikipedia.org/wiki/Rencontres_numbers">long way 'round the mountain</a> involves introducing a new mathematical function called the subfactorial, denoted as <span class="math">\(!x\)</span>, which is equal to the integer closest to <span class="math">\(\frac{x!}{e}\)</span>. <span class="math">\(e\)</span> gets in there because in the course of counting the number of possible derangements, we encounter a series that converges to <span class="math">\(1/e\)</span>.</p>
-<p>The number of derangements for a set of size x is <span class="math">\(!x\)</span> and the number of permutations is <span class="math">\(x!\)</span> so the probability of a derangement as x gets big is <span class="math">\(\frac{!x}{x!} = \frac{1}{e}\)</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/Rencontres_numbers">long way 'round the mountain</a> involves introducing a new mathematical function called the subfactorial, denoted as <span class="math">\(!x\)</span>, which is equal to the integer closest to <span class="math">\(\frac{x!}{e}\)</span>. <span class="math">\(e\)</span> gets in there because in the course of counting the number of possible derangements, a series is produced that converges to <span class="math">\(1/e\)</span>.</p>
+<p>The number of derangements for a set of size x is <span class="math">\(!x\)</span> and the number of permutations is <span class="math">\(x!\)</span>, so the probability of a derangement as x gets big is <span class="math">\(\frac{!x}{x!} = \frac{1}{e}\)</span></p>
 <p>What about the chances of only one person getting their coat back? It's also <span class="math">\(\frac{1}{e}\)</span>, just like the chances of a number getting selected exactly once when drawing numbers with replacement.  The number of fixed points -- number of people who get their own coat back -- follows a Poisson distribution with mean 1.</p>
 <p>The second process seems very different from the first one. It is selection with replacement versus without replacement. But <span class="math">\(e\)</span> is sort of the horizon line of mathematics -- a lot of things tend towards it (or its inverse) in the distance.</p>
 <h3>Bootstrapping</h3>
 <p>Say we're working on a typical statistics/machine learning problem. We're given some training data where we already know the right answer, and we're trying to predict for future results. There are a ton of ways we could build a model. Which model will do the best on the unknown data, and how variable might the accuracy be? </p>
-<p>Bootstrapping is a way to answer those questions. A good way to estimate how accurate a model will be in the future is to train it over and over with different random subsets of the training data, and see how accurate the model is on the data that was held out. That will give a range of accuracy scores which can be used to estimate how accurate the model will be on new inputs, where we don't know the answers ahead of time. </p>
-<p>Bootstrapping is a way of doing that, using the process described before -- pick x numbers without replacement x times. The ones that get selected at least once are used to train the models, and the ones that didn't get selected are used to generate an estimate of accuracy on unseen data. We can do that over and over again and get different splits every time. </p>
+<p>Bootstrapping is a way to answer those questions. A good way to estimate how accurate a model will be in the future is to train it over and over with different random subsets of the training data, and see how accurate the model is on the data that was held out. That will give a range of accuracy scores which can be used to estimate how well the model will be on new inputs, where we don't know the answers ahead of time. If the model we're building has a small set of parameters we're fitting (like the coefficients in a linear regression), we can also estimate a range of plausible values for those parameters. If that range is really wide, it indicates a certain parameter isn't that important to the model, because it doesn't matter if it's big or small.</p>
+<p>Bootstrapping is a way of answering those questions, using the process described before -- if we have x datapoints, pick x numbers without replacement x times. The ones that get selected at least once are used to train the models, and the ones that don't get selected are used to generate an estimate of accuracy on unseen data. We can do that over and over again and get different splits every time. </p>
 <p>It's a fine way to split up the training data and the validation data to generate a range of plausible accuracy scores, but I couldn't find a good reason other than tradition for doing it that way. The 63.2/36.8 split isn't some magical value. Instead of having the numbers that weren't picked be the holdout group, we could instead leave out the numbers that were only picked once (also 1/e of the numbers), and train on the ones not selected or selected more than once. But picking 63% of values (or some other percentage) without replacement is the best way to do it, in my opinion. </p>
-<p>The <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">original paper</a> doesn't give any statistical insight into why the choice was made, but a remark at the end says, "it is remarkably easy to implement on the computer", and notes the $4 cost of running the experiments on Stanford's <a href="https://www.ibm.com/history/system-370">IBM 370/168 mainframe</a>.</p>
+<p>The <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">original paper</a> doesn't give any statistical insight into why the choice was made, but a remark at the end says, "it is remarkably easy to implement on the computer", and notes the $4 cost of running the experiments on Stanford's <a href="https://www.ibm.com/history/system-370">IBM 370/168 mainframe</a>. Maybe it's just the engineer in me, but it seems like a goofy way to do things, unless you actually want a variable number of items selected each run.</p>
+<p>In the notebook, I showed that bootstrapping is about 40% slower than selection without replacement when using numpy's <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html">choice()</a> function. However, the cost of selecting which items to use for training vs. testing should be insignificant compared to the cost of actually training the models using that train/test split.</p>
 <h3>A chance encounter</h3>
 <p>A quick proof of the chances of being selected exactly once.</p>
 <p>Doing x selections with replacement, the chance of a number being chosen as the very first selection (and no other times) is 
@@ -103,8 +161,8 @@ and
 <h3>References/Further Reading</h3>
 <p><a href="https://oeis.org/A068985">https://oeis.org/A068985</a></p>
 <p><a href="https://mathworld.wolfram.com/Derangement.html">https://mathworld.wolfram.com/Derangement.html</a></p>
-<p><a href="https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/">https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/</a></p>
-<p><a href="https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf">https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf</a></p>
+<p>Great explanation of how to calculate derangements using the inclusion-exclusion principle: <a href="https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/">https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/</a></p>
+<p>The bible of machine learning introduces bootstrapping, but no talk of why that selection process. <a href="https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf">https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf</a></p>
 <p>The original bootstrap paper: <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf</a></p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
@@ -242,7 +300,7 @@ and
 <p>This is just one month of betting, assuming the gambler bets on every NBA game. Losing money 31% of the time seems pretty high for what's supposed to be the optimal way to bet.  </p>
 <p>How about a longer period of time? I simulated 1,000 bets this time, nearly a whole season of the NBA. The median outcome is turning $100 into $1356, which is a sweet rate of return. But the chances of going broke actually increased! The player will go broke 1.4% of the time, about 11x more often on 1000 bets than 200, which seems unfair, but the Kelly criterion doesn't make any guarantees about not going broke. It just offers the way to optimize Expected Value if the gambler knows the exact advantage they have over the house.</p>
 <h3>Partial Kelly Betting</h3>
-<p>Kelly Betting is the optimal way to maximize profits, but what about lower stakes? The real power of Kelly betting is its compounding nature -- as the bankroll gets bigger or smaller, the bet size scales up or down as well.</p>
+<p>Kelly Betting is the optimal way to maximize profits, but what about lower stakes? The real power of Kelly betting is its compounding nature -- as the bankroll gets bigger or smaller, the bet size scales up or down as well. It also corresponds to our incorrect intuitive understanding of randomness -- it makes sense someone should bet smaller amounts when they're on a <em>cold streak</em>, and larger amounts when they're on a <em>hot streak</em>. </p>
 <p>What if the gambler only bets 2% of their bankroll instead of the 7.6% recommended by the Kelly criterion? They don't go broke a single time in 100,000 simulations of 1,000 bets.  The mean rate of return is 4.6x and the median is 3.7x. That's a pretty nice return on investment, relative to the risk. The gambler still lost money 2.8% of the time, though. Being conservative, betting a lot of games at positive expected value, and betting the right way greatly increase the chances of success, but nothing can eliminate the possibility of failure.</p>
 <p>Imagine doing 1000 bets at 56% win percentage and a conservative bet size, and still losing money. Wild, isn't it? If you take one thing away from this article, it should be:</p>
 <h1>Failure is always an option.</h1>
@@ -251,8 +309,6 @@ and
 <p>This Expected Value of playing this way doesn't have any randomness in it. It's just a simple algebra problem. According to EV, they should end up with $252 at the end of the season, for a profit of $152. Nice. But as I've mentioned before, EV says nothing about the range of possible outcomes.</p>
 <p>If I actually simulate it, a pretty wide range of outcomes are possible. 99% of the time, the gambler makes money, but 6 times out of 100,000, they lose everything and more. (6 in 100,000 is about the same odds as winning a 14 leg parlay.)</p>
 <p>With betting a fixed size, the rate of return is lower and the risk of going broke doesn't go away. So it's sub-optimal compared to Kelly-style betting with a very small percentage of the total bankroll.</p>
-<h3>Next time</h3>
-<p>More on random walks... probably.</p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
@@ -517,7 +573,7 @@ and
 <h2>Particle man vs triangle man</h2>
 <p>The Uniform distribution isn't really that ab-Normal. It's flat, but it's very malleable. It turns into the normal distribution almost instantly. The symmetry helps.</p>
 <p>If we take a single sample from a Uniform distribution over and over again, and plot a histogram, it's going to look flat, because every outcome is equally likely.</p>
-<p>If we take the sum (or average) of two Uniform random variables, what would that look like? We're going to randomly select two numbers between 0 and 1 and sum them up. The result will be between 0 and 2. But some outcomes will be more likely than others.  The extremes (0 and 2) should be extremely unlikely, right? Both the random numbers would have to be close to 0 for the sum to be, and vice versa. There are a lot of ways to get a sum of .5, though. It could be .9 and .1, or .8 and .2, and so on.</p>
+<p>If we take the sum (or average) of two Uniform random variables, what would that look like? We're going to randomly select two numbers between 0 and 1 and sum them up. The result will be between 0 and 2. But some outcomes will be more likely than others.  The extremes (0 and 2) should be extremely unlikely, right? Both the random numbers would have to be close to 0 for the sum to be, and vice versa. There are a lot of ways to get a sum of 1, though. It could be .9 and .1, or .8 and .2, and so on.</p>
 <p>If you look online, you can find many explanations of how to get the PDF of the sum of two Uniform distributions using calculus. (<a href="https://courses.cs.washington.edu/courses/cse312/20su/files/student_drive/5.5.pdf">Here's a good one</a>). While formal proofs are important, it's not very intuitive. So, here's another way to think of it.</p>
 <p>Let's say we're taking the sum of two dice instead of two Uniform random variables.  We're gonna start with two 4 sided dice. It will be obvious that we can scale the number of faces up, and the pattern will hold.</p>
 <p>What are the possible combinations of dice? The dice are independent, so each combination is equally likely. Let's write them out by columns according to their totals:</p>
@@ -684,7 +740,7 @@ and
 <h1>3 is the magic number</h1>
 <p>The sum (or average) of 3 Uniform random variables looks a whole lot like the normal distribution. The sides of the triangle round out, and we get something more like a bell curve. It's more than a parabola because the slope is changing on the sides. Here's what it looks like in simulation:</p>
 <p><img alt="/img/shaggy-parabola.png" src="/img/shaggy-parabola.png"></p>
-<p>Here are three 5 sided dice. It's no longer going up and down by one step per column. The slope is changing as we go up and down the sides.</p>
+<p>Here are three 4 sided dice. It's no longer going up and down by one step per column. The slope is changing as we go up and down the sides.</p>
 <table>
 <thead>
 <tr>
@@ -974,7 +1030,7 @@ and
 <p>What are those two groups like when they're not betting on basketball, do you think? Do they use the same kind of toothpaste? Watch the same kind of TV shows? Vote the same way?</p>
 <h3>The public gets what the public wants</h3>
 <p>One bit of gambling lore is that there are "public" teams that get bet on more frequently, regardless of the line. Like, your cousin who's a Cowboys fan is going to bet the Cowboys on Thanksgiving regardless of whether it's a fair line or not.  He'd watch the game and root for the Cowboys anyway, but it's a little more fun that way. The Cowboys aren't just a random number generator to him.</p>
-<p>There's a social aspect to gambling now that I imagine didn't exist when it was underground. Lots of gamblers will "follow" bets that other people have placed. If the bet wins, I'm sure it's a cool communal thing to be a part of. But social media can act in opposition to the "wisdom of crowds" -- in places like reddit where users vote content up and down, the conventional wisdom is going to be amplified, and people with minority opinions are going to be suppressed. If well over 90% of sports gamblers lose money long term, the majority opinions are going to be bad.</p>
+<p>There's a social aspect to gambling now that I imagine didn't exist when it was underground. Lots of gamblers will <em>follow</em> bets that other people have placed. If the bet wins, I'm sure it's a cool communal thing to be a part of. But social media often doesn't obey the <em>wisdom of crowds</em> -- in places like reddit where users vote content up and down, the conventional wisdom is going to be amplified, and people with minority opinions are going to be suppressed. If well over 90% of sports gamblers lose money long term, the majority opinions are going to be bad. </p>
 <p>I scraped betting percentage data from <a href="https://www.sportsbookreview.com/betting-odds/nba-basketball/">sportsbookreview</a> (SBR) for the 2024-5 season. They don't say where they get the betting percentages from. If I had to guess, it would be MGM Grand, their primary source of other data. The SBR numbers seemed to indicate more <em>action</em> overall than a couple other sources I found -- the betting percentages were closer together. Other sites had games where there's 10% action on one side and 90% on the other, which seems implausible on a large volume of bets. So it's probably a pretty big site, whatever it is.</p>
 <p>As with the data from the previous installment, there are 32 games out of 1230 missing data.</p>
 <p>The <code>money_percents</code> column is the median amount bet on each team. The <code>money_game_winners</code> column tracks the number of games where that team got the majority of the money bet on their side. Both of these can be taken as indicators of how much teams are favored by the public.</p>
@@ -1239,6 +1295,7 @@ and
 <p>Denver and Milwaukee have two of the best and most entertaining players in the league. Both Giannis for Milwaukee and Jokic for Denver are fun to root for. People like to take bets on teams that are fun to follow. </p>
 <h3>The ugly dogs</h3>
 <p>The bottom teams were New Orleans, Charlotte, Miami, Philadelphia and Portland. All these teams except for Portland were total bummers to watch and cheer for this year. They had injuries and organizational dysfunction that led to totally wasted seasons. People don't like to take bets on teams that are a bummer to follow.</p>
+<p>This hints at the fact that a lot of people are taking bets because they want that team to win the bet, rather than because they believe the bet has a positive expected value. It's entertainment, not a business investment.</p>
 <h3>Against the spread</h3>
 <p>Here's the same data sorted by record against the spread.</p>
 <table>
@@ -1465,168 +1522,137 @@ and
 </tbody>
 </table>
 <p>Philadelphia, Washington and Phoenix were just as terrible at the sportsbook as they were on the basketball court. OKC and Cleveland had outstanding seasons in both places.</p>
-<p>However, there's only a rough correlation between how good the teams were at actual basketball, and at beating the spread. Minnesota, New York and Denver were in the bottom 10 by winning % against the spread, even though they had good records and were doing their best to win. Denver lost to the eventual champs, and New York and Minnesota made the conference finals. Indiana was the 10th worst team against the spread, and made the NBA finals. Toronto and Brooklyn weren't really trying to win a lot of basketball games, but ended up in the top 10.</p>
+<p>However, there's only a rough correlation between how good the teams were at actual basketball, and at beating the spread. Minnesota, New York and Denver were in the bottom 10 by winning % against the spread, even though they had good records and were doing their best to win. Denver lost to the eventual champs, and New York and Minnesota made the conference finals. Indiana was the 10th worst team against the spread, and made the NBA Finals. Toronto and Brooklyn weren't really trying to win a lot of basketball games, but ended up in the top 10. There is no good reason I can think of for the Lakers to be in the top 4 against the spread -- aren't they the epitome of a public team that should be getting unfavorable lines? </p>
 <h3>Which teams should the public love and hate?</h3>
-<p>I calculated the amount of units a gambler would win if they bet on each team when they got the majority of the bets.  <code>public_units</code> is the amount won/lost betting in favor of the team, and <code>fade_units</code> by betting against them, when they are the public team. (The two values are different because of the vig.)</p>
-<p>Phoenix, Sacramento, Dallas, Denver and Indiana disappointed the public the most.</p>
+<p>I calculated the amount of units a gambler would win or lose if they bet on each team when they got the majority of the bets.  This is a sort of measure how happy the proverbial public should be about each team.</p>
+<p><code>public_units</code> is the amount won/lost betting in favor of the team. Phoenix, Sacramento, Dallas, Denver and Indiana disappointed the public the most.</p>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;"></th>
 <th style="text-align: right;">public_units</th>
-<th style="text-align: right;">fade_units</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: left;">Phoenix</td>
 <td style="text-align: right;">-16.5</td>
-<td style="text-align: right;">12.9</td>
 </tr>
 <tr>
 <td style="text-align: left;">Sacramento</td>
 <td style="text-align: right;">-14.2</td>
-<td style="text-align: right;">11</td>
 </tr>
 <tr>
 <td style="text-align: left;">Dallas</td>
 <td style="text-align: right;">-13.6</td>
-<td style="text-align: right;">9.5</td>
 </tr>
 <tr>
 <td style="text-align: left;">Denver</td>
 <td style="text-align: right;">-12.6</td>
-<td style="text-align: right;">6.3</td>
 </tr>
 <tr>
 <td style="text-align: left;">Indiana</td>
 <td style="text-align: right;">-12.6</td>
-<td style="text-align: right;">8.4</td>
 </tr>
 <tr>
 <td style="text-align: left;">Atlanta</td>
 <td style="text-align: right;">-11.5</td>
-<td style="text-align: right;">7.4</td>
 </tr>
 <tr>
 <td style="text-align: left;">Utah</td>
 <td style="text-align: right;">-11.1</td>
-<td style="text-align: right;">7.8</td>
 </tr>
 <tr>
 <td style="text-align: left;">Chicago</td>
 <td style="text-align: right;">-10.2</td>
-<td style="text-align: right;">6.6</td>
 </tr>
 <tr>
 <td style="text-align: left;">Minnesota</td>
 <td style="text-align: right;">-9.5</td>
-<td style="text-align: right;">5.2</td>
 </tr>
 <tr>
 <td style="text-align: left;">Detroit</td>
 <td style="text-align: right;">-7.4</td>
-<td style="text-align: right;">3.1</td>
 </tr>
 <tr>
 <td style="text-align: left;">Philadelphia</td>
 <td style="text-align: right;">-6.7</td>
-<td style="text-align: right;">3.8</td>
 </tr>
 <tr>
 <td style="text-align: left;">New York</td>
 <td style="text-align: right;">-6.1</td>
-<td style="text-align: right;">2.3</td>
 </tr>
 <tr>
 <td style="text-align: left;">Brooklyn</td>
 <td style="text-align: right;">-5.2</td>
-<td style="text-align: right;">1.1</td>
 </tr>
 <tr>
 <td style="text-align: left;">Washington</td>
 <td style="text-align: right;">-5</td>
-<td style="text-align: right;">1.3</td>
 </tr>
 <tr>
 <td style="text-align: left;">Boston</td>
 <td style="text-align: right;">-3.2</td>
-<td style="text-align: right;">-1.1</td>
 </tr>
 <tr>
 <td style="text-align: left;">New Orleans</td>
 <td style="text-align: right;">-3.1</td>
-<td style="text-align: right;">1.1</td>
 </tr>
 <tr>
 <td style="text-align: left;">Memphis</td>
 <td style="text-align: right;">-1.5</td>
-<td style="text-align: right;">-3.6</td>
 </tr>
 <tr>
 <td style="text-align: left;">Charlotte</td>
-<td style="text-align: right;">-1.2</td>
 <td style="text-align: right;">-1.2</td>
 </tr>
 <tr>
 <td style="text-align: left;">Miami</td>
 <td style="text-align: right;">-1</td>
-<td style="text-align: right;">-1</td>
 </tr>
 <tr>
 <td style="text-align: left;">San Antonio</td>
 <td style="text-align: right;">-0.5</td>
-<td style="text-align: right;">-2.6</td>
 </tr>
 <tr>
 <td style="text-align: left;">Orlando</td>
 <td style="text-align: right;">-0.4</td>
-<td style="text-align: right;">-2.5</td>
 </tr>
 <tr>
 <td style="text-align: left;">Milwaukee</td>
 <td style="text-align: right;">1.4</td>
-<td style="text-align: right;">-7</td>
 </tr>
 <tr>
 <td style="text-align: left;">Golden State</td>
 <td style="text-align: right;">2.7</td>
-<td style="text-align: right;">-7.8</td>
 </tr>
 <tr>
 <td style="text-align: left;">L.A. Lakers</td>
 <td style="text-align: right;">4.2</td>
-<td style="text-align: right;">-8.4</td>
 </tr>
 <tr>
 <td style="text-align: left;">Houston</td>
 <td style="text-align: right;">4.9</td>
-<td style="text-align: right;">-9.8</td>
 </tr>
 <tr>
 <td style="text-align: left;">Cleveland</td>
 <td style="text-align: right;">6.8</td>
-<td style="text-align: right;">-12.1</td>
 </tr>
 <tr>
 <td style="text-align: left;">Portland</td>
 <td style="text-align: right;">10.3</td>
-<td style="text-align: right;">-12.8</td>
 </tr>
 <tr>
 <td style="text-align: left;">Toronto</td>
 <td style="text-align: right;">11.3</td>
-<td style="text-align: right;">-16</td>
 </tr>
 <tr>
 <td style="text-align: left;">L.A. Clippers</td>
 <td style="text-align: right;">12.3</td>
-<td style="text-align: right;">-15</td>
 </tr>
 <tr>
 <td style="text-align: left;">Oklahoma City</td>
 <td style="text-align: right;">18.3</td>
-<td style="text-align: right;">-23.7</td>
 </tr>
 </tbody>
 </table>
@@ -1635,9 +1661,9 @@ and
 <p>If we assume that all variations are due to randomess, each game should be a coin flip whether the underdog or favorite wins against the spread.</p>
 <p>Calculating exact odds using the binomial distribution, 94% of NBA teams should have between 33 and 49 wins against the spread over an 82 game season.</p>
 <p>We'd expect 2 teams to be outside that range, and there are 3. Philadelphia went 26-52 in 78 games we have data for. Even if they won the other 4 games that are missing data, they'd only have 30 wins. So that record was definitely an outlier, but overall the season was about what we'd expect based on chance.</p>
-<p>I find it very believable that some teams are more likely to have a winning record against the spread, because they are underestimated by the handicappers or the betting public. They end up getting lines that are too generous, and thus do better than expected against the spread. Toronto could be an example of that. They were bad, but they weren't really as bad as people thought.</p>
+<p>I find it very believable that some teams are more likely to have a winning record against the spread, because they are underestimated by the handicappers or the betting public. They end up getting lines that are too generous, and thus do better than expected against the spread over the long run. Toronto could be an example of that. They were bad, but they weren't really as bad as people thought.</p>
 <p>Other teams could be inherently worse against the spread, as well. Perhaps they are super popular to bet on, so the lines tend to move against them -- a <em>public team</em>. Or perhaps gamblers and sportsbooks overvalue the team -- the conventional wisdom is that they'll be good when they're not. That definitely describes Philadelphia and Phoenix.</p>
-<p>In both cases, <em>the teams themselves</em> aren't necessarily doing anything to be better or worse against the spread than an average team would be. It's about the perceptions of the bookmakers and gamblers.</p>
+<p>In both cases, <em>the teams themselves</em> aren't necessarily doing anything to be better or worse against the spread than an average team would be. It's about the perceptions of the bookmakers and gamblers. Teams can't help what bookmakers set the lines to be.</p>
 <h3>Do gamblers follow the record against the spread?</h3>
 <p>If a team's record against the spread is due solely to random error, then we've got a <a href="/LeSimulation.html">LeMartingale</a> on our hands. The current record would have no bearing on the future record. So gamblers shouldn't factor it in when deciding to take a bet or not.</p>
 <p>By the end of the season, there was a significant correlation between money percents and win percentage against the spread. I wanted to see how that might've changed over time. So I generated the table shown above for every single day of the season, and calculated the correlation on that day.  Here's what that looks like over time:</p>
@@ -1669,11 +1695,11 @@ and
 <p><a href="https://www.youtube.com/watch?v=0UGvyPnuLtQ" target="_blank"><img alt="The Grateful Dead, &quot;Loser&quot;" src="https://img.youtube.com/vi/0UGvyPnuLtQ/0.jpg"></a></p>
 <h2>Efficiency of betting markets</h2>
 <p>The efficient market hypothesis says that given enough time and competition, free markets are able to establish the correct price for a commodity. In the case of sports betting, we could think of it as the price of a money line bet. </p>
-<p>On a money line bet, you are betting on who will win the game straight up. You get a smaller payout for betting on the favorite, and a larger payout betting on the underdog. If the money line is negative, that's how much money you have to risk in order to win $100. For example, -200 indicates you have to risk $200 to win $100. If it is positive, that's how much money you win if you risk $100. If it sounds like a bad way to write the odds, you're correct.</p>
-<p>A market maker will respond to an imbalance in bets by adjusting the price. If CLE -300 is a good value, people will rationally want to take it, driving the price up to, say -400. If it is a bad value, people will rationally want to take the other side and the price might go down to -200. These rational actors will collectively push the price towards the best possible estimate that humans can make. It serves as a sort of collective intelligence.</p>
+<p>On a money line bet, you are betting on who will win the game straight up. You get a smaller payout for betting on the favorite, and a larger payout betting on the underdog. In the United States, money line bets are written in a goofy way. If the money line is negative, that's how much money you have to risk in order to win $100. For example, -200 indicates you have to risk $200 to win $100. If it is positive, that's how much money you win if you risk $100. If it sounds like a bad way to write the odds, you're correct.</p>
+<p>A market maker will respond to an imbalance in bets by adjusting the price. If CLE -300 is a good value, people will rationally want to take it, driving the price up to, say -400. If it is a bad value, people will rationally want to take the other side and the price might go down to -200. These rational actors will collectively push the price towards the best possible estimate that humans can make given all information available at the time. It serves as a sort of collective intelligence.</p>
 <p>In the first installment, I showed that humans are irrational when it comes to sports betting, so I was skeptical of how good, or fair, the lines could be. Could I find proof of this collective intelligence in action? Are there any obvious market inefficiencies?</p>
 <h3>The data &amp; stuff to know</h3>
-<p>Stats are from the NBA season. I screen-scraped the data from <a href="https://www.sportsbookreview.com/betting-odds/nba-basketball/">sportsbookreview.com</a>. All data is from the MGM Grand. Unfortunately, some data is missing from around Christmastime, and a few random days in between. 32 games are missing from the data set out of 1230 total, 2.6% of all games. These are games that don't appear on sportsbookreview's website, or have incomplete data on there.</p>
+<p>Stats are from the NBA season. I screen-scraped the data from <a href="https://www.sportsbookreview.com/betting-odds/nba-basketball/">sportsbookreview.com</a>. All data is from the MGM Grand. Unfortunately, some data is missing around Christmas, and a few random days in between. 32 games are missing from the data set out of 1230 total, 2.6% of all games. These are games that don't appear on sportsbookreview's website, or have incomplete data on there.</p>
 <p>This is an analysis of the MGM Grand's NBA lines for 2025. It's not a comprehensive guide to how the lines work.</p>
 <p>There are always two lines on each game, one for the home team and one for the away team. Each side may have different vigs. Say for instance Bucks @ Pacers starts out at IND +3.5 -110/MIL -3.5 -110. It could close at IND +3.5 -115/MIL -3.5 -105. So it costs more to bet on the Pacers, but the actual line didn't move.  I'm mostly ignoring that, but will point out when it's relevant.</p>
 <p>"Line" and "spread" mean the same thing.</p>
@@ -1747,8 +1773,9 @@ and
 <p>It's rare to see NBA lines that are bigger than +15/-15 points. There were 15 this season, about 4.4% of all games. That's around one NBA game a week with a line that high.</p>
 <p>By contrast, 31% of NBA games end with a score differential of over 15 points. That's 7x more often, roughly one game a day.</p>
 <p>The lines really shouldn't be as large as the final score differential, because they are an estimate of the mean outcome of the game. If the Celtics beat the Raptors by 54 points, that doesn't mean the line <em>should</em> have been Celtics -54. The Celtics and Raptors played 4 times last season (data taken from <a href="https://www.basketball-reference.com/teams/TOR/2025_games.html">basketball-reference</a>). I'm going to ignore home court advantage -- imagine these are played at a neutral gym. The first game, Boston won by 3. The second, Boston won by 54. The third game, the Raptors won by 13. The last game, Boston won by 10.</p>
-<p>Boston won by an average of 13.5 points, so BOS -13.5 would be a reasonable line for all four games, as that's the best estimate we can make of their difference in skill. Only 1 of the 4 games ended up close to that line. For the other 3 games, the error was at least 10 points. And Boston -- despite being the better team -- would have gone 1-3 against the spread. If the line for all four games was BOS -9.5, they would have gone 2-2, but the error would still be 44.5 points on the second game, and 23.5 on the third one.</p>
-<p>The actual outcomes might be all over the place, but the spread isn't meant to predict the actual outcome, just the point where both sides are equally likely to win the bet. </p>
+<p>Boston won by an average of 13.5 points, so BOS -13.5 would be a reasonable line for all four games, as that's the best estimate we can make of their difference in skill. Only 1 of the 4 games ended up close to that line. For the other 3 games, the error was at least 10 points. That's pretty typical for NBA games. The error is usually around 10 points.</p>
+<p>In this scenario, Boston -- despite being the much better team -- would have gone 1-3 against the spread. If the line for all four games was BOS -9.5, they would have gone 2-2, but the error would still be 44.5 points on the second game, and 23.5 on the third one. </p>
+<p>The actual outcomes might be all over the place, but the spread isn't meant to predict the actual outcome, just the point where both sides are equally likely to win the bet. In a small sample size, there's no guarantee both sides will win 50% of the games, even if the line was perfect.</p>
 <p>Here's a histogram of the spreads (for the away team) overlaid on a histogram of the errors against the spread:</p>
 <p><img alt="/img/spread-vs-score-diff.png" src="/img/spread-vs-score-diff.png"></p>
 <p>If we look at just the score differential, we can stick a bell curve over the top and it looks pretty normal:</p>
@@ -1759,8 +1786,8 @@ and
 <p>I simulated every game by sampling from a normal distribution with the mean set to that game's spread, and the variance equal to the sample variance of all games that season with that spread. </p>
 <p>Here's how they match up:</p>
 <p><img alt="/img/point-differential.png" src="/img/point-differential.png"></p>
-<p>I know that's a pretty rough simulation. There's some weirdness in the middle. NBA games never end in a tie, and they end in a one point difference less often than expected due to tactical reasons, so there's a little notch right in the center of the green curve. If a team is down one, they foul the other team and hope they miss at least one of their free throws. There's also more simulated games than I would expect that end with a differential of +1 or -1. There very well may be a bug in my code -- it is in the "ep 2 LAST FAIR DEAL.ipynb" notebook. So there's a big discrepancy in the middle. But the spread of the data is the same, which is the main thing I'm trying to show.</p>
-<p>Hopefully the simulation shows that the lines shouldn't be bigger than they are, even though they are frequently off by many multiples compared to the final result. If the line is Dallas -3 and the other team wins by 27, that doesn't mean the line was off by 30 points. The line is meant to be an estimate of the mean outcome, if the teams played each other a large number of times. We only ever see one sample, though, and a lot of times it is far from the mean.</p>
+<p>I know that's a pretty rough simulation. There's some weirdness in the middle. NBA games never end in a tie, and they end in a one point difference less often than expected due to tactical reasons, so there's a little notch right in the center of the green curve. If a team is down one, they foul the other team and hope they miss at least one of their free throws. There's also more simulated games than I would expect that end with a differential of +1 or -1. There very well may be a bug in my code. So there's a muddle in the middle. But the spread of the data is the same, which is the main point.</p>
+<p>Hopefully the simulation shows that the lines shouldn't be bigger than they are, even though they are frequently off by many multiples compared to the final result. An error of 10 is about what we'd expect on average, and big errors don't necessarily mean <em>Vegas</em> was wrong. If the line is Dallas -3 and the other team wins by 27, that doesn't mean the line was off by 30 points. The line is meant to be an estimate of the mean outcome, if the teams played each other a large number of time under the exact same conditions. We only ever see one sample, though, and a lot of times it is far from the mean.</p>
                 <div class="clear"></div>
 
                 <div class="info">
@@ -1883,168 +1910,6 @@ and
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/football.html" class="tags">football</a>
                     &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
-                </div>
-            </article>            <h4 class="date">Jun 30, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/the-final-word-on-the-hot-hand-for-now.html" rel="bookmark" title="Permanent Link to &quot;The final word on the hot hand (for now)&quot;">The final word on the hot hand (for now)</a>
-                </h2>
-
-                
-                
-
-                <p>(Notebooks and other code available at: <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>.)</p>
-<p>Last time, we found that there are many players like LeBron, where their FG% is higher when they've missed most of their last 5 shots than when they've made most of them. However, most players don't have enough attempts when they've gone 0 or 5 out of their last 5 for a good statistical analysis.</p>
-<p>So instead I will be looking at a binary split -- I will call a player <em>cold</em> when they've made 0, 1 or 2 of their last 5 shots, and <em>hot</em> when they've made 3, 4 or 5 of their last 5. Most players have a FG% between 40 and 60%, so this nicely splits them into times when they're shooting better than average versus worse than average.</p>
-<h2>Anthony Edwards</h2>
-<p>Anthony Edwards ("Ant") is particularly unstreaky for a young player. He's only completed 5 seasons in the league, but has the 5th biggest z score of the last 20 years. He could definitely catch LeBron someday.</p>
-<p>Ant has the LeBron-like pattern of FG% trending downward when he's <em>hot</em>. He doesn't have anywhere near the volume of LeBron, so the spike at 20% (1/5) might just be noise. But overall, he shoots worse when he's been shooting well.</p>
-<p><img alt="ant-last-5" src="/img/ant-last-5.png"></p>
-<p>The trend appears to be due to shot selection. He takes far more above the break 3 pointers when he's <em>hot</em> than when he's cold. The additional 3 point attempts come at the expense of shots in the restricted area.</p>
-<p>Here are the changes in tendencies:</p>
-<pre>
-| BASIC_ZONE            |   hot |   cold |   diff |
-|:----------------------|------:|-------:|-------:|
-| Above the Break 3     |  41.5 |   31.7 |    9.8 |
-| Corner 3              |   3.6 |    4.8 |   -1.2 |
-| In The Paint (Non-RA) |  13.4 |   14.6 |   -1.1 |
-| Mid-Range             |  14.1 |   12.2 |    1.9 |
-| Restricted Area       |  27.4 |   36.7 |   -9.4 |
-</pre>
-
-<p>Of course, this would be justified if Ant shot above the break 3's better when he's <em>hot</em>, but he doesn't. He makes 37% of his above the break 3's when he's <em>cold</em> but that drops to 34% when he's hot. So he's trading restricted area shots, with an expected value of .601 * 2 = 1.202 points, for above the break 3's, with an expected value of .34 * 3 = 1.02 points.</p>
-<p>Here are the changes in FG percentages. His FG% on corner 3's goes up, but it's on insignificant volume:</p>
-<pre>
-| BASIC_ZONE            |   hot |   cold |   diff |
-|:----------------------|------:|-------:|-------:|
-| Above the Break 3     |  34   |   37.1 |   -3.1 |
-| Corner 3              |  45   |   33   |   12   |
-| In The Paint (Non-RA) |  40.8 |   34   |    6.8 |
-| Mid-Range             |  36.3 |   34.8 |    1.5 |
-| Restricted Area       |  60.1 |   65.4 |   -5.2 |
-</pre>
-
-<h2>The rest of the league</h2>
-<p>I looked at league-wide shot selection in <em>hot</em>/<em>cold</em> situations. I restricted to the last 10 seasons, since the rise of the 3 pointer has dramatically changed shot selection. Here are changes in shot selection for all players:</p>
-<pre>
-| BASIC_ZONE            |   hot |   cold |   diff |
-|:----------------------|------:|-------:|-------:|
-| Above the Break 3     |  22.1 |   22.3 |   -0.2 |
-| Corner 3              |   6.2 |    7   |   -0.9 |
-| In The Paint (Non-RA) |  15.8 |   15.3 |    0.4 |
-| Mid-Range             |  25.3 |   23.5 |    1.8 |
-| Restricted Area       |  30.7 |   31.8 |   -1.2 |
-</pre>
-
-<p>The mid-range shot is the lowest value shot type, so it's notable that the rate goes up when players are <em>hot</em>. These additional mid ranges come at the expense of Corner 3's and Restricted Area shots, the two most valuable types of shots.</p>
-<p>As before, changes in shot selection could be justified if players actually shoot differently based on their last 5 results, but they don't. Here are the changes in shooting percentages (hot minus cold) for all players:</p>
-<pre>
-| BASIC_ZONE            |   hot |   cold |   diff |
-|:----------------------|------:|-------:|-------:|
-| Above the Break 3     |  34.7 |   35   |   -0.3 |
-| Corner 3              |  38.4 |   38.9 |   -0.4 |
-| In The Paint (Non-RA) |  41.7 |   41.2 |    0.5 |
-| Mid-Range             |  39.8 |   40.1 |   -0.3 |
-| Restricted Area       |  62.7 |   60.7 |    2   |
-</pre>
-
-<p>For 3 out of 5 shot types, the <em>hot</em> FG percentages are lower than the <em>cold</em> ones. Combined with the changes in shot selection, I think there's evidence that the league as a whole is scoring less efficiently because of the false belief in the hot hand. </p>
-<p>The data says that players are essentially trading Restricted Area (.627 * 2 = 1.25 points per shot) and Corner 3 (.384 * 3 = 1.15 points per shot) attempts for Mid-Ranges (.398 * 2 = .796 points per shot) when they think they've got the <em>hot hand</em>. That's clearly bad! If it happens once a game, that's 38 points a year lost, which might be enough to swing a game or two.</p>
-<p>The change in restricted area and in the paint (non-RA) FG% is intriguing, but if the hot hand did exist, wouldn't we see it on 3 point or mid-range shots, rather than restricted area shots? The announcer doesn't say "he's heating up" after a guy has made 3 layups in a row, they say it after 3 longer range shots in a row, right?</p>
-<h2>Higher volume players</h2>
-<p>I decided to focus on players with at least 1000 streaks, which leaves 630 players. Collectively, they are responsible for 84% of all shots in the NBA over the last 20 years.</p>
-<p>Their FG percentages are, on average, 1% lower when they are <em>hot</em> than when they are <em>cold</em>. </p>
-<p>68% of them shoot worse when they're hot than when they're cold, which is a pretty dramatic split.</p>
-<p><img alt="fg-pct-hot-cold" src="/img/fg-pct-hot-cold.png"></p>
-<p>Here's a plot of the difference between hot and cold FG% versus z-score:</p>
-<p><img alt="z-score-hot-cold" src="/img/z-score-hot-cold.png"></p>
-<p>Players with negative values on the x axis shoot better when they're cold, and positive values shoot better when they're hot.</p>
-<p>Now, there should be some correlation between z-scores and hot/cold shooting tendency. I've shown simulations where a tendency to shoot <em>better cold</em> produces unstreaky results (skewed towards positive z scores), and <em>better hot</em> will produce streaky results (negative z scores). So there should be more dots in the upper left and bottom right quadrants compared to the other diagonal.</p>
-<p>But if players behaved by coin flips, we should see roughly the same number of players with positive and negative z scores, and roughly the same number of players who shoot better when they're hot and better when they're cold.</p>
-<p>I simulated all 3.5 million shots by these players, using their career average FG% for every shot. So any streakiness or unstreakiness is going to be totally random. As you can see, the data is much less spread out across both the X and Y axis.</p>
-<p><img alt="sim-z-hot-cold" src="/img/sim-z-hot-cold.png"></p>
-<p>Here are the crosstabs from the simulation:</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>better cold</th>
-<th>better hot</th>
-<th>margin</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>positive z</td>
-<td>178</td>
-<td>135</td>
-<td>313</td>
-</tr>
-<tr>
-<td>negative z</td>
-<td>112</td>
-<td>210</td>
-<td>322</td>
-</tr>
-<tr>
-<td>margin</td>
-<td>290</td>
-<td>345</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>As promised, the marginal values are pretty close to one another. That's what happens when "better hot" vs. "better cold" and "positive z" vs. "negative z" are determined purely by chance.</p>
-<p>Here are the actual crosstabs. The marginal values are much more imbalanced.</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>better cold</th>
-<th>better hot</th>
-<th>margin</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>positive z</td>
-<td>343</td>
-<td>126</td>
-<td>469</td>
-</tr>
-<tr>
-<td>negative z</td>
-<td>88</td>
-<td>78</td>
-<td>166</td>
-</tr>
-<tr>
-<td>margin</td>
-<td>431</td>
-<td>204</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>Things to note:</p>
-<ul>
-<li>68% of the players shoot better when they're cold.</li>
-<li>74% of the players have a positive z-score.</li>
-<li>Even among players with a negative z score, the majority of them shoot better when they're cold. </li>
-<li>Even among players that shoot better when they're hot, the majority of them <em>still</em> produce results that are less streaky than expected by chance.</li>
-</ul>
-<p>That's all super weird!</p>
-<p>As always, these are just general trends. There are 78 players in the "better hot" + "negative z" box, and there should be around 210 players. We can't really say which players are the 130 "missing" players, though.</p>
-<p>That's all I've got on the hot hand in the NBA for now. I think I understand it a lot better now, and I hope you do, too. </p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/the-final-word-on-the-hot-hand-for-now.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
-                    &nbsp;<a href="/tag/the-hot-hand.html" class="tags">the hot hand</a>
                 </div>
             </article>
 

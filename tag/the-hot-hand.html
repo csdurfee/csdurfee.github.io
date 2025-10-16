@@ -109,16 +109,15 @@ min       -2.082528
 max        3.054836
 </code></pre></div>
 
-<p>There were 20 players with a z-score less than -2 versus only 2 players with a score greater than 2.</p>
 <h2>The Eye Test</h2>
 <p>I looked at which players had exceptionally high or low z scores. The names don't really make sense to me as an NBA fan. There were players like Jordan Poole and Jalen Green, who I think fans would consider streaky, but they had exceptionally un-streaky z-scores. I don't think the average NBA fan would say Jalen Green is less streaky than 97.5% of the players in the league, but he is (by this test).</p>
 <p>On the other hand, two streakiest players in the NBA this year were Goga Bitadze and Thomas Bryant, two players who don't fit the profile of the stereotypical streaky shooter by any means.</p>
 <h2>Makes vs. Streakiness</h2>
-<p>The more shots a player made this season, the less streaky they tended to be. Here's a plot of makes on the 2024-25 season versus the z-score.</p>
+<p>The more shots a player made this season, the more un-streaky they tended to be. Here's a plot of makes on the 2024-25 season versus the z-score.</p>
 <p><img alt="makes vs z-score" src="/img/makes-vs-zscore.png"></p>
 <p>That's pretty odd, isn't it?</p>
 <h2>Getting more data: 2021-present</h2>
-<p>I figured a bigger sample size would be better. Maybe this season was just weird. So got the last 4 seasons of data (2021-22,2022-2023, 2023-2024, 2024-2025) for players who made a shot in the NBA this season and combined them.</p>
+<p>I figured a bigger sample size would be better. Maybe this season was just weird. So got the last 4 seasons of data (2021-22, 2022-2023, 2023-2024, 2024-2025) for players who made a shot in the NBA this season and combined them.</p>
 <p>The four year data is even more skewed towards the <em>lukewarm hand</em>, or un-streaky side, than the single year data.</p>
 <p><img alt="all players, 2021-2025" src="/img/all-players-four-year.png"></p>
 <div class="highlight"><pre><span></span><code>count    562.000000
@@ -133,7 +132,7 @@ max        4.184025
 
 <p>The correlation between number of makes and z-score is quite strong in the 4 year data:</p>
 <p><img alt="2021-2025 z score vs makes" src="/img/four-year-makes-vs-zscore.png"></p>
-<p>There were 48 players with a z-score &gt; 2, versus only 9 with a score &lt;-2. That's like flipping a coin and getting 48 heads and 9 tails. There's around a 2 in 10 million chance of that happening with a fair coin.</p>
+<p>There were 48 players with a z-score &gt; 2, versus only 9 with a score &lt; -2. That's like flipping a coin and getting 48 heads and 9 tails. There's around a 2 in 10 million chance of that happening with a fair coin.</p>
 <h2>High Volume Shooters, Redux</h2>
 <p>The bias towards the lukewarm hand is even stronger among high volume shooters. Here are players with more than 500 makes over the past 4 years.</p>
 <p><img alt="over 500 makes" src="/img/over-500-makes.png"></p>
@@ -172,7 +171,7 @@ max        1.845302
 
 <h2>Conclusions, for now</h2>
 <p>I feel comfortable concluding that the hot hand doesn't exist when it comes to field goals. I can't say why there's a tendency towards <em>unstreakiness</em> yet, but I suspect it is due to shot selection. Players who have made a bunch of shots may take more difficult shots than average, and players who have missed a bunch of shots will go for an easier shot than average. While players can't choose when to "heat up" or "go cold", they can certainly change shot selection based on their emotions or the momentum of the game.</p>
-<p>There may be a slight tendency towards the hot hand when it comes to free throws. It's worth investigating further, I think. But the effect there doesn't appear to be nearly as strong as the <em>lukewarm hand</em> tendency for field goals.</p>
+<p>There may be a slight tendency towards the <em>hot hand</em> when it comes to free throws. It's worth investigating further, I think. But the effect there doesn't appear to be nearly as strong as the <em>lukewarm hand</em> tendency for field goals.</p>
                 <div class="clear"></div>
 
                 <div class="info">
@@ -234,8 +233,8 @@ It would explain some players that fans consider streaky or "heat check" players
 <p>There definitely appears to be a bias towards the lukewarm hand in individual game data. The mean z scores aren't that much bigger than zero, but it's a huge sample size.</p>
 <h2>Simulating streaky and non-streaky players</h2>
 <p>I coded up a simulation of a non-streaky player. When they have hit a minimum number of attempts in the game, if their shooting percentage goes above a certain level, they get a penalty. If it goes below a certain level, they get a boost.</p>
-<p>I was able to create results that look like NBA players in aggregate with an extremely simplified model. The parameters were arbitrarily chosen</p>
-<p>By default, the thresholds are 20% and 80%, and the boost/penalty is 20%. So a 50% shooter who has taken at least 4 shots and is shooting 80% or better for the game will get their FG% knocked down to 30% till their game percentage drops below the threshold. Likewise if they hit 20% or less, they get a boost until they're over the threshold.</p>
+<p>I was able to create results that look like NBA players in aggregate with an extremely simplified model. </p>
+<p>The parameters were arbitrarily chosen. By default, the thresholds are 20% and 80%, and the boost/penalty is 20%. So a 50% shooter who has taken at least 4 shots and is shooting 80% or better for the game will get their FG% knocked down to 30% till their game percentage drops below the threshold. Likewise if they hit 20% or less, they get a boost until they're over the threshold.</p>
 <p>I used the game level shooting statistics I got for the individual game-by-game analysis. I then replayed every shot in the NBA in the 2023-24 season using the simulated lukewarm player (and the actual fg% and number of shots attempted in each game). This is what I got:</p>
 <p><img alt="sim-z-scores" src="/img/sim-z-scores.png"></p>
 <div class="highlight"><pre><span></span><code><span class="nx">count</span><span class="w">    </span><span class="m m-Double">526.000000</span>
@@ -469,7 +468,7 @@ max          3.390395
 
             <article class="post">
                 <h2 class="title">
-                    <a href="/lebron-james-the-unstreaky-king.html" rel="bookmark" title="Permanent Link to &quot;LeBron James, the Unstreaky King&quot;">LeBron James, the Unstreaky King</a>
+                    <a href="/lebron-james-the-unstreaky-goat.html" rel="bookmark" title="Permanent Link to &quot;LeBron James, the Unstreaky GOAT&quot;">LeBron James, the Unstreaky GOAT</a>
                 </h2>
 
                 
@@ -488,24 +487,25 @@ max          3.390395
 <h2>The least streaky games</h2>
 <p>The least streaky was by Richard Hamilton in 2006, who had 10 makes and 13 misses, no two makes in a row: <code>01001010101010010101010</code></p>
 <p>Kyrie Irving, Dejounte Murray (previously covered), and Kevin Martin also had strong showings. </p>
-<h1>The un-streaky king</h1>
+<h1>The un-streaky GOAT</h1>
 <p>The 4th most un-streaky game of the past 20 years belongs to LeBron James.  <a href="https://www.basketball-reference.com/boxscores/200511090CLE.html">LeBron scored 31 points in an easy win over the SuperSonics in 2005</a>. Aside from 2 makes in a row at the start of the game, he perfectly alternated makes and misses the rest of the game: <code>110101010101010101</code></p>
 <p>In the 20 years of shot data I analyzed, LeBron stands out as by far the most un-streaky player. Here are the career z scores of every player from 2004-2024:</p>
 <p><img alt="career-z-scores" src="/img/career-z-scores.png"></p>
 <p>LeBron can't even be seen on this chart. He is in a world of his own, with a career z score of 5.9. We have to go to the Jon Bois style scatterplot with one extreme outlier in the corner:</p>
 <p><img alt="career-z-scatter" src="/img/career-z-scatter.png"></p>
 <p>If this were a Youtube video, imagine me zooming in on the solitary dot in the upper right while I play the hook from <a href="https://youtu.be/BO1qcWa6blQ?t=22">Baker Street</a> on a kazoo.</p>
-<p>Which is to say, it's really, really unlikely. The odds are around 1 in 550 million. That puts him in the 99.9999998th percentile.</p>
-<p>If all 8.2 Billion people on the planet had LeBron's NBA career, taking over 29,000 shots like he has, at the same FG% he did, we'd expect 15 people to be that unstreaky or more. That's elite company. Not only is LeBron James the LeBron James of basketball, he's also the LeBron James of being unstreaky at basketball.</p>
+<p>(While we're here, note the strong trend towards high volume shooters having positive z-scores. There is no player with over 6500 makes and a career negative z-score. Every single one of the ~25 people to hit that mark have a positive z-score.)</p>
+<p>What LeBron has done is really, really unlikely by chance alone. The odds are around 1 in 550 million. That puts him in the 99.9999998th percentile.</p>
+<p>If all 8.2 Billion people on the planet had LeBron's NBA career, taking over 29,000 shots like he has, at the same FG% he did, we'd expect 15 people to be that unstreaky or more. That's elite company. Not only is LeBron James the LeBron James of basketball, he's also the LeBron James of being unstreaky at shooting the basketball.</p>
 <p>As both the most unstreaky player of all time, and the most prolific scorer of all time, LeBron James makes a perfect test subject for understanding unstreakiness.</p>
-<p>He's had 15,159 shooting streaks in his career so far, which is 504 more streaks than expected.  Say LeBron takes a low percentage shot because he feels like he has the hot hand. It might be lower, but it's probably not dramatically worse than his regular shot. Maybe it's a shot that goes in 40% of the time instead of 55%. So for him to have 500 more streaks than expected, that's potentially thousands of choices LeBron has made over his career that increased the likelihood of streaks getting broken.</p>
+<p>He's had 15,159 shooting streaks in his career so far, which is 504 more streaks than expected.  Say LeBron takes a low percentage shot because he feels like he has the hot hand. It might be a worse shot than usual, but it's probably not dramatically worse than his regular shot. Maybe it's a shot that goes in 40% of the time instead of 55%. So for him to have 500 more streaks than expected, that's potentially thousands of choices LeBron has made over his career that increased the likelihood of streaks getting broken.</p>
 <h2>Streak lengths</h2>
 <p>I simulated LeBron's career 1000 times and compared the frequency of streak lengths to his actual career. Here are his actual streaks as a percentage of the simulated frequencies:</p>
 <p><img alt="lebron-make-streaks" src="/img/lebron-make-streaks.png"></p>
 <p><img alt="lebron-miss-streaks" src="/img/lebron-miss-streaks.png"></p>
-<p>He has slightly more 1 and 2 shot make/miss streaks than expected, and fewer streaks of 5-6 or more.</p>
-<p>Previously I discussed that players could cause unstreakiness because they "go get a bucket" when the "shot isn't falling" -- in other words, they take higher percentage shots when they're on a cold streak. They might try to draw contact from a defender, and if they do get fouled, it only counts as a shot attempt if the shot goes in. On the other hand, they might take risky "heat check" shots when they are performing relatively well because they feel like they can't miss.</p>
-<p>To capture "hot" versus "cold", I decided to track the FG% over the previous 5 shots in the game. So, it's undefined for the player's first 5 shots of the game, then defined from the 6th on. Because LeBron is such a high volume scorer and has been for so many years, that's still a lot of data to look at. </p>
+<p>He has slightly more 1 and 2 shot make/miss streaks than expected, and fewer streaks of 5-6 or more. It's notable that it cuts both ways</p>
+<p>Previously I discussed that players could cause unstreakiness because they <em>go get a bucket</em> when the <em>shot isn't falling</em> -- in other words, they take higher percentage shots when they're on a cold streak. They might try to draw contact from a defender, and if they do get fouled, it only counts as a shot attempt if the shot goes in, which makes it easier to break streaks of misses. On the other hand, they might take risky "heat check" shots when they are performing relatively well because they feel like they can't miss.</p>
+<p>To capture <em>hot</em> versus <em>cold</em>, I decided to track the FG% over the previous 5 shots in the game. So, it's undefined for the player's first 5 shots of the game, then defined from the 6th on. Because LeBron is such a high volume scorer and has been for so many years, that's still a lot of data to look at. </p>
 <p>here are the number of shot attempts by LeBron by each "last 5" shooting percentage.</p>
 <div class="highlight"><pre><span></span><code>NaN    7460
 0.6    7222
@@ -534,9 +534,8 @@ max          3.390395
 </code></pre></div>
 
 <p>When he's <em>hot</em>, he takes 29% of his shots in the restricted area (right near the basket, which is his highest percentage shot). When LeBron's <em>cold</em>, that jumps up to 45% of his shots. When he's hot, 29% of his shots are above the break 3's, but he only takes that shot 17% of the time when he's <em>cold</em>.</p>
-<p>LeBron's FG% at each type of shot doesn't change much between times when he's <em>hot</em> and <em>cold</em> and <em>in between</em>. He's a tiny bit better at corner 3's when he's cold vs. hot, but that's on very small volume. LeBron is usually attacking the middle of the court, not standing in the corner. </p>
-<p>LeBron's actually slightly worse at his three most common shot types (above the break 3, mid-range, restricted area) when he's on a cold streak. He's not un-streaky because he suddenly becomes a better shooter. He chooses to "go get a bucket" and seek out a higher percentage shot.</p>
-<p>[FIXME: these cold  minus hot numbers should have corner 3's combined]</p>
+<p>LeBron's FG% for each type of shot doesn't change much between times when he's <em>hot</em> and <em>cold</em> and <em>in between</em>. He's a tiny bit better at corner 3's when he's cold vs. hot, but that's on very small volume. LeBron is usually attacking the middle of the court, not standing in the corner. </p>
+<p>LeBron's actually slightly worse at his three most common shot types (above the break 3, mid-range, restricted area) when he's on a cold streak. He's not un-streaky because he suddenly becomes a better shooter when his shot hasn't been falling. He chooses to "go get a bucket" and seek out a higher percentage shot.</p>
 <div class="highlight"><pre><span></span><code><span class="nv">Change</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">FG</span><span class="o">%</span><span class="w"> </span><span class="ss">(</span><span class="nv">cold</span><span class="w"> </span><span class="nv">minus</span><span class="w"> </span><span class="nv">hot</span><span class="ss">)</span>:
 
 <span class="nv">Above</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="k">Break</span><span class="w"> </span><span class="mi">3</span><span class="w">       </span><span class="o">-</span><span class="mi">0</span>.<span class="mi">036856</span>
@@ -553,23 +552,18 @@ max          3.390395
 <p><img alt="seq-vs-fg" src="/img/seq-vs-fg.png"></p>
 <p>I haven't looked into it yet, but I suspect this is partially due to LeBron often taking the last shot of the game. Final shots of the game should be harder than average if it's a close game. Everybody knows the ball's going to LeBron for the final shot, so the defense is keying in on him. I'll save that for another installment, though.</p>
 <h2>Other unstreaky guys</h2>
-<p>Kyle Kuzma, Julius Randle, Elton Brand, and Anthony Edwards are all in the 4+ z score club, with Luka Doncic, Giannis, John Henson, Goran Dragic, and Jordan Poole also in the top 10. Anthony Edwards is the most notable to me, because he's only played 5 season.</p>
-<p>Jordan Poole is notable because he's kind of the whole reason I kept working on this project.</p>
+<p>Kyle Kuzma, Julius Randle, Elton Brand, and Anthony Edwards are all in the 4+ z score club, with Luka Doncic, Giannis, John Henson, Goran Dragic, and Jordan Poole also in the top 10. Anthony Edwards is the most notable to me, because he's only played 5 seasons.</p>
+<p>Jordan Poole is notable because he's kind of the whole reason I kept working on this project. Fans would probably think of him as a streaky shooter who can get "red hot", but he's actually one of the un-streakiest guys in the league. I feel like I know the whole story now: he behaves like the hot hand is real, but it isn't, and so he's less streaky than he should be. It's just a product of how our brains remember things. We remember him "getting hot" then taking some crazy shot that goes in. We don't remember him ruining a streak of makes that would happen by chance alone because of his shot selection.</p>
 <h2>League-wide trends</h2>
-<p>I went back and did the same analysis for every non-LeBron shot over the last 20 years. The league as a whole doesn't show the same trends that LeBron does. FG% isn't correlated with number of makes of the last 5. Here are the shooting percentages, graphed on the same scale as the one I used for LeBron:</p>
+<p>I went back and did the same analysis for every non-LeBron shot over the last 20 years. The league as a whole doesn't show the same trends that LeBron does. FG% isn't correlated with number of makes out of the last 5. Here are the shooting percentages, graphed on the same scale as the one I used for LeBron:</p>
 <p><img alt="league-last-5" src="/img/league-last-5.png"></p>
 <p>There's a very slight uptick when a player has made all 5 of their last 5 shots in the game, but otherwise it's remarkably flat.</p>
 <p>Looking at the order of of shots taken, the NBA as a whole shows the same rough trend as LeBron's, though less dramatically. Lower FG% on the first shot of the game, and FG% slowly going down as the number of attempts goes up. (Again, I've locked the Y axis to match the scale of LeBron's.)</p>
 <p><img alt="league-shot-seq" src="/img/league-shot-seq.png"></p>
-<p>Not a lot there in aggregate. I also looked at just higher volume shooters, but there wasn't a trend I could see there.</p>
-<p>Finally, I looked at players with a z-score over 2 (aside from LeBron). Now, by artificially selecting players with a high z-score, I need to be careful with my analysis to avoid self-fulfilling prophecy. </p>
-<p>By definition, they're going to seem more unstreaky. But it's notable they're unstreaky in the same way as LeBron -- higher shooting percentage when they're <em>cold</em> and lower when they're <em>hot</em>. It's not a strong trend, but it's there. They shoot 47% when they've missed their last 5 in a row, and 44.8% when they've made their last 5 in a row. If the high Z scores were solely due to chance, I wouldn't expect to see such a clear pattern in the last 5 data.</p>
-<p><img alt="high-z-last5" src="/img/high-z-last5.png"></p>
 <h2>Streaky guys</h2>
-<p>There's only one super streaky guy in the last 20 years, Ivica Zubac, with a Z score of -3.98. That's pretty crazy, but still plausibly within the realm of chance, around 1 in 30,000.</p>
-<p>The other guys with extremely streaky behavior on high volume are Dwight Powell, Nemanja Bjelica, Erick Dampier, Aaron Nesmith and Rudy Gobert, with z scores around -3. Most of those guys are big men who aren't primarily scorers. I wonder if it has something to do with rebounding their own shot. Sometimes a big man who isn't good at shooting will do what I call the Moses Malone -- miss a shot, get their own rebound, miss that, get their own rebound again, shoot again, etc, which might produce longer streaks of misses than makes.</p>
-<p>However, I don't think there's a need to deeply analyze the streaky players at this point, because it could be due to chance alone. </p>
-<h2>Goofy Nonsense</h2>
+<p>There's only one super streaky guy in the last 20 years, Ivica Zubac, with a Z score of -3.98. That's pretty crazy, but still plausibly within the realm of chance.</p>
+<p>The other guys with extremely streaky behavior on high volume are Dwight Powell, Nemanja Bjelica, Erick Dampier, Aaron Nesmith and Rudy Gobert, with z scores around -3. Most of those guys are big men who aren't primarily scorers. My hunch is that this is due to sequences where a big man will miss a shot close to the basket, get their own rebound, miss another shot, and so on. My guess is that these types of players will have longer miss streaks than make streaks.</p>
+<p>However, I don't think there's a need to deeply analyze the streaky players at this point, because it could be due to chance alone. The big mystery has always been why there are way more un-streaky players than streaky ones. Both types should exist.</p>
 <p>Zydrunas Ilgauskas was a longtime player for the Cleveland Cavaliers who was nicknamed "The Big Z". However, his career z score was only 1.49, so I don't think it's a statistics based nickname. Which is too bad, because the game could use some of those. "Small Z" for Ivica Zubac's career -3.98 score might be confusing to people, unfortunately.</p>
 <h2>Final thoughts</h2>
 <p>If I were LeBron's coach, I'd try to talk him out of believing he has the hot hand, because as we've seen, acting like it exists has caused him to be the most <em>lukewarm handed</em> player of the past 20 years.</p>
@@ -577,11 +571,12 @@ max          3.390395
 <p>His innate shooting skill doesn't change, he just takes lower percentage shots, perhaps believing they're not really lower percentage shots when he's <em>feeling it</em>. It's feel vs. real, as it often is in sports, and life in general. Regardless of feel, they're still worse shots than he would normally take.</p>
 <p>Going the other way, it's like the old joke -- why don't they build the whole airplane out of the black box? If LeBron has a higher shooting percentage when he's <em>cold</em> and decides to "go get a bucket", and that works, why doesn't he just do that on every play?</p>
 <p>I don't have a statistical answer to that question, but I do have a common sense one. In sports, part of the game is making the other team have to handle as many possibilities at a time. A quarterback in football shouldn't throw deep passes every play, because that's easy to defend. A baseball pitcher shouldn't just throw their best pitch every time, because that's easy for the hitter to anticipate. </p>
-<p>Likewise, LeBron probably shouldn't just put his head down and "get a bucket" every possession, because that's easy to plan against. LeBron wouldn't be an all time great if he only shot in the restricted area. While 3 pointers and midrange shots may have a lower expected value versus driving to the hoop, they force the defender to worry about LeBron no matter where he is on the court. But as a hoops fan and a data nerd, I think trying to create a high percentage shot isn't a bad thing to do when a player is struggling in a game. That's especially true if a player can become less engaged in other aspects of the game when they are shooting poorly. A player taking low percentage shots when they are shooting well is much less forgivable.</p>
+<p>Likewise, LeBron probably shouldn't just put his head down and "get a bucket" every possession, because that's easy to plan against. LeBron wouldn't be an all time great if he only shot in the restricted area. While 3 pointers and midrange shots may have a lower expected value versus driving to the hoop, they force the defender to worry about LeBron no matter where he is on the court. LeBron can shoot or pass or just dribble right past the defender at any place on the court.</p>
+<p>But as a hoops fan and a data nerd, I think trying to create a high percentage shot isn't a bad thing to do when a player is struggling in a game. That's especially true if a player can become less engaged in other aspects of the game when they are shooting poorly. A player taking low percentage <em>heat check</em> shots because they are shooting well is much less forgivable, and should probably be coached out of players.</p>
                 <div class="clear"></div>
 
                 <div class="info">
-                    <a href="/lebron-james-the-unstreaky-king.html">posted at 10:20</a>
+                    <a href="/lebron-james-the-unstreaky-goat.html">posted at 10:20</a>
                     &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
@@ -692,7 +687,7 @@ max         5.073167
 <p>Normalized values can then be compared to other players' values. The lower the entropy, the more similar their shapes are.</p>
 <p>I also calculated the Jensen-Shannon distance, which is like relative entropy, but symmetrical (<code>distance(le_bron, le_other_guy) = distance(le_other_guy, le_bron)</code>).</p>
 <p>The closest guys to LeBron by this measure are CJ McCollum, Terry Rozier, Andrea Bargnani, Marcus Morris, Richard Hamilton, Nikola Vucevic, Zach Randolph, Lauri Markkanen, Kawhi Leonard, and Kevin Huerter. </p>
-<p>Since Richard Hamilton had the streakiest game in the last 20 years, it's not surpring to see him. But except for Randolph and Vucevic, none of the top 10 had exceptional z scores, though they were all positive.</p>
+<p>Since Richard Hamilton had the least streaky game in the last 20 years, it's not surpring to see him. But except for Randolph and Vucevic, none of the top 10 had exceptional z scores, though they were all positive.</p>
 <p>The Jensen-Shannon distance results were extremely similar to entropy. It agreed exactly with the entropy on 73 of the top 100 players. The average z score for those players was 1.16, versus 1.15 for entropy. So, in aggregate, both were better than my homegrown metric at identifying unstreaky players.</p>
 <p>This graph shows the shape of the 10 players most similar to LeBron. They all have the same downward trend.</p>
 <p><img alt="most-similar-last5" src="/img/most-similar-last5.png"></p>
