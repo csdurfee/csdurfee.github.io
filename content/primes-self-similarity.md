@@ -9,12 +9,12 @@ Tags: number theory, machine learning, some educational value
 Song: [John Hollenbeck & NDR Big Band, "Entitlement"](https://www.youtube.com/watch?v=ncmIlVdL8po){:target="_blank"}
 
 
-I've been messing around with prime numbers, because there are several places where they intersect with both random walks and the arcsine distribution.  It's going to take a while to finally tie that bow, though.
+I've been messing around with prime numbers, because there are several places where they intersect with both [random walks](/do-you-wanna-win.html) and the [arcsine distribution](/riding-the-waves.html).  It's going to take a while to finally tie that bow, though.
 
 So it's a quick one this week: a kinda-cool story, and a kinda-cool graph.
 
 ### Random Primes
-The prime numbers are simple to find, but not easy. They're not randomly distributed, but it's hard to come up with simple ways to find them, and they act like random numbers in certain ways.  Why is 47 prime and 57 non-prime?
+The prime numbers are simple to find, but not easy. They're not randomly distributed, but it's hard to come up with easy ways to find them, and they act like random numbers in certain ways.  Why is 47 prime and 57 non-prime? You can't really tell just by looking.
 
 To find the primes, we can write down every number from, say, 1 to 1000. Then we cross out 2, and every number divisible by 2 (4, 6, 8, etc.). Repeat that with 3 (6, 9, 12, etc.), and so on. The numbers left behind are prime. This is the famous [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) -- it's a tedious way to find prime numbers, but it's by far the easiest to understand.
 
@@ -31,7 +31,7 @@ Random primes can be odd or even, so the analogy to twin primes would be two ran
 ### Largest prime factors of composite numbers
 I was intrigued by the largest prime factor of composite (non-prime) numbers. Are there any patterns?
 
-As background, every number can be split into a unique set of prime factors. For instance, the number 24 can be factored into `24 = 8 * 3 = 2 * 2 * 2 * 3`. Let's say we knock off the biggest prime factor. We get: `2 * 2 * 2 = 8`. The raw numbers rapidly get too big, so I looked at the log of the ratio
+As background, every number can be split into a unique set of prime factors. For instance, the number 24 can be factored into `24 = 8 * 3 = 2 * 2 * 2 * 3`. Let's say we knock off the biggest prime factor. We get: `2 * 2 * 2 = 8`. The raw numbers rapidly get too big, so I looked at the log of the ratio:
 
 ![/img/logratios100k.png](/img/logratios100k.png)
 
@@ -47,7 +47,7 @@ Let's go another order of magnitude up. The first 10,000,000 versus the next 10,
 
 ![/img/logratios10M.png](/img/logratios10M.png)
 
-We get the same basic shapes again! The self-similarity is kinda cool. It may be possible to come up with some function for the distribution for this quantity. 
+We get the same basic shapes again! The self-similarity is kinda cool. Is it possible to come up with some function for the distribution for this quantity? You tell me.
 
 ### The perils of interpolation
 These graphs are flawed. I'm generating these graphs using Kernel Density Estimation, a technique for visualizing the density of data. Histograms, another common way, can be misleading. The choice of bin size can radically alter what the histogram looks like.
@@ -58,7 +58,7 @@ This data is actually way *chunkier* than KDE is treating it.  Every point of da
 
 This makes it hard to visualize the data accurately. There are too many possible values to display each one individually, but not enough for KDE's smoothing to be appropriate.
 
-The *kernel* in Kernel Density Estimation is the algorithm used to smooth the data --  it's basically a moving average that assumes something about the distribution of the data. People usually use the Gaussian kernel, which treats the data like a normal distribution -- smooth and bell curvy. A better choice for chunky data is the *tophat* kernel, which treats the space between points like a uniform distribution -- in other words, a flat line. If the sparseness of the data on the X axis were due to a small sample size, the tophat kernel would display plateaus that aren't in the real data. But here, I calculated data for the first 100 Million numbers, so there's no lack of data. The sparseness of the data is by construction. `log(2)` will be the only value between 0 and 1, no matter how many numbers we go up to. So the left side of the graph should look fairly chunky.
+The *kernel* in Kernel Density Estimation is the algorithm used to smooth the data --  it's basically a moving average that assumes something about the distribution of the data. People usually use the Gaussian kernel, which treats the data like a normal distribution -- smooth and bell curvy. A better choice for chunky data is the *tophat* kernel, which treats the space between points like a uniform distribution -- in other words, a flat line. If the sparseness of the data on the X axis were due to a small sample size, the tophat kernel would display plateaus that aren't in the real data. But here, I calculated data for the first 100 Million numbers, so there's no lack of data. The sparseness of the data is by construction. `log(2)` will be the only value between 0 and 1, no matter how many numbers we go up to. So the left side of the graph *should* look fairly chunky.
 
 The tophat kernel does a much better job of conveying the non-smoothness of the distribution:
 
