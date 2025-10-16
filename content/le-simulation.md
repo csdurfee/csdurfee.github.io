@@ -136,7 +136,7 @@ I also calculated the Jensen-Shannon distance, which is like relative entropy, b
 
 The closest guys to LeBron by this measure are CJ McCollum, Terry Rozier, Andrea Bargnani, Marcus Morris, Richard Hamilton, Nikola Vucevic, Zach Randolph, Lauri Markkanen, Kawhi Leonard, and Kevin Huerter. 
 
-Since Richard Hamilton had the streakiest game in the last 20 years, it's not surpring to see him. But except for Randolph and Vucevic, none of the top 10 had exceptional z scores, though they were all positive.
+Since Richard Hamilton had the least streaky game in the last 20 years, it's not surpring to see him. But except for Randolph and Vucevic, none of the top 10 had exceptional z scores, though they were all positive.
 
 The Jensen-Shannon distance results were extremely similar to entropy. It agreed exactly with the entropy on 73 of the top 100 players. The average z score for those players was 1.16, versus 1.15 for entropy. So, in aggregate, both were better than my homegrown metric at identifying unstreaky players.
 

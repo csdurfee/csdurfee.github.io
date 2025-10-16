@@ -66,9 +66,9 @@ There definitely appears to be a bias towards the lukewarm hand in individual ga
 ## Simulating streaky and non-streaky players
 I coded up a simulation of a non-streaky player. When they have hit a minimum number of attempts in the game, if their shooting percentage goes above a certain level, they get a penalty. If it goes below a certain level, they get a boost.
 
-I was able to create results that look like NBA players in aggregate with an extremely simplified model. The parameters were arbitrarily chosen
+I was able to create results that look like NBA players in aggregate with an extremely simplified model. 
 
-By default, the thresholds are 20% and 80%, and the boost/penalty is 20%. So a 50% shooter who has taken at least 4 shots and is shooting 80% or better for the game will get their FG% knocked down to 30% till their game percentage drops below the threshold. Likewise if they hit 20% or less, they get a boost until they're over the threshold.
+The parameters were arbitrarily chosen. By default, the thresholds are 20% and 80%, and the boost/penalty is 20%. So a 50% shooter who has taken at least 4 shots and is shooting 80% or better for the game will get their FG% knocked down to 30% till their game percentage drops below the threshold. Likewise if they hit 20% or less, they get a boost until they're over the threshold.
 
 I used the game level shooting statistics I got for the individual game-by-game analysis. I then replayed every shot in the NBA in the 2023-24 season using the simulated lukewarm player (and the actual fg% and number of shots attempted in each game). This is what I got:
 

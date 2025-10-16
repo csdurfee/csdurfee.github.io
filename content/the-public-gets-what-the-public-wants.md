@@ -24,7 +24,7 @@ What are those two groups like when they're not betting on basketball, do you th
 ### The public gets what the public wants
 One bit of gambling lore is that there are "public" teams that get bet on more frequently, regardless of the line. Like, your cousin who's a Cowboys fan is going to bet the Cowboys on Thanksgiving regardless of whether it's a fair line or not.  He'd watch the game and root for the Cowboys anyway, but it's a little more fun that way. The Cowboys aren't just a random number generator to him.
 
-There's a social aspect to gambling now that I imagine didn't exist when it was underground. Lots of gamblers will "follow" bets that other people have placed. If the bet wins, I'm sure it's a cool communal thing to be a part of. But social media can act in opposition to the "wisdom of crowds" -- in places like reddit where users vote content up and down, the conventional wisdom is going to be amplified, and people with minority opinions are going to be suppressed. If well over 90% of sports gamblers lose money long term, the majority opinions are going to be bad.
+There's a social aspect to gambling now that I imagine didn't exist when it was underground. Lots of gamblers will *follow* bets that other people have placed. If the bet wins, I'm sure it's a cool communal thing to be a part of. But social media often doesn't obey the *wisdom of crowds* -- in places like reddit where users vote content up and down, the conventional wisdom is going to be amplified, and people with minority opinions are going to be suppressed. If well over 90% of sports gamblers lose money long term, the majority opinions are going to be bad. 
 
 I scraped betting percentage data from [sportsbookreview](https://www.sportsbookreview.com/betting-odds/nba-basketball/) (SBR) for the 2024-5 season. They don't say where they get the betting percentages from. If I had to guess, it would be MGM Grand, their primary source of other data. The SBR numbers seemed to indicate more *action* overall than a couple other sources I found -- the betting percentages were closer together. Other sites had games where there's 10% action on one side and 90% on the other, which seems implausible on a large volume of bets. So it's probably a pretty big site, whatever it is.
 
@@ -79,6 +79,7 @@ Denver and Milwaukee have two of the best and most entertaining players in the l
 ### The ugly dogs
 The bottom teams were New Orleans, Charlotte, Miami, Philadelphia and Portland. All these teams except for Portland were total bummers to watch and cheer for this year. They had injuries and organizational dysfunction that led to totally wasted seasons. People don't like to take bets on teams that are a bummer to follow.
 
+This hints at the fact that a lot of people are taking bets because they want that team to win the bet, rather than because they believe the bet has a positive expected value. It's entertainment, not a business investment.
 
 ### Against the spread
 Here's the same data sorted by record against the spread.
@@ -118,45 +119,45 @@ Here's the same data sorted by record against the spread.
 
 Philadelphia, Washington and Phoenix were just as terrible at the sportsbook as they were on the basketball court. OKC and Cleveland had outstanding seasons in both places.
 
-However, there's only a rough correlation between how good the teams were at actual basketball, and at beating the spread. Minnesota, New York and Denver were in the bottom 10 by winning % against the spread, even though they had good records and were doing their best to win. Denver lost to the eventual champs, and New York and Minnesota made the conference finals. Indiana was the 10th worst team against the spread, and made the NBA finals. Toronto and Brooklyn weren't really trying to win a lot of basketball games, but ended up in the top 10.
+However, there's only a rough correlation between how good the teams were at actual basketball, and at beating the spread. Minnesota, New York and Denver were in the bottom 10 by winning % against the spread, even though they had good records and were doing their best to win. Denver lost to the eventual champs, and New York and Minnesota made the conference finals. Indiana was the 10th worst team against the spread, and made the NBA Finals. Toronto and Brooklyn weren't really trying to win a lot of basketball games, but ended up in the top 10. There is no good reason I can think of for the Lakers to be in the top 4 against the spread -- aren't they the epitome of a public team that should be getting unfavorable lines? 
 
 ### Which teams should the public love and hate?
-I calculated the amount of units a gambler would win if they bet on each team when they got the majority of the bets.  `public_units` is the amount won/lost betting in favor of the team, and `fade_units` by betting against them, when they are the public team. (The two values are different because of the vig.)
+I calculated the amount of units a gambler would win or lose if they bet on each team when they got the majority of the bets.  This is a sort of measure how happy the proverbial public should be about each team.
 
-Phoenix, Sacramento, Dallas, Denver and Indiana disappointed the public the most.
+`public_units` is the amount won/lost betting in favor of the team. Phoenix, Sacramento, Dallas, Denver and Indiana disappointed the public the most.
 
-|               |   public_units |   fade_units |
-|:--------------|---------------:|-------------:|
-| Phoenix       |          -16.5 |         12.9 |
-| Sacramento    |          -14.2 |         11   |
-| Dallas        |          -13.6 |          9.5 |
-| Denver        |          -12.6 |          6.3 |
-| Indiana       |          -12.6 |          8.4 |
-| Atlanta       |          -11.5 |          7.4 |
-| Utah          |          -11.1 |          7.8 |
-| Chicago       |          -10.2 |          6.6 |
-| Minnesota     |           -9.5 |          5.2 |
-| Detroit       |           -7.4 |          3.1 |
-| Philadelphia  |           -6.7 |          3.8 |
-| New York      |           -6.1 |          2.3 |
-| Brooklyn      |           -5.2 |          1.1 |
-| Washington    |           -5   |          1.3 |
-| Boston        |           -3.2 |         -1.1 |
-| New Orleans   |           -3.1 |          1.1 |
-| Memphis       |           -1.5 |         -3.6 |
-| Charlotte     |           -1.2 |         -1.2 |
-| Miami         |           -1   |         -1   |
-| San Antonio   |           -0.5 |         -2.6 |
-| Orlando       |           -0.4 |         -2.5 |
-| Milwaukee     |            1.4 |         -7   |
-| Golden State  |            2.7 |         -7.8 |
-| L.A. Lakers   |            4.2 |         -8.4 |
-| Houston       |            4.9 |         -9.8 |
-| Cleveland     |            6.8 |        -12.1 |
-| Portland      |           10.3 |        -12.8 |
-| Toronto       |           11.3 |        -16   |
-| L.A. Clippers |           12.3 |        -15   |
-| Oklahoma City |           18.3 |        -23.7 |
+|               |   public_units |
+|:--------------|---------------:|
+| Phoenix       |          -16.5 |
+| Sacramento    |          -14.2 |
+| Dallas        |          -13.6 |
+| Denver        |          -12.6 |
+| Indiana       |          -12.6 |
+| Atlanta       |          -11.5 |
+| Utah          |          -11.1 |
+| Chicago       |          -10.2 |
+| Minnesota     |           -9.5 |
+| Detroit       |           -7.4 |
+| Philadelphia  |           -6.7 |
+| New York      |           -6.1 |
+| Brooklyn      |           -5.2 |
+| Washington    |           -5   |
+| Boston        |           -3.2 |
+| New Orleans   |           -3.1 |
+| Memphis       |           -1.5 |
+| Charlotte     |           -1.2 |
+| Miami         |           -1   |
+| San Antonio   |           -0.5 |
+| Orlando       |           -0.4 |
+| Milwaukee     |            1.4 |
+| Golden State  |            2.7 |
+| L.A. Lakers   |            4.2 |
+| Houston       |            4.9 |
+| Cleveland     |            6.8 |
+| Portland      |           10.3 |
+| Toronto       |           11.3 |
+| L.A. Clippers |           12.3 |
+| Oklahoma City |           18.3 |
 
 This is a pretty random list of teams, in both directions. It's a good illustration that gamblingball is different from basketball. It's not clear whether gamblingball is a game with an element of skill, or if it's all chance.
 
@@ -167,12 +168,11 @@ Calculating exact odds using the binomial distribution, 94% of NBA teams should 
 
 We'd expect 2 teams to be outside that range, and there are 3. Philadelphia went 26-52 in 78 games we have data for. Even if they won the other 4 games that are missing data, they'd only have 30 wins. So that record was definitely an outlier, but overall the season was about what we'd expect based on chance.
 
-I find it very believable that some teams are more likely to have a winning record against the spread, because they are underestimated by the handicappers or the betting public. They end up getting lines that are too generous, and thus do better than expected against the spread. Toronto could be an example of that. They were bad, but they weren't really as bad as people thought.
+I find it very believable that some teams are more likely to have a winning record against the spread, because they are underestimated by the handicappers or the betting public. They end up getting lines that are too generous, and thus do better than expected against the spread over the long run. Toronto could be an example of that. They were bad, but they weren't really as bad as people thought.
 
 Other teams could be inherently worse against the spread, as well. Perhaps they are super popular to bet on, so the lines tend to move against them -- a *public team*. Or perhaps gamblers and sportsbooks overvalue the team -- the conventional wisdom is that they'll be good when they're not. That definitely describes Philadelphia and Phoenix.
 
-In both cases, *the teams themselves* aren't necessarily doing anything to be better or worse against the spread than an average team would be. It's about the perceptions of the bookmakers and gamblers.
-
+In both cases, *the teams themselves* aren't necessarily doing anything to be better or worse against the spread than an average team would be. It's about the perceptions of the bookmakers and gamblers. Teams can't help what bookmakers set the lines to be.
 
 ### Do gamblers follow the record against the spread?
 If a team's record against the spread is due solely to random error, then we've got a [LeMartingale](/LeSimulation.html) on our hands. The current record would have no bearing on the future record. So gamblers shouldn't factor it in when deciding to take a bet or not.

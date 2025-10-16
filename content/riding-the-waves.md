@@ -77,7 +77,7 @@ The Uniform distribution isn't really that ab-Normal. It's flat, but it's very m
 
 If we take a single sample from a Uniform distribution over and over again, and plot a histogram, it's going to look flat, because every outcome is equally likely.
 
-If we take the sum (or average) of two Uniform random variables, what would that look like? We're going to randomly select two numbers between 0 and 1 and sum them up. The result will be between 0 and 2. But some outcomes will be more likely than others.  The extremes (0 and 2) should be extremely unlikely, right? Both the random numbers would have to be close to 0 for the sum to be, and vice versa. There are a lot of ways to get a sum of .5, though. It could be .9 and .1, or .8 and .2, and so on.
+If we take the sum (or average) of two Uniform random variables, what would that look like? We're going to randomly select two numbers between 0 and 1 and sum them up. The result will be between 0 and 2. But some outcomes will be more likely than others.  The extremes (0 and 2) should be extremely unlikely, right? Both the random numbers would have to be close to 0 for the sum to be, and vice versa. There are a lot of ways to get a sum of 1, though. It could be .9 and .1, or .8 and .2, and so on.
 
 If you look online, you can find many explanations of how to get the PDF of the sum of two Uniform distributions using calculus. ([Here's a good one](https://courses.cs.washington.edu/courses/cse312/20su/files/student_drive/5.5.pdf)). While formal proofs are important, it's not very intuitive. So, here's another way to think of it.
 
@@ -127,7 +127,7 @@ The sum (or average) of 3 Uniform random variables looks a whole lot like the no
 
 ![/img/shaggy-parabola.png](/img/shaggy-parabola.png)
 
-Here are three 5 sided dice. It's no longer going up and down by one step per column. The slope is changing as we go up and down the sides.
+Here are three 4 sided dice. It's no longer going up and down by one step per column. The slope is changing as we go up and down the sides.
 
 | 3         | 4         | 5         | 6         | 7         | 8         | 9         | 10        | 11        | 12        |
 |:----------|:----------|:----------|:----------|:----------|:----------|:----------|:----------|:----------|:----------|

@@ -106,7 +106,7 @@ This is just one month of betting, assuming the gambler bets on every NBA game. 
 How about a longer period of time? I simulated 1,000 bets this time, nearly a whole season of the NBA. The median outcome is turning $100 into $1356, which is a sweet rate of return. But the chances of going broke actually increased! The player will go broke 1.4% of the time, about 11x more often on 1000 bets than 200, which seems unfair, but the Kelly criterion doesn't make any guarantees about not going broke. It just offers the way to optimize Expected Value if the gambler knows the exact advantage they have over the house.
 
 ### Partial Kelly Betting
-Kelly Betting is the optimal way to maximize profits, but what about lower stakes? The real power of Kelly betting is its compounding nature -- as the bankroll gets bigger or smaller, the bet size scales up or down as well.
+Kelly Betting is the optimal way to maximize profits, but what about lower stakes? The real power of Kelly betting is its compounding nature -- as the bankroll gets bigger or smaller, the bet size scales up or down as well. It also corresponds to our incorrect intuitive understanding of randomness -- it makes sense someone should bet smaller amounts when they're on a *cold streak*, and larger amounts when they're on a *hot streak*. 
 
 What if the gambler only bets 2% of their bankroll instead of the 7.6% recommended by the Kelly criterion? They don't go broke a single time in 100,000 simulations of 1,000 bets.  The mean rate of return is 4.6x and the median is 3.7x. That's a pretty nice return on investment, relative to the risk. The gambler still lost money 2.8% of the time, though. Being conservative, betting a lot of games at positive expected value, and betting the right way greatly increase the chances of success, but nothing can eliminate the possibility of failure.
 
@@ -122,6 +122,3 @@ This Expected Value of playing this way doesn't have any randomness in it. It's 
 If I actually simulate it, a pretty wide range of outcomes are possible. 99% of the time, the gambler makes money, but 6 times out of 100,000, they lose everything and more. (6 in 100,000 is about the same odds as winning a 14 leg parlay.)
 
 With betting a fixed size, the rate of return is lower and the risk of going broke doesn't go away. So it's sub-optimal compared to Kelly-style betting with a very small percentage of the total bankroll.
-
-### Next time
-More on random walks... probably.

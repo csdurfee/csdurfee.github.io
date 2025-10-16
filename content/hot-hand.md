@@ -120,8 +120,6 @@ min       -2.082528
 max        3.054836
 ```
 
-There were 20 players with a z-score less than -2 versus only 2 players with a score greater than 2.
-
 ## The Eye Test
 I looked at which players had exceptionally high or low z scores. The names don't really make sense to me as an NBA fan. There were players like Jordan Poole and Jalen Green, who I think fans would consider streaky, but they had exceptionally un-streaky z-scores. I don't think the average NBA fan would say Jalen Green is less streaky than 97.5% of the players in the league, but he is (by this test).
 
@@ -129,7 +127,7 @@ On the other hand, two streakiest players in the NBA this year were Goga Bitadze
 
 ## Makes vs. Streakiness
 
-The more shots a player made this season, the less streaky they tended to be. Here's a plot of makes on the 2024-25 season versus the z-score.
+The more shots a player made this season, the more un-streaky they tended to be. Here's a plot of makes on the 2024-25 season versus the z-score.
 
 ![makes vs z-score](/img/makes-vs-zscore.png)
 
@@ -137,7 +135,7 @@ That's pretty odd, isn't it?
 
 ## Getting more data: 2021-present
 
-I figured a bigger sample size would be better. Maybe this season was just weird. So got the last 4 seasons of data (2021-22,2022-2023, 2023-2024, 2024-2025) for players who made a shot in the NBA this season and combined them.
+I figured a bigger sample size would be better. Maybe this season was just weird. So got the last 4 seasons of data (2021-22, 2022-2023, 2023-2024, 2024-2025) for players who made a shot in the NBA this season and combined them.
 
 The four year data is even more skewed towards the *lukewarm hand*, or un-streaky side, than the single year data.
 
@@ -158,7 +156,7 @@ The correlation between number of makes and z-score is quite strong in the 4 yea
 
 ![2021-2025 z score vs makes](/img/four-year-makes-vs-zscore.png)
 
-There were 48 players with a z-score > 2, versus only 9 with a score <-2. That's like flipping a coin and getting 48 heads and 9 tails. There's around a 2 in 10 million chance of that happening with a fair coin.
+There were 48 players with a z-score > 2, versus only 9 with a score < -2. That's like flipping a coin and getting 48 heads and 9 tails. There's around a 2 in 10 million chance of that happening with a fair coin.
 
 ## High Volume Shooters, Redux
 
@@ -216,4 +214,4 @@ max        1.845302
 ## Conclusions, for now
 I feel comfortable concluding that the hot hand doesn't exist when it comes to field goals. I can't say why there's a tendency towards *unstreakiness* yet, but I suspect it is due to shot selection. Players who have made a bunch of shots may take more difficult shots than average, and players who have missed a bunch of shots will go for an easier shot than average. While players can't choose when to "heat up" or "go cold", they can certainly change shot selection based on their emotions or the momentum of the game.
 
-There may be a slight tendency towards the hot hand when it comes to free throws. It's worth investigating further, I think. But the effect there doesn't appear to be nearly as strong as the *lukewarm hand* tendency for field goals.
+There may be a slight tendency towards the *hot hand* when it comes to free throws. It's worth investigating further, I think. But the effect there doesn't appear to be nearly as strong as the *lukewarm hand* tendency for field goals.
