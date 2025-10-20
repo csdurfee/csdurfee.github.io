@@ -30,7 +30,642 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Sep 23, 2025</h4>
+        <div id="content">            <h4 class="date">Oct 19, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/lessons-from-four-years-of-nba-gambling-stats.html" rel="bookmark" title="Permanent Link to &quot;Lessons from four years of NBA gambling stats&quot;">Lessons from four years of NBA gambling stats</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=6QYbZsBPawI" target="_blank"><img alt="The Meters, &quot;People Say&quot;" src="https://img.youtube.com/vi/6QYbZsBPawI/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=6QYbZsBPawI" target="_blank">The Meters, "People Say"</a></p>
+<p>In <a href="/the-public-wants-what-the-public-gets.html">a previous installment</a>, I looked at statistics about NBA gambling that I obtained from sportsbookreview.com. I thought it was pretty interesting, but there were some huge gaps in the data, and I wasn't sure what sportsbook some of it was coming from. So I didn't have a ton of confidence in my results.</p>
+<p>I thought it was a pretty cool idea, though, so I tracked down a better source of data via Yahoo's NBA pages. Yahoo loads gambling data from the BetMGM sportsbook, and I found a nice internal API for getting it all. I was able to get data on the past four seasons of NBA games, and although data is missing for some games, it's much more complete, and has a bunch more info, than the original dataset.</p>
+<p>All code and data is available online at <a href="https://github.com/csdurfee/scrape_yahoo_odds/">https://github.com/csdurfee/scrape_yahoo_odds/</a>. The <code>explore.ipynb</code> notebook has all the calculations and charts used in this article.</p>
+<p>As usual with gambling content, I'm presenting this data because I think it is interesting to study how it works, and what it tells us about basketball and human nature. Math is cool. Basketball is cool. Human nature is frequently not cool, but always interesting. Gambling is lame.  If you have money burning a hole in your pocket, please give it to me instead of the MGM Grand.</p>
+<p>OK, lecture over.</p>
+<p>The data I'm looking at is every regular season and playoff NBA game from the 2021-22, 2022-23, 2023-2024 and 2024-2025 seasons. No preseason games or All-Star games, but the Emirates NBA Cup championship game is included. </p>
+<p>There are 435 games that are missing stake/wager data (the percentage of money and bets placed on each side, respectively.) That leaves 4,840 NBA games that I have analyzed. The stake and wager percentages seem to be pretty similar to each other, so I'm just using the wager data.</p>
+<h2>What do the spreads look like? Are there any obvious biases?</h2>
+<p>The home team went 2393-2447 (49.5%) against the spread over the last 4 years. The favorite team went 2427-2413 (50.1%) against the spread in that time.</p>
+<p>The home team was the favorite in 3044/4840 (62.8%) of games. The median spread is the home team -3.5 (favored by 3.5 points). Here are the frequencies:</p>
+<p><img alt="home-spread-frequencies" src="/img/home-spread-frequencies.png"></p>
+<p>Basketball games never end in a tie, and there are strategic reasons why NBA games rarely end in a one point difference.</p>
+<p>Around half of all home lines are one of -2.5, -1.5, -4.5, -3.5, +1.5, -6.5, -5.5, -7.5 or +2.5 (in descending order of frequency).</p>
+<p>98.3% of all MGM lines are on the half point (eg 8.5 instead of 8). This is so the sportsbook can avoid pushes (ties), where they have to give everybody's money back.</p>
+<h2>More evidence of the folly of crowds</h2>
+<p>First, some betting jargon, if you're new here. Teams that are popular with bettors are known as <em>public</em> teams. The side of a particular bet that gets more <em>action</em> is known as the <em>public side</em>. If that side of the bet won, people say <em>the public won</em>. Betting the less popular side is known as <em>fading the public</em>. When the less popular side wins against the spread, people will say <em>Vegas won</em> or <em>sharps won</em> (a <em>sharp</em> is someone who is good at betting, as opposed to a <em>square</em>, who is bad at betting.)</p>
+<p>Looking at the stake/wager data, we can find out which team was more popular to bet on for each game. How do those <em>public</em> teams do collectively? Are the public any better or worse at making picks than just flipping a coin?</p>
+<p>Due to well-earned cynicism, I was expecting that the public would be a bit worse than a coin flip. And they are. <em>The public</em> went 2381-2459 (49.19%) against the spread over the past 4 years.</p>
+<p>The public greatly prefer betting on the away team. 2742/4840 (56.7%) of public bets are on the away team. The public also greatly prefer favorites. 2732/4840 (56.4%) of bets are on them.  </p>
+<p>Here's how the bets break down:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">favorite</th>
+<th style="text-align: right;">dog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">AWAY</td>
+<td style="text-align: right;">1215</td>
+<td style="text-align: right;">1527</td>
+</tr>
+<tr>
+<td style="text-align: left;">HOME</td>
+<td style="text-align: right;">1517</td>
+<td style="text-align: right;">581</td>
+</tr>
+</tbody>
+</table>
+<p>This crosstab is a little misleading. The home team is usually favored, so there are fewer home underdogs than road underdogs. However, there's still a discrepancy. The home team is the underdog 37% of the time, but only 27% of bets on underdogs are on the home team, and 28% of bets on the home team are on underdogs.</p>
+<p>Of the 4 categories, the only one with a winning record for the public is away favorites -- 623-592 (51.3% win rate). The second best type is home underdogs, which went 289-292 (49.7%). </p>
+<p>The two most popular bet types with the public are big losers. Away underdogs went 742-785 (48.6%), and home favorites went a putrid 727-792 (47.9%).</p>
+<p>Overall, someone taking the public side of every bet over the past 4 years would have lost 324 units. If they bet $100 on every game, they would be down $32,400. Someone taking the opposite side of all these bets (<em>fading the public</em>) would "only" lose 160 units, or $16,000. </p>
+<p>It would've been profitable betting <em>reduced juice</em> (risk 106 to win 100 instead of 110) to <em>fade the public</em> on all away underdog and home favorite picks. The problem with that strategy is that reduced juice sportsbooks actively attract smart players, so they have <em>sharper</em> (more accurate) lines. A retail sportsbook like BetMGM doesn't need <em>sharp</em> lines because they ban any players who win too much. Against <em>sharp</em> lines, I wouldn't expect the strategy to be profitable.</p>
+<h2>How have teams done against the spread over the past 4 years?</h2>
+<p>Over the past 4 seasons, team records against the spread appear fairly random. The only real outlier is the Oklahoma City Thunder, who have won an astounding 59.3% of their games against the spread. This is remarkable to me because they've been one of the best and most hyped teams in basketball the past couple years. They dominated the league last season, winning 68/82 (82.9%) games, and the NBA Championship. They're not exactly an under the radar team. Yet they appear to have been underestimated by both <em>Vegas</em> and the betting public.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Oklahoma City</td>
+<td style="text-align: right;">0.593</td>
+</tr>
+<tr>
+<td style="text-align: left;">Toronto</td>
+<td style="text-align: right;">0.544</td>
+</tr>
+<tr>
+<td style="text-align: left;">Boston</td>
+<td style="text-align: right;">0.54</td>
+</tr>
+<tr>
+<td style="text-align: left;">Memphis</td>
+<td style="text-align: right;">0.529</td>
+</tr>
+<tr>
+<td style="text-align: left;">Orlando</td>
+<td style="text-align: right;">0.528</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chicago</td>
+<td style="text-align: right;">0.516</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dallas</td>
+<td style="text-align: right;">0.515</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cleveland</td>
+<td style="text-align: right;">0.508</td>
+</tr>
+<tr>
+<td style="text-align: left;">New York</td>
+<td style="text-align: right;">0.504</td>
+</tr>
+<tr>
+<td style="text-align: left;">Golden State</td>
+<td style="text-align: right;">0.504</td>
+</tr>
+<tr>
+<td style="text-align: left;">Indiana</td>
+<td style="text-align: right;">0.503</td>
+</tr>
+<tr>
+<td style="text-align: left;">Houston</td>
+<td style="text-align: right;">0.502</td>
+</tr>
+<tr>
+<td style="text-align: left;">LA Lakers</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Miami</td>
+<td style="text-align: right;">0.499</td>
+</tr>
+<tr>
+<td style="text-align: left;">Philadelphia</td>
+<td style="text-align: right;">0.498</td>
+</tr>
+<tr>
+<td style="text-align: left;">Minnesota</td>
+<td style="text-align: right;">0.496</td>
+</tr>
+<tr>
+<td style="text-align: left;">Detroit</td>
+<td style="text-align: right;">0.495</td>
+</tr>
+<tr>
+<td style="text-align: left;">Utah</td>
+<td style="text-align: right;">0.492</td>
+</tr>
+<tr>
+<td style="text-align: left;">Denver</td>
+<td style="text-align: right;">0.491</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sacramento</td>
+<td style="text-align: right;">0.49</td>
+</tr>
+<tr>
+<td style="text-align: left;">LA Clippers</td>
+<td style="text-align: right;">0.489</td>
+</tr>
+<tr>
+<td style="text-align: left;">San Antonio</td>
+<td style="text-align: right;">0.488</td>
+</tr>
+<tr>
+<td style="text-align: left;">Charlotte</td>
+<td style="text-align: right;">0.487</td>
+</tr>
+<tr>
+<td style="text-align: left;">Milwaukee</td>
+<td style="text-align: right;">0.484</td>
+</tr>
+<tr>
+<td style="text-align: left;">Brooklyn</td>
+<td style="text-align: right;">0.483</td>
+</tr>
+<tr>
+<td style="text-align: left;">Portland</td>
+<td style="text-align: right;">0.477</td>
+</tr>
+<tr>
+<td style="text-align: left;">New Orleans</td>
+<td style="text-align: right;">0.476</td>
+</tr>
+<tr>
+<td style="text-align: left;">Phoenix</td>
+<td style="text-align: right;">0.471</td>
+</tr>
+<tr>
+<td style="text-align: left;">Atlanta</td>
+<td style="text-align: right;">0.442</td>
+</tr>
+<tr>
+<td style="text-align: left;">Washington</td>
+<td style="text-align: right;">0.439</td>
+</tr>
+</tbody>
+</table>
+<p>While it's not impossible OKC's record against the spread is due to chance alone, a 59.3% winning percentage over 332 games seems like a failure of the market.</p>
+<h2>Who are the most common favorites?</h2>
+<p>Boston has been the most dominant, being favored in 319/361 (88.4%) of their games over the past four seasons, followed by Milwaukee, Denver and Golden State. </p>
+<p>Detroit, Charlotte, Washington and San Antonio were the most common underdogs.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Boston</td>
+<td style="text-align: right;">0.884</td>
+</tr>
+<tr>
+<td style="text-align: left;">Milwaukee</td>
+<td style="text-align: right;">0.734</td>
+</tr>
+<tr>
+<td style="text-align: left;">Denver</td>
+<td style="text-align: right;">0.711</td>
+</tr>
+<tr>
+<td style="text-align: left;">Golden State</td>
+<td style="text-align: right;">0.707</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cleveland</td>
+<td style="text-align: right;">0.706</td>
+</tr>
+<tr>
+<td style="text-align: left;">Phoenix</td>
+<td style="text-align: right;">0.691</td>
+</tr>
+<tr>
+<td style="text-align: left;">Miami</td>
+<td style="text-align: right;">0.608</td>
+</tr>
+<tr>
+<td style="text-align: left;">Minnesota</td>
+<td style="text-align: right;">0.595</td>
+</tr>
+<tr>
+<td style="text-align: left;">LA Clippers</td>
+<td style="text-align: right;">0.588</td>
+</tr>
+<tr>
+<td style="text-align: left;">New York</td>
+<td style="text-align: right;">0.572</td>
+</tr>
+<tr>
+<td style="text-align: left;">Philadelphia</td>
+<td style="text-align: right;">0.568</td>
+</tr>
+<tr>
+<td style="text-align: left;">Memphis</td>
+<td style="text-align: right;">0.56</td>
+</tr>
+<tr>
+<td style="text-align: left;">Oklahoma City</td>
+<td style="text-align: right;">0.557</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dallas</td>
+<td style="text-align: right;">0.542</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sacramento</td>
+<td style="text-align: right;">0.535</td>
+</tr>
+<tr>
+<td style="text-align: left;">LA Lakers</td>
+<td style="text-align: right;">0.509</td>
+</tr>
+<tr>
+<td style="text-align: left;">Atlanta</td>
+<td style="text-align: right;">0.498</td>
+</tr>
+<tr>
+<td style="text-align: left;">Indiana</td>
+<td style="text-align: right;">0.456</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chicago</td>
+<td style="text-align: right;">0.426</td>
+</tr>
+<tr>
+<td style="text-align: left;">Toronto</td>
+<td style="text-align: right;">0.414</td>
+</tr>
+<tr>
+<td style="text-align: left;">Brooklyn</td>
+<td style="text-align: right;">0.411</td>
+</tr>
+<tr>
+<td style="text-align: left;">Utah</td>
+<td style="text-align: right;">0.406</td>
+</tr>
+<tr>
+<td style="text-align: left;">New Orleans</td>
+<td style="text-align: right;">0.385</td>
+</tr>
+<tr>
+<td style="text-align: left;">Orlando</td>
+<td style="text-align: right;">0.358</td>
+</tr>
+<tr>
+<td style="text-align: left;">Houston</td>
+<td style="text-align: right;">0.309</td>
+</tr>
+<tr>
+<td style="text-align: left;">Portland</td>
+<td style="text-align: right;">0.245</td>
+</tr>
+<tr>
+<td style="text-align: left;">San Antonio</td>
+<td style="text-align: right;">0.215</td>
+</tr>
+<tr>
+<td style="text-align: left;">Washington</td>
+<td style="text-align: right;">0.213</td>
+</tr>
+<tr>
+<td style="text-align: left;">Charlotte</td>
+<td style="text-align: right;">0.194</td>
+</tr>
+<tr>
+<td style="text-align: left;">Detroit</td>
+<td style="text-align: right;">0.188</td>
+</tr>
+</tbody>
+</table>
+<h2>Who are the most common public teams?</h2>
+<p>We saw <em>the public</em> likes to bet on the away team, and the favorite. Do they have team-specific tendencies?</p>
+<p>They certainly do. The LA Lakers and Golden State Warriors are most popular, being the picked by the public in 72% of their games. Detroit and Orlando are the least popular, only getting the majority of bets in 31% of their games.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">LA Lakers</td>
+<td style="text-align: right;">0.716</td>
+</tr>
+<tr>
+<td style="text-align: left;">Golden State</td>
+<td style="text-align: right;">0.716</td>
+</tr>
+<tr>
+<td style="text-align: left;">Milwaukee</td>
+<td style="text-align: right;">0.694</td>
+</tr>
+<tr>
+<td style="text-align: left;">Phoenix</td>
+<td style="text-align: right;">0.607</td>
+</tr>
+<tr>
+<td style="text-align: left;">Denver</td>
+<td style="text-align: right;">0.603</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dallas</td>
+<td style="text-align: right;">0.577</td>
+</tr>
+<tr>
+<td style="text-align: left;">Boston</td>
+<td style="text-align: right;">0.557</td>
+</tr>
+<tr>
+<td style="text-align: left;">Memphis</td>
+<td style="text-align: right;">0.551</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chicago</td>
+<td style="text-align: right;">0.545</td>
+</tr>
+<tr>
+<td style="text-align: left;">Indiana</td>
+<td style="text-align: right;">0.541</td>
+</tr>
+<tr>
+<td style="text-align: left;">Philadelphia</td>
+<td style="text-align: right;">0.538</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cleveland</td>
+<td style="text-align: right;">0.52</td>
+</tr>
+<tr>
+<td style="text-align: left;">Miami</td>
+<td style="text-align: right;">0.519</td>
+</tr>
+<tr>
+<td style="text-align: left;">Utah</td>
+<td style="text-align: right;">0.518</td>
+</tr>
+<tr>
+<td style="text-align: left;">Oklahoma City</td>
+<td style="text-align: right;">0.518</td>
+</tr>
+<tr>
+<td style="text-align: left;">Minnesota</td>
+<td style="text-align: right;">0.504</td>
+</tr>
+<tr>
+<td style="text-align: left;">LA Clippers</td>
+<td style="text-align: right;">0.502</td>
+</tr>
+<tr>
+<td style="text-align: left;">Brooklyn</td>
+<td style="text-align: right;">0.497</td>
+</tr>
+<tr>
+<td style="text-align: left;">Atlanta</td>
+<td style="text-align: right;">0.495</td>
+</tr>
+<tr>
+<td style="text-align: left;">New York</td>
+<td style="text-align: right;">0.484</td>
+</tr>
+<tr>
+<td style="text-align: left;">San Antonio</td>
+<td style="text-align: right;">0.436</td>
+</tr>
+<tr>
+<td style="text-align: left;">Washington</td>
+<td style="text-align: right;">0.425</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sacramento</td>
+<td style="text-align: right;">0.417</td>
+</tr>
+<tr>
+<td style="text-align: left;">Houston</td>
+<td style="text-align: right;">0.401</td>
+</tr>
+<tr>
+<td style="text-align: left;">Toronto</td>
+<td style="text-align: right;">0.382</td>
+</tr>
+<tr>
+<td style="text-align: left;">Charlotte</td>
+<td style="text-align: right;">0.359</td>
+</tr>
+<tr>
+<td style="text-align: left;">Portland</td>
+<td style="text-align: right;">0.341</td>
+</tr>
+<tr>
+<td style="text-align: left;">New Orleans</td>
+<td style="text-align: right;">0.322</td>
+</tr>
+<tr>
+<td style="text-align: left;">Detroit</td>
+<td style="text-align: right;">0.314</td>
+</tr>
+<tr>
+<td style="text-align: left;">Orlando</td>
+<td style="text-align: right;">0.311</td>
+</tr>
+</tbody>
+</table>
+<p>This is a very similar ranking to what I saw in the previous data -- the public don't appear to be picking bets for purely rational reasons. They like to bet on popular teams, good teams, and teams with popular players. They don't like to bet on unpopular or bad teams, even though both sides have the same chance of winning against the spread. It makes sense as an aesthetic choice, but not as a mathematical choice.</p>
+<p>There is a bit of correlation (r = .08) between team popularity and their record against the spread. Bettors do slightly prefer to bet on teams that do well against the spread:</p>
+<p><img alt="popularity-vs-spread" src="/img/popularity-vs-spread.png"></p>
+<p>Oklahoma City is that lonely dot far off to the right, far better than every other team but only slightly more popular than average.</p>
+<h2>Money lines and the favorite/longshot bias</h2>
+<p>So far I've only been looking at bets against the spread. This new dataset also includes info on money line bets.</p>
+<p>In some ways, money line bets are easier to understand -- just bet on the team you think will win. If you like the favorite, you will win less than you risk; if you like the underdog you win more than you risk. If it's say Oklahoma City versus Dallas, the two sides might be OKC -320 (risk $320 to win $100, implying about a 75% chance of winning) and DAL +260 (risk $100 to win $260).</p>
+<p>With spread bets, both sides have an equal chance of winning, and are usually priced the same. But with money lines, the gambler doesn't know the true odds, so they don't know the vig they're paying. </p>
+<p>There is data to suggest that underdogs pay more in vig, and are therefore more profitable for the sportsbook. This is called the <a href="https://www.football-data.co.uk/blog/favourite_longshot_bias_revisited.php">favorite-longshot bias</a> -- conventional betting wisdom is the expected value of taking an underdog money line bet (especially a big underdog) is lower than taking the favorite. People who bet the underdog are in essence paying a premium to have a more thrilling outcome if they do win.</p>
+<p>While it's a documented phenomenon in <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3271248">horse racing</a>, there's <a href="https://www.pinnacle.com/betting-resources/en/betting-strategy/why-the-favourite-longshot-bias-is-not-a-bias/qjb2prcq4q96nftd">some debate as to whether it exists</a> in general, so I analyzed the 4,634 games with money line betting data. </p>
+<p>If somebody always bet the favorite on every NBA game, or the underdog, what would be their rate of return?  Is it better or worse than the -4.5% rate on spread bets?</p>
+<p>I did find evidence of the favorite-longshot bias in the NBA money lines. Underdogs had a rate of return of -5.47% versus -4.09% for favorites.  Favorites between -200 and -400 offer the best rate of return of any type of money line bet, at -2.97%. Every single type of underdog bet does worse than -4.5% of the typical spread bet.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">label</th>
+<th>start</th>
+<th>end</th>
+<th>num games</th>
+<th>return %</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">all faves</td>
+<td>-9999</td>
+<td>-1</td>
+<td>4839</td>
+<td>-4.09%</td>
+</tr>
+<tr>
+<td style="text-align: left;">mild faves</td>
+<td>-200</td>
+<td>-1</td>
+<td>2174</td>
+<td>-4.19%</td>
+</tr>
+<tr>
+<td style="text-align: left;">heavy faves</td>
+<td>-400</td>
+<td>-200</td>
+<td>1612</td>
+<td>-2.97%</td>
+</tr>
+<tr>
+<td style="text-align: left;">huge faves</td>
+<td>-9999</td>
+<td>-400</td>
+<td>1053</td>
+<td>-5.59%</td>
+</tr>
+<tr>
+<td style="text-align: left;">all dogs</td>
+<td>1</td>
+<td>9999</td>
+<td>4634</td>
+<td>-5.47%</td>
+</tr>
+<tr>
+<td style="text-align: left;">mild dogs</td>
+<td>1</td>
+<td>200</td>
+<td>2440</td>
+<td>-5.60%</td>
+</tr>
+<tr>
+<td style="text-align: left;">heavy dogs</td>
+<td>200</td>
+<td>400</td>
+<td>1430</td>
+<td>-5.69%</td>
+</tr>
+<tr>
+<td style="text-align: left;">huge dogs</td>
+<td>400</td>
+<td>9999</td>
+<td>764</td>
+<td>-4.65%</td>
+</tr>
+</tbody>
+</table>
+<p>The number of dogs and favorites aren't equal because some games have money lines where both sides are negative, say -110, like a traditional bet with a spread of zero. There's also a big asymmetry when the odds are long. For instance the favorite might be -800 and the underdog is +561. That doesn't represent a huge vig, it's just a quirk of how American-style odds work (covered in the book).</p>
+<h3>Caveats and bootstraps</h3>
+<p>There's a bit of a problem with my analysis. In the table above, I'm not conveying a sense of the volatility. Huge underdogs have a bigger payout when they do win, so the outcomes are going to be a lot more variable than betting the favorites. </p>
+<p>-4.65% is the best estimate of the rate of return on huge underdogs, but maybe we just got lucky, or unlucky. A couple of longshot bets winning or losing could drastically change the overall return rate.</p>
+<p>To test volatility, I used bootstrapping, <a href="/one-in-e.html">previously covered in <em>one in e</em></a>. I repeatedly randomly sampled 80% (611/764) of the huge underdog bets and calculated the rate of return on that set. Looking at the range of outcomes helps illustrate the variability of these bets.</p>
+<p>Doing that 100 times leads to a pretty wide spread of rates of return:</p>
+<p><img alt="huge-dog-bootstrap" src="/img/huge-dog-bootstrap.png"></p>
+<p>Although the mean value is close to the overall mean, 15% bootstrapped samples actually had a positive rate of return.  This is similar to what we saw in <a href="/cool-parlay-bro.html"><em>cool parlay, bro</em></a>, where due to variance, even gamblers with no advantage over the house had a small chance of making money over a long period of time off of parlays. I described that situation "like a lottery where you have a 12% chance of winning $3,617, but an 88% chance of losing $10,221." This is similar.</p>
+<h3>Bridgejumper parlays and p-hacking</h3>
+<p>We'd need a lot more data to get a crisp estimate of the rate of return on huge underdogs, but we can have more confidence in the estimated -5.59% rate for huge favorites. Huge favorites being disadvantaged kind of contradicts the favorite-longshot bias theory, but it doesn't surprise me at all due to a strange phenomenon I've seen over and over again.</p>
+<p>It's a type of bet <em>sharps</em> might call "<a href="https://equinedge.com/glossary/exotic-betting/bridgejumper">bridgejumper</a> parlays" and <em>squares</em> on the internet unironically call "free money parlays" -- a parlay of a whole bunch of heavy favorite money lines together. </p>
+<p>The gambler starts with some heavy favorite they like and keep adding more heavy favorites to the parlay till they get <em>plus odds</em> (they can win more than they risk), ending up with 5-6 heavy favorites on the same parlay. They will pick legs of the parlay from different sports, if necessary. There usually aren't enough heavy favorites in the NBA on a particular night to get to the magic &gt; +100 payout.</p>
+<p>An example you might see posted on reddit or twitter would be a 6 leg parlay with a payout of +105 like:</p>
+<ul>
+<li>Celtics -600</li>
+<li>Nuggets -900</li>
+<li>OKC -1000</li>
+<li>Lakers -600</li>
+<li>Duke -600</li>
+<li>Some UFC Guy, because they needed a sixth bet -700</li>
+</ul>
+<p>I've talked to a couple people who take bridgejumper parlays, and they genuinely seem to think they've found some kind of glitch in the matrix -- all of the legs of the bet have a high chance of winning, therefore the bet is a sure thing. </p>
+<p>A sensible person would know that sportsbooks aren't in the business of offering free money so maybe they're missing something. A humble person would assume they probably hadn't discovered some clever trick the sportsbooks don't know about. But most people who get into betting aren't sensible or humble (they think they can see the future, after all), so for a certain class of bettor, this type of wager just <em>feels</em> like a sure thing. </p>
+<p>In parlay form, the fallacy seems obvious to me. Just because the individual risk on each leg of the parlay is small, that doesn't mean the combined risk is.</p>
+<p>There's a more sophisticated version of this fallacy in statistics called p-hacking. As always, <a href="https://xkcd.com/882/">there's a great xkcd about it</a>. A particular experiment might have a 5% chance of giving a false result. 5% is a pretty small number. But if you do 13 of those experiments, there's about a 50% chance that at least one of them will give a false result. Even people who are good at math and science probably don't have a good sense of what <span class="math">\(.95^{13}\)</span> equals.</p>
+<p>Next time: more on point totals, money lines, and human nature.</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/lessons-from-four-years-of-nba-gambling-stats.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
+                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
+                </div>
+            </article>            <h4 class="date">Sep 23, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -1879,36 +2514,6 @@ and
                     &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
-                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
-                </div>
-            </article>            <h4 class="date">Jul 12, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/sports-betting-and-the-limits-of-rationality.html" rel="bookmark" title="Permanent Link to &quot;Sports betting and the limits of rationality&quot;">Sports betting and the limits of rationality</a>
-                </h2>
-
-                
-                
-
-                <p>Earlier this year, I wrote most of a book about the psychology and mathematics of sports gambling called <em>Your Parlay Sucks</em>. The book never quite came together, and is probably too weird to ever get published, but it has some interesting bits, so I figured I'd share them here.</p>
-<p>Why did I get interested enough in sports betting to write a whole book about it? I think it's because I'm fascinated by the limits of rationality. Philosophers, economists and social scientists would like to treat humans as though they are capable of making rational decisions. That conflicts with the real world, where even pretty smart people make irrational choices. I certainly have. </p>
-<p>Sports betting is a sort of rationality lab. You and I might have different values or beliefs. What's crazy to me might be normal to you, or vice versa, but we should both be able to agree that placing bets that are guaranteed to lose money is irrational.</p>
-<p><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1553935">This paper</a>, "Intuitive Biases in Choice versus Estimation", is a wonderful illustration of cognitive bias and irrationality in the realm of sports betting.  </p>
-<p>The researchers had people bet on NFL football against the point spread. If you're not familiar, the idea behind the point spread is to attract an equal amount of action on both sides of the bet by handicapping one of the teams. If you bet on the favorite, they need to win by at least the amount of the spread for the bet to win. The other side side wins if the team loses by less than the spread, or wins the game outright.</p>
-<p>Gamblers can bet either side, and if there are more bets on one side than the other, the sportsbook can change the spread to attract equal action. So there's a potential for the wisdom of crowds to kick in, the invisible hand of the market moving the line towards the best estimate possible.</p>
-<p>Of course, that depends on gamblers being rational. A rational gambler has to be willing to take either side of a bet (or not bet at all), depending on the spread. If the spread is biased towards the underdog, they should be willing to take the underdog. If it's biased towards the favorite, they should take the favorite. And if the line is perfectly fair, they shouldn't bet at all.</p>
-<p>As I showed a while back with <a href="/majority-voting-in-ensemble-learning.html">ensemble learning</a>, the wisdom of crowds only works if the errors that people make are uncorrelated with each other. If most people are wrong about a particular thing, the "wisdom of crowds" will be wrong, too.</p>
-<p>This study found that people are consistently irrational when it comes to point spreads. They will tend to bet the favorite, even though both sides should have an equal chance of winning. It's probably easier to focus on which team is better, and assume that the better team is more likely to win against the point spread as well. It's harder to imagine the underdog losing the game but winning the bet, or pulling an upset and winning outright. </p>
-<p>The study took things further and adjusted the lines to be biased against the favorite team, so that taking the favorite would be guaranteed to lose more than 50% of the time. They even told the gamblers that they did this. And the gamblers still overwhelmingly picked the favorites. The researchers continued the study for the whole season. Even after weeks and weeks of steadily losing, being told over and over that the lines are unfair, the gamblers still preferred to take the favorites. They never learned. The participants got to keep their winnings, so they had an incentive to be right. And they still couldn't do it.</p>
-<p>Sportsbooks have a lot of ways of trick people into taking extra bad bets, as I will show. But they don't really need to. People will consistently take bad bets even if they should know they're bad bets. </p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/sports-betting-and-the-limits-of-rationality.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/football.html" class="tags">football</a>
                     &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
                 </div>
             </article>
