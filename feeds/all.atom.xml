@@ -1,5 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>mathletix</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2025-10-19T10:20:00-10:00</updated><entry><title>Lessons from four years of NBA gambling stats</title><link href="/lessons-from-four-years-of-nba-gambling-stats.html" rel="alternate"></link><published>2025-10-19T10:20:00-10:00</published><updated>2025-10-19T10:20:00-10:00</updated><author><name>casey durfee</name></author><id>tag:None,2025-10-19:/lessons-from-four-years-of-nba-gambling-stats.html</id><summary type="html">&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=6QYbZsBPawI" target="_blank"&gt;&lt;img alt="The Meters, &amp;quot;People Say&amp;quot;" src="https://img.youtube.com/vi/6QYbZsBPawI/0.jpg"&gt;&lt;/a&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>mathletix</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2025-10-26T10:20:00-10:00</updated><entry><title>Overs, money lines, and pigeonholes</title><link href="/overs-money-lines-and-pigeonholes.html" rel="alternate"></link><published>2025-10-26T10:20:00-10:00</published><updated>2025-10-26T10:20:00-10:00</updated><author><name>casey durfee</name></author><id>tag:None,2025-10-26:/overs-money-lines-and-pigeonholes.html</id><summary type="html">&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=h9-rmzBhHS8" target="_blank"&gt;&lt;img alt="Pigeonhed, &amp;quot;Glory Bound&amp;quot; (Dave Ruffy Remix)" src="https://img.youtube.com/vi/h9-rmzBhHS8/0.jpg"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Song: &lt;a href="https://www.youtube.com/watch?v=h9-rmzBhHS8" target="_blank"&gt;Pigeonhed, "Glory Bound" (Dave Ruffy Remix)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Code: &lt;a href="https://github.com/csdurfee/scrape_yahoo_odds/"&gt;https://github.com/csdurfee/scrape_yahoo_odds/&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;A little crowd wisdom&lt;/h2&gt;
+&lt;p&gt;Last week, we saw that for NBA spread bets, the side that gets more money wins 49.2% of the time. This matches &lt;a href="/small-stakes-give-you-the-minimum-blues.html"&gt;what I've shown previously&lt;/a&gt; -- the public is generally worse than …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=h9-rmzBhHS8" target="_blank"&gt;&lt;img alt="Pigeonhed, &amp;quot;Glory Bound&amp;quot; (Dave Ruffy Remix)" src="https://img.youtube.com/vi/h9-rmzBhHS8/0.jpg"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Song: &lt;a href="https://www.youtube.com/watch?v=h9-rmzBhHS8" target="_blank"&gt;Pigeonhed, "Glory Bound" (Dave Ruffy Remix)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Code: &lt;a href="https://github.com/csdurfee/scrape_yahoo_odds/"&gt;https://github.com/csdurfee/scrape_yahoo_odds/&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;A little crowd wisdom&lt;/h2&gt;
+&lt;p&gt;Last week, we saw that for NBA spread bets, the side that gets more money wins 49.2% of the time. This matches &lt;a href="/small-stakes-give-you-the-minimum-blues.html"&gt;what I've shown previously&lt;/a&gt; -- the public is generally worse than a coin flip when betting on NBA basketball.&lt;/p&gt;
+&lt;p&gt;This week, I have some good news. There are some types of NBA bets where the public do a little better than expected. Not enough to make money by following the crowd, but good enough to lose less than the -4.5% return on picking spread bets by flipping a coin.&lt;/p&gt;
+&lt;h3&gt;Money line bets and rationality&lt;/h3&gt;
+&lt;p&gt;&lt;a href="/lessons-from-four-years-of-nba-gambling-stats.html"&gt;Last time&lt;/a&gt;, I looked at money line bets and showed that there is a bias against slight to heavy underdogs, and a possible bias against very heavy favorites. There's a lot I didn't get to, though. First off, what kind of money line bets do the public prefer?&lt;/p&gt;
+&lt;p&gt;The public takes the home team 63% of the time, which is a little high given the home team wins 55% of games. The public also takes the money line favorite in 96% (4656/4839) of NBA games. &lt;/p&gt;
+&lt;p&gt;Is that rational or not? We know that favorites are a slightly better deal than underdogs on the money line, so in one sense it is. If someone offered you a free money line bet on the NBA, you should probably pick the favorite. The expected value is less bad than the underdog, so it's a better choice in the long run, and your chances of making &lt;em&gt;some&lt;/em&gt; money on the bet are much higher, so it's perhaps a better choice as a single bet as well.  &lt;/p&gt;
+&lt;p&gt;Someone picking the favorite 96% of the time is pretty much guaranteed to lose money. The winning percentage on the favorites will end up being close to 50%, because they're taking the favorite nearly every time. While their winning percentage on underdog bets might be good, they take them so infrequently that they don't really matter much.&lt;/p&gt;
+&lt;p&gt;A gambler taking half favorites and half underdogs has a chance at winning 100% of their bets, but someone taking a highly imbalanced number of favorites (or underdogs) will have a whole lot of guarnteed losses. The gambler might capture every single win by the favorites, but close to half of their bets on favorites are still going to be losses.&lt;/p&gt;
+&lt;h3&gt;Getting pigeonholed&lt;/h3&gt;
+&lt;p&gt;Money lines are all at different odds, which complicates things. For this example, let's say the gambler is taking spread bets, with both sides having a roughly equal chance of winning. There are 1230 games in the season, we'll assume the favorite is a slightly better deal, so wins 51% of the time, and the gambler takes the favorite 96% of the time.  Over 1230 games, the favorites go 627-603. The gambler takes 1181 favorites and 49 underdogs on the season.  &lt;/p&gt;
+&lt;p&gt;The best they can possibly do on favorites is 627/1181 (53%), assuming they somehow manage to correctly bet on every single favorite that won that season. The gambler captured all of the favorites that won, so the rest of the games left over are underdog winners, meaning they'd go a perfect 49/49 in underdog games. Overall, the best they can do is (627+49)/1230, which is 54.9%. Since the break-even point is 52.4%, most of the profits are coming from the 49 underdog games. &lt;/p&gt;
+&lt;p&gt;By taking so many favorites, &lt;a href="https://en.wikipedia.org/wiki/Pigeonhole_principle"&gt;the pigeonhole principle&lt;/a&gt; means the gambler has to be perfect just to hit a 54.9% win rate. &lt;a href="/do-you-wanna-win.html"&gt;As I showed in &lt;em&gt;Do you wanna win?&lt;/em&gt;&lt;/a&gt;, 54.9% is good enough to have a positive expected value on bets, but it's low enough that losing money over 1,230 bets is very possible, even with proper bankroll management. If hitting that number requires you to be perfect, it seems like a bad plan.&lt;/p&gt;
+&lt;p&gt;Here are the frequencies of odds taken by the public on the money line. There's an awkward gap in the middle. In the American way of writing odds, favorites are always -100 or smaller, and underdogs are always +100 or bigger.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="money-line-frequencies" src="/img/money-line-frequencies.png"&gt;&lt;/p&gt;
+&lt;p&gt;The public mostly takes bets in the -100 to -300 range, which is in the range where money line bets are a slightly better value than spread bets, so good for them. The biggest underdog bet the public took in nearly 5,000 bets was at +400 (implying the underdog had a 20% chance of winning.)&lt;/p&gt;
+&lt;p&gt;The public achieved -2.87% rate of return on money line bets. That's bad compared to the 0% rate of return offered by not betting, but it's better than the -4.5% on spread bets, and way better than the -20% on some types of parlay bets. Someone &lt;em&gt;fading&lt;/em&gt;, taking the opposite bets to the public, would achieve a -6.4% rate of return.&lt;/p&gt;
+&lt;p&gt;On the rare occasions the public does take the underdog, they make a profit. On those 183 bets, the public notched a +2.43% rate of return.  Bets on underdogs will have a high amount of variance, so there could be some luck involved.&lt;/p&gt;
+&lt;h3&gt;Point totals&lt;/h3&gt;
+&lt;p&gt;In addition to who will win the game, gamblers can wager on how many total points will be scored. For instance, if the final score is 120-115, the point total would be 235. If the line was 230, the OVER side would have won, and the UNDER lost. &lt;/p&gt;
+&lt;p&gt;The point totals are pretty balanced. The over wins 50.6% (2672/5273) of the time. However, the public takes the over 88.3% (4660/4839) of the time.&lt;/p&gt;
+&lt;p&gt;The public did a little better than a coin flip, winning 51% of over bets, and 54.5% of the 178 under bets.&lt;/p&gt;
+&lt;p&gt;I was curious whether the percent of bets on one side was correlated with higher winning percentage. If 99% of the public took the over, is that a safer bet than if only 51% of the public took it? I've broken down the public's bets on the over by quartiles:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="text-align: left;"&gt;start %&lt;/th&gt;
+&lt;th&gt;end %&lt;/th&gt;
+&lt;th&gt;num games&lt;/th&gt;
+&lt;th&gt;win    %&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;50&lt;/td&gt;
+&lt;td&gt;73.9&lt;/td&gt;
+&lt;td&gt;1165&lt;/td&gt;
+&lt;td&gt;50.5%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;73.9&lt;/td&gt;
+&lt;td&gt;82.4&lt;/td&gt;
+&lt;td&gt;1164&lt;/td&gt;
+&lt;td&gt;51.4%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;82.4&lt;/td&gt;
+&lt;td&gt;88.4&lt;/td&gt;
+&lt;td&gt;1163&lt;/td&gt;
+&lt;td&gt;50.9%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;88.4&lt;/td&gt;
+&lt;td&gt;100&lt;/td&gt;
+&lt;td&gt;1168&lt;/td&gt;
+&lt;td&gt;51.5%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;For 1,000 observations, a 95% confidence interval is roughly +/- &lt;span class="math"&gt;\(\frac{1}{\sqrt{1000}} \approx \frac{1}{\sqrt(33*30)} \approx \frac{1}{32} \approx 3\%\)&lt;/span&gt;, which is much bigger than the difference between 50.5% and 51.5%. So the difference isn't signfificant.&lt;/p&gt;
+&lt;h3&gt;Are sportsbooks leaving money on the table?&lt;/h3&gt;
+&lt;p&gt;It's odd to me that the over would win more than 50% of the time when that's the side that usually has the most money on it. That's not a huge imbalance, but the sportsbooks would be making more money if they increased the point totals a bit so the over loses 51% of the time instead. &lt;/p&gt;
+&lt;p&gt;Gamblers betting on point totals are probably a little more savvy than ones betting the lines. It's kind of an odd thing to bet on. All bets are math problems, but point totals are obviously a math problem than money lines or spreads.&lt;/p&gt;
+&lt;h3&gt;Do point totals tell us anything about the evolution of the NBA?&lt;/h3&gt;
+&lt;p&gt;I thought it might be possible sportsbooks haven't kept up with the evolution of the game. NBA point totals have gotten much higher over the past decade due to more efficient offense (better shooting and more 3 pointers).&lt;/p&gt;
+&lt;p&gt;Here is a graph of the 100 game moving averages of the point totals by season:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="point-total-yoy" src="/img/point-total-yoy.png"&gt;&lt;/p&gt;
+&lt;p&gt;Point totals go down at the end of every year. That's because playoff games tend to be more tightly contested than regular season games. The vertical line is where the playoffs start.&lt;/p&gt;
+&lt;p&gt;There appears to be an increase in average point totals during the 2021 season, but it's stayed fairly consistent for the following three, with one big exception. There's an big dip in point totals during the 2023 season, around game 800. This is almost certainly due to &lt;a href="https://clutchpoints.com/nba/nba-stories/nba-news-adam-silver-admission-officiating"&gt;a directive from the NBA telling officials to call fewer fouls&lt;/a&gt;. Fans (and presumably gamblers) noticed right away, but the NBA only admitted the change well after the fact. Luckily, nothing has happened since then to further undermine public trust in the integrity of the league! &lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</content><category term="sports betting"></category><category term="basketball"></category><category term="your parlay sucks"></category></entry><entry><title>Lessons from four years of BetMGM NBA gambling stats</title><link href="/lessons-from-four-years-of-betmgm-nba-gambling-stats.html" rel="alternate"></link><published>2025-10-19T10:20:00-10:00</published><updated>2025-10-19T10:20:00-10:00</updated><author><name>casey durfee</name></author><id>tag:None,2025-10-19:/lessons-from-four-years-of-betmgm-nba-gambling-stats.html</id><summary type="html">&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=6QYbZsBPawI" target="_blank"&gt;&lt;img alt="The Meters, &amp;quot;People Say&amp;quot;" src="https://img.youtube.com/vi/6QYbZsBPawI/0.jpg"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Song: &lt;a href="https://www.youtube.com/watch?v=6QYbZsBPawI" target="_blank"&gt;The Meters, "People Say"&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;In &lt;a href="/the-public-wants-what-the-public-gets.html"&gt;a previous installment&lt;/a&gt;, I looked at statistics about NBA gambling that I obtained from sportsbookreview.com. I thought it was pretty interesting, but there were some huge gaps in the data, and I wasn't sure what sportsbook some of it was coming from. So …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=6QYbZsBPawI" target="_blank"&gt;&lt;img alt="The Meters, &amp;quot;People Say&amp;quot;" src="https://img.youtube.com/vi/6QYbZsBPawI/0.jpg"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Song: &lt;a href="https://www.youtube.com/watch?v=6QYbZsBPawI" target="_blank"&gt;The Meters, "People Say"&lt;/a&gt;&lt;/p&gt;
@@ -459,7 +596,7 @@
 &lt;p&gt;There is data to suggest that underdogs pay more in vig, and are therefore more profitable for the sportsbook. This is called the &lt;a href="https://www.football-data.co.uk/blog/favourite_longshot_bias_revisited.php"&gt;favorite-longshot bias&lt;/a&gt; -- conventional betting wisdom is the expected value of taking an underdog money line bet (especially a big underdog) is lower than taking the favorite. People who bet the underdog are in essence paying a premium to have a more thrilling outcome if they do win.&lt;/p&gt;
 &lt;p&gt;While it's a documented phenomenon in &lt;a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3271248"&gt;horse racing&lt;/a&gt;, there's &lt;a href="https://www.pinnacle.com/betting-resources/en/betting-strategy/why-the-favourite-longshot-bias-is-not-a-bias/qjb2prcq4q96nftd"&gt;some debate as to whether it exists&lt;/a&gt; in general, so I analyzed the 4,634 games with money line betting data. &lt;/p&gt;
 &lt;p&gt;If somebody always bet the favorite on every NBA game, or the underdog, what would be their rate of return?  Is it better or worse than the -4.5% rate on spread bets?&lt;/p&gt;
-&lt;p&gt;I did find evidence of the favorite-longshot bias in the NBA money lines. Underdogs had a rate of return of -5.47% versus -4.09% for favorites.  Favorites between -200 and -400 offer the best rate of return of any type of money line bet, at -2.97%. Every single type of underdog bet does worse than -4.5% of the typical spread bet.&lt;/p&gt;
+&lt;p&gt;I did find evidence of the favorite-longshot bias in the NBA money lines. When risking a constant amount of money on each bet, underdogs had a rate of return of -5.47% versus -4.09% for favorites.  Favorites between -200 and -400 offer the best rate of return of any type of money line bet, at -2.97%. Every single type of underdog bet does worse than -4.5% of the typical spread bet.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -531,14 +668,14 @@
 &lt;/table&gt;
 &lt;p&gt;The number of dogs and favorites aren't equal because some games have money lines where both sides are negative, say -110, like a traditional bet with a spread of zero. There's also a big asymmetry when the odds are long. For instance the favorite might be -800 and the underdog is +561. That doesn't represent a huge vig, it's just a quirk of how American-style odds work (covered in the book).&lt;/p&gt;
 &lt;h3&gt;Caveats and bootstraps&lt;/h3&gt;
-&lt;p&gt;There's a bit of a problem with my analysis. In the table above, I'm not conveying a sense of the volatility. Huge underdogs have a bigger payout when they do win, so the outcomes are going to be a lot more variable than betting the favorites. &lt;/p&gt;
-&lt;p&gt;-4.65% is the best estimate of the rate of return on huge underdogs, but maybe we just got lucky, or unlucky. A couple of longshot bets winning or losing could drastically change the overall return rate.&lt;/p&gt;
+&lt;p&gt;The table above isn't telling the whole story. I'm not conveying a sense of the volatility in the rate of return. Huge underdogs have a bigger payout when they do win, so the outcomes are going to be a lot more variable than betting the favorites.&lt;/p&gt;
+&lt;p&gt;-4.65% is the best estimate of the rate of return for huge underdogs, but maybe we just got lucky, or unlucky. A couple of longshot bets winning or losing could drastically change the overall return rate.&lt;/p&gt;
 &lt;p&gt;To test volatility, I used bootstrapping, &lt;a href="/one-in-e.html"&gt;previously covered in &lt;em&gt;one in e&lt;/em&gt;&lt;/a&gt;. I repeatedly randomly sampled 80% (611/764) of the huge underdog bets and calculated the rate of return on that set. Looking at the range of outcomes helps illustrate the variability of these bets.&lt;/p&gt;
 &lt;p&gt;Doing that 100 times leads to a pretty wide spread of rates of return:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="huge-dog-bootstrap" src="/img/huge-dog-bootstrap.png"&gt;&lt;/p&gt;
-&lt;p&gt;Although the mean value is close to the overall mean, 15% bootstrapped samples actually had a positive rate of return.  This is similar to what we saw in &lt;a href="/cool-parlay-bro.html"&gt;&lt;em&gt;cool parlay, bro&lt;/em&gt;&lt;/a&gt;, where due to variance, even gamblers with no advantage over the house had a small chance of making money over a long period of time off of parlays. I described that situation "like a lottery where you have a 12% chance of winning $3,617, but an 88% chance of losing $10,221." This is similar.&lt;/p&gt;
+&lt;p&gt;Although the mean value is close to the overall mean, 15% of bootstrapped samples actually had a positive rate of return.  This is similar to what we saw in &lt;a href="/cool-parlay-bro.html"&gt;&lt;em&gt;cool parlay, bro&lt;/em&gt;&lt;/a&gt;, where due to variance, even gamblers with no advantage over the house had a small chance of making money over a long period of time off of parlays. I described that situation "like a lottery where you have a 12% chance of winning $3,617, but an 88% chance of losing $10,221." This is a similar proposition.&lt;/p&gt;
 &lt;h3&gt;Bridgejumper parlays and p-hacking&lt;/h3&gt;
-&lt;p&gt;We'd need a lot more data to get a crisp estimate of the rate of return on huge underdogs, but we can have more confidence in the estimated -5.59% rate for huge favorites. Huge favorites being disadvantaged kind of contradicts the favorite-longshot bias theory, but it doesn't surprise me at all due to a strange phenomenon I've seen over and over again.&lt;/p&gt;
+&lt;p&gt;We'd need a lot more data to get a crisp estimate of the rate of return on huge underdogs, but we can have more confidence in the estimated -5.59% rate for huge favorites. Huge favorites being disadvantaged kind of contradicts the favorite-longshot bias theory, but it doesn't surprise me at all due to a strange phenomenon I've seen over and over again online.&lt;/p&gt;
 &lt;p&gt;It's a type of bet &lt;em&gt;sharps&lt;/em&gt; might call "&lt;a href="https://equinedge.com/glossary/exotic-betting/bridgejumper"&gt;bridgejumper&lt;/a&gt; parlays" and &lt;em&gt;squares&lt;/em&gt; on the internet unironically call "free money parlays" -- a parlay of a whole bunch of heavy favorite money lines together. &lt;/p&gt;
 &lt;p&gt;The gambler starts with some heavy favorite they like and keep adding more heavy favorites to the parlay till they get &lt;em&gt;plus odds&lt;/em&gt; (they can win more than they risk), ending up with 5-6 heavy favorites on the same parlay. They will pick legs of the parlay from different sports, if necessary. There usually aren't enough heavy favorites in the NBA on a particular night to get to the magic &amp;gt; +100 payout.&lt;/p&gt;
 &lt;p&gt;An example you might see posted on reddit or twitter would be a 6 leg parlay with a payout of +105 like:&lt;/p&gt;
@@ -553,7 +690,7 @@
 &lt;p&gt;I've talked to a couple people who take bridgejumper parlays, and they genuinely seem to think they've found some kind of glitch in the matrix -- all of the legs of the bet have a high chance of winning, therefore the bet is a sure thing. &lt;/p&gt;
 &lt;p&gt;A sensible person would know that sportsbooks aren't in the business of offering free money so maybe they're missing something. A humble person would assume they probably hadn't discovered some clever trick the sportsbooks don't know about. But most people who get into betting aren't sensible or humble (they think they can see the future, after all), so for a certain class of bettor, this type of wager just &lt;em&gt;feels&lt;/em&gt; like a sure thing. &lt;/p&gt;
 &lt;p&gt;In parlay form, the fallacy seems obvious to me. Just because the individual risk on each leg of the parlay is small, that doesn't mean the combined risk is.&lt;/p&gt;
-&lt;p&gt;There's a more sophisticated version of this fallacy in statistics called p-hacking. As always, &lt;a href="https://xkcd.com/882/"&gt;there's a great xkcd about it&lt;/a&gt;. A particular experiment might have a 5% chance of giving a false result. 5% is a pretty small number. But if you do 13 of those experiments, there's about a 50% chance that at least one of them will give a false result. Even people who are good at math and science probably don't have a good sense of what &lt;span class="math"&gt;\(.95^{13}\)&lt;/span&gt; equals.&lt;/p&gt;
+&lt;p&gt;There's a more sophisticated version of this fallacy in statistics called p-hacking. As always, &lt;a href="https://xkcd.com/882/"&gt;there's an xkcd about it&lt;/a&gt;. A particular experiment might have a 5% chance of giving a false result. 5% is a pretty small number. But if you do 13 of those experiments, there's about a 50% chance that at least one of them will give a false result. Even people who are good at math and science probably don't have a good sense of what &lt;span class="math"&gt;\(.95^{13}\)&lt;/span&gt; equals.&lt;/p&gt;
 &lt;p&gt;Next time: more on point totals, money lines, and human nature.&lt;/p&gt;
 &lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
