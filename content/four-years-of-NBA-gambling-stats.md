@@ -1,4 +1,4 @@
-Title: Lessons from four years of NBA gambling stats
+Title: Lessons from four years of BetMGM NBA gambling stats
 Date: 2025-10-19 10:20
 Category: sports betting
 Tags: basketball, your parlay sucks
@@ -197,7 +197,7 @@ While it's a documented phenomenon in [horse racing](https://papers.ssrn.com/sol
 
 If somebody always bet the favorite on every NBA game, or the underdog, what would be their rate of return?  Is it better or worse than the -4.5% rate on spread bets?
 
-I did find evidence of the favorite-longshot bias in the NBA money lines. Underdogs had a rate of return of -5.47% versus -4.09% for favorites.  Favorites between -200 and -400 offer the best rate of return of any type of money line bet, at -2.97%. Every single type of underdog bet does worse than -4.5% of the typical spread bet.
+I did find evidence of the favorite-longshot bias in the NBA money lines. When risking a constant amount of money on each bet, underdogs had a rate of return of -5.47% versus -4.09% for favorites.  Favorites between -200 and -400 offer the best rate of return of any type of money line bet, at -2.97%. Every single type of underdog bet does worse than -4.5% of the typical spread bet.
 
 
 |    label      |  start  | end | num games | return % |
@@ -214,9 +214,9 @@ I did find evidence of the favorite-longshot bias in the NBA money lines. Underd
 The number of dogs and favorites aren't equal because some games have money lines where both sides are negative, say -110, like a traditional bet with a spread of zero. There's also a big asymmetry when the odds are long. For instance the favorite might be -800 and the underdog is +561. That doesn't represent a huge vig, it's just a quirk of how American-style odds work (covered in the book).
 
 ### Caveats and bootstraps
-There's a bit of a problem with my analysis. In the table above, I'm not conveying a sense of the volatility. Huge underdogs have a bigger payout when they do win, so the outcomes are going to be a lot more variable than betting the favorites. 
+The table above isn't telling the whole story. I'm not conveying a sense of the volatility in the rate of return. Huge underdogs have a bigger payout when they do win, so the outcomes are going to be a lot more variable than betting the favorites.
 
--4.65% is the best estimate of the rate of return on huge underdogs, but maybe we just got lucky, or unlucky. A couple of longshot bets winning or losing could drastically change the overall return rate.
+-4.65% is the best estimate of the rate of return for huge underdogs, but maybe we just got lucky, or unlucky. A couple of longshot bets winning or losing could drastically change the overall return rate.
 
 To test volatility, I used bootstrapping, [previously covered in _one in e_](/one-in-e.html). I repeatedly randomly sampled 80% (611/764) of the huge underdog bets and calculated the rate of return on that set. Looking at the range of outcomes helps illustrate the variability of these bets.
 
@@ -224,10 +224,10 @@ Doing that 100 times leads to a pretty wide spread of rates of return:
 
 ![huge-dog-bootstrap](/img/huge-dog-bootstrap.png)
 
-Although the mean value is close to the overall mean, 15% bootstrapped samples actually had a positive rate of return.  This is similar to what we saw in [*cool parlay, bro*](/cool-parlay-bro.html), where due to variance, even gamblers with no advantage over the house had a small chance of making money over a long period of time off of parlays. I described that situation "like a lottery where you have a 12% chance of winning $3,617, but an 88% chance of losing $10,221." This is similar.
+Although the mean value is close to the overall mean, 15% of bootstrapped samples actually had a positive rate of return.  This is similar to what we saw in [*cool parlay, bro*](/cool-parlay-bro.html), where due to variance, even gamblers with no advantage over the house had a small chance of making money over a long period of time off of parlays. I described that situation "like a lottery where you have a 12% chance of winning $3,617, but an 88% chance of losing $10,221." This is a similar proposition.
 
 ### Bridgejumper parlays and p-hacking
-We'd need a lot more data to get a crisp estimate of the rate of return on huge underdogs, but we can have more confidence in the estimated -5.59% rate for huge favorites. Huge favorites being disadvantaged kind of contradicts the favorite-longshot bias theory, but it doesn't surprise me at all due to a strange phenomenon I've seen over and over again.
+We'd need a lot more data to get a crisp estimate of the rate of return on huge underdogs, but we can have more confidence in the estimated -5.59% rate for huge favorites. Huge favorites being disadvantaged kind of contradicts the favorite-longshot bias theory, but it doesn't surprise me at all due to a strange phenomenon I've seen over and over again online.
 
 It's a type of bet *sharps* might call "[bridgejumper](https://equinedge.com/glossary/exotic-betting/bridgejumper) parlays" and *squares* on the internet unironically call "free money parlays" -- a parlay of a whole bunch of heavy favorite money lines together. 
 
@@ -248,6 +248,6 @@ A sensible person would know that sportsbooks aren't in the business of offering
 
 In parlay form, the fallacy seems obvious to me. Just because the individual risk on each leg of the parlay is small, that doesn't mean the combined risk is.
 
-There's a more sophisticated version of this fallacy in statistics called p-hacking. As always, [there's a great xkcd about it](https://xkcd.com/882/). A particular experiment might have a 5% chance of giving a false result. 5% is a pretty small number. But if you do 13 of those experiments, there's about a 50% chance that at least one of them will give a false result. Even people who are good at math and science probably don't have a good sense of what $.95^{13}$ equals.
+There's a more sophisticated version of this fallacy in statistics called p-hacking. As always, [there's an xkcd about it](https://xkcd.com/882/). A particular experiment might have a 5% chance of giving a false result. 5% is a pretty small number. But if you do 13 of those experiments, there's about a 50% chance that at least one of them will give a false result. Even people who are good at math and science probably don't have a good sense of what $.95^{13}$ equals.
 
 Next time: more on point totals, money lines, and human nature.
