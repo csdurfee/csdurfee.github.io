@@ -248,6 +248,6 @@ A sensible person would know that sportsbooks aren't in the business of offering
 
 In parlay form, the fallacy seems obvious to me. Just because the individual risk on each leg of the parlay is small, that doesn't mean the combined risk is.
 
-There's a more sophisticated version of this fallacy in statistics called p-hacking. As always, [there's an xkcd about it](https://xkcd.com/882/). A particular experiment might have a 5% chance of giving a false result. 5% is a pretty small number. But if you do 13 of those experiments, there's about a 50% chance that at least one of them will give a false result. Even people who are good at math and science probably don't have a good sense of what $.95^{13}$ equals.
+There's a more sophisticated version of this fallacy in statistics called p-hacking. As always, [there's an xkcd about it](https://xkcd.com/882/). A particular experiment might have a 5% chance of giving a false result. 5% is a pretty small number. But if you do 13 of those experiments, there's about a 50% chance that at least one of them will give a false result. Even people who are good at math and science probably don't have a good sense of what $.95^{13}$ equals. It's sort of like a 13 leg parlay of money line bets at -1900.
 
 Next time: more on point totals, money lines, and human nature.

@@ -10,20 +10,18 @@ Song: [Pigeonhed, "Glory Bound" (Dave Ruffy Remix)](https://www.youtube.com/watc
 Code: [https://github.com/csdurfee/scrape_yahoo_odds/](https://github.com/csdurfee/scrape_yahoo_odds/)
 
 ## A little crowd wisdom
-Last week, we saw that for NBA spread bets, the side that gets more money wins 49.2% of the time. This matches [what I've shown previously](/small-stakes-give-you-the-minimum-blues.html) -- the public is generally worse than a coin flip when betting on NBA basketball.
+Last week, we saw that for NBA spread bets, the more popular side wins 49.2% of the time. This matches [what I've shown before](/small-stakes-give-you-the-minimum-blues.html) -- the public is generally worse than a coin flip when betting on NBA basketball.
 
-This week, I have some good news. There are some types of NBA bets where the public do a little better than expected. Not enough to make money by following the crowd, but good enough to lose less than the -4.5% return on picking spread bets by flipping a coin.
+This week, I have some good news. There are some types of bets on the NBA where the public do a little better than expected. Not enough to make money, but better than picking bets by flipping a coin.
 
 ### Money line bets and rationality
-[Last time](/lessons-from-four-years-of-nba-gambling-stats.html), I looked at money line bets and showed that there is a bias against slight to heavy underdogs, and a possible bias against very heavy favorites. There's a lot I didn't get to, though. First off, what kind of money line bets do the public prefer?
+[Last time](/lessons-from-four-years-of-nba-gambling-stats.html), I looked at money line bets and showed that there is a bias against slight to heavy underdogs, and a possible bias against very heavy favorites. There's a lot I didn't get to, though. What kind of money line bets do the public prefer?
 
 The public takes the home team 63% of the time, which is a little high given the home team wins 55% of games. The public also takes the money line favorite in 96% (4656/4839) of NBA games. 
 
 Is that rational or not? We know that favorites are a slightly better deal than underdogs on the money line, so in one sense it is. If someone offered you a free money line bet on the NBA, you should probably pick the favorite. The expected value is less bad than the underdog, so it's a better choice in the long run, and your chances of making *some* money on the bet are much higher, so it's perhaps a better choice as a single bet as well.  
 
-Someone picking the favorite 96% of the time is pretty much guaranteed to lose money. The winning percentage on the favorites will end up being close to 50%, because they're taking the favorite nearly every time. While their winning percentage on underdog bets might be good, they take them so infrequently that they don't really matter much.
-
-A gambler taking half favorites and half underdogs has a chance at winning 100% of their bets, but someone taking a highly imbalanced number of favorites (or underdogs) will have a whole lot of guarnteed losses. The gambler might capture every single win by the favorites, but close to half of their bets on favorites are still going to be losses.
+A gambler taking half favorites and half underdogs has a chance at winning 100% of their bets, but someone taking a highly imbalanced number of favorites (or underdogs) will have a whole lot of guaranteed losses. The gambler might correctly pick every single favorite, but close to half of their bets on favorites are still going to be losses.
 
 ### Getting pigeonholed
 
@@ -37,9 +35,9 @@ Here are the frequencies of odds taken by the public on the money line. There's 
 
 ![money-line-frequencies](/img/money-line-frequencies.png)
 
-The public mostly takes bets in the -100 to -300 range, which is in the range where money line bets are a slightly better value than spread bets, so good for them. The biggest underdog bet the public took in nearly 5,000 bets was at +400 (implying the underdog had a 20% chance of winning.)
+The public mostly takes bets in the -100 to -300 range, which is in the range where money line bets have been a slightly better value than spread bets over the past four seasons, so good for them. The biggest underdog bet the public took in nearly 5,000 bets was at +400 (implying the underdog had a 20% chance of winning.)
 
-The public achieved -2.87% rate of return on money line bets. That's bad compared to the 0% rate of return offered by not betting, but it's better than the -4.5% on spread bets, and way better than the -20% on some types of parlay bets. Someone *fading*, taking the opposite bets to the public, would achieve a -6.4% rate of return.
+The public achieved -2.87% rate of return on money line bets. That's bad compared to the 0% rate of return offered by not betting, but it's better than the -4.5% on spread bets, and way better than the -20% on some types of parlay bets. Someone *fading*, or taking the opposite bets to the public, would achieve a -6.4% rate of return.
 
 On the rare occasions the public does take the underdog, they make a profit. On those 183 bets, the public notched a +2.43% rate of return.  Bets on underdogs will have a high amount of variance, so there could be some luck involved.
 
@@ -59,20 +57,20 @@ I was curious whether the percent of bets on one side was correlated with higher
 |  82.4      |  88.4   | 1163      |   50.9%  |
 |  88.4      |  100    | 1168      |   51.5%  |
 
-For 1,000 observations, a 95% confidence interval is roughly +/- $\frac{1}{\sqrt{1000}} \approx \frac{1}{\sqrt(33*30)} \approx \frac{1}{32} \approx 3\%$, which is much bigger than the difference between 50.5% and 51.5%. So the difference isn't signfificant.
+For 1,000 observations, a 95% confidence interval is roughly +/- $\frac{1}{\sqrt{1000}} \approx \frac{1}{\sqrt(33*30)} \approx 3\%$, which is much bigger than the difference between 50.5% and 51.5%. So the difference isn't significant.
 
 ### Are sportsbooks leaving money on the table?
 It's odd to me that the over would win more than 50% of the time when that's the side that usually has the most money on it. That's not a huge imbalance, but the sportsbooks would be making more money if they increased the point totals a bit so the over loses 51% of the time instead. 
 
-Gamblers betting on point totals are probably a little more savvy than ones betting the lines. It's kind of an odd thing to bet on. All bets are math problems, but point totals are obviously a math problem than money lines or spreads.
+Gamblers betting on point totals are probably a little more savvy than ones betting the lines. It's kind of an odd thing to bet on. Doesn't matter who won, doesn't matter whether it was a good game or not. All bets are math problems, but point totals are more obviously a math problem than money lines or spreads.
 
 ### Do point totals tell us anything about the evolution of the NBA?
-I thought it might be possible sportsbooks haven't kept up with the evolution of the game. NBA point totals have gotten much higher over the past decade due to more efficient offense (better shooting and more 3 pointers).
+It's possible sportsbooks haven't kept up with the evolution of the game. NBA point totals have gotten much higher over the past decade due to faster pace, better shooting and more 3 pointers.
 
-Here is a graph of the 100 game moving averages of the point totals by season:
+Here is a graph of moving averages of the point totals for the past four seasons:
 
 ![point-total-yoy](/img/point-total-yoy.png)
 
 Point totals go down at the end of every year. That's because playoff games tend to be more tightly contested than regular season games. The vertical line is where the playoffs start.
 
-There appears to be an increase in average point totals during the 2021 season, but it's stayed fairly consistent for the following three, with one big exception. There's an big dip in point totals during the 2023 season, around game 800. This is almost certainly due to [a directive from the NBA telling officials to call fewer fouls](https://clutchpoints.com/nba/nba-stories/nba-news-adam-silver-admission-officiating). Fans (and presumably gamblers) noticed right away, but the NBA only admitted the change well after the fact. Luckily, nothing has happened since then to further undermine public trust in the integrity of the league! 
+There appears to be an increase in average point totals during the 2021 season, but it's stayed fairly consistent since then, with one notable exception. There's an big dip in point totals during the 2023 season, around game 800. This is almost certainly due to [a directive from the NBA telling officials to call fewer fouls](https://clutchpoints.com/nba/nba-stories/nba-news-adam-silver-admission-officiating). Fans (and presumably gamblers) noticed right away, but the NBA only admitted the change well after the fact. Luckily, nothing has happened since then to further undermine trust in the NBA! 
