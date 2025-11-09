@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="english">
 <head>
-    <meta charset="utf-8" />
+        <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>mathletix | articles tagged "football"</title>
+    <title>mathletix | Gambling experts, pt. 1</title>
     <link rel="shortcut icon" type="image/png" href="/favicon.png">
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="mathletix Full Atom Feed" />
+    <link href="/feeds/sports-betting.atom.xml" type="application/atom+xml" rel="alternate" title="mathletix Categories Atom Feed" />
     <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
     <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css" />
     <meta name="generator" content="Pelican" />
     <meta name="description" content="" />
     <meta name="author" content="casey durfee" />
+
+    <meta name="keywords" content="football,your parlay sucks" />
 </head>
 <body>
     <header>
         <nav style="overflow: hidden;">
             <ul>
-                <li class="ephemeral selected"><a href="/tag/football.html">football</a></li>
                 <li><a href="/">Home</a></li>
                 <li><a href="/pages/aboutbest-of.html">About/Best Of</a></li>
             </ul>
@@ -29,99 +31,7 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">May 23, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/what-are-the-most-important-events-at-the-nfl-combine.html" rel="bookmark" title="Permanent Link to &quot;What are the most important events at the NFL Combine?&quot;">What are the most important events at the NFL Combine?</a>
-                </h2>
-
-                
-                
-
-                <p>(the code used is available at <a href="https://github.com/csdurfee/nfl_combine_data/">https://github.com/csdurfee/nfl_combine_data/</a>).</p>
-<h2>Intro</h2>
-<p>Every year, the National Football League hosts an event called the Combine, where teams can evaluate the top prospects before the upcoming draft.</p>
-<p>Athletes are put through a series of physical and mental tests over the course of four days. There is a lot of talk of hand size, arm length, and whether a guy looks athletic enough when he's running with his shirt off. It's basically the world's most invasive job interview. </p>
-<p>NFL teams have historically put a lot of stock in the results of the combine. A good showing at the combine can improve a player's career prospects, and a bad showing can significantly hurt them. For that reason, some players will opt out of attending the combine, but that can backfire as well.</p>
-<p>I was curious about which events in the combine correlate most strongly with draft position. There are millions of dollars at stake. The first pick in the NFL draft gets a $43 Million dollar contract, the 33rd pick gets $9.6 Million, and the 97th pick gets $4.6 Million.</p>
-<p>The main events of the combine are the 40 yard dash, vertical leap, bench press, broad jump, 3 cone drill and shuttle drill. The shuttle drill and the 3 cone drill are pretty similar -- a guy running between some cones as fast as possible. The other drills are what they sound like.</p>
-<p>I'm taking the data from Pro Football Reference. Example page: <a href="https://www.pro-football-reference.com/draft/2010-combine.htm">https://www.pro-football-reference.com/draft/2010-combine.htm</a>. I'm only looking at players who got drafted.</p>
-<h2>Position Profiles</h2>
-<p>It makes no sense to compare a cornerback's bench press numbers to a defensive lineman's. There are vast differences in the job requirements. A player in the combine is competing against other players at the same position. </p>
-<p>The graph shows a position's performance on each exercise relative to all players. The color indicates how the position as a whole compares to the league as a whole. You can change the selected position with the dropdown.</p>
-<iframe src="/img/position_view_2025.html" width="550" height="450" frameborder="0"></iframe>
-
-<p>Cornerbacks are exceptional on the 40 yard dash and shuttle drills compared to NFL athletes as a whole, whereas defensive linemen are outliers when it comes high bench press numbers, and below average at every other event. Tight Ends and Linebackers are near the middle in every single event, which makes sense because both positions need to be strong enough to deal with the strong guys, and fast enough to deal with the fast guys.</p>
-<h2>Importance of Events by Position</h2>
-<p>I analyzed how a player's performance relative to others at their position correlates with draft rank. Pro-Football-Reference has combine data going back to 2000.  I have split the data up into 2000-2014 and 2015-2025 to look at how things have changed. </p>
-<p>For each position, the exercises are ranked from most to least important. The tooltip gives the exact r^2 value.</p>
-<p>Here are the results up to 2014:</p>
-<iframe src="/img/before_2015.html" width="800" height="700" frameborder="0"></iframe>
-
-<p>Here are the last 10 years:</p>
-<iframe src="/img/after_2015.html" width="800" height="700" frameborder="0"></iframe>
-
-<p>Some things I notice:</p>
-<p>The main combine events matter that much either way for offensive and defensive linemen. That's held true for 25 years.</p>
-<p>The shuttle and 3 cone drill have gone up significantly in importance for tight ends.</p>
-<p>Broad jump and 40 yard dash are important for just about every position. However, the importance of the 40 yard dash time has gone down quite a bit for running backs. </p>
-<p>As a fan, it used to be a huge deal when a running back posted an exceptional 40 yard time. It seemed Chris Johnson's legendary 4.24 40 yard time was referenced every year. But I remember there being lot of guys who got drafted in the 2000's primarily based on speed who turned out to not be very good. </p>
-<p>The bench press is probably the least important exercise across the board. There's almost no correlation between performance and draft order, for every position. Offensive and defensive linemen basically bench press each other for 60 minutes straight; for everybody else, that sort of strength is less relevant.  Here's one of the greatest guys at throwing the football in human history, Tom Brady:</p>
-<p><img alt="behold" src="/img/Tom-Brady-Combine.png"></p>
-<p>Compared to all quarterbacks who have been drafted since 2000, Brady's shuttle time was in the top 25%, his 3 cone time was in the top 50%, and his broad jump, vertical leap and 40 yard dash were all in the bottom 25%.</p>
-<h2>Changes in combine performance over time</h2>
-<p>Athlete performance has changed over time. </p>
-<p>I've plotted average performance by year for each of the events. For the 40 yard dash, shuttle, and 3 cone drills, lower is better, and for the other events, higher is better.</p>
-<p><img alt="change over time" src="/img/combine-trends.png"></p>
-<p>40 yard dash times and broad jump distances have clearly improved, whereas shuttle times and bench press reps have gotten slightly worse.</p>
-<p>There's a cliche in sports that "you can't coach speed".  While some people are innately faster than others, the 40 yard dash is partly a skill exercise -- learning to get off the block as quickly as possible without faulting, for starters. The high priority given to the 40 yard dash should lead to prospects practicing it more, and thus getting better numbers.</p>
-<p>The bench press should be going down or staying level, since it's not very important to draft position.</p>
-<p>There's been a significant improvement in the broad jump - about 7.5% over 25 years. As with the 40 yard dash, I'd guess it's better coaching and preparation. Perhaps it's easier to improve than some of the other events. I don't think there's more broad jumping in an NFL game than there was 25 years ago.</p>
-<p>Shuttle times getting slightly worse is a little surprising. It's very similar to the 3 Cone drill, which has slightly improved. But as we saw, neither one is particularly important as far as draft position, and it's not a strong trend.</p>
-<h2>Caveats</h2>
-<p>Some of the best athletes skip the combine entirely, because their draft position is already secure. And some athletes will only choose to do the exercises they think they will do well at, and skip their weak events. This is known as <a href="https://www.ncbi.nlm.nih.gov/books/NBK493614/">MNAR data</a> (missing, not at random). All analysis of MNAR data is potentially biased.</p>
-<p>I'm assuming a linear relationship between draft position and performance. It's possible that a good performance helps more than a bad performance hurts, or vice versa.</p>
-<p>I didn't calculate statistical significance for anything. Some correlations will occur even in random data. This isn't meant to be rigorous.</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/what-are-the-most-important-events-at-the-nfl-combine.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/football.html" class="tags selected">football</a>
-                </div>
-            </article>            <h4 class="date">Jul 12, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/sports-betting-and-the-limits-of-rationality.html" rel="bookmark" title="Permanent Link to &quot;Sports betting and the limits of rationality&quot;">Sports betting and the limits of rationality</a>
-                </h2>
-
-                
-                
-
-                <p>Earlier this year, I wrote most of a book about the psychology and mathematics of sports gambling called <em>Your Parlay Sucks</em>. The book never quite came together, and is probably too weird to ever get published, but it has some interesting bits, so I figured I'd share them here.</p>
-<p>Why did I get interested enough in sports betting to write a whole book about it? I think it's because I'm fascinated by the limits of rationality. Philosophers, economists and social scientists would like to treat humans as though they are capable of making rational decisions. That conflicts with the real world, where even pretty smart people make irrational choices. I certainly have. </p>
-<p>Sports betting is a sort of rationality lab. You and I might have different values or beliefs. What's crazy to me might be normal to you, or vice versa, but we should both be able to agree that placing bets that are guaranteed to lose money is irrational.</p>
-<p><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1553935">This paper</a>, "Intuitive Biases in Choice versus Estimation", is a wonderful illustration of cognitive bias and irrationality in the realm of sports betting.  </p>
-<p>The researchers had people bet on NFL football against the point spread. If you're not familiar, the idea behind the point spread is to attract an equal amount of action on both sides of the bet by handicapping one of the teams. If you bet on the favorite, they need to win by at least the amount of the spread for the bet to win. The other side side wins if the team loses by less than the spread, or wins the game outright.</p>
-<p>Gamblers can bet either side, and if there are more bets on one side than the other, the sportsbook can change the spread to attract equal action. So there's a potential for the wisdom of crowds to kick in, the invisible hand of the market moving the line towards the best estimate possible.</p>
-<p>Of course, that depends on gamblers being rational. A rational gambler has to be willing to take either side of a bet (or not bet at all), depending on the spread. If the spread is biased towards the underdog, they should be willing to take the underdog. If it's biased towards the favorite, they should take the favorite. And if the line is perfectly fair, they shouldn't bet at all.</p>
-<p>As I showed a while back with <a href="/majority-voting-in-ensemble-learning.html">ensemble learning</a>, the wisdom of crowds only works if the errors that people make are uncorrelated with each other. If most people are wrong about a particular thing, the "wisdom of crowds" will be wrong, too.</p>
-<p>This study found that people are consistently irrational when it comes to point spreads. They will tend to bet the favorite, even though both sides should have an equal chance of winning. It's probably easier to focus on which team is better, and assume that the better team is more likely to win against the point spread as well. It's harder to imagine the underdog losing the game but winning the bet, or pulling an upset and winning outright. </p>
-<p>The study took things further and adjusted the lines to be biased against the favorite team, so that taking the favorite would be guaranteed to lose more than 50% of the time. They even told the gamblers that they did this. And the gamblers still overwhelmingly picked the favorites. The researchers continued the study for the whole season. Even after weeks and weeks of steadily losing, being told over and over that the lines are unfair, the gamblers still preferred to take the favorites. They never learned. The participants got to keep their winnings, so they had an incentive to be right. And they still couldn't do it.</p>
-<p>Sportsbooks have a lot of ways of trick people into taking extra bad bets, as I will show. But they don't really need to. People will consistently take bad bets even if they should know they're bad bets. </p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/sports-betting-and-the-limits-of-rationality.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/football.html" class="tags selected">football</a>
-                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
-                </div>
-            </article>            <h4 class="date">Nov 07, 2025</h4>
+        <div id="content">            <h4 class="date">Nov 07, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -205,11 +115,10 @@
                     <a href="/gambling-experts-pt-1.html">posted at 10:20</a>
                     &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
                     &nbsp;&middot;
-                    &nbsp;<a href="/tag/football.html" class="tags selected">football</a>
+                    &nbsp;<a href="/tag/football.html" class="tags">football</a>
                     &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
                 </div>
             </article>
-
             <div class="clear"></div>
             <footer>
                 <p>
