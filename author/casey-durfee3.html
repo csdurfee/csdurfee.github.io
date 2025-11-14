@@ -30,7 +30,175 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">May 22, 2025</h4>
+        <div id="content">            <h4 class="date">May 28, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/simulating-hot-and-lukewarm-hands.html" rel="bookmark" title="Permanent Link to &quot;Simulating hot and lukewarm hands&quot;">Simulating hot and lukewarm hands</a>
+                </h2>
+
+                
+                
+
+                <p>(Notebooks and other code available at: <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>. There's a bunch of stuff in the notebook about the Wald-Wolfowitz test that I will save for another week.)</p>
+<p>In my last installment, I was looking at season long shooting records from the NBA, and I concluded that NBA players were less streaky than expected. They have fewer long strings of makes and misses than a series of coin flips would.</p>
+<p>I've been thinking this could be due to "heat check" shots -- a player has made a bunch of shots in a row, or are having a good shooting game in general, so they take harder shots than they normally take. 
+It would explain some players that fans consider streaky or "heat check" players who are actually super un-streaky. Jordan Poole was the least streaky player over the last 4 seasons, which defies my expectations. Say he believes he is streaky, so tends to take bad shots when</p>
+<p>Or it could be due to "get a bucket" shots -- a player is having a bad shooting game, so they force higher percentage shots and potentially free throws. </p>
+<p>There's a quirk of NBA stats to remember: if a player is fouled while shooting, it only counts as a field goal attempt if they make the shot. So driving to the hoop is guaranteed to not decrease a player's field goal percentage if they successfully draw a foul, or get called for an offensive foul.</p>
+<p>I'm not sure I've made an airtight case for the <em>lukewarm hand</em>. Combining every game in a season could hide the hot hand effect. What about individual games?</p>
+<h2>Game-level shooting statistics show a lukewarm tendency</h2>
+<p>I am using the complete shooting statistics available from this kaggle project: <a href="https://www.kaggle.com/datasets/mexwell/nba-shots">https://www.kaggle.com/datasets/mexwell/nba-shots</a></p>
+<p>I'm looking at the 2023-2024 season, since the current season isn't included yet.</p>
+<p>I went through every game that every player played in the NBA season and calculated the expected vs. actual number of streaks.  </p>
+<p>There are 24,895 player+game combos. 10,285 of them had more streaks than expected against 8,977 who had fewer streaks than expected (and around 5,000 that are exactly as expected). This is a significant imbalance towards the "lukewarm hand" side.</p>
+<p>Here's the histogram of individual game z-scores:</p>
+<p><img alt="individual game z-scores, 2023" src="/img/game-zscores-2023.png"></p>
+<p>And the breakdown:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">count</span><span class="w">    </span><span class="m m-Double">18982.000000</span>
+<span class="nx">mean</span><span class="w">         </span><span class="m m-Double">0.051765</span>
+<span class="nx">std</span><span class="w">          </span><span class="m m-Double">0.988789</span>
+<span class="nx">min</span><span class="w">         </span><span class="o">-</span><span class="m m-Double">3.332292</span>
+<span class="mi">25</span><span class="o">%</span><span class="w">         </span><span class="o">-</span><span class="m m-Double">0.707107</span>
+<span class="mi">50</span><span class="o">%</span><span class="w">          </span><span class="m m-Double">0.104103</span>
+<span class="mi">75</span><span class="o">%</span><span class="w">          </span><span class="m m-Double">0.816497</span>
+<span class="nx">max</span><span class="w">          </span><span class="m m-Double">3.583243</span>
+<span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="nx">z_score</span><span class="p">,</span><span class="w"> </span><span class="nx">dtype</span><span class="p">:</span><span class="w"> </span><span class="nx">float64</span>
+</code></pre></div>
+
+<p>Limiting to higher volume games (at least 10 makes or 10 misses) shows the same tendency.</p>
+<p><img alt="high attempt games, 2023-24" src="/img/high-attempt-games.png"></p>
+<div class="highlight"><pre><span></span><code><span class="nx">count</span><span class="w">    </span><span class="m m-Double">2536.000000</span>
+<span class="nx">mean</span><span class="w">        </span><span class="m m-Double">0.055925</span>
+<span class="nx">std</span><span class="w">         </span><span class="m m-Double">1.010195</span>
+<span class="nx">min</span><span class="w">        </span><span class="o">-</span><span class="m m-Double">3.079575</span>
+<span class="mi">25</span><span class="o">%</span><span class="w">        </span><span class="o">-</span><span class="m m-Double">0.616678</span>
+<span class="mi">50</span><span class="o">%</span><span class="w">         </span><span class="m m-Double">0.072404</span>
+<span class="mi">75</span><span class="o">%</span><span class="w">         </span><span class="m m-Double">0.750366</span>
+<span class="nx">max</span><span class="w">         </span><span class="m m-Double">3.583243</span>
+<span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="nx">z_score</span><span class="p">,</span><span class="w"> </span><span class="nx">dtype</span><span class="p">:</span><span class="w"> </span><span class="nx">float64</span>
+</code></pre></div>
+
+<p>There definitely appears to be a bias towards the lukewarm hand in individual game data. The mean z scores aren't that much bigger than zero, but it's a huge sample size.</p>
+<h2>Simulating streaky and non-streaky players</h2>
+<p>I coded up a simulation of a non-streaky player. When they have hit a minimum number of attempts in the game, if their shooting percentage goes above a certain level, they get a penalty. If it goes below a certain level, they get a boost.</p>
+<p>I was able to create results that look like NBA players in aggregate with an extremely simplified model. </p>
+<p>The parameters were arbitrarily chosen. By default, the thresholds are 20% and 80%, and the boost/penalty is 20%. So a 50% shooter who has taken at least 4 shots and is shooting 80% or better for the game will get their FG% knocked down to 30% till their game percentage drops below the threshold. Likewise if they hit 20% or less, they get a boost until they're over the threshold.</p>
+<p>I used the game level shooting statistics I got for the individual game-by-game analysis. I then replayed every shot in the NBA in the 2023-24 season using the simulated lukewarm player (and the actual fg% and number of shots attempted in each game). This is what I got:</p>
+<p><img alt="sim-z-scores" src="/img/sim-z-scores.png"></p>
+<div class="highlight"><pre><span></span><code><span class="nx">count</span><span class="w">    </span><span class="m m-Double">526.000000</span>
+<span class="nx">mean</span><span class="w">       </span><span class="m m-Double">0.218032</span>
+<span class="nx">std</span><span class="w">        </span><span class="m m-Double">0.965737</span>
+<span class="nx">min</span><span class="w">       </span><span class="o">-</span><span class="m m-Double">2.397958</span>
+<span class="mi">25</span><span class="o">%</span><span class="w">       </span><span class="o">-</span><span class="m m-Double">0.491051</span>
+<span class="mi">50</span><span class="o">%</span><span class="w">        </span><span class="m m-Double">0.241554</span>
+<span class="mi">75</span><span class="o">%</span><span class="w">        </span><span class="m m-Double">0.836839</span>
+<span class="nx">max</span><span class="w">        </span><span class="m m-Double">3.787951</span>
+<span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="nx">z_score</span><span class="p">,</span><span class="w"> </span><span class="nx">dtype</span><span class="p">:</span><span class="w"> </span><span class="nx">float64</span>
+</code></pre></div>
+
+<p>My simulation was actually less biased to the right than the actual results:</p>
+<p><img alt="actual-2023-24" src="/img/actual-2023-24.png"></p>
+<p>Several big things to note:</p>
+<ol>
+<li>I simulated every player in the league as being a little un-streaky.</li>
+<li>I simulated them being un-streaky in both directions</li>
+<li>The boost/penalty are pretty big -- going from 50% FG percentage to 30% is going from a good NBA player to a bad college player level, and the boost to 70% FG percentage has no precedent. The most accurate shooters in the NBA are usually big men who only shoot dunks and layups, and they still usually end up in the 60-65% range.</li>
+</ol>
+<p>Which is to say, my simulation is kind of silly and seemingly over-exaggerated. And it's still not as lukewarm as real NBA players are.  Wild, isn't it?</p>
+<h2>Streakiness in only one direction</h2>
+<p>I also simulated players who were only streaky in one direction: "get a bucket" players who get a boost to shooting percentage when they are shooting poorly, but no penalty when they are doing well, and "heat check" players who only get the penalty.</p>
+<p>The results were biased to the unstreaky side, but about half as much as the ones that are streaky in both directions. I had to crank the penalties/boosts up to unrealistic levels to get the bias of the z-scores up to the .2-.3 range I'm seeing with real season-level data.</p>
+<h2>The truly streaky player</h2>
+<p>Of course, I had to simulate the hot hand. The <code>TrulyStreakyPlayer</code> is the exact opposite of the <code>LukewarmPlayer</code>. They get a 20% boost when they're shooting well on the game, and a 20% penalty when they're shooting poorly.</p>
+<p>What stands out to me here is how much it affects the z-score. I was expecting the z-scores to be biased to the negative side by about as much as the unstreaky player was to the positive side. But the effect was a lot more dramatic:</p>
+<div class="highlight"><pre><span></span><code>count    524.000000
+mean      -0.455522
+std        1.144570
+min       -4.413268
+25%       -1.225128
+50%       -0.458503
+75%        0.404549
+max        2.486584
+</code></pre></div>
+
+<p><img alt="truly-streaky-player" src="/img/truly-streaky-player.png"></p>
+<p>Unlike the un-streaky simulations, the streaky behavior increased the dispersion (<code>std</code>), like we saw with the real shot data. There are many more outliers to the negative side than we'd expect.</p>
+<h2>What next?</h2>
+<p>I could certainly sim a mixture of streaky and unstreaky players, and eventually maybe get something that matches the real numbers pretty closely. But there are so many parameters to fit that it would be pretty arbitrary. Someone else could produce a different model that works just as well. </p>
+<p>Most importantly, it couldn't tell us which players might be streaky due to chance versus streaky due to behavior/shot selection. So I think the next step is looking at the shot selection in the "hot hand" vs. "get a bucket" situations -- do players switch to higher percentage shots when they're having a bad game, and worse shots when they're shooting better than usual?</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/simulating-hot-and-lukewarm-hands.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
+                    &nbsp;<a href="/tag/the-hot-hand.html" class="tags">the hot hand</a>
+                </div>
+            </article>            <h4 class="date">May 23, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/what-are-the-most-important-events-at-the-nfl-combine.html" rel="bookmark" title="Permanent Link to &quot;What are the most important events at the NFL Combine?&quot;">What are the most important events at the NFL Combine?</a>
+                </h2>
+
+                
+                
+
+                <p>(the code used is available at <a href="https://github.com/csdurfee/nfl_combine_data/">https://github.com/csdurfee/nfl_combine_data/</a>).</p>
+<h2>Intro</h2>
+<p>Every year, the National Football League hosts an event called the Combine, where teams can evaluate the top prospects before the upcoming draft.</p>
+<p>Athletes are put through a series of physical and mental tests over the course of four days. There is a lot of talk of hand size, arm length, and whether a guy looks athletic enough when he's running with his shirt off. It's basically the world's most invasive job interview. </p>
+<p>NFL teams have historically put a lot of stock in the results of the combine. A good showing at the combine can improve a player's career prospects, and a bad showing can significantly hurt them. For that reason, some players will opt out of attending the combine, but that can backfire as well.</p>
+<p>I was curious about which events in the combine correlate most strongly with draft position. There are millions of dollars at stake. The first pick in the NFL draft gets a $43 Million dollar contract, the 33rd pick gets $9.6 Million, and the 97th pick gets $4.6 Million.</p>
+<p>The main events of the combine are the 40 yard dash, vertical leap, bench press, broad jump, 3 cone drill and shuttle drill. The shuttle drill and the 3 cone drill are pretty similar -- a guy running between some cones as fast as possible. The other drills are what they sound like.</p>
+<p>I'm taking the data from Pro Football Reference. Example page: <a href="https://www.pro-football-reference.com/draft/2010-combine.htm">https://www.pro-football-reference.com/draft/2010-combine.htm</a>. I'm only looking at players who got drafted.</p>
+<h2>Position Profiles</h2>
+<p>It makes no sense to compare a cornerback's bench press numbers to a defensive lineman's. There are vast differences in the job requirements. A player in the combine is competing against other players at the same position. </p>
+<p>The graph shows a position's performance on each exercise relative to all players. The color indicates how the position as a whole compares to the league as a whole. You can change the selected position with the dropdown.</p>
+<iframe src="/img/position_view_2025.html" width="550" height="450" frameborder="0"></iframe>
+
+<p>Cornerbacks are exceptional on the 40 yard dash and shuttle drills compared to NFL athletes as a whole, whereas defensive linemen are outliers when it comes high bench press numbers, and below average at every other event. Tight Ends and Linebackers are near the middle in every single event, which makes sense because both positions need to be strong enough to deal with the strong guys, and fast enough to deal with the fast guys.</p>
+<h2>Importance of Events by Position</h2>
+<p>I analyzed how a player's performance relative to others at their position correlates with draft rank. Pro-Football-Reference has combine data going back to 2000.  I have split the data up into 2000-2014 and 2015-2025 to look at how things have changed. </p>
+<p>For each position, the exercises are ranked from most to least important. The tooltip gives the exact r^2 value.</p>
+<p>Here are the results up to 2014:</p>
+<iframe src="/img/before_2015.html" width="800" height="700" frameborder="0"></iframe>
+
+<p>Here are the last 10 years:</p>
+<iframe src="/img/after_2015.html" width="800" height="700" frameborder="0"></iframe>
+
+<p>Some things I notice:</p>
+<p>The main combine events matter that much either way for offensive and defensive linemen. That's held true for 25 years.</p>
+<p>The shuttle and 3 cone drill have gone up significantly in importance for tight ends.</p>
+<p>Broad jump and 40 yard dash are important for just about every position. However, the importance of the 40 yard dash time has gone down quite a bit for running backs. </p>
+<p>As a fan, it used to be a huge deal when a running back posted an exceptional 40 yard time. It seemed Chris Johnson's legendary 4.24 40 yard time was referenced every year. But I remember there being lot of guys who got drafted in the 2000's primarily based on speed who turned out to not be very good. </p>
+<p>The bench press is probably the least important exercise across the board. There's almost no correlation between performance and draft order, for every position. Offensive and defensive linemen basically bench press each other for 60 minutes straight; for everybody else, that sort of strength is less relevant.  Here's one of the greatest guys at throwing the football in human history, Tom Brady:</p>
+<p><img alt="behold" src="/img/Tom-Brady-Combine.png"></p>
+<p>Compared to all quarterbacks who have been drafted since 2000, Brady's shuttle time was in the top 25%, his 3 cone time was in the top 50%, and his broad jump, vertical leap and 40 yard dash were all in the bottom 25%.</p>
+<h2>Changes in combine performance over time</h2>
+<p>Athlete performance has changed over time. </p>
+<p>I've plotted average performance by year for each of the events. For the 40 yard dash, shuttle, and 3 cone drills, lower is better, and for the other events, higher is better.</p>
+<p><img alt="change over time" src="/img/combine-trends.png"></p>
+<p>40 yard dash times and broad jump distances have clearly improved, whereas shuttle times and bench press reps have gotten slightly worse.</p>
+<p>There's a cliche in sports that "you can't coach speed".  While some people are innately faster than others, the 40 yard dash is partly a skill exercise -- learning to get off the block as quickly as possible without faulting, for starters. The high priority given to the 40 yard dash should lead to prospects practicing it more, and thus getting better numbers.</p>
+<p>The bench press should be going down or staying level, since it's not very important to draft position.</p>
+<p>There's been a significant improvement in the broad jump - about 7.5% over 25 years. As with the 40 yard dash, I'd guess it's better coaching and preparation. Perhaps it's easier to improve than some of the other events. I don't think there's more broad jumping in an NFL game than there was 25 years ago.</p>
+<p>Shuttle times getting slightly worse is a little surprising. It's very similar to the 3 Cone drill, which has slightly improved. But as we saw, neither one is particularly important as far as draft position, and it's not a strong trend.</p>
+<h2>Caveats</h2>
+<p>Some of the best athletes skip the combine entirely, because their draft position is already secure. And some athletes will only choose to do the exercises they think they will do well at, and skip their weak events. This is known as <a href="https://www.ncbi.nlm.nih.gov/books/NBK493614/">MNAR data</a> (missing, not at random). All analysis of MNAR data is potentially biased.</p>
+<p>I'm assuming a linear relationship between draft position and performance. It's possible that a good performance helps more than a bad performance hurts, or vice versa.</p>
+<p>I didn't calculate statistical significance for anything. Some correlations will occur even in random data. This isn't meant to be rigorous.</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/what-are-the-most-important-events-at-the-nfl-combine.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/football.html" class="tags">football</a>
+                </div>
+            </article>            <h4 class="date">May 22, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
