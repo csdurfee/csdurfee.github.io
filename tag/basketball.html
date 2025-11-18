@@ -29,127 +29,7 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Jun 18, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/lesimulation.html" rel="bookmark" title="Permanent Link to &quot;LeSimulation&quot;">LeSimulation</a>
-                </h2>
-
-                
-                
-
-                <p>(As usual, all code and notebooks are available at <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>)</p>
-<p>Last time, we saw that LeBron James was by far the un-streakiest player in the NBA over the last 20 years and found out that it's at least partly caused by shot selection. He takes both lower percentage shots than average when he's shooting well and higher percentage shots than average when he's shooting poorly.</p>
-<h2>LeMartingale</h2>
-<p>I got the question of why it's OK to use a player's overall FG% to gauge their streakiness. We know that every shot a player takes has a slightly different level of difficulty, and thus a different probability that it will go in. Shouldn't that affect the streakiness?</p>
-<p>It's a good question.  Let's say you've got a bag with 2 types of coins inside. One of them comes up heads 40% of the time, the other comes up heads 60% of the time. You can't tell which is which. If you pick a coin randomly out of the bag and flip it, what are the chances, on average, it comes up heads? </p>
-<p>It's 50%, right? The selecting of the coin and the flipping of the coin are two independent steps. We can multiply the probabilities at each step together, so the overall chances of heads are <code>(.5 * .4) + (.5 * .6) = .5</code>. If we kept randomly selecting from the bag and flipping a coin, the results would be indistinguishable from just flipping a single fair coin over and over.</p>
-<p>In math, this is known as a <a href="https://en.wikipedia.org/wiki/Martingale_(probability_theory)">Martingale</a>. Previous outcomes don't give us information about the next event. (More in depth explanation <a href="https://www.cs.yale.edu/homes/aspnes/pinewiki/Martingales.html">here</a>).  That's different from LeBron. We know he essentially chooses the 60% heads coin when he's been getting a lot of tails recently, and the 60% tails coin when he's been getting a lot of heads recently.</p>
-<h2>LeSimulation</h2>
-<p>If I create a simulation of LeBron James that uses his exact shooting tendencies and FG percentages, and the shot selection is totally random, it shouldn't show any streaky or unstreaky tendencies beyond expected by chance. Let's see what LeSimulation looks like.</p>
-<p>At the end of the last edition, I got LeBron's shooting stats:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">Above</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="k">Break</span><span class="w"> </span><span class="mi">3</span><span class="w">        </span><span class="mi">0</span>.<span class="mi">344598</span>
-<span class="nv">Backcourt</span><span class="w">                </span><span class="mi">0</span>.<span class="mi">058824</span>
-<span class="nv">In</span><span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">Paint</span><span class="w"> </span><span class="ss">(</span><span class="nv">Non</span><span class="o">-</span><span class="nv">RA</span><span class="ss">)</span><span class="w">    </span><span class="mi">0</span>.<span class="mi">401369</span>
-<span class="nv">Left</span><span class="w"> </span><span class="nv">Corner</span><span class="w"> </span><span class="mi">3</span><span class="w">            </span><span class="mi">0</span>.<span class="mi">394799</span>
-<span class="nv">Mid</span><span class="o">-</span><span class="nv">Range</span><span class="w">                </span><span class="mi">0</span>.<span class="mi">379890</span>
-<span class="nv">Restricted</span><span class="w"> </span><span class="nv">Area</span><span class="w">          </span><span class="mi">0</span>.<span class="mi">720138</span>
-<span class="nv">Right</span><span class="w"> </span><span class="nv">Corner</span><span class="w"> </span><span class="mi">3</span><span class="w">           </span><span class="mi">0</span>.<span class="mi">370370</span>
-</code></pre></div>
-
-<p>And shooting tendencies (what percent of the time he takes each type of shot):</p>
-<div class="highlight"><pre><span></span><code><span class="nv">Above</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="k">Break</span><span class="w"> </span><span class="mi">3</span><span class="w">        </span><span class="mi">0</span>.<span class="mi">204940</span>
-<span class="nv">Backcourt</span><span class="w">                </span><span class="mi">0</span>.<span class="mi">001160</span>
-<span class="nv">In</span><span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">Paint</span><span class="w"> </span><span class="ss">(</span><span class="nv">Non</span><span class="o">-</span><span class="nv">RA</span><span class="ss">)</span><span class="w">    </span><span class="mi">0</span>.<span class="mi">109652</span>
-<span class="nv">Left</span><span class="w"> </span><span class="nv">Corner</span><span class="w"> </span><span class="mi">3</span><span class="w">            </span><span class="mi">0</span>.<span class="mi">014431</span>
-<span class="nv">Mid</span><span class="o">-</span><span class="nv">Range</span><span class="w">                </span><span class="mi">0</span>.<span class="mi">267715</span>
-<span class="nv">Restricted</span><span class="w"> </span><span class="nv">Area</span><span class="w">          </span><span class="mi">0</span>.<span class="mi">386442</span>
-<span class="nv">Right</span><span class="w"> </span><span class="nv">Corner</span><span class="w"> </span><span class="mi">3</span><span class="w">           </span><span class="mi">0</span>.<span class="mi">015660</span>
-</code></pre></div>
-
-<p>The simulation randomly chooses a shot type, based on the actual tendencies, then attempts a shot at the corresponding FG%.</p>
-<p><img alt="le-fake-career" src="/img/le-fake-career.png"></p>
-<p>The z-scores look like they should -- mean is very close to 0, standard deviation close to 1. No streaky/unstreaky tendencies, as promised. No evidence that shot attempts were at different FG%.</p>
-<h2>LeSimulation 2 - last 5 FG%</h2>
-<p>My next simulation uses LeBron's FG% over his last 5 shots. We've seen he shoots the best with 0 makes in his last 5; the worst with 5 makes in his last 5. The simulation uses his exact percentages at each level. For the first 5 shots of every game, it uses his career FG%.</p>
-<p>I ran the simulation 1,000 times. Here are the z-scores:</p>
-<p><img alt="le-fake-career-2" src="/img/le-fake-career-2.png"></p>
-<p>As expected, this simulation is pretty un-streaky:</p>
-<div class="highlight"><pre><span></span><code>count    1000.000000
-mean        1.635843
-std         0.985464
-min        -1.665389
-25%         1.001550
-50%         1.623242
-75%         2.346864
-max         4.509869
-</code></pre></div>
-
-<p>It's still not nearly as unstreaky as the man himself, though -- Lebron's z score of 5.9 would be way bigger than the largest value in 1,000 simulations (4.5). So he'd still be an outlier compared to these simulated un-streaky players.</p>
-<h2>LeSimulation 3 -- No resetting streaks</h2>
-<p>What about a fake player where the streaks don't reset between games? That should make the simulated player even more unstreaky.</p>
-<p>In this version of the simulation, every shot will be influenced by the FG% of the previous 5 shots, even if they happened in the previous game(s).</p>
-<p><img alt="le-fake-career-3" src="/img/le-fake-career-3.png"></p>
-<p>Here are the corresponding z-scores:</p>
-<div class="highlight"><pre><span></span><code>count    1000.000000
-mean        2.179821
-std         0.963330
-min        -1.033468
-25%         1.536542
-50%         2.203681
-75%         2.865350
-max         5.073167
-</code></pre></div>
-
-<p>So, the mean went from 1.6 to 2.2, and the max z score went from 4.5 to 5.1. That's still not nearly unstreaky enough to match LeReal LeBron, but at least it's closer.</p>
-<p>It's possible that if we tracked the last 7 shots, or 9, instead of 5, we would see even more of a dramatic change in FG percentage. Or there's some other factor I haven't considered that is adding unstreakiness, such as the fact that his FG percentage tends to go down the more shots he's taken in a game.</p>
-<h2>DoppLeGangers</h2>
-<p>I was curious if I could find similar players to LeBron. There's a good way to do that, but I wanted to try my own way first. I found players where, like LeBron, their FG% steadily declines the more shots they've made out of the last 5.  There are 18 such players in the 2004-2024 years: Karl Malone (his last season), Grant Hill, Ben Wallace, Eddie House, Michael Redd, Jarvis Hayes, Andres Nocioni, JJ Redick, Nicolas Batum, Goran Dragic, DeMar DeRozan, Patrick Beverley, Marcus Morris Sr., Bradley Beal, Kelly Oubre Jr., Norman Powell, Donte DiVincenzo, and Landry Shamet.</p>
-<p>Overall, these players have a mean z-score of 1.47, which is pretty impressive, but except for Goran Dragic, there isn't much overlap over the players with the highest overall z scores. 18 players is a pretty small sample size, as well.</p>
-<p>I also looked at a broader set of players where at least 4 out of the 5 comparisons were decreasing. This gave 180 players, with an average z score of 1.0. </p>
-<h3>LeRight way</h3>
-<p>The right way to identify LeBron-alikes is probably to use a similarity metric that I didn't invent. The fg percentages after 0,1,2...5/5 makes are sort of like a probability distribution. </p>
-<p>In statistics and machine learning, we are often fitting a theoretical distribution to the actual observed data. Is it a good representation of the observed data? Do their distributions have the same sort of shape? The standard measure is relative entropy, also known as <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">KL divergence</a>.</p>
-<p>If I normalize the shooting percentages and compare them to LeBron's, players with a low relative entropy should show the same tendency to shoot better when they're shooting worse than average over their last 5, and vice versa.</p>
-<p>For example, LeBron's last 5 percentages are:</p>
-<div class="highlight"><pre><span></span><code><span class="mf">0</span><span class="w">    </span><span class="mf">0.564612</span>
-<span class="mf">1</span><span class="w">     </span><span class="mf">0.50712</span>
-<span class="mf">2</span><span class="w">    </span><span class="mf">0.505937</span>
-<span class="mf">3</span><span class="w">    </span><span class="mf">0.496538</span>
-<span class="mf">4</span><span class="w">    </span><span class="mf">0.473849</span>
-<span class="mf">5</span><span class="w">    </span><span class="mf">0.464052</span>
-</code></pre></div>
-
-<p>By normalizing them, they act like a probability distribution (they all add up to one) but still have the same relative proportions.</p>
-<div class="highlight"><pre><span></span><code><span class="mf">0</span><span class="w">    </span><span class="mf">0.187448</span>
-<span class="mf">1</span><span class="w">     </span><span class="mf">0.16836</span>
-<span class="mf">2</span><span class="w">    </span><span class="mf">0.167968</span>
-<span class="mf">3</span><span class="w">    </span><span class="mf">0.164847</span>
-<span class="mf">4</span><span class="w">    </span><span class="mf">0.157315</span>
-<span class="mf">5</span><span class="w">    </span><span class="mf">0.154062</span>
-</code></pre></div>
-
-<p>The normalization also corrects for the fact that shooters have different overall FG percentages.</p>
-<p>Normalized values can then be compared to other players' values. The lower the entropy, the more similar their shapes are.</p>
-<p>I also calculated the Jensen-Shannon distance, which is like relative entropy, but symmetrical (<code>distance(le_bron, le_other_guy) = distance(le_other_guy, le_bron)</code>).</p>
-<p>The closest guys to LeBron by this measure are CJ McCollum, Terry Rozier, Andrea Bargnani, Marcus Morris, Richard Hamilton, Nikola Vucevic, Zach Randolph, Lauri Markkanen, Kawhi Leonard, and Kevin Huerter. </p>
-<p>Since Richard Hamilton had the least streaky game in the last 20 years, it's not surpring to see him. But except for Randolph and Vucevic, none of the top 10 had exceptional z scores, though they were all positive.</p>
-<p>The Jensen-Shannon distance results were extremely similar to entropy. It agreed exactly with the entropy on 73 of the top 100 players. The average z score for those players was 1.16, versus 1.15 for entropy. So, in aggregate, both were better than my homegrown metric at identifying unstreaky players.</p>
-<p>This graph shows the shape of the 10 players most similar to LeBron. They all have the same downward trend.</p>
-<p><img alt="most-similar-last5" src="/img/most-similar-last5.png"></p>
-<p>I haven't looked at whether the reason for the trend in last 5 FG% is due to shot selection for these other players, which is probably the interesting part. Some of the players flagged here are inevitably due to chance. It's based on six 50/50 measurements, so 1 in 64 players would get flagged as "LeBron like" even if the data was randomly generated.</p>
-<p>None of my queries here turned up the un-streakiest players like Luka Doncic and Anthony Edwards. Whatever causes their extreme unstreakiness (beyond randomness) must be different from LeBron's tendencies. Stay tuned!</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/lesimulation.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
-                    &nbsp;<a href="/tag/the-hot-hand.html" class="tags">the hot hand</a>
-                </div>
-            </article>            <h4 class="date">Jun 30, 2025</h4>
+        <div id="content">            <h4 class="date">Jun 30, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -2326,6 +2206,88 @@ max         5.073167
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
                     &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
+                </div>
+            </article>            <h4 class="date">Nov 18, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/early-season-nba-trends.html" rel="bookmark" title="Permanent Link to &quot;Early season NBA trends&quot;">Early season NBA trends</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=eyF1T1gGuzU" target="_blank"><img alt="&quot;Round 6&quot;, by Prince Jammy" src="https://img.youtube.com/vi/eyF1T1gGuzU/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=eyF1T1gGuzU" target="_blank">"Round 6", by Prince Jammy</a></p>
+<p>A few interesting statistics from the first dozen games of the 2025-26 NBA season.</p>
+<p>I'm generally talking about stats per 100 possessions, rather than raw stats (unless otherwise noted).</p>
+<h3>The absurd OKC Thunder</h3>
+<p>The OKC Thunder have been a godless basketball killing machine this year. Almost every win is a blowout, despite their second best player being injured. They look like they don't even have to try all that hard, and they're winning by an average of 16 points.</p>
+<p>To me, their secret sauce is that they make it nearly impossible to score against them. There are no easy buckets. Here are some good ways to get easy points in the NBA:</p>
+<ol>
+<li>make lots of 3's</li>
+<li>get lots of free throws (and make them)</li>
+<li>take a lot of shots close to the basket</li>
+<li>get points off of turnovers</li>
+<li>get out on the fast break</li>
+<li>get second chance points</li>
+</ol>
+<p>The Thunder are middle of the pack at the first two. They're only 15th in 3 pointers made against them per game, and 12th in free throws given up.</p>
+<p>They're ridiculously elite at everything else that makes scoring hard. The Thunder are first in the league at:</p>
+<ol>
+<li>Defensive Rating</li>
+<li>Defensive Rebounding</li>
+<li>Steals</li>
+<li>Fewest opponent fast break points</li>
+<li>Fewest opponent points in the paint</li>
+<li>Fewest opponent points scored</li>
+<li>Lowest opponent effective FG%</li>
+</ol>
+<p>They're second in the league at:</p>
+<ol>
+<li>Fewest turnovers</li>
+<li>Fewest opponent points off turnovers</li>
+<li>Fewest opponent 2nd chance points</li>
+<li>Fewest opponent assists</li>
+<li>Most opponent turnovers</li>
+</ol>
+<p>The most remarkable part is how they've built their team. Their 3rd and 4th leading scorers, Ajay Mitchell and Aaron Wiggins, were both 2nd round draft picks. Their 5th leading scorer, Isaiah Joe, was a 2nd round pick by the 76ers who got waived, then refurbished by the Thunder like an estate sale armoire. Their best defender, Lu Dort, went undrafted. </p>
+<p>The team just finds a way to bring the best out of players that any other team <em>could</em> have had. What did they see that everybody else missed, and what did they do to develop them?</p>
+<p>As a fan of another NBA team, and someone who lived in Seattle in the 15 years after the Sonics were stolen away to OKC, I <a href="https://knowyourmeme.com/memes/mr-bones-wild-ride">want to get off Mr Presti's Wild Ride</a>. But statistically, it's great.</p>
+<h3>Bucking trends</h3>
+<p>Victor Wembanyama is by far the best shot blocker in the NBA, averaging 3.6 blocks a game. But the Spurs are only 6th overall in blocks. Nikola Jokic is by far the best passer in the NBA, but the Nuggets are only 5th overall in assists. Steph Curry is the best 3 point shooter of all time. But the Warriors are only 12th in 3 point percentage. This isn't all that surprising. Just because one player is good at a particular skill, that doesn't mean the rest of the team is.</p>
+<p>What's more surprising to me is that Giannis Antetokounmpo draws the most free throws in the league, but the Bucks are 28th in free throw attempts. Teams that get a lot of free throw attempts tend to attack the basket a lot, or be the Los Angeles Lakers. The Bucks are weird because pretty much only Giannis does anything free throw-worthy. At the time I wrote this, Center Myles Turner had not shot a single free throw in his last 63 minutes of game time. That doesn't seem like a recipe for success for the Bucks.</p>
+<h3>Basketball is broken</h3>
+<p>And I know the guy who did it: Nikola Jokić. Advanced stats aren't everything, but right now he has a Win Shares per 48 (WS/48) of .441. Win Shares are probably a little biased towards big men who score efficiently, and affected by the pace of the game. That aside, it's a pretty good stat as far as having a single number to quantify how good somebody is at basketball. It correlates pretty strongly with actual basketball watching, I think. The top players in WS/48 are usually the top candidates for the MVP every year. And it matches who we think the best players are historically.</p>
+<p>Last year, the top player by WS/48 was Shai Gilgeous-Alexander, at .309. The year before, it was Jokic, at .299. The year before, it was Jokic at .308. In 2014, it was Steph Curry, at .288. In 2004, when the pace of play was slower, the leaders were Nowitzki and Garnett at .248. In 1994, it was David Robinson, at .273.</p>
+<p>Pretty much anything over .250 is an MVP caliber season. There's really no historical precedent for a WS/48 of .441. After 12 games played, Jokic could be the worst player in the league for the next 7 games, and he'd still be having an MVP-type season overall.</p>
+<p>Before last game, it was .448. What did Jokic do last game that caused his WS/48 to go down a tiny bit? He got 36 points, 18 rebounds, and 13 assists, on good scoring efficiency and only 2 turnovers. That's a slightly below average game for him right now.</p>
+<h3>The perils of hand-rolled metrics, pt. 137</h3>
+<p>I was trying to put together something to show how historically off the charts OKC has been defensively. I started with using a fancy technique, PCA, before realizing that just adding up the ranks of each of the statistics was better and simpler. If one team is 1st in blocks, 2nd in steals, 2nd in opponent points in thde paint, etc., just add the ranks up, lowest score is best.</p>
+<p>I ran it on every team over the last 15 years. All of the teams that did well on my metric were good defensively, and the teams that did poorly were putrid on defense. It's not totally useless. But it's a bad way to find the best teams of all time.</p>
+<p>Here are the top defensive teams since 2010 by this metric:</p>
+<ol>
+<li>the 2025-26 OKC Thunder</li>
+<li>The 2018-19 Milwaukee Bucks (won 60 games with peak Giannis)</li>
+<li>The 2010-11 Philadelphia 76ers (last Iguodala season, young Jrue Holiday)</li>
+<li>The 2019-20 Orlando Magic (Aaron Gordon and some guys)</li>
+<li>The 2017-18 Utah Jazz (the "you got Jingled" meme team that beat OKC)</li>
+</ol>
+<p>Ah well. That's not a terrible list. They were all very good at defense, and made it a big part of their team identity, but I don't think those are really the best defensive teams of the last 15 years. A team's rank by Defensive Rating is still a better predictor of the team's win percentage than my attempts.</p>
+<p>There's definitely some <a href="https://en.wikipedia.org/wiki/Goodhart's_law">Goodhart's Law</a> potential here. OKC are near the top of a bunch of statistical categories, because they are good at defense overall. You can't necessarily get on their level just by trying to copy specific things OKC does well, like prevent fast break points.</p>
+<h3>We see you, Jalen Duren</h3>
+<p>More like Jalen Durian, because some of the things he's doing are just nasty. You will definitely get kicked off the bus in Singapore if you're watching Jalen Duren highlights.</p>
+<h3>Data used</h3>
+<p>All data from https://www.nba.com/stats/</p>
+<p>I had to screen scrape some stuff from their website, since some of the endpoints in the python <code>nba_api</code> package are broken now.  See the <code>early-nba-trends.ipynb</code> notebook for code.</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/early-season-nba-trends.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
+                    &nbsp;<a href="/tag/bajillion.html" class="tags">bajillion</a>
                 </div>
             </article>
 

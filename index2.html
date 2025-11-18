@@ -28,7 +28,424 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Jul 24, 2025</h4>
+        <div id="content">            <h4 class="date">Jul 26, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/riding-the-waves.html" rel="bookmark" title="Permanent Link to &quot;Riding the waves&quot;">Riding the waves</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=ko8cJucsbBU" target="_blank"><img alt="Roy of the Ravers, &quot;Emotinium&quot;" src="https://img.youtube.com/vi/ko8cJucsbBU/0.jpg"></a></p>
+<p>After spending several weeks in the degenerate world of sports gambling, I figured we should go get some fresh air in the land of pure statistics.</p>
+<h2>The Abnormal Distribution</h2>
+<p>Everybody knows what the normal distribution looks like, even if they don't know it as such. You know, the bell curve? The one from the memes?</p>
+<p>In traditional statistics, the One Big Thing you need to know is called the Central Limit Theorem. It says, if you collect some data and take the average of it, that average (the sample mean) will behave in nice, predictable ways. It's the basis of basically all experimental anything.  If you take a bunch of random samples and calculate the sample mean over and over again, those sample means will look like a normal distribution, if the sample sizes are big enough. That makes it possible to draw big conclusions from relatively small amounts of data.</p>
+<p>How big is "big enough"? Well, it partly depends on the shape of the data being sampled from. If the data itself is distributed like a normal distribution, it makes sense that the sample means would also be normally shaped. It takes a smaller sample size to get the sampling distributions looking like a normal distribution.</p>
+<p>While a lot of things in life are normally distributed, some of them aren't. The uniform distribution is when every possible outcome is equally likely. Rolling a single die, for instance. 1-6 are all equally likely. Imagine we're trying to estimate the mean value for rolling a standard 6 sided die. </p>
+<p>A clever way would be to team up sets of sides - 6 goes with 1, 5 goes with 2, 4 goes with 3. Clearly the mean value has to be 3.5, right?</p>
+<p>A less clever way would be to roll a 6 sided die a bunch of times and take the average. We could repeat that process, and track all of these averages. If the sample size is big enough, those averages will make a nice bell curve, with the center at 3.5.</p>
+<p>The uniform distribution is sort of obnoxious if you want to calculate the sample mean. The normal distribution, and a lot of other distributions, have a big peak in the middle and tail off towards the edges. If you pick randomly from one of these distributions, it's far more likely to be close to the middle than it is to be far from the middle. With the uniform distribution, every outcome is equally likely:</p>
+<p><img alt="/img/uniform.png" src="/img/uniform.png"></p>
+<p>Couldn't we do even worse than the uniform distribution, though? What if the tails/outliers were even higher than the center? When I first learned about the Central Limit Theorem, I remember thinking about that - how could you define a distribution to be the most obnoxious one possible? The normal distribution is like a frowny face. The Uniform distribution is like a "not impressed" face. Couldn't we have a smiley face distribution to be the anti-normal distribution?</p>
+<h2>Waveforms and probabilities.</h2>
+<p>All synthesizers in electronic music use a mix of different types of simple waveforms. The sublime <a href="https://en.wikipedia.org/wiki/Roland_TB-303">TB-303</a> synth line in the song at the top is very simple. The TB-303 a monophonic synth -- a single sawtooth wave (or square wave) with a bunch of filters on top that, in the right hands, turn it from buzzy electronic noise to an emotionally expressive instrument, almost like a digitial violin or human voice.</p>
+<p>This got me thinking about what probability distributions based on different types of waveforms would look like. How likely is the waveform to be at each amplitude?</p>
+<p>Here's the sawtooth waveform:</p>
+<p><img alt="/img/sawtooth.png" src="/img/sawtooth.png"></p>
+<p>If we randomly sample from this wave (following a uniform distribution -- all numbers on the x axis are equally likely) and record the y value, then plot the values as a histogram, what would it look like? Think of it like we put a piece of toast on the Y axis of the graph, the X axis is time. How will the butter be distributed? </p>
+<p>It should be a flat line, like the Uniform distribution, since each stroke of butter is at a constant rate. We're alternating between a very fast wipe and a slower one, but in both cases, it doesn't spend any more time on one section of bread than another because it's a straight line.</p>
+<h2>Advanced breakfast techniques</h2>
+<p>A square wave spends almost no time in the middle of the bread, so nearly all the butter will be at the edges. That's not a very interesting graph. What about a sine wave?</p>
+<p>The sawtooth wave always has a constant slope, so the butter is evenly applied. With the sine wave, the slope changes over time. Because of that, the butter knife ends up spending more time at the extreme ends of the bread, where the slope is shallow, compared to the middle of the bread. The more vertical the slope, the faster the knife passes over that bit of bread, and the less butter it gets.</p>
+<p>If we sample a bunch of values from the sine wave and plot their Y values as a histogram, we'll get something that looks like a smiley face -- lots of butter near the edges, less butter near the center of the toast. Or perhaps, in tribute to Ozzy, the index and pinky fingers of someone throwing the devil horns.</p>
+<p><img alt="/img/arcsine-from-sine.png" src="/img/arcsine-from-sine.png"></p>
+<p>That's a perfectly valid buttering strategy in my book. The crust near the edges tends to be drier, and so can soak up more butter. You actually want to go a bit thinner in the middle, to maintain the structural integrity of the toast.</p>
+<p>This distribution of butter forms a probability distribution called the arcsine distribution. It's an anti-normal distribution -- fat in the tails, skinny in the middle. A "why so serious?" distribution the Joker might appreciate. The mean is the least likely value, rather than the most likely value. And yet, the Central Limit Theorem still holds. The mean of even a fairly small number of values will behave like a Normal distribution.</p>
+<p>Here are 1,000 iterations of an average of two samples from the arcsine distribution:</p>
+<p><img alt="/img/arcsin-approx-2.png" src="/img/arcsin-approx-2.png"></p>
+<p>And averages of 5 samples:</p>
+<p><img alt="/img/arcsin-approx-5.png" src="/img/arcsin-approx-5.png"></p>
+<p>And 30 samples at a time. Notice how the x range has shrunk down.</p>
+<p><img alt="/img/arcsin-approx-30.png" src="/img/arcsin-approx-30.png"></p>
+<p>There are a lot of distributions that produce that U-type shape. They're known as <a href="https://en.wikipedia.org/wiki/Bathtub_curve">bathtub curves</a>. They come up when plotting the failure rates of devices (or people). For a lot of things, there's an elevated risk of failure near the beginning and the end, with lower risk in the middle. The curve is showing conditional probability -- for an iPhone to fail on day 500, it has to have not failed on the first 499 days.</p>
+<p><img alt="/img/Bathtub_curve.svg" src="/img/Bathtub_curve.svg"></p>
+<p>(source: Wikipedia/Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=7458336">https://commons.wikimedia.org/w/index.php?curid=7458336</a>)</p>
+<h2>Particle man vs triangle man</h2>
+<p>The Uniform distribution isn't really that ab-Normal. It's flat, but it's very malleable. It turns into the normal distribution almost instantly. The symmetry helps.</p>
+<p>If we take a single sample from a Uniform distribution over and over again, and plot a histogram, it's going to look flat, because every outcome is equally likely.</p>
+<p>If we take the sum (or average) of two Uniform random variables, what would that look like? We're going to randomly select two numbers between 0 and 1 and sum them up. The result will be between 0 and 2. But some outcomes will be more likely than others.  The extremes (0 and 2) should be extremely unlikely, right? Both the random numbers would have to be close to 0 for the sum to be, and vice versa. There are a lot of ways to get a sum of 1, though. It could be .9 and .1, or .8 and .2, and so on.</p>
+<p>If you look online, you can find many explanations of how to get the PDF of the sum of two Uniform distributions using calculus. (<a href="https://courses.cs.washington.edu/courses/cse312/20su/files/student_drive/5.5.pdf">Here's a good one</a>). While formal proofs are important, it's not very intuitive. So, here's another way to think of it.</p>
+<p>Let's say we're taking the sum of two dice instead of two Uniform random variables.  We're gonna start with two 4 sided dice. It will be obvious that we can scale the number of faces up, and the pattern will hold.</p>
+<p>What are the possible combinations of dice? The dice are independent, so each combination is equally likely. Let's write them out by columns according to their totals:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(1, 1)</td>
+<td>(1,2)</td>
+<td>(1,3)</td>
+<td>(1,4)</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>-</td>
+<td>(2,1)</td>
+<td>(2,2)</td>
+<td>(2,3)</td>
+<td>(2,4)</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>(3,1)</td>
+<td>(3,2)</td>
+<td>(3,3)</td>
+<td>(3,4)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>(4,1)</td>
+<td>(4,2)</td>
+<td>(4,3)</td>
+<td>(4,4)</td>
+</tr>
+</tbody>
+</table>
+<p>If we write all the possibilities out like this, it's gonna look like a trapezoid, whether there are 4 faces on the dice, or 4 bajillion. Each row will have one more column that's blank than the one before, and one column that's on its own off to the right. </p>
+<p>If we consolidate the elements, we're gonna get a big triangle, right? Each column up to the mean will have one more combo, and each column after will have one less.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(1, 1)</td>
+<td>(1,2)</td>
+<td>(1,3)</td>
+<td>(1,4)</td>
+<td>(2,4)</td>
+<td>(3,4)</td>
+<td>(4,4)</td>
+</tr>
+<tr>
+<td>-</td>
+<td>(2,1)</td>
+<td>(2,2)</td>
+<td>(2,3)</td>
+<td>(3,3)</td>
+<td>(4,3)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>(3,1)</td>
+<td>(3,2)</td>
+<td>(4,2)</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>(4,1)</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>With a slight re-arrangement of values, it's clear the triangle builds up with each extra face we add to the dice.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(1, 1)</td>
+<td>(1,2)</td>
+<td>(2,2)</td>
+<td>(2,3)</td>
+<td>(3,3)</td>
+<td>(3,4)</td>
+<td>(4,4)</td>
+</tr>
+<tr>
+<td>-</td>
+<td>(2,1)</td>
+<td>(1,3)</td>
+<td>(3,2)</td>
+<td>(2,4)</td>
+<td>(4,3)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>(3,1)</td>
+<td>(1,4)</td>
+<td>(4,2)</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>(4,1)</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>The results for two 2 sided dice are embedded in the left 3 columns of table, then the results for two 3 sided dice on top of them, then two 4 sided dice. Each additional face will add 2 columns to the right. I'm not gonna formally prove anything, but hopefully it's obvious that it will always make a triangle.</p>
+<p>That's the <a href="https://en.wikipedia.org/wiki/Triangular_distribution#Distribution_of_the_mean_of_two_standard_uniform_variables">triangular distribution</a>.</p>
+<p>Here's a simulation, calculating the sum of two random uniform variables over and over, and counting their frequencies:</p>
+<p><img alt="/img/shaggy-triangle.png" src="/img/shaggy-triangle.png"></p>
+<h1>3 is the magic number</h1>
+<p>The sum (or average) of 3 Uniform random variables looks a whole lot like the normal distribution. The sides of the triangle round out, and we get something more like a bell curve. It's more than a parabola because the slope is changing on the sides. Here's what it looks like in simulation:</p>
+<p><img alt="/img/shaggy-parabola.png" src="/img/shaggy-parabola.png"></p>
+<p>Here are three 4 sided dice. It's no longer going up and down by one step per column. The slope is changing as we go up and down the sides.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">3</th>
+<th style="text-align: left;">4</th>
+<th style="text-align: left;">5</th>
+<th style="text-align: left;">6</th>
+<th style="text-align: left;">7</th>
+<th style="text-align: left;">8</th>
+<th style="text-align: left;">9</th>
+<th style="text-align: left;">10</th>
+<th style="text-align: left;">11</th>
+<th style="text-align: left;">12</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">(1, 1, 1)</td>
+<td style="text-align: left;">(2, 1, 1)</td>
+<td style="text-align: left;">(2, 2, 1)</td>
+<td style="text-align: left;">(2, 2, 2)</td>
+<td style="text-align: left;">(3, 3, 1)</td>
+<td style="text-align: left;">(3, 3, 2)</td>
+<td style="text-align: left;">(3, 3, 3)</td>
+<td style="text-align: left;">(4, 4, 2)</td>
+<td style="text-align: left;">(4, 4, 3)</td>
+<td style="text-align: left;">(4, 4, 4)</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 2, 1)</td>
+<td style="text-align: left;">(2, 1, 2)</td>
+<td style="text-align: left;">(3, 2, 1)</td>
+<td style="text-align: left;">(3, 2, 2)</td>
+<td style="text-align: left;">(3, 2, 3)</td>
+<td style="text-align: left;">(4, 4, 1)</td>
+<td style="text-align: left;">(4, 3, 3)</td>
+<td style="text-align: left;">(4, 3, 4)</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 1, 2)</td>
+<td style="text-align: left;">(1, 2, 2)</td>
+<td style="text-align: left;">(3, 1, 2)</td>
+<td style="text-align: left;">(3, 1, 3)</td>
+<td style="text-align: left;">(2, 3, 3)</td>
+<td style="text-align: left;">(4, 3, 2)</td>
+<td style="text-align: left;">(4, 2, 4)</td>
+<td style="text-align: left;">(3, 4, 4)</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(3, 1, 1)</td>
+<td style="text-align: left;">(2, 3, 1)</td>
+<td style="text-align: left;">(2, 3, 2)</td>
+<td style="text-align: left;">(4, 3, 1)</td>
+<td style="text-align: left;">(4, 2, 3)</td>
+<td style="text-align: left;">(3, 4, 3)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 3, 1)</td>
+<td style="text-align: left;">(2, 1, 3)</td>
+<td style="text-align: left;">(2, 2, 3)</td>
+<td style="text-align: left;">(4, 2, 2)</td>
+<td style="text-align: left;">(4, 1, 4)</td>
+<td style="text-align: left;">(3, 3, 4)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 1, 3)</td>
+<td style="text-align: left;">(1, 3, 2)</td>
+<td style="text-align: left;">(1, 3, 3)</td>
+<td style="text-align: left;">(4, 1, 3)</td>
+<td style="text-align: left;">(3, 4, 2)</td>
+<td style="text-align: left;">(2, 4, 4)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 2, 3)</td>
+<td style="text-align: left;">(4, 2, 1)</td>
+<td style="text-align: left;">(3, 4, 1)</td>
+<td style="text-align: left;">(3, 2, 4)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(4, 1, 1)</td>
+<td style="text-align: left;">(4, 1, 2)</td>
+<td style="text-align: left;">(3, 1, 4)</td>
+<td style="text-align: left;">(2, 4, 3)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 4, 1)</td>
+<td style="text-align: left;">(2, 4, 1)</td>
+<td style="text-align: left;">(2, 4, 2)</td>
+<td style="text-align: left;">(2, 3, 4)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 1, 4)</td>
+<td style="text-align: left;">(2, 1, 4)</td>
+<td style="text-align: left;">(2, 2, 4)</td>
+<td style="text-align: left;">(1, 4, 4)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 4, 2)</td>
+<td style="text-align: left;">(1, 4, 3)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 2, 4)</td>
+<td style="text-align: left;">(1, 3, 4)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+</tbody>
+</table>
+<p>The notebook has a function to print it for any number of faces and dice. Go crazy if you like, but it quickly becomes illegible.</p>
+<p>Here's the results of three 12 sided dice:</p>
+<p><img alt="/img/three-twelves.png" src="/img/three-twelves.png"></p>
+<p>This isn't a Normal distribution, but it sure looks close to one.   </p>
+<h2>Toast triangles</h2>
+<p>What if we feed the triangular distribution through the <code>sin()</code> function? To keep the toast analogy going, I guess we're spreading the butter with a sine wave pattern, but changing how hard we're pressing down on the knife to match the triangular distribution -- slow at first, then ramping up, then ramping down.</p>
+<p>Turns out, if we take the sine of the sum of two uniform random variables (defined from the range of -pi to +pi), we'll get the arcsin distribution again! [2] I don't know if that's surprising or not, but there you go.</p>
+<h2>Knowing your limits</h2>
+<p>There's a problem with the toast analogy. (Well, at least one. There may be more, but I ate the evidence.)</p>
+<p>The probability density function of the arcsine distribution looks like this:</p>
+<p>It goes up to infinity at the edges!</p>
+<p><img alt="/img/arcsine-pdf.png" src="/img/arcsine-pdf.png"></p>
+<p>The derivative of the <code>arcsin</code> function is <code>1/sqrt(1-x**2)</code> which goes to infinity as x approaches 0 or 1. That's what gives the arcsine distribution its shape. That also sort of breaks the toast analogy. Are we putting an infinite amount of butter on the bread for an infinetesimal amount of time at the ends of the bread? You can break your brain thinking about that, but you should feel confident that we put a finite amount of butter on the toast between any two intervals of time. We're always concerned with the defined amount of area underneath the PDF, not the value at a singular point.</p>
+<p>Here's a histogram of the actual arcsine distribution -- 100,000 sample points put into 1,000 bins:</p>
+<p><img alt="/img/arcsine-hist.png" src="/img/arcsine-hist.png"></p>
+<p>About 9% of the total probability is in the leftmost and rightmost 0.5% of the distribution, so the bins at the edges get really, really tall, but they're also really, really skinny. there's a bound on how big they can be.</p>
+<p>The CDF (area under the curve of the PDF) of the arcsine distribution is well behaved, but its slope goes to infinity at the very edges.</p>
+<p><img alt="/img/arcsine-cdf.png" src="/img/arcsine-cdf.png"></p>
+<h2>One for the road</h2>
+<p>The <code>sinc()</code> function is defined as <code>sin(x)/x</code>. It doesn't lead to a well-known distribution as far as I know, but it looks cool, like the logo of some aerospace company from the 1970's, so here you go:</p>
+<p><img alt="/img/sinc.png" src="/img/sinc.png"></p>
+<p>Would I buy a Camaro with that painted on the hood? Yeah, probably.</p>
+<h2>An arcsine of things to come</h2>
+<p>The arcsine distribution is extremely important in the field of random walks. Say you flip a coin to decide whether to turn north or south every block. How far north or south of where you started will you end up? How many times will you cross the street you started on?</p>
+<p>I showed with the hot hand research that our intuitions about randomness are bad. When it comes to random walks, I think we do even worse. Certain <em>sensible</em> things almost never happen, while <em>weird</em> things happen all the time, and the arcsine distribution explains a lot of that.</p>
+<h3>References/further reading</h3>
+<ul>
+<li><a href="https://www.johndcook.com/blog/2009/02/12/sums-of-uniform-random-values/">https://www.johndcook.com/blog/2009/02/12/sums-of-uniform-random-values/</a></li>
+<li>[2] <a href="https://www.jstor.org/stable/2287407">https://www.jstor.org/stable/2287407</a></li>
+<li><a href="https://archive.org/details/dli.ernet.5666/">https://archive.org/details/dli.ernet.5666/</a></li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/riding-the-waves.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/statistics.html" rel="tag">statistics</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/some-educational-value.html" class="tags">some educational value</a>
+                </div>
+            </article>            <h4 class="date">Jul 24, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -1570,112 +1987,6 @@ max          3.390395
                 <div class="info">
                     <a href="/approximate-normality-and-continuity-corrections.html">posted at 10:20</a>
                     &nbsp;&middot;&nbsp;<a href="/category/statistics.html" rel="tag">statistics</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
-                    &nbsp;<a href="/tag/the-hot-hand.html" class="tags">the hot hand</a>
-                </div>
-            </article>            <h4 class="date">May 28, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/simulating-hot-and-lukewarm-hands.html" rel="bookmark" title="Permanent Link to &quot;Simulating hot and lukewarm hands&quot;">Simulating hot and lukewarm hands</a>
-                </h2>
-
-                
-                
-
-                <p>(Notebooks and other code available at: <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>. There's a bunch of stuff in the notebook about the Wald-Wolfowitz test that I will save for another week.)</p>
-<p>In my last installment, I was looking at season long shooting records from the NBA, and I concluded that NBA players were less streaky than expected. They have fewer long strings of makes and misses than a series of coin flips would.</p>
-<p>I've been thinking this could be due to "heat check" shots -- a player has made a bunch of shots in a row, or are having a good shooting game in general, so they take harder shots than they normally take. 
-It would explain some players that fans consider streaky or "heat check" players who are actually super un-streaky. Jordan Poole was the least streaky player over the last 4 seasons, which defies my expectations. Say he believes he is streaky, so tends to take bad shots when</p>
-<p>Or it could be due to "get a bucket" shots -- a player is having a bad shooting game, so they force higher percentage shots and potentially free throws. </p>
-<p>There's a quirk of NBA stats to remember: if a player is fouled while shooting, it only counts as a field goal attempt if they make the shot. So driving to the hoop is guaranteed to not decrease a player's field goal percentage if they successfully draw a foul, or get called for an offensive foul.</p>
-<p>I'm not sure I've made an airtight case for the <em>lukewarm hand</em>. Combining every game in a season could hide the hot hand effect. What about individual games?</p>
-<h2>Game-level shooting statistics show a lukewarm tendency</h2>
-<p>I am using the complete shooting statistics available from this kaggle project: <a href="https://www.kaggle.com/datasets/mexwell/nba-shots">https://www.kaggle.com/datasets/mexwell/nba-shots</a></p>
-<p>I'm looking at the 2023-2024 season, since the current season isn't included yet.</p>
-<p>I went through every game that every player played in the NBA season and calculated the expected vs. actual number of streaks.  </p>
-<p>There are 24,895 player+game combos. 10,285 of them had more streaks than expected against 8,977 who had fewer streaks than expected (and around 5,000 that are exactly as expected). This is a significant imbalance towards the "lukewarm hand" side.</p>
-<p>Here's the histogram of individual game z-scores:</p>
-<p><img alt="individual game z-scores, 2023" src="/img/game-zscores-2023.png"></p>
-<p>And the breakdown:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">count</span><span class="w">    </span><span class="m m-Double">18982.000000</span>
-<span class="nx">mean</span><span class="w">         </span><span class="m m-Double">0.051765</span>
-<span class="nx">std</span><span class="w">          </span><span class="m m-Double">0.988789</span>
-<span class="nx">min</span><span class="w">         </span><span class="o">-</span><span class="m m-Double">3.332292</span>
-<span class="mi">25</span><span class="o">%</span><span class="w">         </span><span class="o">-</span><span class="m m-Double">0.707107</span>
-<span class="mi">50</span><span class="o">%</span><span class="w">          </span><span class="m m-Double">0.104103</span>
-<span class="mi">75</span><span class="o">%</span><span class="w">          </span><span class="m m-Double">0.816497</span>
-<span class="nx">max</span><span class="w">          </span><span class="m m-Double">3.583243</span>
-<span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="nx">z_score</span><span class="p">,</span><span class="w"> </span><span class="nx">dtype</span><span class="p">:</span><span class="w"> </span><span class="nx">float64</span>
-</code></pre></div>
-
-<p>Limiting to higher volume games (at least 10 makes or 10 misses) shows the same tendency.</p>
-<p><img alt="high attempt games, 2023-24" src="/img/high-attempt-games.png"></p>
-<div class="highlight"><pre><span></span><code><span class="nx">count</span><span class="w">    </span><span class="m m-Double">2536.000000</span>
-<span class="nx">mean</span><span class="w">        </span><span class="m m-Double">0.055925</span>
-<span class="nx">std</span><span class="w">         </span><span class="m m-Double">1.010195</span>
-<span class="nx">min</span><span class="w">        </span><span class="o">-</span><span class="m m-Double">3.079575</span>
-<span class="mi">25</span><span class="o">%</span><span class="w">        </span><span class="o">-</span><span class="m m-Double">0.616678</span>
-<span class="mi">50</span><span class="o">%</span><span class="w">         </span><span class="m m-Double">0.072404</span>
-<span class="mi">75</span><span class="o">%</span><span class="w">         </span><span class="m m-Double">0.750366</span>
-<span class="nx">max</span><span class="w">         </span><span class="m m-Double">3.583243</span>
-<span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="nx">z_score</span><span class="p">,</span><span class="w"> </span><span class="nx">dtype</span><span class="p">:</span><span class="w"> </span><span class="nx">float64</span>
-</code></pre></div>
-
-<p>There definitely appears to be a bias towards the lukewarm hand in individual game data. The mean z scores aren't that much bigger than zero, but it's a huge sample size.</p>
-<h2>Simulating streaky and non-streaky players</h2>
-<p>I coded up a simulation of a non-streaky player. When they have hit a minimum number of attempts in the game, if their shooting percentage goes above a certain level, they get a penalty. If it goes below a certain level, they get a boost.</p>
-<p>I was able to create results that look like NBA players in aggregate with an extremely simplified model. </p>
-<p>The parameters were arbitrarily chosen. By default, the thresholds are 20% and 80%, and the boost/penalty is 20%. So a 50% shooter who has taken at least 4 shots and is shooting 80% or better for the game will get their FG% knocked down to 30% till their game percentage drops below the threshold. Likewise if they hit 20% or less, they get a boost until they're over the threshold.</p>
-<p>I used the game level shooting statistics I got for the individual game-by-game analysis. I then replayed every shot in the NBA in the 2023-24 season using the simulated lukewarm player (and the actual fg% and number of shots attempted in each game). This is what I got:</p>
-<p><img alt="sim-z-scores" src="/img/sim-z-scores.png"></p>
-<div class="highlight"><pre><span></span><code><span class="nx">count</span><span class="w">    </span><span class="m m-Double">526.000000</span>
-<span class="nx">mean</span><span class="w">       </span><span class="m m-Double">0.218032</span>
-<span class="nx">std</span><span class="w">        </span><span class="m m-Double">0.965737</span>
-<span class="nx">min</span><span class="w">       </span><span class="o">-</span><span class="m m-Double">2.397958</span>
-<span class="mi">25</span><span class="o">%</span><span class="w">       </span><span class="o">-</span><span class="m m-Double">0.491051</span>
-<span class="mi">50</span><span class="o">%</span><span class="w">        </span><span class="m m-Double">0.241554</span>
-<span class="mi">75</span><span class="o">%</span><span class="w">        </span><span class="m m-Double">0.836839</span>
-<span class="nx">max</span><span class="w">        </span><span class="m m-Double">3.787951</span>
-<span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="nx">z_score</span><span class="p">,</span><span class="w"> </span><span class="nx">dtype</span><span class="p">:</span><span class="w"> </span><span class="nx">float64</span>
-</code></pre></div>
-
-<p>My simulation was actually less biased to the right than the actual results:</p>
-<p><img alt="actual-2023-24" src="/img/actual-2023-24.png"></p>
-<p>Several big things to note:</p>
-<ol>
-<li>I simulated every player in the league as being a little un-streaky.</li>
-<li>I simulated them being un-streaky in both directions</li>
-<li>The boost/penalty are pretty big -- going from 50% FG percentage to 30% is going from a good NBA player to a bad college player level, and the boost to 70% FG percentage has no precedent. The most accurate shooters in the NBA are usually big men who only shoot dunks and layups, and they still usually end up in the 60-65% range.</li>
-</ol>
-<p>Which is to say, my simulation is kind of silly and seemingly over-exaggerated. And it's still not as lukewarm as real NBA players are.  Wild, isn't it?</p>
-<h2>Streakiness in only one direction</h2>
-<p>I also simulated players who were only streaky in one direction: "get a bucket" players who get a boost to shooting percentage when they are shooting poorly, but no penalty when they are doing well, and "heat check" players who only get the penalty.</p>
-<p>The results were biased to the unstreaky side, but about half as much as the ones that are streaky in both directions. I had to crank the penalties/boosts up to unrealistic levels to get the bias of the z-scores up to the .2-.3 range I'm seeing with real season-level data.</p>
-<h2>The truly streaky player</h2>
-<p>Of course, I had to simulate the hot hand. The <code>TrulyStreakyPlayer</code> is the exact opposite of the <code>LukewarmPlayer</code>. They get a 20% boost when they're shooting well on the game, and a 20% penalty when they're shooting poorly.</p>
-<p>What stands out to me here is how much it affects the z-score. I was expecting the z-scores to be biased to the negative side by about as much as the unstreaky player was to the positive side. But the effect was a lot more dramatic:</p>
-<div class="highlight"><pre><span></span><code>count    524.000000
-mean      -0.455522
-std        1.144570
-min       -4.413268
-25%       -1.225128
-50%       -0.458503
-75%        0.404549
-max        2.486584
-</code></pre></div>
-
-<p><img alt="truly-streaky-player" src="/img/truly-streaky-player.png"></p>
-<p>Unlike the un-streaky simulations, the streaky behavior increased the dispersion (<code>std</code>), like we saw with the real shot data. There are many more outliers to the negative side than we'd expect.</p>
-<h2>What next?</h2>
-<p>I could certainly sim a mixture of streaky and unstreaky players, and eventually maybe get something that matches the real numbers pretty closely. But there are so many parameters to fit that it would be pretty arbitrary. Someone else could produce a different model that works just as well. </p>
-<p>Most importantly, it couldn't tell us which players might be streaky due to chance versus streaky due to behavior/shot selection. So I think the next step is looking at the shot selection in the "hot hand" vs. "get a bucket" situations -- do players switch to higher percentage shots when they're having a bad game, and worse shots when they're shooting better than usual?</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/simulating-hot-and-lukewarm-hands.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
                     &nbsp;<a href="/tag/the-hot-hand.html" class="tags">the hot hand</a>
