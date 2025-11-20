@@ -28,7 +28,152 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Jul 26, 2025</h4>
+        <div id="content">            <h4 class="date">Jul 31, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/harmonics.html" rel="bookmark" title="Permanent Link to &quot;Harmonics&quot;">Harmonics</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=5Ocq8UlLuuw" target="_blank"><img alt="Donna Summer and Giorgio Moroder, &quot;I Feel Love&quot; (Patrick Cowley Remix)" src="https://img.youtube.com/vi/5Ocq8UlLuuw/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=5Ocq8UlLuuw" target="_blank">Donna Summer and Giorgio Moroder, "I Feel Love" (Patrick Cowley Remix)</a></p>
+<p>Notebook: <a href="https://github.com/csdurfee/csdurfee.github.io/blob/main/harmonics.ipynb">https://github.com/csdurfee/csdurfee.github.io/blob/main/harmonics.ipynb</a></p>
+<p>I was gonna do random walks this week, but the thing about random walks is you don't know where you're gonna end up, and I ended up back at last week's topic again. </p>
+<p>Last time, we saw that the sine wave, sawtooth wave and square wave produced very different distributions.</p>
+<p>All three waveforms are used in electronic music, and they all have different acoustic properties. A sine wave sounds like a "boop" -- think of the sound they play to censor someone who says a swear word on the TV.  That's a sine wave with a frequency of 1000Hz. Sawtooth waves are extremely buzzy. A square wave has, ironically, kind of a round sound, at least as far as how it gets used in electronic music.  A good example is the bass line to this week's song. </p>
+<p>It's not a pure square wave, and it's rare to ever hear pure sawtooth or square waves because they're harsh on the ears. Usually multiple waveforms are combined together and then passed through various filters and effects -- in other words, synthesized. </p>
+<p>Pretty much every sound you've ever heard is a mix of different frequencies. Only sine waves are truly pure, just a single frequency. I tried looking for an actual musical instrument that produces pure sine waves, and the closest thing (according to the internet, at least) is a tuning fork. </p>
+<p>Any other musical instrument, or human voice, or backfiring car, will produce overtones. There's one note that is perceived as the <em>fundamental frequency</em>, but every sound is kind of like a little chord when the overtones are included. </p>
+<p>For musical instruments, the loudest overtones are generally at frequencies that are a multiple of the original frequency. These overtones are called <em>harmonics</em>.</p>
+<p>For instance, if I play a note at 400 Hz on a guitar, it will also produce harmonics at 800 Hz (2x the fundamental frequency), 1200 Hz (3x), 1600 Hz (4x), 2000 Hz (5x), and so on. This corresponds to the <a href="https://en.wikipedia.org/wiki/Harmonic_series_(mathematics)">harmonic series in mathematics</a>. It's the sum of the ratios of the wavelengths of the harmonics to the fundamental frequency: 1 + 1/2 + 1/3 + 1/4 + 1/5 + ...</p>
+<h3>The clarinet is the squarest instrument</h3>
+<p>I played the clarinet in grade school and I am the biggest dork on the planet, so it's certainly metaphorically true. But it's also literally true.</p>
+<p>There's a lot that goes into exactly which overtones get produced by a physical instrument, but most instruments put out the whole series of harmonics. <a href="https://newt.phys.unsw.edu.au/jw/clarinetacoustics.html#harmonics">The clarinet is different</a>. Because of a clarinet's physical shape, it pretty much only produces odd harmonics. So, in our example, 400 Hz, 1200 Hz, 2000 Hz, etc.</p>
+<p>The square wave is like an idealized version of a clarinet -- it also only puts out odd harmonics. This is a result of how a square wave is constructed. In the real world, they're formed out of a combination of sine waves. Which sine waves? You guessed it -- the ones that correspond to the odd harmonic frequencies.</p>
+<p>Here's the fundamental frequency combined with the 3rd harmonic:</p>
+<p><img alt="/img/square3.png" src="/img/square3.png"></p>
+<p>It already looks a bit square-wavey. Additional harmonics make the square parts a bit more square.  Here's what it looks like going up to the 19th harmonic:</p>
+<p><img alt="/img/square21.png" src="/img/square21.png"></p>
+<p>In the real world, we can only add a finite number of harmonics, but if we could combine an infinite number of them, we would get the ideal square wave. This is called the <a href="https://en.wikipedia.org/wiki/Fourier_series">Fourier series</a> of the square wave.</p>
+<p>Here's an illustration to help show how the square wave gets built up:</p>
+<p><img alt="/img/square-buildup.png" src="/img/square-buildup.png"></p>
+<p>The red wave is the fundamental frequency. The orange square-ish wave is the result of combining the other colored waves with the red wave.</p>
+<p>The sum normally would be scaled up a bit (multiplied by 4/pi), but it's easier without the scaling to see how the other waves sort of hammer the fundamental frequency into the shape of the square wave. At some points they are pushing it up, and other points pulling it down.</p>
+<p>Perhaps this graph makes it clearer. The red is the fundamental, the yellow is the sum of all the other harmonics, and the orange is the combination of the two:</p>
+<p><img alt="/img/combine-harmonics-square.png" src="/img/combine-harmonics-square.png"></p>
+<p>Where the yellow is above the X axis, it's pulling the fundamental frequency up, and where it's below, it's pulling the fundamental down.</p>
+<h3>The sawtooth</h3>
+<p>A sawtooth wave is what you get when you combine all the harmonics, odd and even. Like the square wave, it starts to take its basic shape right away. Here's the fundamental plus the second harmonic:</p>
+<p><img alt="/img/sawtooth2.png" src="/img/sawtooth2.png"></p>
+<p>And here it is going all the way up to the 10th harmonic:</p>
+<p><img alt="/img/sawtooth10.png" src="/img/sawtooth10.png"></p>
+<p>Red fundamental plus yellow harmonics produce the orange sawtooth wave:</p>
+<p><img alt="/img/combine-harmonics-saw.png" src="/img/combine-harmonics-saw.png"></p>
+<p>Last time, I talked about the sawtooth wave producing a uniform distribution of amplitudes -- the butter gets spread evenly over the toast. The graph above isn't a very smooth stroke of butter. It's not steadily decreasing, particularly at the ends. Here's what the distribution looks like at this point:</p>
+<p><img alt="/img/sawtooth10-amps.png" src="/img/sawtooth10-amps.png"></p>
+<p>With an infinite series of harmonics, that graph will even out to a uniform distribution</p>
+<h3>Getting even</h3>
+<p>What about only the even harmonics? Is that a thing? Not in the natural world as far as I know, but there's nothing stopping me from making one. (It wouldn't be the worst musical crime I've ever committed.)</p>
+<p>Here's what a combo of just the even harmonics looks like:</p>
+<p><img alt="/img/even-harmonics.png" src="/img/even-harmonics.png"></p>
+<p>Thanks to a little code from the pygame project, it's easy to turn that waveform into a sound file. It sounds like an angry computer beep, with a little flutter mixed in.</p>
+<p><a href="/audio/evens_clean.wav" target="_blank">Here's an audio sample</a></p>
+<h3>In my prime</h3>
+<p>The <a href="https://mathworld.wolfram.com/HarmonicSeriesofPrimes.html">harmonic series of primes</a> is what it sounds like: the harmonic series, but just the prime numbers: 1 + 1/2 + 1/3 + 1/5 + 1/7 + 1/11 + 1/13 + ....</p>
+<p>Although it's important in mathematics, I don't have a good musical reason to do this. But if you can throw the prime numbers into something, you gotta do it.</p>
+<p>As a sound, I kinda like it. It's nice and throaty. <a href="/audio/primes.wav" target="_blank">Here's what it sounds like.</a></p>
+<p>It doesn't really sound like a sawtooth wave or a square wave to me. Here's the waveform:</p>
+<p><img alt="/img/prime-waveform.png" src="/img/prime-waveform.png"></p>
+<p>Here's what the distribution of amplitudes looks like:</p>
+<p><img alt="/img/prime-amp.png" src="/img/prime-amp.png"></p>
+<h3>Dissonance</h3>
+<p>Some of the overtones of the harmonic series don't correspond with the 12 notes of the modern western musical scale (called 12 tone equal temprament, or 12TET). The first 4 harmonics of the series are nice and clean, but after that they get weird. Each harmonic in the series is smaller in amplitude than the previous one, so it has less of an effect on the shape of the final wave. So the dissonance is there, but it's way in the background.</p>
+<p>The prime number bloop I made above should be extra <em>weird</em>. The 2nd and 3rd harmonics are included, so those will sound nice, but after that they are at least a little off the standard western scale.</p>
+<p>Say we're playing the <em>prime bloop</em> at A4 (the standard pitch used for tuning).  Here's how the harmonics work out. A cent is 1% of a semitone. So a note that is off by 50 cents is right between two notes on the 12 tone scale.</p>
+<table>
+<thead>
+<tr>
+<th>harmonic #</th>
+<th>frequency</th>
+<th>pitch</th>
+<th>error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>440 Hz</td>
+<td>A4</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>880 Hz</td>
+<td>A5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1320</td>
+<td>E6</td>
+<td>+2 cents</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2200</td>
+<td>C#7</td>
+<td>-14 cents</td>
+</tr>
+<tr>
+<td>7</td>
+<td>3080</td>
+<td>G7</td>
+<td>+31 cents</td>
+</tr>
+<tr>
+<td>11</td>
+<td>4840</td>
+<td>D#8</td>
+<td>-49 cents</td>
+</tr>
+<tr>
+<td>13</td>
+<td>5720</td>
+<td>F8</td>
+<td>+41 cents</td>
+</tr>
+<tr>
+<td>17</td>
+<td>7480</td>
+<td>A#8</td>
+<td>+5 cents</td>
+</tr>
+</tbody>
+</table>
+<p>(Note the 3rd harmonic, E6, is a little <em>off</em> in 12TET, despite being a <em>perfect fifth</em> -- an exact 3:2 ratio with the A5.)</p>
+<h3>Harmonics aren't everything</h3>
+<p>While it's true that any audio can be decomposed into a bunch of sine waves, the fundamental frequency and the harmonics aren't really what gives an instrument its unique timbre. It's hundreds or thousands of tiny overtones that don't line up with the harmonics.</p>
+<p>Here are the spectra of two different piano sounds playing at 220 Hz. One is a somewhat fake piano sound (Fruity DX10), the other a natural, rich sounding one (LABS Soft Piano, which you might've heard before if you listen to those "Lofi Hip Hop Beats to Doomscroll/Not Study To" playlists). Can you guess which is which?</p>
+<p><img alt="/img/real-piano.png" src="/img/real-piano.png"></p>
+<p><img alt="/img/fake-piano.png" src="/img/fake-piano.png"></p>
+<p>The answer may surprise you. I mean, it can't be that surprising since there are only 2 options. But I'd probably get it wrong, if I didn't already know which is which.</p>
+<h3>Sources/Notes</h3>
+<p><a href="https://www.phys.unsw.edu.au/music/">This website from UNSW was invaluable</a>, particularly <a href="https://newt.phys.unsw.edu.au/jw/harmonics.html">https://newt.phys.unsw.edu.au/jw/harmonics.html</a></p>
+<p>Code used to generate the audio: <a href="https://stackoverflow.com/questions/56592522/python-simple-audio-tone-generator">https://stackoverflow.com/questions/56592522/python-simple-audio-tone-generator</a></p>
+<p>"The internet" claiming the sound of a tuning fork is a sine wave here (no citation given): <a href="https://en.wikipedia.org/wiki/Tuning_fork#Description">https://en.wikipedia.org/wiki/Tuning_fork#Description</a>.</p>
+<p>There are many good videos on Youtube about 12TET and Just Intonation, by people who know more about music than me. Here's one from David Bennett: <a href="https://www.youtube.com/watch?v=7JhVcGtT8z4">https://www.youtube.com/watch?v=7JhVcGtT8z4</a></p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/harmonics.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/math.html" rel="tag">math</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/some-educational-value.html" class="tags">some educational value</a>
+                </div>
+            </article>            <h4 class="date">Jul 26, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -1810,183 +1955,6 @@ max         5.073167
                 <div class="info">
                     <a href="/lebron-james-the-unstreaky-goat.html">posted at 10:20</a>
                     &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
-                    &nbsp;<a href="/tag/the-hot-hand.html" class="tags">the hot hand</a>
-                </div>
-            </article>            <h4 class="date">Jun 08, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/approximate-normality-and-continuity-corrections.html" rel="bookmark" title="Permanent Link to &quot;Approximate Normality and Continuity Corrections&quot;">Approximate Normality and Continuity Corrections</a>
-                </h2>
-
-                
-                
-
-                <p>(Notebooks and other code available at: <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>)</p>
-<h1>What is "approximately normal"?</h1>
-<p>In the last installment, I looked at NBA game-level player data, which involve very small samples.</p>
-<p>Like a lot of things in statistics, the Wald Wolfowitz test says that the number of streaks is approximately normal. What does that mean in practical terms? How approximately are we talking?</p>
-<p>The number of streaks is a discrete value (0,1,2,3,...). In a small sample like 2 makes and 3 misses, which will be extremely common in player game level shooting data, how could that be <em>approximately normal</em>?</p>
-<p>Below is a bar chart of the exact probabilities of each number of streaks, overlaid with the normal approximation in white. Not very normal, is it?</p>
-<p><img alt="not very normal" src="/img/not-very-normal.png"></p>
-<p>To make things more interesting, let's say the player made 7 shots and missed 4. That's enough for the graph to look more like a proper bell curve.</p>
-<p><img alt="exact 7-4 (or 4-7)" src="/img/exact-7-4.png"></p>
-<p>The bell curve looks skewed relative to the histogram, right? That's what happens when you model a discrete distribution (the number of streaks) with a continuous one -- the normal distribution.</p>
-<p>A continuous distribution has zero probability at any single point, so we calculate the area under the curve between a range of values. The bar for exactly 7 streaks should line up with the probability of between 6.5 and 7.5 streaks in the normal approximation. The curve should be going through the middle of each bar, not the left edge.</p>
-<p>We need to shift the curve to the right a half a streak for things to line up. Fixing this is called <a href="https://en.wikipedia.org/wiki/Continuity_correction">continuity correction</a>.</p>
-<p>Here's the same graph with the continuity correction applied:</p>
-<p><img alt="with cc" src="/img/with-cc.png"></p>
-<p>So... better, but there's still a problem. The normal approximation will assign a nonzero probability to impossible things. In this case of 7 makes and 4 misses, the minimum possible number of streaks is 2 and the max is 9 (alternate wins and losses till you run out of losses, then have a string of wins at the end.)</p>
-<p>Yet the normal approximation says there's a nonzero chance of -1, 10, or even a million streaks. The odds are tiny, but the normal distribution never ends. These differences go away with big sample sizes, but they may be worth worrying about for small sample sizes.</p>
-<p>Is that interfering with my results? It's quite possible. I'm trying to use the mean and the standard deviation to decide how "weird" each player is in the form of a z score. The z score gives the likelihood of the data happening by chance, given certain assumptions. If the assumptions don't hold, the z score, and using it to interpret how <em>weird</em> things are, is suspect.</p>
-<h2>Exact-ish odds</h2>
-<p>We can easily calculate the exact odds. In the notebook, I showed how to calculate the odds with brute force -- generate all permutations of seven 1's and four 0's, and measure the number of streaks for each one. That's impractical and silly, since the exact counting formula can be worked out using the rules of combinatorics, as this page nicely shows:  <a href="https://online.stat.psu.edu/stat415/lesson/21/21.1">https://online.stat.psu.edu/stat415/lesson/21/21.1</a></p>
-<p>In order to compare players with different numbers of makes and misses, we'd want to calculate a percentile value for each one from the exact odds. The percentiles will be based on number of streaks, so 1st percentile would be super streaky, 99th percentile super un-streaky.</p>
-<p>Let's say we're looking at the case of 7 makes and 4 misses, and are trying to calculate the percentile value that should go with each number of streaks.  Here are the exact odds of each number of streaks:</p>
-<div class="highlight"><pre><span></span><code><span class="mf">2</span><span class="w">    </span><span class="mf">0.006061</span>
-<span class="mf">3</span><span class="w">    </span><span class="mf">0.027273</span>
-<span class="mf">4</span><span class="w">    </span><span class="mf">0.109091</span>
-<span class="mf">5</span><span class="w">    </span><span class="mf">0.190909</span>
-<span class="mf">6</span><span class="w">    </span><span class="mf">0.272727</span>
-<span class="mf">7</span><span class="w">    </span><span class="mf">0.227273</span>
-<span class="mf">8</span><span class="w">    </span><span class="mf">0.121212</span>
-<span class="mf">9</span><span class="w">    </span><span class="mf">0.045455</span>
-</code></pre></div>
-
-<p>Here are the cumulative odds (the odds of getting that number of streaks or fewer):</p>
-<div class="highlight"><pre><span></span><code><span class="mf">2</span><span class="w">    </span><span class="mf">0.006061</span>
-<span class="mf">3</span><span class="w">    </span><span class="mf">0.033333</span>
-<span class="mf">4</span><span class="w">    </span><span class="mf">0.142424</span>
-<span class="mf">5</span><span class="w">    </span><span class="mf">0.333333</span>
-<span class="mf">6</span><span class="w">    </span><span class="mf">0.606061</span>
-<span class="mf">7</span><span class="w">    </span><span class="mf">0.833333</span>
-<span class="mf">8</span><span class="w">    </span><span class="mf">0.954545</span>
-<span class="mf">9</span><span class="w">    </span><span class="mf">1.000000</span>
-</code></pre></div>
-
-<p>Let's say we get 6 streaks. Exactly 6 streaks happens 27% of the time. 5 or fewer streaks happens 33% of the time. So we could say 6 streaks is equal to the 33rd percentile, the <code>33.3%+27.3% = 61</code>st percentile, or some value in between those two numbers.</p>
-<p>The obvious way of deciding the <a href="https://en.wikipedia.org/wiki/Percentile_rank">percentile rank</a> is to take the average of the upper and lower values, in this case <code>mean(.333, .606) = .47</code>. You could also think of it as taking the probability of <code>streaks &lt;=5</code> and adding half the probability of <code>streaks=6</code>.</p>
-<p>If we want to compare the percentile ranks from the exact odds to Wald-Wolfowitz, we could convert them to an equivalent z score. Or, we can take the z-scores from the Wald Wolfowitz test and convert them to percentiles.</p>
-<p>The two are bound to be a little different because the normal approximation is a bell curve, whereas we're getting the percentile rank from a linear interpolation of two values.</p>
-<p>Here's an illustration of what I mean. This is a graph of the percentile ranks vs the CDF of the normal approximation.</p>
-<p><img alt="cdf-normal-exact2" src="/img/cdf-normal-exact2.png"></p>
-<p>Let's zoom in on the section between 4.5 and 5.5 streaks. Where the white line hits the red line is the percentile estimate we'd get from the z-score (.475).</p>
-<p><img alt="cdf-zoom" src="/img/cdf-zoom.png"></p>
-<p>The green line is a straight line that represents calculating the percentile rank. It goes from the middle of the top of the <code>runs &lt;= 5</code> bar to the middle of the top of the <code>runs &lt;=6</code> bar. Where it hits the red line is the average of the two, which is percentile rank (.470).</p>
-<p>In other situations, the Wald-Wolfowitz estimate will be less than the exact percentile rank. We can see that on the first graph. The green lines and white line are very close to each other, but sometimes the green is higher (like at runs=4), and sometimes the white is higher (like at runs=8).</p>
-<h2>Is Wald-Wolfowitz unbiased?</h2>
-<p>Yeah. The test provides the exact expected value of the number of streaks. It's not just a pretty good estimate. It is the (weighted) mean of the exact probabilities.</p>
-<p>From the exact odds, the mean of all the streak lengths is 6.0909:</p>
-<div class="highlight"><pre><span></span><code>count    330.000000
-mean       6.090909
-std        1.445329
-min        2.000000
-25%        5.000000
-50%        6.000000
-75%        7.000000
-max        9.000000
-</code></pre></div>
-
-<p>The Wald-Wolfowitz test says the expected value is 1 plus the harmonic mean of 7 and 4, which is 6.0909... on the nose.</p>
-<h2>Is the normal approximation throwing off my results?</h2>
-<p>Quite possibly. So I went back and calculated the percentile ranks for every player-game combo over the course of the season.</p>
-<p>Here's a scatter plot of the two ways to calculate the percentile on actual NBA player games. The dots above the x=y line are where the Wald-Wolfowitz percentile is bigger than the percentile rank one.</p>
-<p><img alt="percentile-vs-ww" src="/img/percentile-vs-ww.png"></p>
-<p>59% of the time, the Wald-Wolfowitz estimate produces a higher percentile value than the percentile rank. The same trend occurs if I restrict the data set to only high volume shooters (more than 10 makes or misses on the game).</p>
-<p>Here's a bar chart of the differences between the W-W percentile and the percentile rank:</p>
-<p><img alt="ww-minus-pr" src="/img/ww-minus-pr.png"></p>
-<p>A percentile over 50, or a positive z score, means more streaks than average, thus less streaky than average. In other words, <em>on this specific data set</em>, the Wald-Wolfowitz z-scores will be more un-streaky compared to the exact probabilities.</p>
-<h2>Interlude: our un-streaky king</h2>
-<p>For the record, the un-streakiest NBA game of the 2023-24 season was by Dejounte Murray on 4/9/2024. My dude went 12 for 31 and managed 25 streaks, the most possible for that number of makes and misses, by virtue of never making 2 shots in a row.</p>
-<p>It was a crazy game all around for Murray. A 29-13-13 triple double with 4 steals, and a Kobe-esque 29 points on 31 shots. He could've gotten more, too. The game went to double overtime, and he missed his last 4 in a row. If he had made the 2nd and the 4th of those, he could've gotten 4 more streaks on the game.</p>
-<p>The summary of the game doesn't mention this exceptional achievement. Of course they wouldn't. There's no clue of it in the box score. You couldn't bet on it. Why would anyone notice?</p>
-<p><a href="https://www.basketball-reference.com/boxscores/202404090ATL.html">box score on bbref</a>    </p>
-<p>Look at that unstreakiness. Isn't it beautiful?</p>
-<div class="highlight"><pre><span></span><code><span class="n">makes</span><span class="w">                                                  </span><span class="mi">12</span>
-<span class="n">misses</span><span class="w">                                                 </span><span class="mi">19</span>
-<span class="n">total_streaks</span><span class="w">                                          </span><span class="mi">25</span>
-<span class="n">raw_data</span><span class="w">                  </span><span class="n">LWLWLWLWLWLWLLWLLLWLWLWLWLWLLLL</span>
-<span class="n">expected_streaks</span><span class="w">                                </span><span class="mf">15.709677</span>
-<span class="n">variance</span><span class="w">                                         </span><span class="mf">6.722164</span>
-<span class="n">z_score</span><span class="w">                                          </span><span class="mf">3.583243</span>
-<span class="n">exact_percentile_rank</span><span class="w">                           </span><span class="mf">99.993423</span>
-<span class="n">z_from_percentile_rank</span><span class="w">                           </span><span class="mf">3.823544</span>
-<span class="n">ww_percentile</span><span class="w">                                   </span><span class="mf">99.983032</span>
-</code></pre></div>
-
-<p>On the other end, the streakiest performance of the year belonged to Jabari Walker of the Portland Trail Blazers. Made his first 6 shots in a row, then missed his last 8 in a row.</p>
-<div class="highlight"><pre><span></span><code><span class="n">makes</span><span class="w">                                  </span><span class="mi">6</span>
-<span class="n">misses</span><span class="w">                                 </span><span class="mi">8</span>
-<span class="n">total_streaks</span><span class="w">                          </span><span class="mi">2</span>
-<span class="n">raw_data</span><span class="w">                  </span><span class="n">WWWWWWLLLLLLLL</span>
-<span class="n">expected_streaks</span><span class="w">                </span><span class="mf">7.857143</span>
-<span class="n">variance</span><span class="w">                        </span><span class="mf">3.089482</span>
-<span class="n">z_score</span><span class="w">                        </span><span class="o">-</span><span class="mf">3.332292</span>
-<span class="n">exact_percentile_rank</span><span class="w">             </span><span class="mf">0.0333</span>
-<span class="n">z_from_percentile_rank</span><span class="w">         </span><span class="o">-</span><span class="mf">3.403206</span>
-<span class="n">ww_percentile</span><span class="w">                   </span><span class="mf">0.043067</span>
-</code></pre></div>
-
-<h2>Actual player performances</h2>
-<p>Let's look at actual NBA games where a player had exactly 7 makes and 4 misses. (We can also include the flip side, 4 makes and 7 misses, because it will be the same distribution of streak lengths)</p>
-<p>The green areas are where the players had more streaks than the exact probabilities; the red areas are where players had fewer streaks. The two are very close, except for a lot more games with 9 streaks in the player data, and fewer 6 streak games.</p>
-<p>The exact mean is 6.09 streaks. The mean for player performances is 6.20 streaks. Even in this little slice of data, there's a slight tendency towards unstreakiness.</p>
-<p><img alt="streaks-vs-probs" src="/img/streaks-vs-probs.png"></p>
-<h2>Percentile ranks are still unstreaky, though</h2>
-<p>Well, for all that windup, the game-level percentile ranks didn't turn out all that different when I calcualted them for all 18,000+ player-game combos. The mean and median are still shifted to the un-streaky side, to a significant degree.</p>
-<p><img alt="z-from-percentile" src="/img/z-from-percentile.png"></p>
-<p>Plotting the deciles shows an interesting tendency: a lot more values in the 60-70th percentile range than expected. the shift to the un-streaky side comes pretty much from these values.</p>
-<p><img alt="perc-rank-deciles" src="/img/perc-rank-deciles.png"></p>
-<p>The bias towards the unstreaky side is still there, and still significant:</p>
-<div class="highlight"><pre><span></span><code>count    18982.000000
-mean         0.039683
-std          0.893720
-min         -3.403206
-25%         -0.643522
-50%          0.059717
-75%          0.674490
-max          3.823544
-</code></pre></div>
-
-<h2>A weird continuity correction that seems obviously bad</h2>
-<p>SAS, the granddaddy of statistics software, applies a continuity correction to the runs test whenever the count is less than 50.</p>
-<p>While it's true that we should be careful with normal approximations and small sample size, this ain't the way.</p>
-<p>The exact code used is here: <a href="https://support.sas.com/kb/33/092.html">https://support.sas.com/kb/33/092.html</a></p>
-<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nv">N</span><span class="w"> </span><span class="nv">GE</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">Z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">(</span><span class="nv">Runs</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">mu</span><span class="ss">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nv">sigma</span><span class="c1">;</span>
-<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">Runs</span><span class="o">-</span><span class="nv">mu</span><span class="w"> </span><span class="nv">LT</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">Z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">(</span><span class="nv">Runs</span><span class="o">-</span><span class="nv">mu</span><span class="o">+</span><span class="mi">0</span>.<span class="mi">5</span><span class="ss">)</span><span class="o">/</span><span class="nv">sigma</span><span class="c1">;</span>
-<span class="w">          </span><span class="k">else</span><span class="w"> </span><span class="nv">Z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">(</span><span class="nv">Runs</span><span class="o">-</span><span class="nv">mu</span><span class="o">-</span><span class="mi">0</span>.<span class="mi">5</span><span class="ss">)</span><span class="o">/</span><span class="nv">sigma</span><span class="c1">;</span>
-</code></pre></div>
-
-<p>Other implementations I looked at, like the one in R's <a href="https://www.rdocumentation.org/packages/randtests/versions/1.0.1/topics/runs.test"><code>randtests</code> package</a>, don't do the correction.</p>
-<p>What does this sort of correction look like?</p>
-<p>For starters, it gives us something that doesn't look like a z score. The std is way too small.</p>
-<div class="highlight"><pre><span></span><code>count    18982.000000
-mean        -0.031954
-std          0.687916
-min         -3.047828
-25%         -0.401101
-50%          0.000000
-75%          0.302765
-max          3.390395
-</code></pre></div>
-
-<p><img alt="sas-cc" src="/img/sas-cc.png"></p>
-<h3>What does this look like on random data?</h3>
-<p>It could just be this dataset, though. I will generate a fake season of data like in the last installment, but the players will have no unstreaky/streaky tendencies. They will behave like a coin flip, weighted to their season FG%. So the results should be distributed like we expect z scores to be (mean=0, std=1)</p>
-<p>Here are the z-scores. They're not obviously bad, but the center is a bit higher than it should be.</p>
-<p><img alt="sas-sim" src="/img/sas-sim.png"></p>
-<p>However, the continuity correction especially stands out when looking at small sample sizes (in this case, simulated players with fewer than 30 shooting streaks over the course of the season).</p>
-<p>In the below graph, red are the SAS corrected z-scores, green are the wald-wolfowitz z scores, brown are the overlap.</p>
-<p><img alt="sas-low-vol" src="/img/sas-low-vol.png"></p>
-<p>Continuity corrections are at best an imperfect substitute for calculating the exact odds. These days, there's no reason not to use exact odds for smaller sample sizes. Even though it ended up not mattering much, I should've started with the percentile rank for individual games. However, I don't think that the game level results are as important to the case I'm making as the career-long shooting results.</p>
-<p>Next time, I will look at the past 20 years of NBA data. Who is the un-streakiest player of all time?</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/approximate-normality-and-continuity-corrections.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/statistics.html" rel="tag">statistics</a>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
                     &nbsp;<a href="/tag/the-hot-hand.html" class="tags">the hot hand</a>
