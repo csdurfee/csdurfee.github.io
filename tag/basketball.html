@@ -29,123 +29,7 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Jul 17, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/last-fair-deal-in-the-country.html" rel="bookmark" title="Permanent Link to &quot;Last fair deal in the country&quot;">Last fair deal in the country</a>
-                </h2>
-
-                
-                
-
-                <p>(This is an excerpt from a larger project about sports gambling. Code used, and early drafts of some of the chapters can be found at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.)</p>
-<p><a href="https://www.youtube.com/watch?v=0UGvyPnuLtQ" target="_blank"><img alt="The Grateful Dead, &quot;Loser&quot;" src="https://img.youtube.com/vi/0UGvyPnuLtQ/0.jpg"></a></p>
-<h2>Efficiency of betting markets</h2>
-<p>The efficient market hypothesis says that given enough time and competition, free markets are able to establish the correct price for a commodity. In the case of sports betting, we could think of it as the price of a money line bet. </p>
-<p>On a money line bet, you are betting on who will win the game straight up. You get a smaller payout for betting on the favorite, and a larger payout betting on the underdog. In the United States, money line bets are written in a goofy way. If the money line is negative, that's how much money you have to risk in order to win $100. For example, -200 indicates you have to risk $200 to win $100. If it is positive, that's how much money you win if you risk $100. If it sounds like a bad way to write the odds, you're correct.</p>
-<p>A market maker will respond to an imbalance in bets by adjusting the price. If CLE -300 is a good value, people will rationally want to take it, driving the price up to, say -400. If it is a bad value, people will rationally want to take the other side and the price might go down to -200. These rational actors will collectively push the price towards the best possible estimate that humans can make given all information available at the time. It serves as a sort of collective intelligence.</p>
-<p>In the first installment, I showed that humans are irrational when it comes to sports betting, so I was skeptical of how good, or fair, the lines could be. Could I find proof of this collective intelligence in action? Are there any obvious market inefficiencies?</p>
-<h3>The data &amp; stuff to know</h3>
-<p>Stats are from the NBA season. I screen-scraped the data from <a href="https://www.sportsbookreview.com/betting-odds/nba-basketball/">sportsbookreview.com</a>. All data is from the MGM Grand. Unfortunately, some data is missing around Christmas, and a few random days in between. 32 games are missing from the data set out of 1230 total, 2.6% of all games. These are games that don't appear on sportsbookreview's website, or have incomplete data on there.</p>
-<p>This is an analysis of the MGM Grand's NBA lines for 2025. It's not a comprehensive guide to how the lines work.</p>
-<p>There are always two lines on each game, one for the home team and one for the away team. Each side may have different vigs. Say for instance Bucks @ Pacers starts out at IND +3.5 -110/MIL -3.5 -110. It could close at IND +3.5 -115/MIL -3.5 -105. So it costs more to bet on the Pacers, but the actual line didn't move.  I'm mostly ignoring that, but will point out when it's relevant.</p>
-<p>"Line" and "spread" mean the same thing.</p>
-<p>"Reduced juice" means risking -105 or -106 instead of the usual -110 to win 100. A "unit" is a gambler's standard betting size. "4.1 units of profit" would mean +$410 for a gambler betting $100 a game. Both are explained in much more detail in the book.</p>
-<h3>A note about pushes</h3>
-<p>When the final score agrees with the line exactly, neither side of the bet can be declared a winner. This is called a push. The bet is cancelled and everybody gets their money back. The casino makes nothing.</p>
-<p>The MGM Grand always keeps point spreads on the half point (eg +6.5 or +7.5 rather than +7) so that they will never push. I don't think it's a bad policy, and I'm surprised more sportsbooks don't do it. The sportsbooks know how good their customers are at betting, so they should probably shade the point spread a half a point towards the side of the bet that has the less savvy bettors on it. (This assumes the sportsbook can identify and ban arbitrage gamblers, but more about that in the book.) </p>
-<h3>Analysis</h3>
-<p>If there is a wisdom of crowds, the final lines should be more accurate than the opening lines. Are they?</p>
-<p>My code calculates the difference between the final score and the line, called the error.  Because the MGM's lines always end in a half point, that means the error is going to be artificially high -- there will never be a game where it is exactly zero.</p>
-<p>The opening and closing lines are a set of predictions. The smaller the difference between the line and reality, the better the prediction. <a href="https://en.wikipedia.org/wiki/Mean_squared_error">Mean Squared Error</a> is a standard way to compare two prediction systems in statistics and machine learning.</p>
-<p>The MSE for the opening lines is 191.06, and the closing lines is 184.8. So we can say that in aggregate, the closing lines are more accurate than the opening lines.</p>
-<p>MSE can't tell us how good the closing lines are, though, just that one set of predictions is better than another set. It's a relative measure, not an absolute one. We're squaring the error, so the MSE will always be positive. The errors in one direction don't cancel out ones in the other direction. </p>
-<p>Let's look at how far the lines were off by. the Os are the opening lines, and X's are the closing lines. If the <em>X</em> is closer to the center line than the <em>O</em>, the market action made the line more accurate. I've plotted a random sample of 300 games to make the plot more readable.</p>
-<p><img alt="/img/scatter-mess.png" src="/img/scatter-mess.png"></p>
-<p>Unfortunately, that doesn't really show us much about how or when the closing lines are better than the opening ones. </p>
-<h3>Adam Smith, Handicapper</h3>
-<p>When were the closing lines more accurate than the opening lines?</p>
-<p>The closing lines were better in 467 games, versus 384 games where the opening lines were better, and 347 games where the line never changed.</p>
-<p>If the free market were a handicapper, and we interpreted the line movements as a bet on one side, they would have a 54.88% winning percentage (and 347 pushes).</p>
-<p>While that's a respectable win percentage for a human trying to beat the spread, I was expecting better from the free market. The market only being right 55% of the time holds true for a couple of previous seasons I have looked at as well. NBA betting, as a market, is not very efficient.</p>
-<p>There are good reasons for that. Sportsbooks that set the opening lines aren't trying that hard to be accurate. It's just a first guess. Only a tiny percentage of money is wagered at the opening line number. However, there are good reasons why lines tend not to move very much, even when the opening line is a bad one. For an in-depth explanation, check out <em>The Logic of Sports Betting</em>, by Miller and Davidow.</p>
-<h3>The myth of closing line value</h3>
-<p><a href="https://www.pinnacle.com/betting-resources/en/betting-strategy/using-the-closing-line-to-test-your-skill-in-betting/7e6jwjm5ykejuwkq">The conventional wisdom</a> is that sports betting markets are efficient, so that the only way to make money over the long run is by doing better than the closing lines, picking up on any flaws in the opening lines before the market eliminates them. Anyone else can only make a profit due to chance. From this perspective, the right way to measure a handicapper's skill is how their picks compare to the closing line. Say the opening line is Nuggets -3, and I take the bet at that number. The closing line is Nuggets -6. Then I captured 3 points of value against the closing line. This is known as closing line value (CLV). (We can figure out how valuable those 3 points are, and I show how in the book.)</p>
-<p>Beating the closing line might be positively correlated with higher profits when analyzing betting records of touts -- people who sell betting picks for money. But when the market is wrong 45% of the time, focusing too much on CLV seems like a bad idea. There's no good reason to believe that a gambler is destined to lose money by picking against the closing lines. What if their strategy is to mostly bet against the prevailing wisdom on the 45% of games where the market is wrong?</p>
-<p>CLV is a prime example of <a href="https://en.wikipedia.org/wiki/Goodhart's_law">Goodhart's Law</a>. As a measure of a handicapper's skill, it's probably fine (though not ideal). But it shouldn't be the target. A gambler shouldn't make picks explicitly to capture as much CLV as possible. That could be different on other sports. Football -- both forms of it -- attracts a lot more betting than the NBA does, so if you're looking for the wisdom of crowds, maybe look there.</p>
-<p>Say the opening line is Nuggets -3 against the Timberwolves. I like the Nuggets in this matchup, but I think the public will go for the Timberwolves and it will finish at Nuggets -1/Timberwolves +1.</p>
-<p>If I was trying to capture as much CLV as possible on this bet, I should take the Timberwolves +3 on the opening line, even though that's not the side I actually like! </p>
-<p>If I was trying to actually win the bet, I should take the Nuggets at the closing line, hoping maybe I can get Nuggets -1 or even Nuggets +1. I can never get positive CLV on the Nuggets, because the market was wrong about them. Not me, the market!</p>
-<p>CLV gets described as being the best way to test a handicapper's skill, but it's obviously non-optimal. Maybe it's the contrarian in me, but Opening Line Value -- identifying bets where the market is going to be wrong, and waiting till the last minute to place the bet -- is more impressive.</p>
-<p>The best way to test a handicapper is to have them write out what they think the lines should be, rather than making a binary decision about somebody else's line (favorite or underdog). If a handicapper's lines are closer to the truth than the closing lines, they are good at handicapping. Looking at what bets they took is only a secondary signal of that. If they took Nuggets -7, is it because they thought the true line should be Nuggets -8, or Nuggets -12? </p>
-<h3>When the line doesn't move</h3>
-<p>Setting aside why the market moves in the wrong direction 45% of the time, I'm curious about the games where the spread didn't move at all. Maybe those lines were perfect as-is? If so, we'd expect to see equal splits of home vs. away winners, and underdog vs. favorite winners.  There shouldn't be any bias to those games. The free market is essentially labelling these the pinnacle of the handicapper's art, impossible to be improved upon. </p>
-<p>The difference between the predicted outcome (the line) and the actual outcome is a combination of how much the line maker got it wrong, plus random variation. So the games where the line didn't move should be totally random, right?</p>
-<p>They're not. If we look at games where the line didn't move, the away team went 184-163 in those games. Someone betting the away team in every game where the line didn't move would win 53% of their bets, for 4.7 units of profit at full vig, or 11.2 units of profit at <em>reduced juice</em>.</p>
-<p>There's also a bias towards underdogs, who went 186-161 in this situation. Always taking the underdog would give a 53.6% winning percentage, for 8.9 units at full vig, or 15.3 units at reduced juice.</p>
-<p>There's an even bigger bias if we combine the two. Away underdogs went 122-92 in these games, which is a 55.2% winning percentage, for 13.1 units of profit at full vig, and 17.1 at reduced juice.</p>
-<p>None of these results are statistically significant, but they are very :thinking_face_emoji:</p>
-<h3>About the vig</h3>
-<p>When the vig is imbalanced, the side with the higher vig should be more likely to win, because they're winning less money in return. Moving the vig from -110 to -115 is a way for the bookmaker to discourage bets on one side without moving the line. Likewise moving it to -105 is a way to encourage bets on that side.</p>
-<p>Since the MGM Grand always keeps their lines on the half point, we'd expect them to adjust the vig often rather than change the spread. They do for most of the games where they didn't move the lines, but 39% of the time the vig stays at -110.</p>
-<p>If we break down the games where the line didn't move by vig, the underdogs went 62-43 when the vig was high (-115), 74-62 when the vig was at the standard level (-110), and 50-56 at low vig (-105).</p>
-<p>Someone taking the underdogs when the line doesn't move, and the vig is -110 or -115, would've gone 136-105 this season, a 56.4% winning percentage, and around 18 units of profit (factoring in the additional -115 vig on some bets).</p>
-<p>Now, the strategy is pretty convoluted, and I wouldn't bet on it holding for future seasons, but it's definitely evidence there could be irrational factors at work in the market. It certainly doesn't show the market to be the well oiled machine that Closing Line Value assumes it is.</p>
-<h3>Must love dogs</h3>
-<p>Winners ended up being pretty evenly divided between favorites and underdogs by the end of the season, but underdogs were way ahead for most of the year.  </p>
-<p>Betting every single underdog against the spread over the first quarter of the season would've been fairly profitable -- a 165-136 record (54.8% winning percentage), and 15.4 units profit at full vig. People betting favorites got killed at the beginning of the season.</p>
-<p>Dogs and favorites were basically even through the middle half of the season, before favorites finished off 167-144 (53.7% win percentage) to even things out.</p>
-<p>Here's a plot of the winning percentage of favorites over the course of the season. I skipped the first 50 games because of noise. The yellow line represents the winning percentage necessary for betting all underdogs to be profitable (at standard vig). That happens when the favorites win less than 47.6% of the time (which means underdogs win more than 52.4% of the time.)</p>
-<p>It wasn't until the last month of the season that blindly betting all underdogs started being a losing proposition, even factoring in the vig.</p>
-<p><img alt="/img/wp-vs-gameno.png" src="/img/wp-vs-gameno.png"></p>
-<h3>Did the lines improve over time?</h3>
-<p>I was curious if there was evidence that the errors were getting smaller, or more predictable over time.</p>
-<p>The raw errors are too noisy to see any sort of pattern:</p>
-<p><img alt="/img/err-vs-line.png" src="/img/err-vs-line.png"></p>
-<p>This is a plot of the 100 game moving average of the absolute error of the closing line. I don't see any trends to suggest the lines got more accurate with time.</p>
-<p><img alt="/img/closing-line-err.png" src="/img/closing-line-err.png"></p>
-<p>The size of the error against the closing line isn't the ideal metric, because not all points are created equal -- the higher the line, the less surprising the error. (I'm going to skip discussing that for now, but it's explained in the book.)</p>
-<h3>Did the lines change over time?</h3>
-<p>I wondered whether the size of the lines changed over time -- did the games get more or less competitive over the course of the season?</p>
-<p>This is a 100 game moving average of the average size of the spread. As we can see, the lines did get bigger near the end of the year.</p>
-<p><img alt="/img/spread-over-time.png" src="/img/spread-over-time.png"></p>
-<p>It's possible the trend is due to scheduling, but the change at the end seems significant -- teams tend to give up near the end of the year. Bad teams want to be as bad as possible in order to get the best odds in the NBA draft, so they're not that competitive. </p>
-<p>(I have a lot more to say about tanking, but I'll stay off my soapbox for now.)</p>
-<h3>What type of games are affected by line movement?</h3>
-<p>There were 130 games where the winner flipped from the favorite to the underdog, or the underdog to the favorite, because of the line movement. In other words, these are games where either side could have won the bet, depending on whether you took the opening line or the closing line.</p>
-<p>These games were perfectly balanced -- 65 times, the favorite won (vs the closing line); 65 times the underdog won.</p>
-<p>What about games where the spread was extremely accurate (off by 3 points or less)? Underdogs went 138-121 in those games (53.2%).</p>
-<p>The difference is more dramatic in games where the line was off by 1 point or less. The underdogs went 56-33 (63% win percentage). Of course, there's no way to use that as a betting strategy since we can't identify these games before the fact, but it does show a small potential bias in favor of underdogs. </p>
-<h3>What would "perfect" lines even look like?</h3>
-<p>It's rare to see NBA lines that are bigger than +15/-15 points. There were 15 this season, about 4.4% of all games. That's around one NBA game a week with a line that high.</p>
-<p>By contrast, 31% of NBA games end with a score differential of over 15 points. That's 7x more often, roughly one game a day.</p>
-<p>The lines really shouldn't be as large as the final score differential, because they are an estimate of the mean outcome of the game. If the Celtics beat the Raptors by 54 points, that doesn't mean the line <em>should</em> have been Celtics -54. The Celtics and Raptors played 4 times last season (data taken from <a href="https://www.basketball-reference.com/teams/TOR/2025_games.html">basketball-reference</a>). I'm going to ignore home court advantage -- imagine these are played at a neutral gym. The first game, Boston won by 3. The second, Boston won by 54. The third game, the Raptors won by 13. The last game, Boston won by 10.</p>
-<p>Boston won by an average of 13.5 points, so BOS -13.5 would be a reasonable line for all four games, as that's the best estimate we can make of their difference in skill. Only 1 of the 4 games ended up close to that line. For the other 3 games, the error was at least 10 points. That's pretty typical for NBA games. The error is usually around 10 points.</p>
-<p>In this scenario, Boston -- despite being the much better team -- would have gone 1-3 against the spread. If the line for all four games was BOS -9.5, they would have gone 2-2, but the error would still be 44.5 points on the second game, and 23.5 on the third one. </p>
-<p>The actual outcomes might be all over the place, but the spread isn't meant to predict the actual outcome, just the point where both sides are equally likely to win the bet. In a small sample size, there's no guarantee both sides will win 50% of the games, even if the line was perfect.</p>
-<p>Here's a histogram of the spreads (for the away team) overlaid on a histogram of the errors against the spread:</p>
-<p><img alt="/img/spread-vs-score-diff.png" src="/img/spread-vs-score-diff.png"></p>
-<p>If we look at just the score differential, we can stick a bell curve over the top and it looks pretty normal:</p>
-<p><img alt="/img/score-diff-normal.png" src="/img/score-diff-normal.png"></p>
-<h3>Simulating games from the spreads</h3>
-<p>The problem is, these aren't outcomes from one distribution. Every game is essentially a sample from a different distribution. Each game has a different mean (the spread, or rather the ideal version of it) and a different variance (how predictable games are between the two teams). Combining them all together, the results end up looking kinda normal (because a lot of things do).</p>
-<p>I decided to simulate the entire season to show how the point differentials are going to be much bigger than the original lines.</p>
-<p>I simulated every game by sampling from a normal distribution with the mean set to that game's spread, and the variance equal to the sample variance of all games that season with that spread. </p>
-<p>Here's how they match up:</p>
-<p><img alt="/img/point-differential.png" src="/img/point-differential.png"></p>
-<p>I know that's a pretty rough simulation. There's some weirdness in the middle. NBA games never end in a tie, and they end in a one point difference less often than expected due to tactical reasons, so there's a little notch right in the center of the green curve. If a team is down one, they foul the other team and hope they miss at least one of their free throws. There's also more simulated games than I would expect that end with a differential of +1 or -1. There very well may be a bug in my code. So there's a muddle in the middle. But the spread of the data is the same, which is the main point.</p>
-<p>Hopefully the simulation shows that the lines shouldn't be bigger than they are, even though they are frequently off by many multiples compared to the final result. An error of 10 is about what we'd expect on average, and big errors don't necessarily mean <em>Vegas</em> was wrong. If the line is Dallas -3 and the other team wins by 27, that doesn't mean the line was off by 30 points. The line is meant to be an estimate of the mean outcome, if the teams played each other a large number of time under the exact same conditions. We only ever see one sample, though, and a lot of times it is far from the mean.</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/last-fair-deal-in-the-country.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
-                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
-                </div>
-            </article>            <h4 class="date">Jul 18, 2025</h4>
+        <div id="content">            <h4 class="date">Jul 18, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -2349,6 +2233,105 @@ line shopping: +33    </p>
 
                 <div class="info">
                     <a href="/free-throw-merchants-and-the-value-of-stars.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/nba.html" rel="tag">NBA</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
+                </div>
+            </article>            <h4 class="date">Dec 02, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/two-ways-to-go-from-the-middle.html" rel="bookmark" title="Permanent Link to &quot;Two ways to go from the middle&quot;">Two ways to go from the middle</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=6L1mD-tgoE4" target="_blank"><img alt="Hobo Johnson, &quot;Sacramento Kings Anthem (we’re not that bad)&quot;" src="https://img.youtube.com/vi/6L1mD-tgoE4/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=6L1mD-tgoE4" target="_blank">Hobo Johnson, "Sacramento Kings Anthem (we’re not that bad)"</a></p>
+<p><em>Stats are as of 12/1/2025</em>. <a href="https://docs.google.com/spreadsheets/d/1rHkNoaj3lX5eEGQQ3NwpXtwajKTUYOhUecpoYItPL2M/edit?usp=sharing.">Spreadsheet here</a></p>
+<h2>The Kings</h2>
+<p>The Sacramento Kings are going through it. Again. For most other teams, the choices they've made recently would be a historically incompetent period, a basketball Dark Ages. For the Kings, it's just another season. </p>
+<p>Firing the only coach that's had success with the team in a long time and replacing him with a buddy of the owner who is willing to work cheap. Drafting two All-Star point guards and trading both of them away. Trading for two guys (LaVine and DeRozan) who everybody knew would be a bad fit from their years playing together on the Bulls. Trading the very good, ultra reliable Jonas Valančiūnas for the washed Dario Saric just to save a tiny bit of money.</p>
+<p>Do you know the <a href="https://www.youtube.com/watch?v=rKMMCPeiQoc">definition of insanity</a>? The Kings' front office doesn't.</p>
+<p>Sacramento is 5-16 so far. They're definitely not a good team, but maybe they're <em>not that bad</em>? They went 40-42 last season, which is respectable in the West. They've had a brutally hard schedule, and 21 games is not a large sample size. </p>
+<p>I'll get back to the Kings, but first, the other side of the coin.</p>
+<h2>The Heat</h2>
+<p>The Miami Heat were arguably in a worse place than the Kings at the end of last season. They won 37 games, 3 fewer than the Kings, and play in the easier conference. They looked totally checked out by the end of the season, another team stuck in the middle of the NBA standings.</p>
+<p>It was a disappointing, dysfunctional run where they <a href="/free-throw-merchants-and-the-value-of-stars.html">traded away their best player</a> and seemed to be going nowhere. The vibes were bad, but they didn't blow up the team for the hope of maybe being good again someday, or run back the same players and the same scheme for another bout of mediocrity. Instead, they trusted the culture they built and tried something innovative.</p>
+<p>They've been one of the best stories in the NBA so far, greatly outperforming expectations by playing a radical brand of basketball on the offensive end. They completely overhauled their offense to quickly attack one-on-one matchups before the defense can get set, rather than the traditional approach of creating mismatches using pick-and-rolls. </p>
+<p><a href="https://www.youtube.com/watch?v=dVBsWm7uhGw">Here's a good video from Thinking Basketball explaining the strategy</a>, an even more turbo-charged version of the scheme the Grizzlies used to great success last year. As a basketball fan, it's a bit weird to watch at first, because pick and rolls are such an traditional part of basketball, but it's refreshing.</p>
+<p>I don't know why more teams don't have the courage to try unconventional things  -- <a href="/home-of-elvis-and-the-ancient-greeks.html">or in the Grizzlies' case, stick with something unconventional that was working.</a> In the NBA, it takes a great coach and front office to defy the conventional wisdom and try to get more out of the players already on the roster -- putting them in a position to succeed rather than re-shuffling the deck.</p>
+<p>The most remarkable part is that overhauling the offense hasn't sacrificed the Heat's identity as a top-tier defensive team at all. They have the 4th best defense in the league so far by Defensive Rating. They're doing this while playing at the fastest pace in the league this year. Teams that play fast are usually just trying to outscore their opponents, with little attention to defense. </p>
+<p>But the Heat are using their scheme to generate high quality offensive opportunities for players that are primarily on the court for their defense. They're building on their core identity rather than changing directions entirely. They're building on strength.</p>
+<p>An elite playmaker like Tyrese Halliburton, or a generational talent like SGA or Jokic, can set up defense-first players for easy looks, but most teams that concentrate on defense struggle generating enough offensive firepower. The Orlando Magic have been plagued by that problem for years. The system Miami is running seems like a cheat code for defensively minded teams (at least until the league inevitably figures out ways to slow it down.)</p>
+<p>I couldn't find anybody in the media who knew the Heat's schema change was coming, much less an idea of how much of an impact it would have.  I looked at a bunch of preseason power rankings, and they were all pretty down on the Heat, for the same reasons, without any hint that they could fix the problems with a different play style. It's much easier to assess the impact of roster changes.</p>
+<p>For example, this is from <a href="https://www.nbcsports.com/nba/news/nba-power-rankings-2025-26-where-do-teams-stand-after-nba-offseason-rockets-nuggets-chase-thunder-at-top">NBC Sports'</a> preseason power rankings:</p>
+<blockquote>
+<p>this was a middle-of-the-pack Heat team last season that made no bold moves, no massive upgrades, leaving them in the same spot they were a year ago.</p>
+</blockquote>
+<p>Here's <a href="https://bleacherreport.com/articles/25253509-nba-power-rankings-entering-2025-preseason">Bleacher Report's</a></p>
+<blockquote>
+<p>for an offensively challenged team, replacing [Tyler Herro's] scoring (21.5 points over the last four seasons) and distribution (4.6 assists in the same span) is going to be tough.</p>
+</blockquote>
+<p>And <a href="https://www.usatoday.com/story/sports/nba/2025/09/30/nba-power-rankings-training-camps/86421865007/">USA Today's</a>:</p>
+<blockquote>
+<p>Losing Tyler Herro for the first two months of the season, potentially, comes as a significant blow to a team that struggled to score — especially late in games — even when he was on the floor.</p>
+</blockquote>
+<p>With the change in style the Heat are still only a mid-tier team on offense, ranking 14th in Offensive Rating. But that's a big step up from last year, when they were 21st, especially given they haven't had their best offensive player for the first month of the season.</p>
+<p>Are they going to win a title with the present roster? No, but in addition to giving their fans something to cheer for, all their players will look much better on paper than they did at the start of this season. If they do decide to trade players, the Heat can get more in return for them. And it's not hard to get free agents to move to Miami if the team is winning and the vibes are good, so they could be a real contender again quickly. </p>
+<p>It's weird that tanking is seen as the best way to increase the chances of future success in the NBA, rather than building a winning culture and innovating. The two teams with the most success in recent years at doing a major rebuild have been the Spurs and the Thunder. They were both bad for a few years, but they're also two of the best run teams in the league. They had a clear vision of the type of team they wanted to build and the clear ability to develop players. If a team doesn't have those organizational competencies, what's the point of a tank? They're just going to waste their high-level draft picks, not develop the rest of the roster, and be mediocre again in 5 years.</p>
+<h2>Power ranking the power rankers</h2>
+<p>I collected data from six preseason NBA power rankings. There's a link to the spreadsheet at the top of the article. I would've liked to collect more data, and I'm sure there are other sites that did good NBA power rankings, but stuff like that is basically impossible to find these days, lost in a sea of completely LLM generated baloney or locked behind paywalls. It's not useful interrogating why some LLM <em>stochastically decided</em> that the Warriors are the 4th best team in the NBA this year, but there's seemingly an endless supply of that type of nonsense. Which is to say: thanks for reading this, however you managed to get here. I hope you'll keep coming back for this completely human generated baloney. </p>
+<p>I compared the rankings from each list to each team's point differential, which is a better estimate of how good a team is than their win-loss record. How good were our mighty morphin' power rankers at predicting the current standings? </p>
+<p>So far, the most accurate rankings have been <a href="https://www.rotoballer.com/rss-slideshow/nba-preseason-power-rankings-every-team-from-worst-to-first">RotoBaller's</a>, with a Spearman correlation of .76. The worst has been USA Today, at .69. Taking the median rank of all six sources produced a correlation of .74, which was better than 5 out of the 6 individual scores. So we're getting a "wisdom of crowds" effect, which I'm always happy to see, because it often isn't the case. <a href="/majority-voting-in-ensemble-learning.html">(Previously discussed in <em>Majority voting in ensemble learning</em>.)</a></p>
+<p>I also included rankings based on my own preseason win total estimates. I got a score of .73, right in the middle of the pack. That's respectable, but I can't believe I'm getting beat by the freaking New York Post. Hopefully that changes as the season goes on.</p>
+<p>Comparing rankings to records, the power rankers were too high on the Clippers, Cavaliers, Pacers, Kings and Warriors. They were too low on the Raptors, Suns, Heat, Spurs and Pistons.</p>
+<h2>Strength of schedule</h2>
+<p>Scheduling matters. Some teams have played much harder schedules than others, and we're dealing with small sample sizes, so win-loss records can be deceiving early in the season.</p>
+<p>I grabbed adjusted Net Rating (aNET) data from <a href="https://dunksandthrees.com/stats/team">dunksandthrees</a>, which calculates the offensive and defensive ratings for each team, adjusted for strength of schedule. I also included Simple Rating System (SRS) data from <a href="https://www.basketball-reference.com/leagues/NBA_2025.html">basketball-reference</a>, which is the same idea as aNET, but a different methodology.</p>
+<p>The difference between aNET and average point differential gives a sense of which team records might be the most misleading compared to the team's actual skill level. For instance, the Sacramento Kings have already played the Thunder, Nuggets and Timberwolves three times apiece, going 2-7 over those games. Even a decent team would be expected to have a losing record against those opponents.</p>
+<p>Based on aNET, the Cavaliers, Warriors, Clippers, Kings and Celtics are probably better than their records indicate.</p>
+<p>Going the other way, the Raptors have had a deceptively easy schedule, going 7-1 in games against the woeful Nets, Hornets, Pacers and Wizards. Going 7-1 doesn't tell us much, because those are teams pretty much everybody should be able to beat. </p>
+<p>The stats indicate that the Raptors, Hornets, Spurs, Jazz, and Suns are probably not as good as their records.</p>
+<p>Most of the teams the power rankers got wrong have been hurt or helped significantly by their schedules so far. The biggest exception has been the Miami Heat, who apparently nobody saw coming.</p>
+<h2>The Kangz</h2>
+<p>What to make of the Kings? According to basketball-reference, they've had the hardest schedule in the league so far. It's fair to say they're not as bad as the record says.</p>
+<p>While they're 28th in point differential, they're 25th by aNET, and 26th by SRS. So they might have 7 or 8 wins instead of 5 if they'd played a league average schedule. That's not that much, though, and a clear step back from last year.</p>
+<p>Their rookie, Nique Clifford, has not looked good so far, and they don't have many players that other teams would want in a trade. It doesn't seem like they have any clue of how to develop young talent. Their highest paid player, Zach LaVine, has another year on his contract, doesn't play defense, and has put up a -1.1 VORP this year.</p>
+<p>On paper, they don't have much they can do to get better.  But everybody was saying that about the Heat at the end of last year, and look at them now. I just can't see the Kings having that type of organizational courage, but I hope they find it somehow rather than spend years on another doomed rebuild. Sacramento fans deserve better than the current mess. At least an innovative mess would be a change of pace from trying the same stupid thing over and over. What's the worst that could happen?</p>
+<p>Sacramento's roster isn't great, but <a href="/home-of-elvis-and-the-ancient-greeks.html">like the Grizzlies</a>, the biggest problems I see are organizational. I understand the Kings are a rich man's toy, not a serious basketball team, but wouldn't it be more fun to own a team that <em>wasn't</em> a giant tire fire? I don't get spending billions of dollars to buy a sports team just to run it into the ground like this.</p>
+<h2>The Mathletix Bajillion, week 5</h2>
+<p>As usual: One of these teams picks NFL games randomly, the other uses a simple algorithm. </p>
+<p><a href="https://www.theringer.com/topic/ringer-107">4 of 5 Ringer teams had a losing week</a>, going 10-15 collectively. All of them still have a losing record on the season, so right now the McAul-Stars are the undisputed leaders. Is it due to my brilliance as a data scientist, or my brilliance at rolling dice? Since sports gambling is a game of skill, it's got to be one or the other, right? ;-)</p>
+<p>Bluster aside, the important thing to notice is how much both teams are saving due to finding cheaper lines than the standard -110 odds. The McAul-Stars would only be up +110 instead of +176 if the bets were taken at a retail sportsbook, and the Hand-Eggs would be down -620 instead of -563.</p>
+<p><em>Lines taken Tuesday morning. Since it's early in the week, the reduced juice isn't quite a juicy as usual.</em></p>
+<h3>The Neil McAul-Stars</h3>
+<p>last week: 4-1, +296    <br>
+Overall: 11-9, +176    <br>
+line shopping: +66</p>
+<ul>
+<li>SEA -7 -108 (lowvig)</li>
+<li>DAL +3 -104 (prophetx)</li>
+<li>CIN +5.5 -108 (draftkangz)</li>
+<li>JAX +2 -108 (prophetx)</li>
+<li>LAC +2.5 +108 (prophetx)</li>
+</ul>
+<h3>The Vincent Hand-Eggs</h3>
+<p>last week: 1-4, -316  <br>
+Overall: 7-12-1, -563 <br>
+line shopping: +57</p>
+<ul>
+<li>WAS +1.5 +100 (lowvig)</li>
+<li>CIN +5.5 -108 (draftkangz)</li>
+<li>LAR -8 -101 (prophetx)</li>
+<li>DEN -7.5 +100 (lowvig)</li>
+<li>CLE -3.5 -108 (prophetx)</li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/two-ways-to-go-from-the-middle.html">posted at 10:20</a>
                     &nbsp;&middot;&nbsp;<a href="/category/nba.html" rel="tag">NBA</a>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
