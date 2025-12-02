@@ -1,0 +1,129 @@
+Title: Two ways to go from the middle
+Date: 2025-12-02 10:20
+Category: NBA
+Tags: basketball
+
+[![Hobo Johnson, "Sacramento Kings Anthem (we’re not that bad)"](https://img.youtube.com/vi/6L1mD-tgoE4/0.jpg)](https://www.youtube.com/watch?v=6L1mD-tgoE4){:target="_blank"}
+
+Song: [Hobo Johnson, "Sacramento Kings Anthem (we’re not that bad)"](https://www.youtube.com/watch?v=6L1mD-tgoE4){:target="_blank"}
+
+_Stats are as of 12/1/2025_. [Spreadsheet here](https://docs.google.com/spreadsheets/d/1rHkNoaj3lX5eEGQQ3NwpXtwajKTUYOhUecpoYItPL2M/edit?usp=sharing.)
+
+
+## The Kings
+The Sacramento Kings are going through it. Again. For most other teams, the choices they've made recently would be a historically incompetent period, a basketball Dark Ages. For the Kings, it's just another season. 
+
+Firing the only coach that's had success with the team in a long time and replacing him with a buddy of the owner who is willing to work cheap. Drafting two All-Star point guards and trading both of them away. Trading for two guys (LaVine and DeRozan) who everybody knew would be a bad fit from their years playing together on the Bulls. Trading the very good, ultra reliable Jonas Valančiūnas for the washed Dario Saric just to save a tiny bit of money.
+
+Do you know the [definition of insanity](https://www.youtube.com/watch?v=rKMMCPeiQoc)? The Kings' front office doesn't.
+
+Sacramento is 5-16 so far. They're definitely not a good team, but maybe they're *not that bad*? They went 40-42 last season, which is respectable in the West. They've had a brutally hard schedule, and 21 games is not a large sample size. 
+
+I'll get back to the Kings, but first, the other side of the coin.
+
+## The Heat
+The Miami Heat were arguably in a worse place than the Kings at the end of last season. They won 37 games, 3 fewer than the Kings, and play in the easier conference. They looked totally checked out by the end of the season, another team stuck in the middle of the NBA standings.
+
+It was a disappointing, dysfunctional run where they [traded away their best player](/free-throw-merchants-and-the-value-of-stars.html) and seemed to be going nowhere. The vibes were bad, but they didn't blow up the team for the hope of maybe being good again someday, or run back the same players and the same scheme for another bout of mediocrity. Instead, they trusted the culture they built and tried something innovative.
+
+They've been one of the best stories in the NBA so far, greatly outperforming expectations by playing a radical brand of basketball on the offensive end. They completely overhauled their offense to quickly attack one-on-one matchups before the defense can get set, rather than the traditional approach of creating mismatches using pick-and-rolls. 
+
+[Here's a good video from Thinking Basketball explaining the strategy](https://www.youtube.com/watch?v=dVBsWm7uhGw), an even more turbo-charged version of the scheme the Grizzlies used to great success last year. As a basketball fan, it's a bit weird to watch at first, because pick and rolls are such an traditional part of basketball, but it's refreshing.
+
+I don't know why more teams don't have the courage to try unconventional things  -- [or in the Grizzlies' case, stick with something unconventional that was working.](/home-of-elvis-and-the-ancient-greeks.html) In the NBA, it takes a great coach and front office to defy the conventional wisdom and try to get more out of the players already on the roster -- putting them in a position to succeed rather than re-shuffling the deck.
+
+The most remarkable part is that overhauling the offense hasn't sacrificed the Heat's identity as a top-tier defensive team at all. They have the 4th best defense in the league so far by Defensive Rating. They're doing this while playing at the fastest pace in the league this year. Teams that play fast are usually just trying to outscore their opponents, with little attention to defense. 
+
+But the Heat are using their scheme to generate high quality offensive opportunities for players that are primarily on the court for their defense. They're building on their core identity rather than changing directions entirely. They're building on strength.
+
+An elite playmaker like Tyrese Halliburton, or a generational talent like SGA or Jokic, can set up defense-first players for easy looks, but most teams that concentrate on defense struggle generating enough offensive firepower. The Orlando Magic have been plagued by that problem for years. The system Miami is running seems like a cheat code for defensively minded teams (at least until the league inevitably figures out ways to slow it down.)
+
+I couldn't find anybody in the media who knew the Heat's schema change was coming, much less an idea of how much of an impact it would have.  I looked at a bunch of preseason power rankings, and they were all pretty down on the Heat, for the same reasons, without any hint that they could fix the problems with a different play style. It's much easier to assess the impact of roster changes.
+
+For example, this is from [NBC Sports'](https://www.nbcsports.com/nba/news/nba-power-rankings-2025-26-where-do-teams-stand-after-nba-offseason-rockets-nuggets-chase-thunder-at-top) preseason power rankings:
+
+> this was a middle-of-the-pack Heat team last season that made no bold moves, no massive upgrades, leaving them in the same spot they were a year ago.
+
+Here's [Bleacher Report's](https://bleacherreport.com/articles/25253509-nba-power-rankings-entering-2025-preseason)
+
+> for an offensively challenged team, replacing [Tyler Herro's] scoring (21.5 points over the last four seasons) and distribution (4.6 assists in the same span) is going to be tough.
+
+And [USA Today's](https://www.usatoday.com/story/sports/nba/2025/09/30/nba-power-rankings-training-camps/86421865007/):
+
+> Losing Tyler Herro for the first two months of the season, potentially, comes as a significant blow to a team that struggled to score — especially late in games — even when he was on the floor.
+
+With the change in style the Heat are still only a mid-tier team on offense, ranking 14th in Offensive Rating. But that's a big step up from last year, when they were 21st, especially given they haven't had their best offensive player for the first month of the season.
+
+Are they going to win a title with the present roster? No, but in addition to giving their fans something to cheer for, all their players will look much better on paper than they did at the start of this season. If they do decide to trade players, the Heat can get more in return for them. And it's not hard to get free agents to move to Miami if the team is winning and the vibes are good, so they could be a real contender again quickly. 
+
+It's weird that tanking is seen as the best way to increase the chances of future success in the NBA, rather than building a winning culture and innovating. The two teams with the most success in recent years at doing a major rebuild have been the Spurs and the Thunder. They were both bad for a few years, but they're also two of the best run teams in the league. They had a clear vision of the type of team they wanted to build and the clear ability to develop players. If a team doesn't have those organizational competencies, what's the point of a tank? They're just going to waste their high-level draft picks, not develop the rest of the roster, and be mediocre again in 5 years.
+
+## Power ranking the power rankers
+I collected data from six preseason NBA power rankings. There's a link to the spreadsheet at the top of the article. I would've liked to collect more data, and I'm sure there are other sites that did good NBA power rankings, but stuff like that is basically impossible to find these days, lost in a sea of completely LLM generated baloney or locked behind paywalls. It's not useful interrogating why some LLM *stochastically decided* that the Warriors are the 4th best team in the NBA this year, but there's seemingly an endless supply of that type of nonsense. Which is to say: thanks for reading this, however you managed to get here. I hope you'll keep coming back for this completely human generated baloney. 
+
+I compared the rankings from each list to each team's point differential, which is a better estimate of how good a team is than their win-loss record. How good were our mighty morphin' power rankers at predicting the current standings? 
+
+So far, the most accurate rankings have been [RotoBaller's](https://www.rotoballer.com/rss-slideshow/nba-preseason-power-rankings-every-team-from-worst-to-first), with a Spearman correlation of .76. The worst has been USA Today, at .69. Taking the median rank of all six sources produced a correlation of .74, which was better than 5 out of the 6 individual scores. So we're getting a "wisdom of crowds" effect, which I'm always happy to see, because it often isn't the case. [(Previously discussed in _Majority voting in ensemble learning_.)](/majority-voting-in-ensemble-learning.html)
+
+I also included rankings based on my own preseason win total estimates. I got a score of .73, right in the middle of the pack. That's respectable, but I can't believe I'm getting beat by the freaking New York Post. Hopefully that changes as the season goes on.
+
+Comparing rankings to records, the power rankers were too high on the Clippers, Cavaliers, Pacers, Kings and Warriors. They were too low on the Raptors, Suns, Heat, Spurs and Pistons.
+
+## Strength of schedule
+Scheduling matters. Some teams have played much harder schedules than others, and we're dealing with small sample sizes, so win-loss records can be deceiving early in the season.
+
+I grabbed adjusted Net Rating (aNET) data from [dunksandthrees](https://dunksandthrees.com/stats/team), which calculates the offensive and defensive ratings for each team, adjusted for strength of schedule. I also included Simple Rating System (SRS) data from [basketball-reference](https://www.basketball-reference.com/leagues/NBA_2025.html), which is the same idea as aNET, but a different methodology.
+
+The difference between aNET and average point differential gives a sense of which team records might be the most misleading compared to the team's actual skill level. For instance, the Sacramento Kings have already played the Thunder, Nuggets and Timberwolves three times apiece, going 2-7 over those games. Even a decent team would be expected to have a losing record against those opponents.
+
+Based on aNET, the Cavaliers, Warriors, Clippers, Kings and Celtics are probably better than their records indicate.
+
+Going the other way, the Raptors have had a deceptively easy schedule, going 7-1 in games against the woeful Nets, Hornets, Pacers and Wizards. Going 7-1 doesn't tell us much, because those are teams pretty much everybody should be able to beat. 
+
+The stats indicate that the Raptors, Hornets, Spurs, Jazz, and Suns are probably not as good as their records.
+
+Most of the teams the power rankers got wrong have been hurt or helped significantly by their schedules so far. The biggest exception has been the Miami Heat, who apparently nobody saw coming.
+
+## The Kangz
+What to make of the Kings? According to basketball-reference, they've had the hardest schedule in the league so far. It's fair to say they're not as bad as the record says.
+
+While they're 28th in point differential, they're 25th by aNET, and 26th by SRS. So they might have 7 or 8 wins instead of 5 if they'd played a league average schedule. That's not that much, though, and a clear step back from last year.
+
+Their rookie, Nique Clifford, has not looked good so far, and they don't have many players that other teams would want in a trade. It doesn't seem like they have any clue of how to develop young talent. Their highest paid player, Zach LaVine, has another year on his contract, doesn't play defense, and has put up a -1.1 VORP this year.
+
+On paper, they don't have much they can do to get better.  But everybody was saying that about the Heat at the end of last year, and look at them now. I just can't see the Kings having that type of organizational courage, but I hope they find it somehow rather than spend years on another doomed rebuild. Sacramento fans deserve better than the current mess. At least an innovative mess would be a change of pace from trying the same stupid thing over and over. What's the worst that could happen?
+
+Sacramento's roster isn't great, but [like the Grizzlies](/home-of-elvis-and-the-ancient-greeks.html), the biggest problems I see are organizational. I understand the Kings are a rich man's toy, not a serious basketball team, but wouldn't it be more fun to own a team that *wasn't* a giant tire fire? I don't get spending billions of dollars to buy a sports team just to run it into the ground like this.
+
+## The Mathletix Bajillion, week 5
+As usual: One of these teams picks NFL games randomly, the other uses a simple algorithm. 
+
+[4 of 5 Ringer teams had a losing week](https://www.theringer.com/topic/ringer-107), going 10-15 collectively. All of them still have a losing record on the season, so right now the McAul-Stars are the undisputed leaders. Is it due to my brilliance as a data scientist, or my brilliance at rolling dice? Since sports gambling is a game of skill, it's got to be one or the other, right? ;-)
+
+Bluster aside, the important thing to notice is how much both teams are saving due to finding cheaper lines than the standard -110 odds. The McAul-Stars would only be up +110 instead of +176 if the bets were taken at a retail sportsbook, and the Hand-Eggs would be down -620 instead of -563.
+
+*Lines taken Tuesday morning. Since it's early in the week, the reduced juice isn't quite a juicy as usual.*
+
+### The Neil McAul-Stars
+last week: 4-1, +296      
+Overall: 11-9, +176      
+line shopping: +66
+
+* SEA -7 -108 (lowvig)
+* DAL +3 -104 (prophetx)
+* CIN +5.5 -108 (draftkangz)
+* JAX +2 -108 (prophetx)
+* LAC +2.5 +108 (prophetx)
+
+
+### The Vincent Hand-Eggs
+last week: 1-4, -316    
+Overall: 7-12-1, -563   
+line shopping: +57
+
+* WAS +1.5 +100 (lowvig)
+* CIN +5.5 -108 (draftkangz)
+* LAR -8 -101 (prophetx)
+* DEN -7.5 +100 (lowvig)
+* CLE -3.5 -108 (prophetx)
+

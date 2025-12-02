@@ -1,6 +1,8 @@
 Title: Majority Voting in Ensemble Learning
 Date: 2025-05-22 10:20
 Category: machine learning
+Tags: machine learning
+
 (notebook is available at [github.com/csdurfee/ensemble_learning](https://github.com/csdurfee/ensemble_learning/blob/main/ensemble_voting.ipynb).)
 
 ## Ensemble Learning
