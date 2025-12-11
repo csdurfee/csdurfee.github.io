@@ -28,7 +28,63 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Sep 10, 2025</h4>
+        <div id="content">            <h4 class="date">Sep 23, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/primes-and-self-similarity.html" rel="bookmark" title="Permanent Link to &quot;Primes and self-similarity&quot;">Primes and self-similarity</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank"><img alt="John Hollenbeck &amp; NDR Big Band, &quot;Entitlement&quot;" src="https://img.youtube.com/vi/ncmIlVdL8po/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank">John Hollenbeck &amp; NDR Big Band, "Entitlement"</a></p>
+<p>I've been messing around with prime numbers, because there are several places where they intersect with both <a href="/do-you-wanna-win.html">random walks</a> and the <a href="/riding-the-waves.html">arcsine distribution</a>.  It's going to take a while to finally tie that bow, though.</p>
+<p>So it's a quick one this week: a kinda-cool story, and a kinda-cool graph.</p>
+<h3>Random Primes</h3>
+<p>The prime numbers are simple to find, but not easy. They're not randomly distributed, but it's hard to come up with easy ways to find them, and they act like random numbers in certain ways.  Why is 47 prime and 57 non-prime? You can't really tell just by looking.</p>
+<p>To find the primes, we can write down every number from, say, 1 to 1000. Then we cross out 2, and every number divisible by 2 (4, 6, 8, etc.). Repeat that with 3 (6, 9, 12, etc.), and so on. The numbers left behind are prime. This is the famous <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes</a> -- it's a tedious way to find prime numbers, but it's by far the easiest to understand.</p>
+<p>The sieve gave mathematician David Hawkins an idea [1]: what about doing that same process, but randomly?  For each number, flip a coin, if it comes up heads, cross the number out. That will eliminate half of the numbers on the first pass. Take the lowest number <code>k</code> that remains and eliminate each of the remaining numbers with probability <code>1/k</code>. Say it's 4. For each remaining number, we flip a 4 sided die and if it comes up 4, we cross it out. </p>
+<p>If we go through all the numbers, what's left over won't look like real prime numbers -- there should be as many even fake primes as odd ones, for starters. But the remaining numbers will be as sparse as the actual prime numbers. As the sample size N heads to infinity, the chances of a random number being a real prime, and being a fake prime, are the same -- <code>1/log(N)</code>.</p>
+<p>This is a brilliant way to figure out what we know about prime numbers are due to their density, and what are due to other, seemingly more magical (but still non-random) factors. </p>
+<p>Several characteristics of real primes apply to the random primes. And tantalizingly, things that can't be proven about real primes can be proven about the fake ones. It's been conjectured that there are infinitely many pairs of twin primes -- primes that are separated by 2 numbers. An example would be 5 and 7, or 11 and 13. It makes sense for a lot of reasons that there should be an infinite number of twin primes.  But mathematicians have been trying to prove it for over 150 years, without success.</p>
+<p>Random primes can be odd or even, so the analogy to twin primes would be two random primes that are only one apart, say 5 and 6. It's relatively simple to prove that there are an infinite number of random twin primes [2]. That could easily be fool's gold -- treating the primes like they're randomly distributed gives mathematicians a whole toolbox of statistical techniques to use on them, but they're not random, or arbitrary. They're perfectly logical, and yet still inscrutible, hidden in plain sight.</p>
+<h3>Largest prime factors of composite numbers</h3>
+<p>I was intrigued by the largest prime factor of composite (non-prime) numbers. Are there any patterns?</p>
+<p>As background, every number can be split into a unique set of prime factors. For instance, the number 24 can be factored into <code>24 = 8 * 3 = 2 * 2 * 2 * 3</code>. Let's say we knock off the biggest prime factor. We get: <code>2 * 2 * 2 = 8</code>. The raw numbers rapidly get too big, so I looked at the log of the ratio:</p>
+<p><img alt="/img/logratios100k.png" src="/img/logratios100k.png"></p>
+<p>The red curve is the distribution of the first 100,000 composite numbers, the orange is the next 100,000 composite numbers, and so on. </p>
+<p>What if we bump up an order of magnitude? This time, the red curve is the first million composite numbers, the orange is the next million, and so on. Here's what that looks like:</p>
+<p><img alt="/img/logratios1M.png" src="/img/logratios1M.png"></p>
+<p>Pretty much the same graph, right? The X axis is different, but the shapes are very similar to the first one. </p>
+<p>Let's go another order of magnitude up. The first 10,000,000 versus the next 10,000,000, and so on?</p>
+<p><img alt="/img/logratios10M.png" src="/img/logratios10M.png"></p>
+<p>We get the same basic shapes again! The self-similarity is kinda cool. Is it possible to come up with some function for the distribution for this quantity? You tell me.</p>
+<h3>The perils of interpolation</h3>
+<p>These graphs are flawed. I'm generating these graphs using Kernel Density Estimation, a technique for visualizing the density of data. Histograms, another common way, can be misleading. The choice of bin size can radically alter what the histogram looks like.</p>
+<p>But KDE can also be misleading. These graphs make it look like the curve starts at zero.  That's not true. The minimum possible value happens when a number is of the form <code>2*p</code>, where p is a prime -- the value will be <code>log(2)</code>, about .693.</p>
+<p>This data is actually way <em>chunkier</em> than KDE is treating it.  Every point of data is the log of a whole number. So there aren't that many unique values. For instance, between 0 and 1 on the X axis, there's only one possible value -- <code>log(2)</code>. Between 1 and 3, there are only 18 possible values, <code>log(2)</code> thru <code>log(19)</code> -- those being the only integers with a <code>log</code> less than 3 and greater than 1.</p>
+<p>This makes it hard to visualize the data accurately. There are too many possible values to display each one individually, but not enough for KDE's smoothing to be appropriate.</p>
+<p>The <em>kernel</em> in Kernel Density Estimation is the algorithm used to smooth the data --  it's basically a moving average that assumes something about the distribution of the data. People usually use the Gaussian kernel, which treats the data like a normal distribution -- smooth and bell curvy. A better choice for chunky data is the <em>tophat</em> kernel, which treats the space between points like a uniform distribution -- in other words, a flat line. If the sparseness of the data on the X axis were due to a small sample size, the tophat kernel would display plateaus that aren't in the real data. But here, I calculated data for the first 100 Million numbers, so there's no lack of data. The sparseness of the data is by construction. <code>log(2)</code> will be the only value between 0 and 1, no matter how many numbers we go up to. So the left side of the graph <em>should</em> look fairly chunky.</p>
+<p>The tophat kernel does a much better job of conveying the non-smoothness of the distribution:</p>
+<p><img alt="/img/tophat.png" src="/img/tophat.png"></p>
+<h3>References</h3>
+<p>[1] https://chance.dartmouth.edu/chance_news/recent_news/chance_primes_chapter2.html</p>
+<p>[2] for sufficiently large values of <em>simple</em></p>
+<p>[3] https://scikit-learn.org/stable/auto_examples/neighbors/plot_kde_1d.html</p>
+<p>[4] https://en.wikipedia.org/wiki/Kernel_density_estimation</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/primes-and-self-similarity.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/math.html" rel="tag">math</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/number-theory.html" class="tags">number theory</a>
+                    &nbsp;<a href="/tag/machine-learning.html" class="tags">machine learning</a>
+                    &nbsp;<a href="/tag/some-educational-value.html" class="tags">some educational value</a>
+                </div>
+            </article>            <h4 class="date">Sep 10, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -1852,168 +1908,6 @@ and
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/football.html" class="tags">football</a>
                     &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
-                </div>
-            </article>            <h4 class="date">Jun 30, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/the-final-word-on-the-hot-hand-for-now.html" rel="bookmark" title="Permanent Link to &quot;The final word on the hot hand (for now)&quot;">The final word on the hot hand (for now)</a>
-                </h2>
-
-                
-                
-
-                <p>(Notebooks and other code available at: <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>.)</p>
-<p>Last time, we found that there are many players like LeBron, where their FG% is higher when they've missed most of their last 5 shots than when they've made most of them. However, most players don't have enough attempts when they've gone 0 or 5 out of their last 5 for a good statistical analysis.</p>
-<p>So instead I will be looking at a binary split -- I will call a player <em>cold</em> when they've made 0, 1 or 2 of their last 5 shots, and <em>hot</em> when they've made 3, 4 or 5 of their last 5. Most players have a FG% between 40 and 60%, so this nicely splits them into times when they're shooting better than average versus worse than average.</p>
-<h2>Anthony Edwards</h2>
-<p>Anthony Edwards ("Ant") is particularly unstreaky for a young player. He's only completed 5 seasons in the league, but has the 5th biggest z score of the last 20 years. He could definitely catch LeBron someday.</p>
-<p>Ant has the LeBron-like pattern of FG% trending downward when he's <em>hot</em>. He doesn't have anywhere near the volume of LeBron, so the spike at 20% (1/5) might just be noise. But overall, he shoots worse when he's been shooting well.</p>
-<p><img alt="ant-last-5" src="/img/ant-last-5.png"></p>
-<p>The trend appears to be due to shot selection. He takes far more above the break 3 pointers when he's <em>hot</em> than when he's cold. The additional 3 point attempts come at the expense of shots in the restricted area.</p>
-<p>Here are the changes in tendencies:</p>
-<pre>
-| BASIC_ZONE            |   hot |   cold |   diff |
-|:----------------------|------:|-------:|-------:|
-| Above the Break 3     |  41.5 |   31.7 |    9.8 |
-| Corner 3              |   3.6 |    4.8 |   -1.2 |
-| In The Paint (Non-RA) |  13.4 |   14.6 |   -1.1 |
-| Mid-Range             |  14.1 |   12.2 |    1.9 |
-| Restricted Area       |  27.4 |   36.7 |   -9.4 |
-</pre>
-
-<p>Of course, this would be justified if Ant shot above the break 3's better when he's <em>hot</em>, but he doesn't. He makes 37% of his above the break 3's when he's <em>cold</em> but that drops to 34% when he's hot. So he's trading restricted area shots, with an expected value of .601 * 2 = 1.202 points, for above the break 3's, with an expected value of .34 * 3 = 1.02 points.</p>
-<p>Here are the changes in FG percentages. His FG% on corner 3's goes up, but it's on insignificant volume:</p>
-<pre>
-| BASIC_ZONE            |   hot |   cold |   diff |
-|:----------------------|------:|-------:|-------:|
-| Above the Break 3     |  34   |   37.1 |   -3.1 |
-| Corner 3              |  45   |   33   |   12   |
-| In The Paint (Non-RA) |  40.8 |   34   |    6.8 |
-| Mid-Range             |  36.3 |   34.8 |    1.5 |
-| Restricted Area       |  60.1 |   65.4 |   -5.2 |
-</pre>
-
-<h2>The rest of the league</h2>
-<p>I looked at league-wide shot selection in <em>hot</em>/<em>cold</em> situations. I restricted to the last 10 seasons, since the rise of the 3 pointer has dramatically changed shot selection. Here are changes in shot selection for all players:</p>
-<pre>
-| BASIC_ZONE            |   hot |   cold |   diff |
-|:----------------------|------:|-------:|-------:|
-| Above the Break 3     |  22.1 |   22.3 |   -0.2 |
-| Corner 3              |   6.2 |    7   |   -0.9 |
-| In The Paint (Non-RA) |  15.8 |   15.3 |    0.4 |
-| Mid-Range             |  25.3 |   23.5 |    1.8 |
-| Restricted Area       |  30.7 |   31.8 |   -1.2 |
-</pre>
-
-<p>The mid-range shot is the lowest value shot type, so it's notable that the rate goes up when players are <em>hot</em>. These additional mid ranges come at the expense of Corner 3's and Restricted Area shots, the two most valuable types of shots.</p>
-<p>As before, changes in shot selection could be justified if players actually shoot differently based on their last 5 results, but they don't. Here are the changes in shooting percentages (hot minus cold) for all players:</p>
-<pre>
-| BASIC_ZONE            |   hot |   cold |   diff |
-|:----------------------|------:|-------:|-------:|
-| Above the Break 3     |  34.7 |   35   |   -0.3 |
-| Corner 3              |  38.4 |   38.9 |   -0.4 |
-| In The Paint (Non-RA) |  41.7 |   41.2 |    0.5 |
-| Mid-Range             |  39.8 |   40.1 |   -0.3 |
-| Restricted Area       |  62.7 |   60.7 |    2   |
-</pre>
-
-<p>For 3 out of 5 shot types, the <em>hot</em> FG percentages are lower than the <em>cold</em> ones. Combined with the changes in shot selection, I think there's evidence that the league as a whole is scoring less efficiently because of the false belief in the hot hand. </p>
-<p>The data says that players are essentially trading Restricted Area (.627 * 2 = 1.25 points per shot) and Corner 3 (.384 * 3 = 1.15 points per shot) attempts for Mid-Ranges (.398 * 2 = .796 points per shot) when they think they've got the <em>hot hand</em>. That's clearly bad! If it happens once a game, that's 38 points a year lost, which might be enough to swing a game or two.</p>
-<p>The change in restricted area and in the paint (non-RA) FG% is intriguing, but if the hot hand did exist, wouldn't we see it on 3 point or mid-range shots, rather than restricted area shots? The announcer doesn't say "he's heating up" after a guy has made 3 layups in a row, they say it after 3 longer range shots in a row, right?</p>
-<h2>Higher volume players</h2>
-<p>I decided to focus on players with at least 1000 streaks, which leaves 630 players. Collectively, they are responsible for 84% of all shots in the NBA over the last 20 years.</p>
-<p>Their FG percentages are, on average, 1% lower when they are <em>hot</em> than when they are <em>cold</em>. </p>
-<p>68% of them shoot worse when they're hot than when they're cold, which is a pretty dramatic split.</p>
-<p><img alt="fg-pct-hot-cold" src="/img/fg-pct-hot-cold.png"></p>
-<p>Here's a plot of the difference between hot and cold FG% versus z-score:</p>
-<p><img alt="z-score-hot-cold" src="/img/z-score-hot-cold.png"></p>
-<p>Players with negative values on the x axis shoot better when they're cold, and positive values shoot better when they're hot.</p>
-<p>Now, there should be some correlation between z-scores and hot/cold shooting tendency. I've shown simulations where a tendency to shoot <em>better cold</em> produces unstreaky results (skewed towards positive z scores), and <em>better hot</em> will produce streaky results (negative z scores). So there should be more dots in the upper left and bottom right quadrants compared to the other diagonal.</p>
-<p>But if players behaved by coin flips, we should see roughly the same number of players with positive and negative z scores, and roughly the same number of players who shoot better when they're hot and better when they're cold.</p>
-<p>I simulated all 3.5 million shots by these players, using their career average FG% for every shot. So any streakiness or unstreakiness is going to be totally random. As you can see, the data is much less spread out across both the X and Y axis.</p>
-<p><img alt="sim-z-hot-cold" src="/img/sim-z-hot-cold.png"></p>
-<p>Here are the crosstabs from the simulation:</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>better cold</th>
-<th>better hot</th>
-<th>margin</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>positive z</td>
-<td>178</td>
-<td>135</td>
-<td>313</td>
-</tr>
-<tr>
-<td>negative z</td>
-<td>112</td>
-<td>210</td>
-<td>322</td>
-</tr>
-<tr>
-<td>margin</td>
-<td>290</td>
-<td>345</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>As promised, the marginal values are pretty close to one another. That's what happens when "better hot" vs. "better cold" and "positive z" vs. "negative z" are determined purely by chance.</p>
-<p>Here are the actual crosstabs. The marginal values are much more imbalanced.</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>better cold</th>
-<th>better hot</th>
-<th>margin</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>positive z</td>
-<td>343</td>
-<td>126</td>
-<td>469</td>
-</tr>
-<tr>
-<td>negative z</td>
-<td>88</td>
-<td>78</td>
-<td>166</td>
-</tr>
-<tr>
-<td>margin</td>
-<td>431</td>
-<td>204</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>Things to note:</p>
-<ul>
-<li>68% of the players shoot better when they're cold.</li>
-<li>74% of the players have a positive z-score.</li>
-<li>Even among players with a negative z score, the majority of them shoot better when they're cold. </li>
-<li>Even among players that shoot better when they're hot, the majority of them <em>still</em> produce results that are less streaky than expected by chance.</li>
-</ul>
-<p>That's all super weird!</p>
-<p>As always, these are just general trends. There are 78 players in the "better hot" + "negative z" box, and there should be around 210 players. We can't really say which players are the 130 "missing" players, though.</p>
-<p>That's all I've got on the hot hand in the NBA for now. I think I understand it a lot better now, and I hope you do, too. </p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/the-final-word-on-the-hot-hand-for-now.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
-                    &nbsp;<a href="/tag/the-hot-hand.html" class="tags">the hot hand</a>
                 </div>
             </article>
 

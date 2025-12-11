@@ -29,679 +29,7 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Jul 18, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/the-public-wants-what-the-public-gets.html" rel="bookmark" title="Permanent Link to &quot;The public wants what the public gets&quot;">The public wants what the public gets</a>
-                </h2>
-
-                
-                
-
-                <p>code available at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.</p>
-<p><a href="https://www.youtube.com/watch?v=AE1ct5yEuVY" target="_blank"><img alt="The Jam, &quot;Going Underground&quot;" src="https://img.youtube.com/vi/AE1ct5yEuVY/0.jpg"></a></p>
-<h3>Two types of people</h3>
-<p>Lots of sportsbooks publish info on how much <em>action</em> they've gotten on each side.</p>
-<p>Here's DraftKings':  <a href="https://dknetwork.draftkings.com/draftkings-sportsbook-betting-splits/">https://dknetwork.draftkings.com/draftkings-sportsbook-betting-splits/</a></p>
-<p>It's a smart move. It's good for SEO (to the extent that still matters). And I'm sure they get a lot of people who decide to take bets from that page. </p>
-<p>For example, the Pacers were playing Brooklyn the night I wrote this. 27% of the bets were on Brooklyn at +10.5. 73% are on Pacers -10.5.</p>
-<p>Somebody who sees that and decides to make a bet based on that information could bet either way. They could either tell themselves, "Everybody's taking the Pacers, so it must be a good bet" or "Everybody's taking the Pacers, so it must be a bad bet". </p>
-<p>What are those two groups like when they're not betting on basketball, do you think? Do they use the same kind of toothpaste? Watch the same kind of TV shows? Vote the same way?</p>
-<h3>The public gets what the public wants</h3>
-<p>One bit of gambling lore is that there are "public" teams that get bet on more frequently, regardless of the line. Like, your cousin who's a Cowboys fan is going to bet the Cowboys on Thanksgiving regardless of whether it's a fair line or not.  He'd watch the game and root for the Cowboys anyway, but it's a little more fun that way. The Cowboys aren't just a random number generator to him.</p>
-<p>There's a social aspect to gambling now that I imagine didn't exist when it was underground. Lots of gamblers will <em>follow</em> bets that other people have placed. If the bet wins, I'm sure it's a cool communal thing to be a part of. But social media often doesn't obey the <em>wisdom of crowds</em> -- in places like reddit where users vote content up and down, the conventional wisdom is going to be amplified, and people with minority opinions are going to be suppressed. If well over 90% of sports gamblers lose money long term, the majority opinions are going to be bad. </p>
-<p>I scraped betting percentage data from <a href="https://www.sportsbookreview.com/betting-odds/nba-basketball/">sportsbookreview</a> (SBR) for the 2024-5 season. They don't say where they get the betting percentages from. If I had to guess, it would be MGM Grand, their primary source of other data. The SBR numbers seemed to indicate more <em>action</em> overall than a couple other sources I found -- the betting percentages were closer together. Other sites had games where there's 10% action on one side and 90% on the other, which seems implausible on a large volume of bets. So it's probably a pretty big site, whatever it is.</p>
-<p>As with the data from the previous installment, there are 32 games out of 1230 missing data.</p>
-<p>The <code>money_percents</code> column is the median amount bet on each team. The <code>money_game_winners</code> column tracks the number of games where that team got the majority of the money bet on their side. Both of these can be taken as indicators of how much teams are favored by the public.</p>
-<p>Here are the teams sorted by money_percents. The teams near the top were less popular with gamblers, the teams at the bottom more popular.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;"></th>
-<th style="text-align: right;">winner</th>
-<th style="text-align: right;">loser</th>
-<th style="text-align: right;">ats_win_pct</th>
-<th style="text-align: right;">money_percents</th>
-<th style="text-align: right;">money_game_winners</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">New Orleans</td>
-<td style="text-align: right;">34</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">39.5</td>
-<td style="text-align: right;">20</td>
-</tr>
-<tr>
-<td style="text-align: left;">Charlotte</td>
-<td style="text-align: right;">36</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">41.5</td>
-<td style="text-align: right;">24</td>
-</tr>
-<tr>
-<td style="text-align: left;">Miami</td>
-<td style="text-align: right;">39</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">49</td>
-<td style="text-align: right;">43</td>
-<td style="text-align: right;">20</td>
-</tr>
-<tr>
-<td style="text-align: left;">Philadelphia</td>
-<td style="text-align: right;">26</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">43.5</td>
-<td style="text-align: right;">29</td>
-</tr>
-<tr>
-<td style="text-align: left;">Portland</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">58</td>
-<td style="text-align: right;">43.5</td>
-<td style="text-align: right;">25</td>
-</tr>
-<tr>
-<td style="text-align: left;">Orlando</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">29</td>
-</tr>
-<tr>
-<td style="text-align: left;">Utah</td>
-<td style="text-align: right;">39</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">33</td>
-</tr>
-<tr>
-<td style="text-align: left;">Sacramento</td>
-<td style="text-align: right;">35</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">32</td>
-</tr>
-<tr>
-<td style="text-align: left;">L.A. Clippers</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">34</td>
-<td style="text-align: right;">58</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">27</td>
-</tr>
-<tr>
-<td style="text-align: left;">San Antonio</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">31</td>
-</tr>
-<tr>
-<td style="text-align: left;">Chicago</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">36</td>
-</tr>
-<tr>
-<td style="text-align: left;">New York</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">38</td>
-</tr>
-<tr>
-<td style="text-align: left;">Phoenix</td>
-<td style="text-align: right;">29</td>
-<td style="text-align: right;">49</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">36</td>
-</tr>
-<tr>
-<td style="text-align: left;">Washington</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">49</td>
-<td style="text-align: right;">37</td>
-</tr>
-<tr>
-<td style="text-align: left;">L.A. Lakers</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">59</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">42</td>
-</tr>
-<tr>
-<td style="text-align: left;">Indiana</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">43</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">42</td>
-</tr>
-<tr>
-<td style="text-align: left;">Atlanta</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">41</td>
-</tr>
-<tr>
-<td style="text-align: left;">Boston</td>
-<td style="text-align: right;">39</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">43</td>
-</tr>
-<tr>
-<td style="text-align: left;">Minnesota</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">43</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">43</td>
-</tr>
-<tr>
-<td style="text-align: left;">Dallas</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">41</td>
-</tr>
-<tr>
-<td style="text-align: left;">Detroit</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">53</td>
-<td style="text-align: right;">43</td>
-</tr>
-<tr>
-<td style="text-align: left;">Brooklyn</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">35</td>
-<td style="text-align: right;">55</td>
-<td style="text-align: right;">53</td>
-<td style="text-align: right;">41</td>
-</tr>
-<tr>
-<td style="text-align: left;">Toronto</td>
-<td style="text-align: right;">49</td>
-<td style="text-align: right;">28</td>
-<td style="text-align: right;">64</td>
-<td style="text-align: right;">53</td>
-<td style="text-align: right;">47</td>
-</tr>
-<tr>
-<td style="text-align: left;">Golden State</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">54</td>
-<td style="text-align: right;">51</td>
-</tr>
-<tr>
-<td style="text-align: left;">Houston</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">54</td>
-<td style="text-align: right;">54</td>
-<td style="text-align: right;">49</td>
-</tr>
-<tr>
-<td style="text-align: left;">Oklahoma City</td>
-<td style="text-align: right;">53</td>
-<td style="text-align: right;">29</td>
-<td style="text-align: right;">65</td>
-<td style="text-align: right;">54.5</td>
-<td style="text-align: right;">54</td>
-</tr>
-<tr>
-<td style="text-align: left;">Milwaukee</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">54</td>
-<td style="text-align: right;">56.5</td>
-<td style="text-align: right;">56</td>
-</tr>
-<tr>
-<td style="text-align: left;">Cleveland</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">59</td>
-<td style="text-align: right;">57</td>
-<td style="text-align: right;">53</td>
-</tr>
-<tr>
-<td style="text-align: left;">Memphis</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">50</td>
-<td style="text-align: right;">57</td>
-<td style="text-align: right;">51</td>
-</tr>
-<tr>
-<td style="text-align: left;">Denver</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">58.5</td>
-<td style="text-align: right;">63</td>
-</tr>
-</tbody>
-</table>
-<h3>The public favorites</h3>
-<p>The most popular teams with NBA gamblers were Denver, Cleveland, Memphis, Milwaukee, and Oklahoma City. Denver got the most money in 63 of 82 games they played, which is remarkable.</p>
-<p>Cleveland, OKC and Memphis were dominant for most of the season.</p>
-<p>Denver and Milwaukee have two of the best and most entertaining players in the league. Both Giannis for Milwaukee and Jokic for Denver are fun to root for. People like to take bets on teams that are fun to follow. </p>
-<h3>The ugly dogs</h3>
-<p>The bottom teams were New Orleans, Charlotte, Miami, Philadelphia and Portland. All these teams except for Portland were total bummers to watch and cheer for this year. They had injuries and organizational dysfunction that led to totally wasted seasons. People don't like to take bets on teams that are a bummer to follow.</p>
-<p>This hints at the fact that a lot of people are taking bets because they want that team to win the bet, rather than because they believe the bet has a positive expected value. It's entertainment, not a business investment.</p>
-<h3>Against the spread</h3>
-<p>Here's the same data sorted by record against the spread.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;"></th>
-<th style="text-align: right;">winner</th>
-<th style="text-align: right;">loser</th>
-<th style="text-align: right;">ats_win_pct</th>
-<th style="text-align: right;">money_percents</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Philadelphia</td>
-<td style="text-align: right;">26</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">43.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Phoenix</td>
-<td style="text-align: right;">29</td>
-<td style="text-align: right;">49</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">48</td>
-</tr>
-<tr>
-<td style="text-align: left;">Washington</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">49</td>
-</tr>
-<tr>
-<td style="text-align: left;">New Orleans</td>
-<td style="text-align: right;">34</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">39.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Sacramento</td>
-<td style="text-align: right;">35</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">45</td>
-</tr>
-<tr>
-<td style="text-align: left;">Denver</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">58.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Dallas</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">52</td>
-</tr>
-<tr>
-<td style="text-align: left;">Charlotte</td>
-<td style="text-align: right;">36</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">41.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Minnesota</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">43</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">52</td>
-</tr>
-<tr>
-<td style="text-align: left;">New York</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">48</td>
-</tr>
-<tr>
-<td style="text-align: left;">Indiana</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">43</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">51</td>
-</tr>
-<tr>
-<td style="text-align: left;">Atlanta</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">52</td>
-</tr>
-<tr>
-<td style="text-align: left;">San Antonio</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">47</td>
-</tr>
-<tr>
-<td style="text-align: left;">Boston</td>
-<td style="text-align: right;">39</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">52</td>
-</tr>
-<tr>
-<td style="text-align: left;">Miami</td>
-<td style="text-align: right;">39</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">49</td>
-<td style="text-align: right;">43</td>
-</tr>
-<tr>
-<td style="text-align: left;">Memphis</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">50</td>
-<td style="text-align: right;">57</td>
-</tr>
-<tr>
-<td style="text-align: left;">Orlando</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">44</td>
-</tr>
-<tr>
-<td style="text-align: left;">Utah</td>
-<td style="text-align: right;">39</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">45</td>
-</tr>
-<tr>
-<td style="text-align: left;">Golden State</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">54</td>
-</tr>
-<tr>
-<td style="text-align: left;">Detroit</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">53</td>
-</tr>
-<tr>
-<td style="text-align: left;">Chicago</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">47</td>
-</tr>
-<tr>
-<td style="text-align: left;">Houston</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">54</td>
-<td style="text-align: right;">54</td>
-</tr>
-<tr>
-<td style="text-align: left;">Milwaukee</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">54</td>
-<td style="text-align: right;">56.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Brooklyn</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">35</td>
-<td style="text-align: right;">55</td>
-<td style="text-align: right;">53</td>
-</tr>
-<tr>
-<td style="text-align: left;">L.A. Clippers</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">34</td>
-<td style="text-align: right;">58</td>
-<td style="text-align: right;">46</td>
-</tr>
-<tr>
-<td style="text-align: left;">Portland</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">58</td>
-<td style="text-align: right;">43.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">L.A. Lakers</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">59</td>
-<td style="text-align: right;">51</td>
-</tr>
-<tr>
-<td style="text-align: left;">Cleveland</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">59</td>
-<td style="text-align: right;">57</td>
-</tr>
-<tr>
-<td style="text-align: left;">Toronto</td>
-<td style="text-align: right;">49</td>
-<td style="text-align: right;">28</td>
-<td style="text-align: right;">64</td>
-<td style="text-align: right;">53</td>
-</tr>
-<tr>
-<td style="text-align: left;">Oklahoma City</td>
-<td style="text-align: right;">53</td>
-<td style="text-align: right;">29</td>
-<td style="text-align: right;">65</td>
-<td style="text-align: right;">54.5</td>
-</tr>
-</tbody>
-</table>
-<p>Philadelphia, Washington and Phoenix were just as terrible at the sportsbook as they were on the basketball court. OKC and Cleveland had outstanding seasons in both places.</p>
-<p>However, there's only a rough correlation between how good the teams were at actual basketball, and at beating the spread. Minnesota, New York and Denver were in the bottom 10 by winning % against the spread, even though they had good records and were doing their best to win. Denver lost to the eventual champs, and New York and Minnesota made the conference finals. Indiana was the 10th worst team against the spread, and made the NBA Finals. Toronto and Brooklyn weren't really trying to win a lot of basketball games, but ended up in the top 10. There is no good reason I can think of for the Lakers to be in the top 4 against the spread -- aren't they the epitome of a public team that should be getting unfavorable lines? </p>
-<h3>Which teams should the public love and hate?</h3>
-<p>I calculated the amount of units a gambler would win or lose if they bet on each team when they got the majority of the bets.  This is a sort of measure how happy the proverbial public should be about each team.</p>
-<p><code>public_units</code> is the amount won/lost betting in favor of the team. Phoenix, Sacramento, Dallas, Denver and Indiana disappointed the public the most.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;"></th>
-<th style="text-align: right;">public_units</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Phoenix</td>
-<td style="text-align: right;">-16.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Sacramento</td>
-<td style="text-align: right;">-14.2</td>
-</tr>
-<tr>
-<td style="text-align: left;">Dallas</td>
-<td style="text-align: right;">-13.6</td>
-</tr>
-<tr>
-<td style="text-align: left;">Denver</td>
-<td style="text-align: right;">-12.6</td>
-</tr>
-<tr>
-<td style="text-align: left;">Indiana</td>
-<td style="text-align: right;">-12.6</td>
-</tr>
-<tr>
-<td style="text-align: left;">Atlanta</td>
-<td style="text-align: right;">-11.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Utah</td>
-<td style="text-align: right;">-11.1</td>
-</tr>
-<tr>
-<td style="text-align: left;">Chicago</td>
-<td style="text-align: right;">-10.2</td>
-</tr>
-<tr>
-<td style="text-align: left;">Minnesota</td>
-<td style="text-align: right;">-9.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Detroit</td>
-<td style="text-align: right;">-7.4</td>
-</tr>
-<tr>
-<td style="text-align: left;">Philadelphia</td>
-<td style="text-align: right;">-6.7</td>
-</tr>
-<tr>
-<td style="text-align: left;">New York</td>
-<td style="text-align: right;">-6.1</td>
-</tr>
-<tr>
-<td style="text-align: left;">Brooklyn</td>
-<td style="text-align: right;">-5.2</td>
-</tr>
-<tr>
-<td style="text-align: left;">Washington</td>
-<td style="text-align: right;">-5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Boston</td>
-<td style="text-align: right;">-3.2</td>
-</tr>
-<tr>
-<td style="text-align: left;">New Orleans</td>
-<td style="text-align: right;">-3.1</td>
-</tr>
-<tr>
-<td style="text-align: left;">Memphis</td>
-<td style="text-align: right;">-1.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Charlotte</td>
-<td style="text-align: right;">-1.2</td>
-</tr>
-<tr>
-<td style="text-align: left;">Miami</td>
-<td style="text-align: right;">-1</td>
-</tr>
-<tr>
-<td style="text-align: left;">San Antonio</td>
-<td style="text-align: right;">-0.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Orlando</td>
-<td style="text-align: right;">-0.4</td>
-</tr>
-<tr>
-<td style="text-align: left;">Milwaukee</td>
-<td style="text-align: right;">1.4</td>
-</tr>
-<tr>
-<td style="text-align: left;">Golden State</td>
-<td style="text-align: right;">2.7</td>
-</tr>
-<tr>
-<td style="text-align: left;">L.A. Lakers</td>
-<td style="text-align: right;">4.2</td>
-</tr>
-<tr>
-<td style="text-align: left;">Houston</td>
-<td style="text-align: right;">4.9</td>
-</tr>
-<tr>
-<td style="text-align: left;">Cleveland</td>
-<td style="text-align: right;">6.8</td>
-</tr>
-<tr>
-<td style="text-align: left;">Portland</td>
-<td style="text-align: right;">10.3</td>
-</tr>
-<tr>
-<td style="text-align: left;">Toronto</td>
-<td style="text-align: right;">11.3</td>
-</tr>
-<tr>
-<td style="text-align: left;">L.A. Clippers</td>
-<td style="text-align: right;">12.3</td>
-</tr>
-<tr>
-<td style="text-align: left;">Oklahoma City</td>
-<td style="text-align: right;">18.3</td>
-</tr>
-</tbody>
-</table>
-<p>This is a pretty random list of teams, in both directions. It's a good illustration that gamblingball is different from basketball. It's not clear whether gamblingball is a game with an element of skill, or if it's all chance.</p>
-<h3>Are records against the spread due to chance?</h3>
-<p>If we assume that all variations are due to randomess, each game should be a coin flip whether the underdog or favorite wins against the spread.</p>
-<p>Calculating exact odds using the binomial distribution, 94% of NBA teams should have between 33 and 49 wins against the spread over an 82 game season.</p>
-<p>We'd expect 2 teams to be outside that range, and there are 3. Philadelphia went 26-52 in 78 games we have data for. Even if they won the other 4 games that are missing data, they'd only have 30 wins. So that record was definitely an outlier, but overall the season was about what we'd expect based on chance.</p>
-<p>I find it very believable that some teams are more likely to have a winning record against the spread, because they are underestimated by the handicappers or the betting public. They end up getting lines that are too generous, and thus do better than expected against the spread over the long run. Toronto could be an example of that. They were bad, but they weren't really as bad as people thought.</p>
-<p>Other teams could be inherently worse against the spread, as well. Perhaps they are super popular to bet on, so the lines tend to move against them -- a <em>public team</em>. Or perhaps gamblers and sportsbooks overvalue the team -- the conventional wisdom is that they'll be good when they're not. That definitely describes Philadelphia and Phoenix.</p>
-<p>In both cases, <em>the teams themselves</em> aren't necessarily doing anything to be better or worse against the spread than an average team would be. It's about the perceptions of the bookmakers and gamblers. Teams can't help what bookmakers set the lines to be.</p>
-<h3>Do gamblers follow the record against the spread?</h3>
-<p>If a team's record against the spread is due solely to random error, then we've got a <a href="/LeSimulation.html">LeMartingale</a> on our hands. The current record would have no bearing on the future record. So gamblers shouldn't factor it in when deciding to take a bet or not.</p>
-<p>By the end of the season, there was a significant correlation between money percents and win percentage against the spread. I wanted to see how that might've changed over time. So I generated the table shown above for every single day of the season, and calculated the correlation on that day.  Here's what that looks like over time:</p>
-<p><img alt="/img/money-ats-win-pct.png" src="/img/money-ats-win-pct.png"></p>
-<p>The money percentages are cumulative, the mean of all games in the season that have come before -- it's not showing gamblers' betting behavior on a particular day. The graph is a lot smoother that way, but we're losing something.</p>
-<p>It also doesn't show whether records against the spread are a Martingale or not. The correlation between betting percentages and win records increases over time, but that doesn't mean this is because gamblers are behaving <em>rationally</em>. </p>
-<p>The jump in correlation around mid-Februrary corresponds to the All-Star break, which is curious.</p>
-<p>Stay tuned; I'll have more on this.</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/the-public-wants-what-the-public-gets.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
-                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
-                </div>
-            </article>            <h4 class="date">Jul 24, 2025</h4>
+        <div id="content">            <h4 class="date">Jul 24, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -2336,6 +1664,98 @@ line shopping: +57</p>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
                     &nbsp;<a href="/tag/bajillion.html" class="tags">bajillion</a>
+                </div>
+            </article>            <h4 class="date">Dec 10, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/free-throws-and-opportunity-costs.html" rel="bookmark" title="Permanent Link to &quot;Free throws and opportunity costs&quot;">Free throws and opportunity costs</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=jpdiMcEeTJA" target="_blank"><img alt="Delia Derbyshire - Pot Au Feu (1968)" src="https://img.youtube.com/vi/jpdiMcEeTJA/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=jpdiMcEeTJA" target="_blank">Delia Derbyshire - Pot Au Feu (1968)</a></p>
+<h2>The Bucks</h2>
+<p>There's a lot of buzz around the Milwaukee Bucks right now because their star player has asked to be traded, but I'm gonna stick to the math. The NBA take-industrial complex has got the Giannis situation covered, and I do math better than drama.</p>
+<p>I noted a few weeks ago that the Bucks make a surprisingly low number of free throws given that they have a guy with one of the highest free throw rates in the league. They're also bad on defense and end up fouling a lot. That's a bad combination.</p>
+<p>As of December 5th, the Bucks are dead last in free throws made (14.4 per game) and 6th worst in free throws made by the other team (21.3 per game). Aren't they essentially having to play every game with a 6.9 point handicap? </p>
+<p>Although it's an intuitively simple way of looking at things, it's too simple. Basketball strategy is a series of tradeoffs. There are a lot of "good" numbers -- stats that correlate with more wins -- but it's usually hard to make one <em>good</em> number go up without a <em>bad</em> number going up, or another <em>good</em> number going down, in response.</p>
+<p>I'm looking at the last 25 years of team data from nba.com/stats.</p>
+<h2>Things to remember about free throws</h2>
+<p>There are complications to analyzing free throws because they're not a fixed quantity. Some fans will see a game where one team gets 20 free throws and the other team gets 35, and take it as evidence that the refs were biased. That's naive -- some players/teams foul more on defense, some players/teams take more <em>foul-worthy</em> shots on on offense, and there's plenty of random variation form game to game. It would be weird if every team committed exactly 30 fouls every single game.</p>
+<p>There's seasonality to foul calls as well. On top of formal rule changes, the NBA issues <em>points of emphasis</em> for its officials each year, which change how the rules are interpreted. Certain types of fouls may be emphasized, or de-emphasized. It's hard to find a formal record of these de facto rule changes, but as a fan, I've seen it several times. For instance, <a href="/overs-money-lines-and-pigeonholes.html">I previously talked about</a> the middle of the 2023 season, where the league told officials to stop calling so many fouls in general, without telling teams or the general public. </p>
+<p>There was another shift in the early 2010's where the officials quit calling so many fouls caused by the actions of the shooter rather than the defender. A shooter can shoot in a somewhat artificial way to ensnare the defender's arms. This type of grifting still exists in the league -- looking at you, James Harden -- but the league reduced the number of cheap fouls called in the early 2010's. I couldn't find exactly when they formally made the proclamation, but we can see a big shift in the free throw data after the 2010-11 season.</p>
+<p><img alt="/img/made-ft.png" src="/img/made-ft.png"></p>
+<p>The current season has been more like the NBA from 2004-2010, at over 39 made free throws a game. However, there's a lot more scoring now, so free throws are a smaller percentage of a team's total points:</p>
+<p><img alt="/img/points-off-ft.png" src="/img/points-off-ft.png"></p>
+<h2>Do free throw differentials matter?</h2>
+<p>Of course, there's going to be a lot more variance in the 20 games of this season when compared to a full 82 games.</p>
+<p>The Bucks' free throw differential of -6.9 (<em>not nice</em>) would be by far the worst of the last 25 years, if it held for the whole season. The Celtics' current differential of -6.3 also stands out. </p>
+<p>90% of NBA seasons are between the two white lines. We'd expect there to be 3 outliers by the end of the season, instead of 7.</p>
+<p><img alt="/img/ft-diff-season.png" src="/img/ft-diff-season.png"></p>
+<p>Some of the differential is due to chance. We should charitably assume that referees make random errors when calling or not calling fouls. Refs can make both Type I errors (fouls they shouldn't have called) and Type II errors (fouls they should have called and missed). Some teams will get called for more fouls than other teams, due to randomness, rather than conspiracy. Over a larger sample size, the refereeing luck will even out.</p>
+<p>Free throw differential is positively correlated with winning.</p>
+<p><img alt="/img/ftm-diff-win-pct.png" src="/img/ftm-diff-win-pct.png"></p>
+<p>The diagonal line is the overall trendline. Even though it's a positive trend, the teams with some of the biggest positive and negative differentials are close to .500 win percentage. This is a good example of why it's important to visualize data, not just look at the correlation. The bigger picture shows it's good to have a positive free throw point differential, but not a magic ticket to winning.</p>
+<h2>Do referees try to keep fouls roughly even?</h2>
+<p>It's possible referees have an unconscious bias towards calling an even number of fouls on both teams. There's certainly a correlation between more free throws made and more free throws given up to the other team.</p>
+<p><img alt="/img/ftm-vs-opponent.png" src="/img/ftm-vs-opponent.png"></p>
+<p>However, this overall picture is misleading. The number of fouls called per game goes up and down season-to-season based on rule changes and <em>points of emphasis</em>. So from year to year, the center of all the dots should move up and down along the diagonal line <code>FTM=Opponent FTM</code>. So we should expect a positive correlation overall that isn't necessarily there in the individual seasons -- an example of <a href="https://en.wikipedia.org/wiki/Simpson's_paradox">Simpson's paradox</a>.</p>
+<p>Here's an animation of the correlations year-by-year:</p>
+<p><img alt="/img/ftm-scatter.gif" src="/img/ftm-scatter.gif"></p>
+<p>A lot of seasons, the trendline is basically flat. But plotting correlations year by year, there are a lot more positive years than negative.</p>
+<p><img alt="/img/corr-ftm.png" src="/img/corr-ftm.png"></p>
+<p>So I do think it's possible that refs call more fouls on teams that get fouled a lot, a conscious or subconscious bias towards <em>fairness</em>. Or perhaps, teams that play physical on offense also tend to play physical on defense as well. We'd need to look at individual games -- we're not going to see evidence of that in the yearly averages.</p>
+<h2>Basketball strategy and opportunity cost</h2>
+<p>The opponent's number of free throws made has a higher correlation with winning percentage (<code>r=-0.260</code>) than a team's number of free throws made (<code>r=0.153</code>). If it were possible to make such a binary tradeoff, the Bucks would be better off trying to foul the other team less, rather than trying to draw more fouls. That's especially true given the Bucks are the best 3 point shooting team in the league -- drawing more fouls would mean fewer 3 point attempts. They have the 2nd highest eFG%, so they're already making the most of their shot attempts. </p>
+<p>Why isn't their offense better overall? One big reason is their offensive rebounding rate is the lowest in the league. They score the fewest 2nd chance points in the league, at only 10.5 2nd chance points a game, versus 18 a game for the top teams. Does that mean another de facto 7 point handicap?</p>
+<p>Not necessarily, because offensive rebounding rate is a schematic choice. Do the bigs try to get the rebound (<em>crash the boards</em>), or do they try to hustle back and play defense? Teams coached by Doc Rivers tend to have low offensive rebounding rates. The "Lob City" Clippers were a great rebounding team, yet in their heyday from 2014-2018, they were 21st, 28th, 29th, and 24th in offensive rebounding, so it's not surprising the Bucks have that same tendency.</p>
+<p>The Thunder have the 3rd fewest second chance points, so a team can definitely be elite and not get a lot of offensive rebounds. But unlike the Thunder, the Bucks are bad on defense (22nd in defensive rating) and foul way too much, so they're not in a good place to make defense their identity. If this were NBA 2K, I'd probably move the "crash the boards" slider to the left for the Bucks and see what happens, because the Bucks are closer to being elite on the offensive end. There's more to build on.</p>
+<p>There is only a very slightly positive correlation in 2nd chance point differential and winning percentage. It's a bad predictor of team success.</p>
+<p><img alt="/img/2nd-chance-diff.png" src="/img/2nd-chance-diff.png"></p>
+<h2>The Nets are fun... for now</h2>
+<p>The Brooklyn Nets had a bunch of draft picks and cap space going into this offseason, and they didn't seem to maximize those resources. A lot of people didn't like the trade they made for Michael Porter Jr., which got the Denver Nuggets out of salary cap hell in exchange for a fairly small return. The Nets were the only team in the league with the financial flexibility to take on bad contracts, so they probably could have gotten more.</p>
+<p>They also didn't trade any of the five first round picks they accumulated in this year's draft. Why didn't they trade some of them for future picks? The conventional wisdom is that teams shouldn't try to develop too many rookies at once. What's a team supposed to do with five rookies (two of whom are teenagers), with some overlap in the positions they play?</p>
+<p>Well for one thing, they're supposed to be terrible. The Nets have been bottoming out for a while, and I doubt that will stop this season. Catch them in the next few weeks while they're sort of trying to win games, if you're curious. They've won 3 out of their last 4 games and they've been entertaining. They were fun for a few weeks at this point in the season last year, too. </p>
+<p>The front office will probably try to trade away their best players over the next couple of months. But right now, MPJ is a good stats/bad team All-Star, Nic Claxton is solid as always, rookie Danny Wolf is already a fan favorite, and a couple other rookies show promise. </p>
+<p>As fun as they are, I'm not totally encouraged by the Nets' approach to rebuilding. As always, I'm a lot more concerned with process than outcomes, because the process can be controlled. It seems like their idea is that if they draft enough first rounders, inevitably some of them will be good. It's treating players like lotto scratch tickets -- players are inherently winners or losers, and it's the front office's job to play the perentages.</p>
+<p>That's bad process to me. Players are more like a packet of seeds. The final result is heavily dependent on how and where they are grown. The same seed grown in two different environments can give two very different results. Some seeds are better than others, but without the right environment, even the best seeds won't grow to their maximum potential. It will be a few years before we can see what sort of trees they're growing in Brooklyn.</p>
+<h2>The Mathletix Bajillion, week whatever</h2>
+<p>As usual, one set of picks is algorithmic, the other is random. </p>
+<p>Mathletix won the week, with a total record of 6-4 versus the Ringer's 10-15 record (their website incorrectly lists <em>The Handicapos</em> as going 5-0 when they actually went 4-1. No, I'm not petty enough to email them about it.)  The Ringer currently has 3 teams at 33-37 and 2 teams at 31-39, for a cumulative record of 161-189 (46.0% winning rate). Of course, some of the Ringer's picks contradict each other -- one Ringer team taking the home team, and another taking the away team. Removing the bets where Ringer teams contradicted each other would probably yield an ever lower winning percentage, because taking both sides of a bet has a winning percentage of 50%, which is better than the Ringer's overall win rate.</p>
+<p>Someone taking the opposite of every one of the Ringer experts' picks would be up 11.9 units on the year, for a +3.4% rate of return.</p>
+<p><em>Lines taken Wednesday morning</em></p>
+<h3>The Neil McAul-Stars</h3>
+<p>last week: 4-1, +304  <br>
+Overall: 15-10, +480  <br>
+line shopping: +80    </p>
+<ul>
+<li>CIN +2.5 -101 (lowvig)</li>
+<li>NYG -2 -110 (hard rock)</li>
+<li>MIA +3.5 -105 (lowvig)</li>
+<li>BUF PK -110 (lowvig)</li>
+<li>NYJ +13.5 -105 (prophetX)</li>
+</ul>
+<h3>The Vincent Hand-Eggs</h3>
+<p>last week: 2-3, -108  <br>
+Overall: 9-15-1, -671  <br>
+line shopping: +79    </p>
+<ul>
+<li>PHI -11.5 -105 (lowvig)</li>
+<li>DET +6 -105 (lowvig)</li>
+<li>WAS +2.5 +105 (prophetX)</li>
+<li>KC -4.5 -109 (prophetX)</li>
+<li>CIN +2.5 -101 (lowvig)</li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/free-throws-and-opportunity-costs.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/nba.html" rel="tag">NBA</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
                 </div>
             </article>
 

@@ -30,7 +30,99 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Dec 02, 2025</h4>
+        <div id="content">            <h4 class="date">Dec 10, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/free-throws-and-opportunity-costs.html" rel="bookmark" title="Permanent Link to &quot;Free throws and opportunity costs&quot;">Free throws and opportunity costs</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=jpdiMcEeTJA" target="_blank"><img alt="Delia Derbyshire - Pot Au Feu (1968)" src="https://img.youtube.com/vi/jpdiMcEeTJA/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=jpdiMcEeTJA" target="_blank">Delia Derbyshire - Pot Au Feu (1968)</a></p>
+<h2>The Bucks</h2>
+<p>There's a lot of buzz around the Milwaukee Bucks right now because their star player has asked to be traded, but I'm gonna stick to the math. The NBA take-industrial complex has got the Giannis situation covered, and I do math better than drama.</p>
+<p>I noted a few weeks ago that the Bucks make a surprisingly low number of free throws given that they have a guy with one of the highest free throw rates in the league. They're also bad on defense and end up fouling a lot. That's a bad combination.</p>
+<p>As of December 5th, the Bucks are dead last in free throws made (14.4 per game) and 6th worst in free throws made by the other team (21.3 per game). Aren't they essentially having to play every game with a 6.9 point handicap? </p>
+<p>Although it's an intuitively simple way of looking at things, it's too simple. Basketball strategy is a series of tradeoffs. There are a lot of "good" numbers -- stats that correlate with more wins -- but it's usually hard to make one <em>good</em> number go up without a <em>bad</em> number going up, or another <em>good</em> number going down, in response.</p>
+<p>I'm looking at the last 25 years of team data from nba.com/stats.</p>
+<h2>Things to remember about free throws</h2>
+<p>There are complications to analyzing free throws because they're not a fixed quantity. Some fans will see a game where one team gets 20 free throws and the other team gets 35, and take it as evidence that the refs were biased. That's naive -- some players/teams foul more on defense, some players/teams take more <em>foul-worthy</em> shots on on offense, and there's plenty of random variation form game to game. It would be weird if every team committed exactly 30 fouls every single game.</p>
+<p>There's seasonality to foul calls as well. On top of formal rule changes, the NBA issues <em>points of emphasis</em> for its officials each year, which change how the rules are interpreted. Certain types of fouls may be emphasized, or de-emphasized. It's hard to find a formal record of these de facto rule changes, but as a fan, I've seen it several times. For instance, <a href="/overs-money-lines-and-pigeonholes.html">I previously talked about</a> the middle of the 2023 season, where the league told officials to stop calling so many fouls in general, without telling teams or the general public. </p>
+<p>There was another shift in the early 2010's where the officials quit calling so many fouls caused by the actions of the shooter rather than the defender. A shooter can shoot in a somewhat artificial way to ensnare the defender's arms. This type of grifting still exists in the league -- looking at you, James Harden -- but the league reduced the number of cheap fouls called in the early 2010's. I couldn't find exactly when they formally made the proclamation, but we can see a big shift in the free throw data after the 2010-11 season.</p>
+<p><img alt="/img/made-ft.png" src="/img/made-ft.png"></p>
+<p>The current season has been more like the NBA from 2004-2010, at over 39 made free throws a game. However, there's a lot more scoring now, so free throws are a smaller percentage of a team's total points:</p>
+<p><img alt="/img/points-off-ft.png" src="/img/points-off-ft.png"></p>
+<h2>Do free throw differentials matter?</h2>
+<p>Of course, there's going to be a lot more variance in the 20 games of this season when compared to a full 82 games.</p>
+<p>The Bucks' free throw differential of -6.9 (<em>not nice</em>) would be by far the worst of the last 25 years, if it held for the whole season. The Celtics' current differential of -6.3 also stands out. </p>
+<p>90% of NBA seasons are between the two white lines. We'd expect there to be 3 outliers by the end of the season, instead of 7.</p>
+<p><img alt="/img/ft-diff-season.png" src="/img/ft-diff-season.png"></p>
+<p>Some of the differential is due to chance. We should charitably assume that referees make random errors when calling or not calling fouls. Refs can make both Type I errors (fouls they shouldn't have called) and Type II errors (fouls they should have called and missed). Some teams will get called for more fouls than other teams, due to randomness, rather than conspiracy. Over a larger sample size, the refereeing luck will even out.</p>
+<p>Free throw differential is positively correlated with winning.</p>
+<p><img alt="/img/ftm-diff-win-pct.png" src="/img/ftm-diff-win-pct.png"></p>
+<p>The diagonal line is the overall trendline. Even though it's a positive trend, the teams with some of the biggest positive and negative differentials are close to .500 win percentage. This is a good example of why it's important to visualize data, not just look at the correlation. The bigger picture shows it's good to have a positive free throw point differential, but not a magic ticket to winning.</p>
+<h2>Do referees try to keep fouls roughly even?</h2>
+<p>It's possible referees have an unconscious bias towards calling an even number of fouls on both teams. There's certainly a correlation between more free throws made and more free throws given up to the other team.</p>
+<p><img alt="/img/ftm-vs-opponent.png" src="/img/ftm-vs-opponent.png"></p>
+<p>However, this overall picture is misleading. The number of fouls called per game goes up and down season-to-season based on rule changes and <em>points of emphasis</em>. So from year to year, the center of all the dots should move up and down along the diagonal line <code>FTM=Opponent FTM</code>. So we should expect a positive correlation overall that isn't necessarily there in the individual seasons -- an example of <a href="https://en.wikipedia.org/wiki/Simpson's_paradox">Simpson's paradox</a>.</p>
+<p>Here's an animation of the correlations year-by-year:</p>
+<p><img alt="/img/ftm-scatter.gif" src="/img/ftm-scatter.gif"></p>
+<p>A lot of seasons, the trendline is basically flat. But plotting correlations year by year, there are a lot more positive years than negative.</p>
+<p><img alt="/img/corr-ftm.png" src="/img/corr-ftm.png"></p>
+<p>So I do think it's possible that refs call more fouls on teams that get fouled a lot, a conscious or subconscious bias towards <em>fairness</em>. Or perhaps, teams that play physical on offense also tend to play physical on defense as well. We'd need to look at individual games -- we're not going to see evidence of that in the yearly averages.</p>
+<h2>Basketball strategy and opportunity cost</h2>
+<p>The opponent's number of free throws made has a higher correlation with winning percentage (<code>r=-0.260</code>) than a team's number of free throws made (<code>r=0.153</code>). If it were possible to make such a binary tradeoff, the Bucks would be better off trying to foul the other team less, rather than trying to draw more fouls. That's especially true given the Bucks are the best 3 point shooting team in the league -- drawing more fouls would mean fewer 3 point attempts. They have the 2nd highest eFG%, so they're already making the most of their shot attempts. </p>
+<p>Why isn't their offense better overall? One big reason is their offensive rebounding rate is the lowest in the league. They score the fewest 2nd chance points in the league, at only 10.5 2nd chance points a game, versus 18 a game for the top teams. Does that mean another de facto 7 point handicap?</p>
+<p>Not necessarily, because offensive rebounding rate is a schematic choice. Do the bigs try to get the rebound (<em>crash the boards</em>), or do they try to hustle back and play defense? Teams coached by Doc Rivers tend to have low offensive rebounding rates. The "Lob City" Clippers were a great rebounding team, yet in their heyday from 2014-2018, they were 21st, 28th, 29th, and 24th in offensive rebounding, so it's not surprising the Bucks have that same tendency.</p>
+<p>The Thunder have the 3rd fewest second chance points, so a team can definitely be elite and not get a lot of offensive rebounds. But unlike the Thunder, the Bucks are bad on defense (22nd in defensive rating) and foul way too much, so they're not in a good place to make defense their identity. If this were NBA 2K, I'd probably move the "crash the boards" slider to the left for the Bucks and see what happens, because the Bucks are closer to being elite on the offensive end. There's more to build on.</p>
+<p>There is only a very slightly positive correlation in 2nd chance point differential and winning percentage. It's a bad predictor of team success.</p>
+<p><img alt="/img/2nd-chance-diff.png" src="/img/2nd-chance-diff.png"></p>
+<h2>The Nets are fun... for now</h2>
+<p>The Brooklyn Nets had a bunch of draft picks and cap space going into this offseason, and they didn't seem to maximize those resources. A lot of people didn't like the trade they made for Michael Porter Jr., which got the Denver Nuggets out of salary cap hell in exchange for a fairly small return. The Nets were the only team in the league with the financial flexibility to take on bad contracts, so they probably could have gotten more.</p>
+<p>They also didn't trade any of the five first round picks they accumulated in this year's draft. Why didn't they trade some of them for future picks? The conventional wisdom is that teams shouldn't try to develop too many rookies at once. What's a team supposed to do with five rookies (two of whom are teenagers), with some overlap in the positions they play?</p>
+<p>Well for one thing, they're supposed to be terrible. The Nets have been bottoming out for a while, and I doubt that will stop this season. Catch them in the next few weeks while they're sort of trying to win games, if you're curious. They've won 3 out of their last 4 games and they've been entertaining. They were fun for a few weeks at this point in the season last year, too. </p>
+<p>The front office will probably try to trade away their best players over the next couple of months. But right now, MPJ is a good stats/bad team All-Star, Nic Claxton is solid as always, rookie Danny Wolf is already a fan favorite, and a couple other rookies show promise. </p>
+<p>As fun as they are, I'm not totally encouraged by the Nets' approach to rebuilding. As always, I'm a lot more concerned with process than outcomes, because the process can be controlled. It seems like their idea is that if they draft enough first rounders, inevitably some of them will be good. It's treating players like lotto scratch tickets -- players are inherently winners or losers, and it's the front office's job to play the perentages.</p>
+<p>That's bad process to me. Players are more like a packet of seeds. The final result is heavily dependent on how and where they are grown. The same seed grown in two different environments can give two very different results. Some seeds are better than others, but without the right environment, even the best seeds won't grow to their maximum potential. It will be a few years before we can see what sort of trees they're growing in Brooklyn.</p>
+<h2>The Mathletix Bajillion, week whatever</h2>
+<p>As usual, one set of picks is algorithmic, the other is random. </p>
+<p>Mathletix won the week, with a total record of 6-4 versus the Ringer's 10-15 record (their website incorrectly lists <em>The Handicapos</em> as going 5-0 when they actually went 4-1. No, I'm not petty enough to email them about it.)  The Ringer currently has 3 teams at 33-37 and 2 teams at 31-39, for a cumulative record of 161-189 (46.0% winning rate). Of course, some of the Ringer's picks contradict each other -- one Ringer team taking the home team, and another taking the away team. Removing the bets where Ringer teams contradicted each other would probably yield an ever lower winning percentage, because taking both sides of a bet has a winning percentage of 50%, which is better than the Ringer's overall win rate.</p>
+<p>Someone taking the opposite of every one of the Ringer experts' picks would be up 11.9 units on the year, for a +3.4% rate of return.</p>
+<p><em>Lines taken Wednesday morning</em></p>
+<h3>The Neil McAul-Stars</h3>
+<p>last week: 4-1, +304  <br>
+Overall: 15-10, +480  <br>
+line shopping: +80    </p>
+<ul>
+<li>CIN +2.5 -101 (lowvig)</li>
+<li>NYG -2 -110 (hard rock)</li>
+<li>MIA +3.5 -105 (lowvig)</li>
+<li>BUF PK -110 (lowvig)</li>
+<li>NYJ +13.5 -105 (prophetX)</li>
+</ul>
+<h3>The Vincent Hand-Eggs</h3>
+<p>last week: 2-3, -108  <br>
+Overall: 9-15-1, -671  <br>
+line shopping: +79    </p>
+<ul>
+<li>PHI -11.5 -105 (lowvig)</li>
+<li>DET +6 -105 (lowvig)</li>
+<li>WAS +2.5 +105 (prophetX)</li>
+<li>KC -4.5 -109 (prophetX)</li>
+<li>CIN +2.5 -101 (lowvig)</li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/free-throws-and-opportunity-costs.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/nba.html" rel="tag">NBA</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
+                </div>
+            </article>            <h4 class="date">Dec 02, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -1643,62 +1735,6 @@ line shopping: +6</p>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
                     &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
-                </div>
-            </article>            <h4 class="date">Sep 23, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/primes-and-self-similarity.html" rel="bookmark" title="Permanent Link to &quot;Primes and self-similarity&quot;">Primes and self-similarity</a>
-                </h2>
-
-                
-                
-
-                <p><a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank"><img alt="John Hollenbeck &amp; NDR Big Band, &quot;Entitlement&quot;" src="https://img.youtube.com/vi/ncmIlVdL8po/0.jpg"></a></p>
-<p>Song: <a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank">John Hollenbeck &amp; NDR Big Band, "Entitlement"</a></p>
-<p>I've been messing around with prime numbers, because there are several places where they intersect with both <a href="/do-you-wanna-win.html">random walks</a> and the <a href="/riding-the-waves.html">arcsine distribution</a>.  It's going to take a while to finally tie that bow, though.</p>
-<p>So it's a quick one this week: a kinda-cool story, and a kinda-cool graph.</p>
-<h3>Random Primes</h3>
-<p>The prime numbers are simple to find, but not easy. They're not randomly distributed, but it's hard to come up with easy ways to find them, and they act like random numbers in certain ways.  Why is 47 prime and 57 non-prime? You can't really tell just by looking.</p>
-<p>To find the primes, we can write down every number from, say, 1 to 1000. Then we cross out 2, and every number divisible by 2 (4, 6, 8, etc.). Repeat that with 3 (6, 9, 12, etc.), and so on. The numbers left behind are prime. This is the famous <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes</a> -- it's a tedious way to find prime numbers, but it's by far the easiest to understand.</p>
-<p>The sieve gave mathematician David Hawkins an idea [1]: what about doing that same process, but randomly?  For each number, flip a coin, if it comes up heads, cross the number out. That will eliminate half of the numbers on the first pass. Take the lowest number <code>k</code> that remains and eliminate each of the remaining numbers with probability <code>1/k</code>. Say it's 4. For each remaining number, we flip a 4 sided die and if it comes up 4, we cross it out. </p>
-<p>If we go through all the numbers, what's left over won't look like real prime numbers -- there should be as many even fake primes as odd ones, for starters. But the remaining numbers will be as sparse as the actual prime numbers. As the sample size N heads to infinity, the chances of a random number being a real prime, and being a fake prime, are the same -- <code>1/log(N)</code>.</p>
-<p>This is a brilliant way to figure out what we know about prime numbers are due to their density, and what are due to other, seemingly more magical (but still non-random) factors. </p>
-<p>Several characteristics of real primes apply to the random primes. And tantalizingly, things that can't be proven about real primes can be proven about the fake ones. It's been conjectured that there are infinitely many pairs of twin primes -- primes that are separated by 2 numbers. An example would be 5 and 7, or 11 and 13. It makes sense for a lot of reasons that there should be an infinite number of twin primes.  But mathematicians have been trying to prove it for over 150 years, without success.</p>
-<p>Random primes can be odd or even, so the analogy to twin primes would be two random primes that are only one apart, say 5 and 6. It's relatively simple to prove that there are an infinite number of random twin primes [2]. That could easily be fool's gold -- treating the primes like they're randomly distributed gives mathematicians a whole toolbox of statistical techniques to use on them, but they're not random, or arbitrary. They're perfectly logical, and yet still inscrutible, hidden in plain sight.</p>
-<h3>Largest prime factors of composite numbers</h3>
-<p>I was intrigued by the largest prime factor of composite (non-prime) numbers. Are there any patterns?</p>
-<p>As background, every number can be split into a unique set of prime factors. For instance, the number 24 can be factored into <code>24 = 8 * 3 = 2 * 2 * 2 * 3</code>. Let's say we knock off the biggest prime factor. We get: <code>2 * 2 * 2 = 8</code>. The raw numbers rapidly get too big, so I looked at the log of the ratio:</p>
-<p><img alt="/img/logratios100k.png" src="/img/logratios100k.png"></p>
-<p>The red curve is the distribution of the first 100,000 composite numbers, the orange is the next 100,000 composite numbers, and so on. </p>
-<p>What if we bump up an order of magnitude? This time, the red curve is the first million composite numbers, the orange is the next million, and so on. Here's what that looks like:</p>
-<p><img alt="/img/logratios1M.png" src="/img/logratios1M.png"></p>
-<p>Pretty much the same graph, right? The X axis is different, but the shapes are very similar to the first one. </p>
-<p>Let's go another order of magnitude up. The first 10,000,000 versus the next 10,000,000, and so on?</p>
-<p><img alt="/img/logratios10M.png" src="/img/logratios10M.png"></p>
-<p>We get the same basic shapes again! The self-similarity is kinda cool. Is it possible to come up with some function for the distribution for this quantity? You tell me.</p>
-<h3>The perils of interpolation</h3>
-<p>These graphs are flawed. I'm generating these graphs using Kernel Density Estimation, a technique for visualizing the density of data. Histograms, another common way, can be misleading. The choice of bin size can radically alter what the histogram looks like.</p>
-<p>But KDE can also be misleading. These graphs make it look like the curve starts at zero.  That's not true. The minimum possible value happens when a number is of the form <code>2*p</code>, where p is a prime -- the value will be <code>log(2)</code>, about .693.</p>
-<p>This data is actually way <em>chunkier</em> than KDE is treating it.  Every point of data is the log of a whole number. So there aren't that many unique values. For instance, between 0 and 1 on the X axis, there's only one possible value -- <code>log(2)</code>. Between 1 and 3, there are only 18 possible values, <code>log(2)</code> thru <code>log(19)</code> -- those being the only integers with a <code>log</code> less than 3 and greater than 1.</p>
-<p>This makes it hard to visualize the data accurately. There are too many possible values to display each one individually, but not enough for KDE's smoothing to be appropriate.</p>
-<p>The <em>kernel</em> in Kernel Density Estimation is the algorithm used to smooth the data --  it's basically a moving average that assumes something about the distribution of the data. People usually use the Gaussian kernel, which treats the data like a normal distribution -- smooth and bell curvy. A better choice for chunky data is the <em>tophat</em> kernel, which treats the space between points like a uniform distribution -- in other words, a flat line. If the sparseness of the data on the X axis were due to a small sample size, the tophat kernel would display plateaus that aren't in the real data. But here, I calculated data for the first 100 Million numbers, so there's no lack of data. The sparseness of the data is by construction. <code>log(2)</code> will be the only value between 0 and 1, no matter how many numbers we go up to. So the left side of the graph <em>should</em> look fairly chunky.</p>
-<p>The tophat kernel does a much better job of conveying the non-smoothness of the distribution:</p>
-<p><img alt="/img/tophat.png" src="/img/tophat.png"></p>
-<h3>References</h3>
-<p>[1] https://chance.dartmouth.edu/chance_news/recent_news/chance_primes_chapter2.html</p>
-<p>[2] for sufficiently large values of <em>simple</em></p>
-<p>[3] https://scikit-learn.org/stable/auto_examples/neighbors/plot_kde_1d.html</p>
-<p>[4] https://en.wikipedia.org/wiki/Kernel_density_estimation</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/primes-and-self-similarity.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/math.html" rel="tag">math</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/number-theory.html" class="tags">number theory</a>
-                    &nbsp;<a href="/tag/machine-learning.html" class="tags">machine learning</a>
-                    &nbsp;<a href="/tag/some-educational-value.html" class="tags">some educational value</a>
                 </div>
             </article>
 
