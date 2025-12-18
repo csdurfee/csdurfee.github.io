@@ -29,74 +29,7 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Jul 24, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/small-stakes-give-you-the-minimum-blues.html" rel="bookmark" title="Permanent Link to &quot;Small stakes give you the minimum blues&quot;">Small stakes give you the minimum blues</a>
-                </h2>
-
-                
-                
-
-                <p>(This is an excerpt from a larger project about sports gambling. Code and early drafts of some of the materials can be found at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.)</p>
-<p><a href="https://www.youtube.com/watch?v=x8nF8L5Fgzc" target="_blank"><img alt="Spoon, &quot;Small Stakes&quot;" src="https://img.youtube.com/vi/x8nF8L5Fgzc/0.jpg"></a></p>
-<p>I'll be talking about "the public" in this installment, by which I mean the side of a wager that gets the most number of bets placed on it.</p>
-<p>I talk about the vig a lot without explaining it. It's explained in the book, but the short version is on standard bets, a gambler needs to win at least 52.4% of the time against the spread to break even due to needing to risk $110 to win $100. That $10 difference is the vig -- how the sportsbook makes their money.</p>
-<p>In gambling circles, bets are often framed as <em>Vegas</em> or <em>the sharps</em> versus <em>the public</em>. <em>Sharp</em> started out as a term for cheaters -- dishonest bookies setting unfair lines, or <em>card sharps</em> who win thru deception rather than skill. The meaning has changed a bit over time. In modern parlance, a <em>sharp</em> is someone who wagers on sports as a game of skill, making money over the long term by placing bets with positive expected value. But the negative connotation persists in popular chatter about gambling. There's something unseemly about using math to decide which bets to take.</p>
-<p>Say there's a game between the Lakers and the Charlotte Hornets, and the Hornets win against the spread. <em>The public</em> lost. What degenerate is betting the Hornets? Sharps, that's who. You'd think <em>the public</em> wouldn't have a problem with <em>the sharps</em> -- at least someone won money off <em>Vegas</em> tonight. Without the <em>sharps</em>, all the money that the public lost would go to Vegas. But <em>Vegas</em> and <em>sharps</em> are often conflated together. It's <em>the public</em> versus everybody.</p>
-<p>It seems unlikely to me that it's always <em>the public</em> on one side of the bet and <em>sharps</em> on the other. The public is still right around 50% of the time, right? They can't be drastically worse than a coin flip, so taking the opposite bets can't be drastically better than a coin flip. That means that <em>sharps</em> are going to agree with <em>the public</em> at least some of the time. They might <em>fade the public</em> (bet the opposite side) more often than they agree with the public, but there's probably a fair amount of both.</p>
-<h3>How do bettors do against the spread as the season goes on?</h3>
-<p>Does the public side do better over time? If records against the spread were random and the lines totally fair, we'd expect the public's winning percentage to bounce around pretty close to 50%, spending about as much time on both sides of the line -- sometimes doing a little better than 50%, sometimes a little worse. Over the course of the season, the public's cumulative record against the spread should get closer and closer to 50%, as the sample variance gets smaller.</p>
-<p>Here's the 2024-2025 data. This is the public's winning percentage, graphed as a 100 game moving average:</p>
-<p><img alt="2024-ma" src="/img/2024-ma.png"></p>
-<p>The white line is the start of the All-Star break. The public was winning well below 50% of their bets until a surge in the 100 or so games before the break, as we can see on the cumulative graph:</p>
-<p><img alt="2024-cumu" src="/img/2024-cumu.png"></p>
-<p>The public ended up going 584-614 on the season. Someone taking the public side of every bet against the closing line would have lost 91.4 units on the season, for a 48.75% winning percentage.</p>
-<p>The yellow line is the break-even point for <em>fading the public</em> -- taking the non-public side on every bet over the season. Up until that surge before the All Star break, it would've been extremely profitable to do so. Even by the end of the year, the public's win percentage didn't get close to 50%. Someone betting at -105 reduced juice could have made .8 units by fading the public on every single bet.</p>
-<p>The public were 369-388 when betting on the favorite, and 215-226 betting on the underdog. They went 293-311 when the away team won, and 291-303 when the home team won. They were bad no matter how you slice it.</p>
-<p>While that's all super weird, it's only one season. My data source (sportsbookreview.com) only has spotty data for the 2023-24 NBA season, but they do have mostly complete data for 2021-22 and 2022-23. (Nothing before that, unfortunately.)</p>
-<h3>2021-22 season</h3>
-<p>I have data for 1108 out of 1230 regular season games for 2021-22.</p>
-<p>The public went 566-542 on the season, for a loss of 30.2 units, much better than 2024-25.</p>
-<p>Here's the 100 game moving average:</p>
-<p><img alt="2021-ma" src="/img/2021-ma.png"></p>
-<p>Except for a dip in early March, the public did consistently fairly well. Not well enough to make money, but better than 50% win percentage.</p>
-<p>On the cumulative graph, while fading the public (yellow line) would have been profitable for the first month or so, the graph spends most of the season over the 50% line. However, it never gets over 52.4%.</p>
-<p><img alt="2021-cumu" src="/img/2021-cumu.png"></p>
-<h3>2022-23 season</h3>
-<p>I have data for 1176 off 1230 games in 2022-23.</p>
-<p>The public went 587-589 for the season, for a loss of 61 units on the season. That's remarkably fair, if the vig weren't a factor. Here's the moving average:</p>
-<p><img alt="2022-ma" src="/img/2022-ma.png"></p>
-<p>And the cumulative:</p>
-<p><img alt="2022-cumu" src="/img/2022-cumu.png"></p>
-<p>This one is similar to the 2023-24 graph, where the public pretty consistently lost a little bit more the 50% of the time, but not often enough to make fading the public a viable strategy.</p>
-<h3>Are team records against the spread random?</h3>
-<p>I started to answer this last time, but didn't have time to go deeper. If betting records are random, previous performance gives no information about future performance. Each game is like a coin flip, with equal chances of heads and tails. Teams will have good or bad records against the spread due to chance alone.</p>
-<p>However, I gave some plausible reasons why this might not be the case.</p>
-<p>The simplest way to test this I could think of was comparing records against the spread in the 1st half of the season to the 2nd half of the season. If the records are random, there should be no correlation between 1st half and 2nd half records.</p>
-<p>I found there was a positive correlation between 1st half and 2nd half records in all three seasons I have data for. In 2023-24, the correlation coefficient was .10. In 2022-23, it was .40, and in 2021-22 it was .27. Only 2022-23 was statistically significant. Assuming randomness, positive and negative correlation should be equally likely. So all three being positive is suspicious. I don't think records against ths spread are totally random.</p>
-<p>Say we track which teams had winning records against the spread over the 1st half of the season, then bet on those teams for the 2nd half of the season. (I didn't bother to filter out the games where teams with winning records play each other, so this analysis isn't perfect.)</p>
-<p>In 2024-25, that would give a record of 297-297 ATS -- can't get more fair than that.</p>
-<p>In 2022-23, it would have gone 279-241, for a profit of 13.9 units at standard vig, and a 53.7% winning percentage.</p>
-<p>In 2021-22, it would have gone 247-225, for a loss of .5 units and a 52.3% winning percentage.</p>
-<p>So, it's definitely not enough to be profitable as a strategy on its own. But it's close, and that's interesting. </p>
-<p>A gambler needs to win at least 52.4% of the time to break even against the vig. Say they're picking from a subset of bets that have a 52.3% chance of winning, as the naive strategy achieved in 2021-22. They'd just barely need to do better than flipping a coin to be profitable. That could be much easier than picking from a set of bets with a 50% chance of winning, right?</p>
-<h3>Final thoughts</h3>
-<p>In all three seasons, the public did a little worse in the first half of the season than the second half. In the two most recent seasons, the cumulative winning percentage was below 50% for nearly the whole season.</p>
-<p>That doesn't seem random to me. It makes sense that sportsbooks would offer slightly more favorable odds to the less popular team in order to attract equal money on both sides. It also makes sense that sportsbooks would be happy if the team with more money on it lost over 50% of the time. The difference between the public winning 50% of the time and the public winning 48.5% of the time could be significant on enough betting volume.</p>
-<p>In all three seasons, there was a positive correlation between a team's record against the spread over the first half of the season and the second half. The correlation is strong enough that over 3 seasons, it's almost possible to make money by betting on teams with a good first half record.</p>
-<p>On both points, I don't have nearly enough data to draw grand conclusions about how "the market" operates -- this is just one sportsbook, and an unknown one at that. Yahoo and DraftKings also provide betting percentage data, which would be useful for cross-checking these trends. I'm going to hold off for now, though -- there are too many other interesting things in the world.</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/small-stakes-give-you-the-minimum-blues.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
-                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
-                </div>
-            </article>            <h4 class="date">Aug 08, 2025</h4>
+        <div id="content">            <h4 class="date">Aug 08, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -1719,15 +1652,16 @@ line shopping: +57</p>
 <h2>The Nets are fun... for now</h2>
 <p>The Brooklyn Nets had a bunch of draft picks and cap space going into this offseason, and they didn't seem to maximize those resources. A lot of people didn't like the trade they made for Michael Porter Jr., which got the Denver Nuggets out of salary cap hell in exchange for a fairly small return. The Nets were the only team in the league with the financial flexibility to take on bad contracts in trades, so they probably could have gotten more.</p>
 <p>They also didn't trade any of the five first round picks they accumulated in this year's draft. Why didn't they trade some of them for future picks? The conventional wisdom is that teams shouldn't try to develop too many rookies at once. What's a team supposed to do with five rookies (two of whom are teenagers), with some overlap in the positions they play?</p>
-<p>Well for one thing, they're supposed to be terrible. The Nets have been bottoming out for a few seasons, and I doubt that will stop this season. Catch them in the next few weeks while they're sort of trying to win games, if you're curious. They've won 3 out of their last 4 games and they've been entertaining. </p>
-<p>They were fun for a few weeks at this point in the season last year, too. The front office will probably try to trade away their best players over the next couple of months. But right now, MPJ is a good stats/bad team All-Star, Nic Claxton is solid as always, rookie Danny Wolf is already a fan favorite, and a couple other rookies show promise. </p>
-<p>As fun as they are, I'm not encouraged by the Nets' approach to rebuilding. I'm always a lot more concerned with process than outcomes, because the process can be controlled. It seems like their idea is that if they draft enough first rounders, inevitably some of them will be good. It's treating players like lotto scratch tickets -- players are inherently winners or losers, and it's the front office's job to play the perentages and get as many picks as possible.</p>
+<p>Well for one thing, they're supposed to be terrible. The Nets have been bottoming out for a few seasons, and I doubt that will stop this season. Catch them in the next few weeks while they're sort of trying to win games, if you're curious. They've won 3 out of their last 4 games and they've been entertaining.</p>
+<p>They were fun for a few weeks at this point in the season last year, too. The front office will probably try to trade away their best players over the next couple of months to keep them from being too good. But right now, MPJ is a good stats/bad team All-Star, Nic Claxton is solid as always, rookie Danny Wolf is already a fan favorite, and a couple other rookies show promise. </p>
+<p>As fun as they are, I'm not encouraged by the Nets' approach to rebuilding. I'm always a lot more concerned with process than outcomes, because the process can be controlled. It seems like their idea is that if they draft enough first rounders, inevitably some of them will be good. It's treating players like lotto scratch tickets -- players are inherently winners or losers, and it's the front office's job to play the percentages and get as many picks as possible.</p>
 <p>That's bad process to me. Players are more like a packet of seeds. The final result is heavily dependent on how and where they are grown. The same seed grown in two different environments can give two very different results. Some seeds are better than others, but without the right environment, even the best seeds won't grow to their maximum potential. I don't know if they have the culture and support system to develop their five rookies. It will be a few years before we'll see what sort of trees they're growing in Brooklyn.</p>
 <h2>The Mathletix Bajillion, week whatever</h2>
 <p>As usual, one set of NFL picks is algorithmic, the other is random. </p>
 <p>Mathletix won the week, with a total record of 6-4 versus the Ringer's 10-15 record (note: their website incorrectly lists <em>The Handicapos</em> as going 5-0 when they actually went 4-1. I'm petty enough to notice, but not petty enough to email them about it.)  </p>
-<p>The Ringer currently has 3 teams at 33-37 and 2 teams at 31-39, for a cumulative record of 161-189 (46.0% winning rate). Of course, some of the Ringer's picks contradict each other -- one Ringer team taking the home team, and another taking the away team. Removing the bets where Ringer teams contradicted each other would probably yield an ever lower winning percentage, because taking both sides of a bet has a winning percentage of 50%, which is better than the Ringer's overall win rate.</p>
-<p>Someone taking the opposite of every one of the Ringer experts' picks would be up 11.9 units on the year, for a +3.4% rate of return. As a whole, they're noticably worse than just flipping a coin.</p>
+<p>The Ringer currently has 3 teams at 33-37 and 2 teams at 31-39, for a cumulative record of 161-189 (46.0% winning rate). Of course, some of the Ringer's picks contradict each other -- one Ringer team taking the home team, and another taking the away team on the same game. Removing the bets where Ringer teams contradicted each other would just make things worse, though, because taking both sides of a bet has a winning percentage of 50%, which is better than the Ringer's overall win rate.</p>
+<p>Someone taking the opposite of every one of the Ringer experts' picks would be up 11.9 units on the year, for a +3.4% rate of return. There's only a 6.7% chance of getting results that bad by flipping a coin. </p>
+<p>As I've written about before, I don't think that makes them bad as far as gambling experts go. Rather, I believe everything they know about football has already been incorporated into the line, so their knowledge is kind of a curse -- they're overvaluing information that the market has already absorbed, so they end up losing more than 50% of the time.</p>
 <p><em>Lines taken Wednesday morning</em></p>
 <h3>The Neil McAul-Stars</h3>
 <p>last week: 4-1, +304  <br>
@@ -1759,6 +1693,74 @@ line shopping: +79    </p>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
                 </div>
+            </article>            <h4 class="date">Dec 17, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/keys-to-the-kingdom.html" rel="bookmark" title="Permanent Link to &quot;Keys to the kingdom&quot;">Keys to the kingdom</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=Tv0UiQ5n7SM" target="_blank"><img alt="&quot;Pacific State (12&quot; version)&quot;, 808 State" src="https://img.youtube.com/vi/Tv0UiQ5n7SM/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=Tv0UiQ5n7SM" target="_blank">"Pacific State (12" version)", 808 State</a></p>
+<h2>Two Georges, damn</h2>
+<p>In the NBA right now, there are two up-and-coming players with very similar names. This seems to keep happening in the league. I wish somebody would do something about it. </p>
+<p>For a few years now, we've had to deal with two players named Jaylin Williams and Jalen Williams who play on the same team and have similarly generic nicknames, forcing hoops fans to remember which one is "J Dub" and which is "Jay Will". This is on top of a dozen other "Jalens" playing for other teams as well. (Do Jalen Rose or his parents get any residuals for all these basketball Jalenses? I hope so.)</p>
+<p>Compounding the problem for Keyonte George of the Utah Jazz and Kyshawn George of the Washington Wizards is the fact they play for two of the worst teams in the league. There's only so much Jazz/Wizards basketball anyone can watch and stay sane, so even avid hoops fans should be forgiven for doing a "Christian Bale"/"Kirsten Bell" thing with them. Even pro sports journalists do that.</p>
+<p><a href="https://www.youtube.com/watch?v=POcuiqRTbnM" target="_blank"><img alt="&quot;Kristianne Baille&quot; by Trevor Clarence on Youtube" src="https://img.youtube.com/vi/POcuiqRTbnM/0.jpg"></a></p>
+<p>Both started out looking like they were drowning in the NBA, but they're putting it together, Kyshawn in his second season, Keyonte in his third, so it's time to tune in while you can still say you knew about them before it was cool.</p>
+<h3>Kyshawn</h3>
+<p>Kyshawn George is a floofy haired youth who always looks like he's 15 minutes late to his Political Science class. He should probably be playing in a North Face puffy jacket and pajama pants instead of a Wizards uniform.</p>
+<p><img alt="/img/kyshawn.jpg" src="/img/kyshawn.jpg">
+All-Pro Reels, CC BY-SA 4.0 <a href="https://creativecommons.org/licenses/by-sa/4.0">https://creativecommons.org/licenses/by-sa/4.0</a>, via Wikimedia Commons</p>
+<p>With the big hair and the throwback Wizards jersey, he looks a little bit like greatest player in Washington Bullets/Wizards history, Wes Unseld:</p>
+<p><img alt="/img/wes-unseld.jpg" src="/img/wes-unseld.jpg"></p>
+<p>His game is a little Unseld-y, too. Unseld was a 6'7" guy who played center. Guarding much bigger players takes a certain quality -- solidness -- that not all players have. Some guys just occupy space better than others. </p>
+<p>Although he plays small forward, Kyshawn George has that solidness. At his best, Kyshawn just kind of owns the floor, unafraid to bounce off of other players (or go through them) in order to score or get the rebound. And like Unseld, he has good passing skills. If Wes Unseld played today, he might be a point forward like Kyshawn, who is leading the Wizards in assists.</p>
+<p>At his worst, well, Kyshawn's got a lot to learn. I think he has the capability to be a very good defender, but the Wizards are just awful at defense -- worst in the league by points allowed. It's hard for me to tell how good a player is when they're surrounded by teammates who make lots of defensive mistakes.</p>
+<h3>Keyonte</h3>
+<p>Keyonte George, looks a bit like, I dunno, Timon from the Lion King. I don't have Timon's scouting report, but Keyonte's a super quick modern point guard who can score as well as set his teammates up. Or at least that was the idea. His first two years in the league were disappointing. He mostly shot 3 pointers, and wasn't especially good at it. As a point guard, he was tentative, and seemed to check out mentally at times when things were going bad (a frequent occurence on the woeful Jazz.)</p>
+<p>This year, he's more of an all-around scorer, and much more efficient. He's scoring almost 6 more points per 36 minutes, while only taking 1.7 more shot attempts. A lot of that is driven by getting more free throws -- 3 more made free throws per 36 over last season. He's a threat to score from just about everywhere, after two seasons of not being a threat anywhere.</p>
+<p>Keyonte's still bad on defense. The Jazz are 28th in Defensive Rating, so like Kyshawn, it's awfully hard to say how good he really is when he plays on such a crappy team. His game is similar to DeAaron Fox, who is currently thriving on the Spurs surrounded by significantly above average defenders. So I think he has a bright future even if he never makes a big leap on defense.</p>
+<h2>7'6" man kills giant</h2>
+<p>Shout out to the try-hard Spurs for taking down the Thunder in the NBA cup. The fact that the tallest guy in the NBA took down basketball Goliath is perfect. No notes. My biggest basketball fear is that if the aliens come down and challenge Earth to a game, we're not gonna have anyone who can guard Wemby.</p>
+<h2>Mathletix Bajillion, week I guess we're still doing this</h2>
+<p>As usual, one of these teams picks randomly, the other algorithmically.</p>
+<p>The Ringer went 9-16 on the week, for a 171-204 combined record on the season and 45.6% winning percentage. The mathletix teams didn't cover themselves in glory either, going 3-7. Nobody knows nothin'. All of us are in the gutter, but some of us are staring at the reduced juice.</p>
+<p><em>Lines taken Wednesday afternoon</em></p>
+<h3>The Neil McAul-Stars</h3>
+<p>last week: 1-4, -321 <br>
+Overall: 16-14, +159 <br>
+line shopping: +99    </p>
+<ul>
+<li>SEA -1.5 -105 (prophetx)</li>
+<li>TEN +3 +100 (lowvig)</li>
+<li>CAR +3 -106 (prophetx)</li>
+<li>NE +3 -108 (lowvig)</li>
+<li>ATL -3 +100 (prophetx)</li>
+</ul>
+<h3>The Vincent Hand-Eggs</h3>
+<p>last week: 2-3, -110  <br>
+Overall: 11-18-1, -781 <br>
+line shopping: +99     </p>
+<ul>
+<li>SEA -1.5 -105 (prophetx)</li>
+<li>JAX +3 +103 (prophetx)</li>
+<li>MIN -3 +109 (prophetx)</li>
+<li>LAC +2 +106 (lowvig)</li>
+<li>GB +0.5 -110 (prophetx)</li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/keys-to-the-kingdom.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/basketball.html" rel="tag">basketball</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
+                    &nbsp;<a href="/tag/bajillion.html" class="tags">bajillion</a>
+                </div>
             </article>
 
                 <div class="clear"></div>
@@ -1767,7 +1769,7 @@ line shopping: +79    </p>
 
                     <a href="/tag/basketball2.html" class="next_page">Next&nbsp;&rarr;</a>
 
-                    <span>Page 1 of 2</span>
+                    <span>Page 1 of 3</span>
                 </div>
 
             <div class="clear"></div>
