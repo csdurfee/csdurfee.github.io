@@ -26,12 +26,12 @@ This isn't a non-gambling football writer forced to make picks for the sake of c
 
 This is the *kumite* of football betting, [the ultimate contest of warriors](https://www.youtube.com/watch?v=YNZ1ElwD_JA), and I assume you're only going to enter the *kumite* if you've won a few fights before.  
 
-Mind you, there are around 15 NFL games every week and the teams only have to pick 5 of them for the Super Contest. Maybe most lines are so fair nobody can make money betting them, but the contestants only need to take one game in three. If there are any lines that are beatable, these contestants should be finding them.
+Mind you, there are around 15 NFL games every week and the teams only have to pick 5 of them for the Super Contest. Maybe most lines are so fair nobody can make money betting them, but the contestants only need to take one game in three. If there are any lines that are beatable, these contestants should be finding them. Their win rate should be an overly optimistic estimate of how beatable the *average* NFL line is, because they're not taking every game, or random games.
 
 My assumption before running the numbers was that this was a contest for people who should have a decent chance of at least breaking even (over 52.4% winning percentage.)
 
 ## The terrible, horrible, no good, very bad year
-That hasn't been even close to true this season. Data as of week 16 taken from [the Westgate Resorts website](https://www.westgateresorts.com/hotels/nevada/las-vegas/westgate-las-vegas-resort-casino/casino/2025-supercontest-standings/)
+That assumption hasn't been even close to true this season. Data as of week 16 taken from [the Westgate Resorts website](https://www.westgateresorts.com/hotels/nevada/las-vegas/westgate-las-vegas-resort-casino/casino/2025-supercontest-standings/).
 
 There are 751 entrants in the 2025 contest. 59% of them (444/751) have a losing record. 76% of them would be losing money, if they were taking their picks at -110 odds.
 
@@ -52,7 +52,7 @@ The worst record belongs to the also amusingly named `THISSHOULDBEEASY`, with a 
 
 Most of the teams would be doing better if they wrote down their best picks, then took the opposite of them. Knowing stuff sure seems to be a disadvantage when betting on football. 
 
-In aggregate, whatever strategies or football knowledge or divination rites (\*) the contestants are using makes them worse at picking winners -- they possibly have *anti-skill*. This is sort of what the efficient market hypothesis for the stock market predicts -- picking stocks randomly (or index funds, which invest in every stock on the market) will generally outperform mutual funds that have professional fund managers making the picks.
+In aggregate, whatever strategies or football knowledge or divination rites (\*) the contestants are using makes them worse at picking winners -- they possibly have *anti-skill*. This is sort of what the efficient market hypothesis predicts -- picking stocks randomly (or index funds, which invest in every stock on the market) will generally outperform mutual funds that have professional fund managers making the picks.
 
 (\*) I'm a big tyromancy guy myself. RIP to the recently departed [Claude Lecouteux](https://en.wikipedia.org/wiki/Claude_Lecouteux), a legendary historian of spooky medieval stuff. If you ever need to write a heavy metal concept album on short notice, his books are a goldmine.
 
