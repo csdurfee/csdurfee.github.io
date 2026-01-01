@@ -30,7 +30,123 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Jul 16, 2025</h4>
+        <div id="content">            <h4 class="date">Jul 17, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/last-fair-deal-in-the-country.html" rel="bookmark" title="Permanent Link to &quot;Last fair deal in the country&quot;">Last fair deal in the country</a>
+                </h2>
+
+                
+                
+
+                <p>(This is an excerpt from a larger project about sports gambling. Code used, and early drafts of some of the chapters can be found at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.)</p>
+<p><a href="https://www.youtube.com/watch?v=0UGvyPnuLtQ" target="_blank"><img alt="The Grateful Dead, &quot;Loser&quot;" src="https://img.youtube.com/vi/0UGvyPnuLtQ/0.jpg"></a></p>
+<h2>Efficiency of betting markets</h2>
+<p>The efficient market hypothesis says that given enough time and competition, free markets are able to establish the correct price for a commodity. In the case of sports betting, we could think of it as the price of a money line bet. </p>
+<p>On a money line bet, you are betting on who will win the game straight up. You get a smaller payout for betting on the favorite, and a larger payout betting on the underdog. In the United States, money line bets are written in a goofy way. If the money line is negative, that's how much money you have to risk in order to win $100. For example, -200 indicates you have to risk $200 to win $100. If it is positive, that's how much money you win if you risk $100. If it sounds like a bad way to write the odds, you're correct.</p>
+<p>A market maker will respond to an imbalance in bets by adjusting the price. If CLE -300 is a good value, people will rationally want to take it, driving the price up to, say -400. If it is a bad value, people will rationally want to take the other side and the price might go down to -200. These rational actors will collectively push the price towards the best possible estimate that humans can make given all information available at the time. It serves as a sort of collective intelligence.</p>
+<p>In the first installment, I showed that humans are irrational when it comes to sports betting, so I was skeptical of how good, or fair, the lines could be. Could I find proof of this collective intelligence in action? Are there any obvious market inefficiencies?</p>
+<h3>The data &amp; stuff to know</h3>
+<p>Stats are from the NBA season. I screen-scraped the data from <a href="https://www.sportsbookreview.com/betting-odds/nba-basketball/">sportsbookreview.com</a>. All data is from the MGM Grand. Unfortunately, some data is missing around Christmas, and a few random days in between. 32 games are missing from the data set out of 1230 total, 2.6% of all games. These are games that don't appear on sportsbookreview's website, or have incomplete data on there.</p>
+<p>This is an analysis of the MGM Grand's NBA lines for 2025. It's not a comprehensive guide to how the lines work.</p>
+<p>There are always two lines on each game, one for the home team and one for the away team. Each side may have different vigs. Say for instance Bucks @ Pacers starts out at IND +3.5 -110/MIL -3.5 -110. It could close at IND +3.5 -115/MIL -3.5 -105. So it costs more to bet on the Pacers, but the actual line didn't move.  I'm mostly ignoring that, but will point out when it's relevant.</p>
+<p>"Line" and "spread" mean the same thing.</p>
+<p>"Reduced juice" means risking -105 or -106 instead of the usual -110 to win 100. A "unit" is a gambler's standard betting size. "4.1 units of profit" would mean +$410 for a gambler betting $100 a game. Both are explained in much more detail in the book.</p>
+<h3>A note about pushes</h3>
+<p>When the final score agrees with the line exactly, neither side of the bet can be declared a winner. This is called a push. The bet is cancelled and everybody gets their money back. The casino makes nothing.</p>
+<p>The MGM Grand always keeps point spreads on the half point (eg +6.5 or +7.5 rather than +7) so that they will never push. I don't think it's a bad policy, and I'm surprised more sportsbooks don't do it. The sportsbooks know how good their customers are at betting, so they should probably shade the point spread a half a point towards the side of the bet that has the less savvy bettors on it. (This assumes the sportsbook can identify and ban arbitrage gamblers, but more about that in the book.) </p>
+<h3>Analysis</h3>
+<p>If there is a wisdom of crowds, the final lines should be more accurate than the opening lines. Are they?</p>
+<p>My code calculates the difference between the final score and the line, called the error.  Because the MGM's lines always end in a half point, that means the error is going to be artificially high -- there will never be a game where it is exactly zero.</p>
+<p>The opening and closing lines are a set of predictions. The smaller the difference between the line and reality, the better the prediction. <a href="https://en.wikipedia.org/wiki/Mean_squared_error">Mean Squared Error</a> is a standard way to compare two prediction systems in statistics and machine learning.</p>
+<p>The MSE for the opening lines is 191.06, and the closing lines is 184.8. So we can say that in aggregate, the closing lines are more accurate than the opening lines.</p>
+<p>MSE can't tell us how good the closing lines are, though, just that one set of predictions is better than another set. It's a relative measure, not an absolute one. We're squaring the error, so the MSE will always be positive. The errors in one direction don't cancel out ones in the other direction. </p>
+<p>Let's look at how far the lines were off by. the Os are the opening lines, and X's are the closing lines. If the <em>X</em> is closer to the center line than the <em>O</em>, the market action made the line more accurate. I've plotted a random sample of 300 games to make the plot more readable.</p>
+<p><img alt="/img/scatter-mess.png" src="/img/scatter-mess.png"></p>
+<p>Unfortunately, that doesn't really show us much about how or when the closing lines are better than the opening ones. </p>
+<h3>Adam Smith, Handicapper</h3>
+<p>When were the closing lines more accurate than the opening lines?</p>
+<p>The closing lines were better in 467 games, versus 384 games where the opening lines were better, and 347 games where the line never changed.</p>
+<p>If the free market were a handicapper, and we interpreted the line movements as a bet on one side, they would have a 54.88% winning percentage (and 347 pushes).</p>
+<p>While that's a respectable win percentage for a human trying to beat the spread, I was expecting better from the free market. The market only being right 55% of the time holds true for a couple of previous seasons I have looked at as well. NBA betting, as a market, is not very efficient.</p>
+<p>There are good reasons for that. Sportsbooks that set the opening lines aren't trying that hard to be accurate. It's just a first guess. Only a tiny percentage of money is wagered at the opening line number. However, there are good reasons why lines tend not to move very much, even when the opening line is a bad one. For an in-depth explanation, check out <em>The Logic of Sports Betting</em>, by Miller and Davidow.</p>
+<h3>The myth of closing line value</h3>
+<p><a href="https://www.pinnacle.com/betting-resources/en/betting-strategy/using-the-closing-line-to-test-your-skill-in-betting/7e6jwjm5ykejuwkq">The conventional wisdom</a> is that sports betting markets are efficient, so that the only way to make money over the long run is by doing better than the closing lines, picking up on any flaws in the opening lines before the market eliminates them. Anyone else can only make a profit due to chance. From this perspective, the right way to measure a handicapper's skill is how their picks compare to the closing line. Say the opening line is Nuggets -3, and I take the bet at that number. The closing line is Nuggets -6. Then I captured 3 points of value against the closing line. This is known as closing line value (CLV). (We can figure out how valuable those 3 points are, and I show how in the book.)</p>
+<p>Beating the closing line might be positively correlated with higher profits when analyzing betting records of touts -- people who sell betting picks for money. But when the market is wrong 45% of the time, focusing too much on CLV seems like a bad idea. There's no good reason to believe that a gambler is destined to lose money by picking against the closing lines. What if their strategy is to mostly bet against the prevailing wisdom on the 45% of games where the market is wrong?</p>
+<p>CLV is a prime example of <a href="https://en.wikipedia.org/wiki/Goodhart's_law">Goodhart's Law</a>. As a measure of a handicapper's skill, it's probably fine (though not ideal). But it shouldn't be the target. A gambler shouldn't make picks explicitly to capture as much CLV as possible. That could be different on other sports. Football -- both forms of it -- attracts a lot more betting than the NBA does, so if you're looking for the wisdom of crowds, maybe look there.</p>
+<p>Say the opening line is Nuggets -3 against the Timberwolves. I like the Nuggets in this matchup, but I think the public will go for the Timberwolves and it will finish at Nuggets -1/Timberwolves +1.</p>
+<p>If I was trying to capture as much CLV as possible on this bet, I should take the Timberwolves +3 on the opening line, even though that's not the side I actually like! </p>
+<p>If I was trying to actually win the bet, I should take the Nuggets at the closing line, hoping maybe I can get Nuggets -1 or even Nuggets +1. I can never get positive CLV on the Nuggets, because the market was wrong about them. Not me, the market!</p>
+<p>CLV gets described as being the best way to test a handicapper's skill, but it's obviously non-optimal. Maybe it's the contrarian in me, but Opening Line Value -- identifying bets where the market is going to be wrong, and waiting till the last minute to place the bet -- is more impressive.</p>
+<p>The best way to test a handicapper is to have them write out what they think the lines should be, rather than making a binary decision about somebody else's line (favorite or underdog). If a handicapper's lines are closer to the truth than the closing lines, they are good at handicapping. Looking at what bets they took is only a secondary signal of that. If they took Nuggets -7, is it because they thought the true line should be Nuggets -8, or Nuggets -12? </p>
+<h3>When the line doesn't move</h3>
+<p>Setting aside why the market moves in the wrong direction 45% of the time, I'm curious about the games where the spread didn't move at all. Maybe those lines were perfect as-is? If so, we'd expect to see equal splits of home vs. away winners, and underdog vs. favorite winners.  There shouldn't be any bias to those games. The free market is essentially labelling these the pinnacle of the handicapper's art, impossible to be improved upon. </p>
+<p>The difference between the predicted outcome (the line) and the actual outcome is a combination of how much the line maker got it wrong, plus random variation. So the games where the line didn't move should be totally random, right?</p>
+<p>They're not. If we look at games where the line didn't move, the away team went 184-163 in those games. Someone betting the away team in every game where the line didn't move would win 53% of their bets, for 4.7 units of profit at full vig, or 11.2 units of profit at <em>reduced juice</em>.</p>
+<p>There's also a bias towards underdogs, who went 186-161 in this situation. Always taking the underdog would give a 53.6% winning percentage, for 8.9 units at full vig, or 15.3 units at reduced juice.</p>
+<p>There's an even bigger bias if we combine the two. Away underdogs went 122-92 in these games, which is a 55.2% winning percentage, for 13.1 units of profit at full vig, and 17.1 at reduced juice.</p>
+<p>None of these results are statistically significant, but they are very :thinking_face_emoji:</p>
+<h3>About the vig</h3>
+<p>When the vig is imbalanced, the side with the higher vig should be more likely to win, because they're winning less money in return. Moving the vig from -110 to -115 is a way for the bookmaker to discourage bets on one side without moving the line. Likewise moving it to -105 is a way to encourage bets on that side.</p>
+<p>Since the MGM Grand always keeps their lines on the half point, we'd expect them to adjust the vig often rather than change the spread. They do for most of the games where they didn't move the lines, but 39% of the time the vig stays at -110.</p>
+<p>If we break down the games where the line didn't move by vig, the underdogs went 62-43 when the vig was high (-115), 74-62 when the vig was at the standard level (-110), and 50-56 at low vig (-105).</p>
+<p>Someone taking the underdogs when the line doesn't move, and the vig is -110 or -115, would've gone 136-105 this season, a 56.4% winning percentage, and around 18 units of profit (factoring in the additional -115 vig on some bets).</p>
+<p>Now, the strategy is pretty convoluted, and I wouldn't bet on it holding for future seasons, but it's definitely evidence there could be irrational factors at work in the market. It certainly doesn't show the market to be the well oiled machine that Closing Line Value assumes it is.</p>
+<h3>Must love dogs</h3>
+<p>Winners ended up being pretty evenly divided between favorites and underdogs by the end of the season, but underdogs were way ahead for most of the year.  </p>
+<p>Betting every single underdog against the spread over the first quarter of the season would've been fairly profitable -- a 165-136 record (54.8% winning percentage), and 15.4 units profit at full vig. People betting favorites got killed at the beginning of the season.</p>
+<p>Dogs and favorites were basically even through the middle half of the season, before favorites finished off 167-144 (53.7% win percentage) to even things out.</p>
+<p>Here's a plot of the winning percentage of favorites over the course of the season. I skipped the first 50 games because of noise. The yellow line represents the winning percentage necessary for betting all underdogs to be profitable (at standard vig). That happens when the favorites win less than 47.6% of the time (which means underdogs win more than 52.4% of the time.)</p>
+<p>It wasn't until the last month of the season that blindly betting all underdogs started being a losing proposition, even factoring in the vig.</p>
+<p><img alt="/img/wp-vs-gameno.png" src="/img/wp-vs-gameno.png"></p>
+<h3>Did the lines improve over time?</h3>
+<p>I was curious if there was evidence that the errors were getting smaller, or more predictable over time.</p>
+<p>The raw errors are too noisy to see any sort of pattern:</p>
+<p><img alt="/img/err-vs-line.png" src="/img/err-vs-line.png"></p>
+<p>This is a plot of the 100 game moving average of the absolute error of the closing line. I don't see any trends to suggest the lines got more accurate with time.</p>
+<p><img alt="/img/closing-line-err.png" src="/img/closing-line-err.png"></p>
+<p>The size of the error against the closing line isn't the ideal metric, because not all points are created equal -- the higher the line, the less surprising the error. (I'm going to skip discussing that for now, but it's explained in the book.)</p>
+<h3>Did the lines change over time?</h3>
+<p>I wondered whether the size of the lines changed over time -- did the games get more or less competitive over the course of the season?</p>
+<p>This is a 100 game moving average of the average size of the spread. As we can see, the lines did get bigger near the end of the year.</p>
+<p><img alt="/img/spread-over-time.png" src="/img/spread-over-time.png"></p>
+<p>It's possible the trend is due to scheduling, but the change at the end seems significant -- teams tend to give up near the end of the year. Bad teams want to be as bad as possible in order to get the best odds in the NBA draft, so they're not that competitive. </p>
+<p>(I have a lot more to say about tanking, but I'll stay off my soapbox for now.)</p>
+<h3>What type of games are affected by line movement?</h3>
+<p>There were 130 games where the winner flipped from the favorite to the underdog, or the underdog to the favorite, because of the line movement. In other words, these are games where either side could have won the bet, depending on whether you took the opening line or the closing line.</p>
+<p>These games were perfectly balanced -- 65 times, the favorite won (vs the closing line); 65 times the underdog won.</p>
+<p>What about games where the spread was extremely accurate (off by 3 points or less)? Underdogs went 138-121 in those games (53.2%).</p>
+<p>The difference is more dramatic in games where the line was off by 1 point or less. The underdogs went 56-33 (63% win percentage). Of course, there's no way to use that as a betting strategy since we can't identify these games before the fact, but it does show a small potential bias in favor of underdogs. </p>
+<h3>What would "perfect" lines even look like?</h3>
+<p>It's rare to see NBA lines that are bigger than +15/-15 points. There were 15 this season, about 4.4% of all games. That's around one NBA game a week with a line that high.</p>
+<p>By contrast, 31% of NBA games end with a score differential of over 15 points. That's 7x more often, roughly one game a day.</p>
+<p>The lines really shouldn't be as large as the final score differential, because they are an estimate of the mean outcome of the game. If the Celtics beat the Raptors by 54 points, that doesn't mean the line <em>should</em> have been Celtics -54. The Celtics and Raptors played 4 times last season (data taken from <a href="https://www.basketball-reference.com/teams/TOR/2025_games.html">basketball-reference</a>). I'm going to ignore home court advantage -- imagine these are played at a neutral gym. The first game, Boston won by 3. The second, Boston won by 54. The third game, the Raptors won by 13. The last game, Boston won by 10.</p>
+<p>Boston won by an average of 13.5 points, so BOS -13.5 would be a reasonable line for all four games, as that's the best estimate we can make of their difference in skill. Only 1 of the 4 games ended up close to that line. For the other 3 games, the error was at least 10 points. That's pretty typical for NBA games. The error is usually around 10 points.</p>
+<p>In this scenario, Boston -- despite being the much better team -- would have gone 1-3 against the spread. If the line for all four games was BOS -9.5, they would have gone 2-2, but the error would still be 44.5 points on the second game, and 23.5 on the third one. </p>
+<p>The actual outcomes might be all over the place, but the spread isn't meant to predict the actual outcome, just the point where both sides are equally likely to win the bet. In a small sample size, there's no guarantee both sides will win 50% of the games, even if the line was perfect.</p>
+<p>Here's a histogram of the spreads (for the away team) overlaid on a histogram of the errors against the spread:</p>
+<p><img alt="/img/spread-vs-score-diff.png" src="/img/spread-vs-score-diff.png"></p>
+<p>If we look at just the score differential, we can stick a bell curve over the top and it looks pretty normal:</p>
+<p><img alt="/img/score-diff-normal.png" src="/img/score-diff-normal.png"></p>
+<h3>Simulating games from the spreads</h3>
+<p>The problem is, these aren't outcomes from one distribution. Every game is essentially a sample from a different distribution. Each game has a different mean (the spread, or rather the ideal version of it) and a different variance (how predictable games are between the two teams). Combining them all together, the results end up looking kinda normal (because a lot of things do).</p>
+<p>I decided to simulate the entire season to show how the point differentials are going to be much bigger than the original lines.</p>
+<p>I simulated every game by sampling from a normal distribution with the mean set to that game's spread, and the variance equal to the sample variance of all games that season with that spread. </p>
+<p>Here's how they match up:</p>
+<p><img alt="/img/point-differential.png" src="/img/point-differential.png"></p>
+<p>I know that's a pretty rough simulation. There's some weirdness in the middle. NBA games never end in a tie, and they end in a one point difference less often than expected due to tactical reasons, so there's a little notch right in the center of the green curve. If a team is down one, they foul the other team and hope they miss at least one of their free throws. There's also more simulated games than I would expect that end with a differential of +1 or -1. There very well may be a bug in my code. So there's a muddle in the middle. But the spread of the data is the same, which is the main point.</p>
+<p>Hopefully the simulation shows that the lines shouldn't be bigger than they are, even though they are frequently off by many multiples compared to the final result. An error of 10 is about what we'd expect on average, and big errors don't necessarily mean <em>Vegas</em> was wrong. If the line is Dallas -3 and the other team wins by 27, that doesn't mean the line was off by 30 points. The line is meant to be an estimate of the mean outcome, if the teams played each other a large number of time under the exact same conditions. We only ever see one sample, though, and a lot of times it is far from the mean.</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/last-fair-deal-in-the-country.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
+                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
+                </div>
+            </article>            <h4 class="date">Jul 16, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -1013,158 +1129,6 @@ The Cohen kappa score is .64, on a scale from -1 to 1, so they aren't as correla
                     &nbsp;&middot;&nbsp;<a href="/category/machine-learning.html" rel="tag">machine learning</a>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/machine-learning.html" class="tags">machine learning</a>
-                </div>
-            </article>            <h4 class="date">May 16, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/the-hot-hand-doesnt-exist-in-the-nba-but-its-opposite-does.html" rel="bookmark" title="Permanent Link to &quot;The hot hand doesn't exist in the NBA, but its opposite does&quot;">The hot hand doesn't exist in the NBA, but its opposite does</a>
-                </h2>
-
-                
-                
-
-                <p>(The code used, and ipython notebooks with a fuller investigation of the data is available at <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>.)</p>
-<h1>Streaks</h1>
-<p>When I'm watching a basketball game, sometimes it seems like a certain player just can't miss. Every shot looks like it's going to go in. Other times, it seems like they've gone cold. They can't get a shot to go in no matter what they do. </p>
-<p>This phenomenon is known as the "hot hand" and whether it exists or not has been debated for decades, even as it's taken for granted in the common language around sports. We're used to commentators saying that a player is  "heating up", or, "that was a heat check".</p>
-<p>As a fan of the game, it certainly seems like the hot hand exists. If you follow basketball, some names probably come to mind. JR Smith, Danny Green, Dion Waiters, Jamal Crawford. When they're on, they just can't miss. It doesn't matter how crazy the shot is, it's going in. And when they're cold, they're <em>cold</em>.</p>
-<p>It's a thing we collectively believe in, but it turns out that there isn't clear statistical evidence to support it.</p>
-<p>We have to be careful with our feelings about the hot hand. It certainly feels real, but that doesn't mean that it is. Within the drama of a basketball game, we're inclined to notice and assign stories to runs of makes or misses. Just because we notice them, that doesn't mean they're significant. This is sometimes called "the law of small numbers" -- our brains have a tendency to reach spurious conclusions from a very small amount of data.</p>
-<p><a href="https://en.wikipedia.org/wiki/Pareidolia">Pareidolia</a> is the human tendency to see human faces in inanimate objects -- clouds, the bark of a tree, a tortilla. While the faces might seem real, they are just a product of our brain's natural inclination to identify patterns. It's possible the "hot hand" is a similar phenomenon -- a product of the way human brains are wired to see patterns, rather than an objective truth.</p>
-<h2>Defining Streakiness</h2>
-<p>Streaks of 1's and 0's in randomly generated binary data follow regular mathematical laws, ones our brains can't realy replicate. Writer <a href="https://www.football-data.co.uk/blog/Wald_Wolfowitz.php">Joseph Buchdal</a> found that he couldn't create a random-looking sequence by hand that would fool a statistical test called the Wald-Wolfowitz test, even though he knew exactly how the statistical test worked.</p>
-<p>I think at some level, we're physically incapable of generating truly random data, so it makes sense to me that our intuitions about randomness are a little off. Our brains are wired to notice the streaks, but we seem to have no such circuitry for noticing when something is a little bit too un-streaky. Our brains are too quick to see meaningless patterns in small amounts of data, and not clever enough to see subtle, meaningful patterns in large amounts of data. Good thing we have statistics to help us escape those biases!</p>
-<p>For the sake of this discussion, a streak starts whenever a sequence of outcomes changes from wins (W) to losses (L), or vice-versa. (I'm talking about makes and misses, but those start with the same letter, so I'll use "W" and "L".)</p>
-<p>The sequence <code>WLWLWL</code> has 6 streaks: <code>W, L, W, L, W, L</code>      <br>
-The sequence <code>WWLLLW</code> has 3 streaks: <code>WW, LLL, W</code></p>
-<p>Imagine I asked someone to produce a random-looking string of 3 W's and 3 L's. If they were making the results up, I think the average person would be more likely to write the first string. It just looks "more random", right? </p>
-<p>If they flipped a coin, it would be more likely to produce something with longer streaks, like the second example. With a fair coin, both of those <em>exact</em> sequences are equally likely to occur. But the second sequence has a more probable number of streaks, according to the <a href="https://en.wikipedia.org/wiki/Wald%E2%80%93Wolfowitz_runs_test">Wald-Wolfowitz Runs Test</a>. The expected number in 3 wins and 3 losses is (2 * (3 * 3) / (3+3)) + 1 = 4.</p>
-<p>The expected number of streaks is the <a href="https://en.wikipedia.org/wiki/Harmonic_mean">harmonic mean</a> of the number of wins and the number of losses, plus one. Neat, right?</p>
-<p>Around 500 players attempted a shot in the NBA this season. Let's say we create a custom coin for each player. It comes up heads with the same percentage as the player's shooting percentage on the season. If we took those coins and simulated every shot in the NBA this season, some of the coins would inevitably appear to be "streakier" than others.</p>
-<p>Players never intend to miss shots, yet most players shoot around 50%, so there has to be some element of chance as far as which shots go in or not. Otherwise, why wouldn't players just choose to make all of them?</p>
-<p>So makes versus misses are at least somewhat random, which means if we look at the shooting records of 500 players in an NBA season, some will seem more or less consistent due to the laws of probability. That means a player with longer or shorter streaks than expected could just be due to chance, not due to the player actively doing something that makes them more streaky.</p>
-<h2>The Lukewarm Hand</h2>
-<p>We might call players who have fewer streaks than expected by chance <em>consistent</em>. Maybe they go exactly 5 for 10 every single game, never being especially good or especially bad. Or maybe they go 1 for 3 every game, always being pretty bad.</p>
-<p>But that feels like the wrong word, and I don't think our brains aren't really wired to notice a player that has fewer streaks than average. As we already saw, the "right" number of streaks is counterintuitive. </p>
-<p>I might notice a player is unusually consistent after the fact when looking at their basketball-reference page, but the feeling of a player having the <em>hot hand</em> is visceral, experienced in the moment. Even without consulting the box score, sometimes players look like they just can't miss, or can't make, a shot. They seem more confident, or their shot seems more natural, than usual. Both the shooter and the spectator seem to have a higher expectation that the shot will go in than usual. The hot hand is a social phenomenon.</p>
-<p><img alt="there's always an xkcd" src="/img/xkcd-sports.png">  <br>
-(from <a href="https://xkcd.com/904/">https://xkcd.com/904/</a>)</p>
-<p>If we look at the makes and misses of every player in the league, do they look like the results of flipping a coin (weighted to match their shooting percentage), or is there a tendency for players to be more or less streaky than expected by chance? </p>
-<p>We don't really have a formal word for players who are less streaky than they should be, so I'm going to call the opposite of the <em>hot hand</em> the <em>lukewarm hand</em>. While the <em>lukewarm hand</em> isn't a thing we would viscerally notice the way we do the <em>hot hand</em>, it's certainly possible to exist. And it's just as surprising, from the perspective of treating basketball players like weighted coins. </p>
-<p>Some people I've seen analyze the hot hand treat the question as <em>streaky</em> versus <em>non-streaky</em>. But it's not a binary thing. There are two possible extremes, and a region in between. It's <em>unusually streaky</em> versus <em>normal amount of streaky</em> versus <em>unusually non-streaky</em>.</p>
-<p>The Wald-Wolfowitz test says that the number of streaks in randomly-generated data will be normally distributed, and gives a formula for the variance of the number of streaks. The normal distribution is symmetrical, so there should be as many <em>hot hand</em> players as <em>lukewarm hand</em> ones. Players have varying numbers of shots taken over the course of the season so we can't compare them directly, but we can calculate the z score for each player's expected vs. actual number of streaks. The z score represents how "weird" the player is. If we look at all the z-scores together, we can see whether NBA players as a whole are streakier or less streaky than chance alone would predict. We can also see if the outliers correspond to the popular notions of who the streaky shooters in the NBA are.</p>
-<h2>Simplifying Assumptions</h2>
-<p>We should start with the assumption that athletes really are weighted random number generators. A coin might have "good days" and "bad days" based on the results, but it's not because the coin is "in the zone" one day, or a little injured the next day. At least some of the variance in a player's streakiness is due to randomness, so we have to be looking for effects that can't be explained by randomness alone.</p>
-<p>So I am analyzing all shots a player took, across all games. This could cause problems, which I will discuss later on, but splitting the results up game-by-game or week-by-week leads to other problems. Looking at shooting percentages by game or by week means smaller sample sizes, and thus more sampling error. It also means that comparisions between high volume shooters and low volume shooters can be misinterpreted. The high volume shooters may appear more "consistent" simply because it's a larger sample size.</p>
-<p>I think I need to prove that <em>streakiness</em> exists before making assumptions about how it works. Let's say the "hot hand" does exist. If a player makes a bunch of shots in a row, how long might they stay hot? Does it last through halftime? Does it carry over to the next game? How many makes in a row before they "heat up"? How much does a player's field goal percentage go up? Does a player have cold streaks and hot streaks, or are they only streaky in one direction?</p>
-<p>There are an infinite number of ways to model how it could work, which means it's ripe for overfitting. So I wanted to start with the simplest, most easily justifiable model. The <a href="https://www.sciencedirect.com/science/article/abs/pii/0010028585900106?via%3Dihub">original paper about the hot hand</a> was co-written by Amos Tversky, who went on to win a Nobel Prize for helping to invent behavioral economics. I figure any time you can crib off of a Nobel Prize winner's homework, you probably should!</p>
-<h2>Results</h2>
-<p>I started off by getting data on every shot taken in the 2024-25 NBA regular season. I calculated the expected number of streaks and actual number, then a z-score for every player.</p>
-<p>Players with a z-score of 0 are just like what we'd expect from flipping a coin. A positive z-score indicates there were more streaks than expected. More streaks than expected means the streaks were shorter than expected, which means less streaky than expected. </p>
-<p>A negative z-score indicates the opposite. Those players had fewer streaks than expected, which means the streaks were longer.  When people talk about the "hot hand" or "streaky shooters", they are talking about players who should have a negative z-score by this test.</p>
-<p><img alt="all players, 2024-5" src="/img/all-players-2024.png"></p>
-<p>The curve over the top is the distribution of z-scores we'd expect if the players worked like weighted coin flips. </p>
-<p>Just eyeballing it, it's pretty close. It's definitely a bell curve, centered pretty close to zero. If there is a skew, it's actually to the positive, un-streaky side, though.  The mean z-score is .21, when we'd expect it to be zero.</p>
-<div class="highlight"><pre><span></span><code>count    554.000000
-mean       0.212491
-std        1.075563
-min       -3.081194
-25%       -0.546340
-50%        0.236554
-75%        0.951653
-max        3.054836
-</code></pre></div>
-
-<p>The Wilk-Shapiro test is way to decide whether a set of data plausibly came from a normal distribution. It passed. There is no conclusive evidence that players in general are streakier or less streaky than predicted by chance. This data very well could've come from flipping a bunch of coins.</p>
-<p>But it's still sorta skewed. There were 320 players with a positive z-score (un-streaky) versus 232 with a negative z-score (streaky). That's suspicious.</p>
-<h2>Outliers</h2>
-<p>A whole lot of those 554 players didn't make very many shots.  </p>
-<p><img alt="numer of makes, 2024-5" src="/img/makes-2024.png"></p>
-<p>I decided to split up players with over 100 makes versus under 100 makes. Unlike high volume shooters, the low volume shooters had no bias towards unstreakiness. They look like totally random data.</p>
-<p>Here are just the high volume shooters (323 players in total). Notice how none of them have a z-score less than about -2. It should be symmetrical.</p>
-<p><img alt="over 100 makes, 2024-5" src="/img/over-100-makes.png"></p>
-<div class="highlight"><pre><span></span><code>count    323.000000
-mean       0.347452
-std        1.068341
-min       -2.082528
-25%       -0.454794
-50%        0.363949
-75%        1.091244
-max        3.054836
-</code></pre></div>
-
-<h2>The Eye Test</h2>
-<p>I looked at which players had exceptionally high or low z scores. The names don't really make sense to me as an NBA fan. There were players like Jordan Poole and Jalen Green, who I think fans would consider streaky, but they had exceptionally un-streaky z-scores. I don't think the average NBA fan would say Jalen Green is less streaky than 97.5% of the players in the league, but he is (by this test).</p>
-<p>On the other hand, two streakiest players in the NBA this year were Goga Bitadze and Thomas Bryant, two players who don't fit the profile of the stereotypical streaky shooter by any means.</p>
-<h2>Makes vs. Streakiness</h2>
-<p>The more shots a player made this season, the more un-streaky they tended to be. Here's a plot of makes on the 2024-25 season versus the z-score.</p>
-<p><img alt="makes vs z-score" src="/img/makes-vs-zscore.png"></p>
-<p>That's pretty odd, isn't it?</p>
-<h2>Getting more data: 2021-present</h2>
-<p>I figured a bigger sample size would be better. Maybe this season was just weird. So got the last 4 seasons of data (2021-22, 2022-2023, 2023-2024, 2024-2025) for players who made a shot in the NBA this season and combined them.</p>
-<p>The four year data is even more skewed towards the <em>lukewarm hand</em>, or un-streaky side, than the single year data.</p>
-<p><img alt="all players, 2021-2025" src="/img/all-players-four-year.png"></p>
-<div class="highlight"><pre><span></span><code>count    562.000000
-mean       0.443496
-std        1.157664
-min       -4.031970
-25%       -0.312044
-50%        0.449647
-75%        1.184918
-max        4.184025
-</code></pre></div>
-
-<p>The correlation between number of makes and z-score is quite strong in the 4 year data:</p>
-<p><img alt="2021-2025 z score vs makes" src="/img/four-year-makes-vs-zscore.png"></p>
-<p>There were 48 players with a z-score &gt; 2, versus only 9 with a score &lt; -2. That's like flipping a coin and getting 48 heads and 9 tails. There's around a 2 in 10 million chance of that happening with a fair coin.</p>
-<h2>High Volume Shooters, Redux</h2>
-<p>The bias towards the lukewarm hand is even stronger among high volume shooters. Here are players with more than 500 makes over the past 4 years.</p>
-<p><img alt="over 500 makes" src="/img/over-500-makes.png"></p>
-<p>The z-scores are normally distributed according to the Wilk-Shapiro test, but they're no longer even close to being centered at zero. They're also overdispersed (the std is bigger than the expected 1.) It's not plausible that the true mean is 0, given the sample mean is .680.</p>
-<div class="highlight"><pre><span></span><code>count    265.000000
-mean       0.680097
-std        1.217946
-min       -2.392061
-25%       -0.149211
-50%        0.776917
-75%        1.485595
-max        4.184025
-</code></pre></div>
-
-<p><img alt="high volume hist" src="/img/high-volume-hist.png"></p>
-<h2>Streak Lengths</h2>
-<p>I looked at the length of make/miss streaks for the actual NBA players versus simulating the results. The results were simulated by taking the exact number of makes and misses for each NBA player, and then shuffling those results randomly. What I found confirmed the "lukewarm hand" -- overall, NBA players have slightly more 1 and 2 shot streaks than expected, and fewer long streaks than expected.</p>
-<p><img alt="streaks" src="/img/streaks.png"></p>
-<h2>Obvious objections, and what about free throws?</h2>
-<p>I'm treating every field goal attempt like it has the same chance of going in. Clearly that's not the case. Players, especially high volume scorers, can choose which shots they take. It's easy to imagine a player that has missed several shots in a row and is feeling "cold" would concentrate on only taking higher percentage shots. There's also the fact that I'm combining games together. That could potentially lead to players looking less streaky than they are within the course of a single game. But it should also make truly unstreaky players look less <em>unstreaky</em>. Streaks getting "reset" by the end of the game should make players act more like a purely random process -- not too streaky or unstreaky. It shouldn't increase the standard deviation of the z-scores like we're seeing, or cause a shift towards unstreakiness. </p>
-<p>I may do a simulation to illustrate that, but in the meantime, the most controlled shot data we have is free throw data. Every free throw should have exactly the same level of difficulty for the player. </p>
-<p>I got the data for the 200,000+ free throws in the NBA regular season over the past four years (October 2021 through April 2025).</p>
-<p>Here are the z-scores for all players. There's a big chunk taken out of the middle of the bell curve, but it's normal-ish other than that.</p>
-<p><img alt="free throws" src="/img/free-throws.png"></p>
-<p>240 players have made over 200 free throws in the past 4 years. When I restrict to just those players, there's a slight skew towards the "hot hand", or being more streaky than expected. There are no exceptionally <em>lukewarm hands</em> when it comes to free throws. It's sort of the mirror image of what we saw with high volume field goal shooters.</p>
-<p><img alt="free throws, over 200 makes" src="/img/over-200-ft.png"></p>
-<div class="highlight"><pre><span></span><code>count    240.000000
-mean      -0.144277
-std        1.021330
-min       -2.686543
-25%       -0.854723
-50%       -0.174146
-75%        0.660302
-max        1.845302
-</code></pre></div>
-
-<h2>Conclusions, for now</h2>
-<p>I feel comfortable concluding that the hot hand doesn't exist when it comes to field goals. I can't say why there's a tendency towards <em>unstreakiness</em> yet, but I suspect it is due to shot selection. Players who have made a bunch of shots may take more difficult shots than average, and players who have missed a bunch of shots will go for an easier shot than average. While players can't choose when to "heat up" or "go cold", they can certainly change shot selection based on their emotions or the momentum of the game.</p>
-<p>There may be a slight tendency towards the <em>hot hand</em> when it comes to free throws. It's worth investigating further, I think. But the effect there doesn't appear to be nearly as strong as the <em>lukewarm hand</em> tendency for field goals.</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/the-hot-hand-doesnt-exist-in-the-nba-but-its-opposite-does.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
-                    &nbsp;<a href="/tag/the-hot-hand.html" class="tags">the hot hand</a>
                 </div>
             </article>
 
