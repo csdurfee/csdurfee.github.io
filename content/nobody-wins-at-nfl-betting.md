@@ -1,5 +1,5 @@
 Title: Nobody wins at NFL betting.
-Date: 2025-12-18 10:20
+Date: 2025-12-23 10:20
 Category: football
 Tags: football, sports betting, bajillion
 
