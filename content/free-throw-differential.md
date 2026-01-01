@@ -7,6 +7,8 @@ Tags: basketball
 
 Song: [Delia Derbyshire - Pot Au Feu (1968)](https://www.youtube.com/watch?v=jpdiMcEeTJA){:target="_blank"}
 
+Notebook: [https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/free-throws.ipynb](https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/free-throws.ipynb)
+
 ## The Bucks
 There's a lot of buzz around the Milwaukee Bucks right now because their star player has asked to be traded, but I'm gonna stick to the math. The NBA take-industrial complex has got the Giannis situation covered, and I do math better than drama.
 
@@ -21,7 +23,7 @@ I'm looking at the last 25 years of team data from nba.com/stats.
 ## Things to remember about free throws
 There are complications to analyzing free throws because they're not a fixed quantity. Some fans will see a game where one team gets 20 free throws and the other team gets 35, and take it as evidence that the refs were biased. That's naive -- some players/teams foul more on defense, some players/teams take more *foul-worthy* shots on on offense, and there's plenty of random variation form game to game. It would be weird if every team committed exactly 30 fouls every single game.
 
-There's seasonality to foul calls as well. On top of formal rule changes, the NBA issues *points of emphasis* for its officials each year, which change how the rules are interpreted. Certain types of fouls may be emphasized, or de-emphasized. It's hard to find a formal record of these de facto rule changes, but as a fan, I've seen it several times. For instance, [I previously talked about](/overs-money-lines-and-pigeonholes.html) the middle of the 2023 season, where the league told officials to stop calling so many fouls in general, without telling teams or the general public. 
+There's seasonality to foul calls as well. On top of formal rule changes, the NBA issues *points of emphasis* for its officials each year, which change how the rules are interpreted. Certain types of fouls may be emphasized, or de-emphasized, causing the total number of fouls called to go up or down. It's hard to find a formal record of these de facto rule changes, but as a fan, I've seen it several times. For instance, [I previously talked about](/overs-money-lines-and-pigeonholes.html) the middle of the 2023 season, where the league told officials to stop calling so many fouls in general, without telling teams or the general public. 
 
 There was another shift in the early 2010's where the officials quit calling so many fouls caused by the actions of the shooter rather than the defender. A shooter can shoot in a somewhat artificial way to ensnare the defender's arms. This type of grifting still exists in the league -- looking at you, James Harden -- but the league reduced the number of cheap fouls called in the early 2010's. I couldn't find exactly when they formally made the proclamation, but we can see a big shift in the free throw data after the 2010-11 season.
 
@@ -53,7 +55,7 @@ It's possible referees have an unconscious bias towards calling an even number o
 
 ![/img/ftm-vs-opponent.png](/img/ftm-vs-opponent.png)
 
-However, this overall picture is misleading. The number of fouls called per game goes up and down season-to-season based on rule changes and *points of emphasis*. So from year to year, the center of all the dots should move up and down along the diagonal line `FTM=Opponent FTM`. So we should expect a positive correlation overall that isn't necessarily there in the individual seasons -- an example of [Simpson's paradox](https://en.wikipedia.org/wiki/Simpson's_paradox).
+However, this overall picture is misleading. The number of fouls called per game goes up and down season-to-season based on rule changes and *points of emphasis*. So from year to year, the center of all the dots should move up and down along the diagonal line `FTM=Opponent FTM`. We should expect a positive correlation overall that isn't necessarily there in the individual seasons -- an example of [Simpson's paradox](https://en.wikipedia.org/wiki/Simpson's_paradox).
 
 Here's an animation of the correlations year-by-year:
 
@@ -72,31 +74,35 @@ Why isn't their offense better overall? One big reason is their offensive reboun
 
 Not necessarily, because offensive rebounding rate is a schematic choice. Do the bigs try to get the rebound (*crash the boards*), or do they try to hustle back and play defense? Teams coached by Doc Rivers tend to have low offensive rebounding rates. The "Lob City" Clippers were a great rebounding team, yet in their heyday from 2014-2018, they were 21st, 28th, 29th, and 24th in offensive rebounding, so it's not surprising the Bucks have that same tendency.
 
-The Thunder have the 3rd fewest second chance points, so a team can definitely be elite and not get a lot of offensive rebounds. But unlike the Thunder, the Bucks are bad on defense (22nd in defensive rating) and foul way too much, so they're not in a good place to make defense their identity. If this were NBA 2K, I'd probably move the "crash the boards" slider to the left for the Bucks and see what happens, because the Bucks are closer to being elite on the offensive end. There's more to build on.
+The Thunder have the 3rd fewest second chance points, so a team can definitely be elite and not get a lot of offensive rebounds. But unlike the Thunder, the Bucks are bad on defense (22nd in defensive rating) and foul way too much, so they're not in a good place to make defense their identity. If this were NBA 2K, I'd probably move the "crash the boards" slider to the left for the Bucks and see what happens, because the Bucks are closer to being elite on the offensive end. There's more strength to build on.
 
-There is only a very slightly positive correlation in 2nd chance point differential and winning percentage. It's a bad predictor of team success.
+There is only a very slight positive correlation between 2nd chance point differential and winning percentage. It's a bad predictor of team success.
 
 ![/img/2nd-chance-diff.png](/img/2nd-chance-diff.png)
 
 ## The Nets are fun... for now
-The Brooklyn Nets had a bunch of draft picks and cap space going into this offseason, and they didn't seem to maximize those resources. A lot of people didn't like the trade they made for Michael Porter Jr., which got the Denver Nuggets out of salary cap hell in exchange for a fairly small return. The Nets were the only team in the league with the financial flexibility to take on bad contracts, so they probably could have gotten more.
+The Brooklyn Nets had a bunch of draft picks and cap space going into this offseason, and they didn't seem to maximize those resources. A lot of people didn't like the trade they made for Michael Porter Jr., which got the Denver Nuggets out of salary cap hell in exchange for a fairly small return. The Nets were the only team in the league with the financial flexibility to take on bad contracts in trades, so they probably could have gotten more.
 
 They also didn't trade any of the five first round picks they accumulated in this year's draft. Why didn't they trade some of them for future picks? The conventional wisdom is that teams shouldn't try to develop too many rookies at once. What's a team supposed to do with five rookies (two of whom are teenagers), with some overlap in the positions they play?
 
-Well for one thing, they're supposed to be terrible. The Nets have been bottoming out for a while, and I doubt that will stop this season. Catch them in the next few weeks while they're sort of trying to win games, if you're curious. They've won 3 out of their last 4 games and they've been entertaining. They were fun for a few weeks at this point in the season last year, too. 
+Well for one thing, they're supposed to be terrible. The Nets have been bottoming out for a few seasons, and I doubt that will stop this season. Catch them in the next few weeks while they're sort of trying to win games, if you're curious. They've won 3 out of their last 4 games and they've been entertaining.
 
-The front office will probably try to trade away their best players over the next couple of months. But right now, MPJ is a good stats/bad team All-Star, Nic Claxton is solid as always, rookie Danny Wolf is already a fan favorite, and a couple other rookies show promise. 
+They were fun for a few weeks at this point in the season last year, too. The front office will probably try to trade away their best players over the next couple of months to keep them from being too good. But right now, MPJ is a good stats/bad team All-Star, Nic Claxton is solid as always, rookie Danny Wolf is already a fan favorite, and a couple other rookies show promise. 
 
-As fun as they are, I'm not totally encouraged by the Nets' approach to rebuilding. As always, I'm a lot more concerned with process than outcomes, because the process can be controlled. It seems like their idea is that if they draft enough first rounders, inevitably some of them will be good. It's treating players like lotto scratch tickets -- players are inherently winners or losers, and it's the front office's job to play the perentages.
+As fun as they are, I'm not encouraged by the Nets' approach to rebuilding. I'm always a lot more concerned with process than outcomes, because the process can be controlled. It seems like their idea is that if they draft enough first rounders, inevitably some of them will be good. It's treating players like lotto scratch tickets -- players are inherently winners or losers, and it's the front office's job to play the percentages and get as many picks as possible.
 
-That's bad process to me. Players are more like a packet of seeds. The final result is heavily dependent on how and where they are grown. The same seed grown in two different environments can give two very different results. Some seeds are better than others, but without the right environment, even the best seeds won't grow to their maximum potential. It will be a few years before we can see what sort of trees they're growing in Brooklyn.
+That's bad process to me. Players are more like a packet of seeds. The final result is heavily dependent on how and where they are grown. The same seed grown in two different environments can give two very different results. Some seeds are better than others, but without the right environment, even the best seeds won't grow to their maximum potential. I don't know if they have the culture and support system to develop their five rookies. It will be a few years before we'll see what sort of trees they're growing in Brooklyn.
 
 ## The Mathletix Bajillion, week whatever
-As usual, one set of picks is algorithmic, the other is random. 
+As usual, one set of NFL picks is algorithmic, the other is random. 
 
-Mathletix won the week, with a total record of 6-4 versus the Ringer's 10-15 record (their website incorrectly lists *The Handicapos* as going 5-0 when they actually went 4-1. No, I'm not petty enough to email them about it.)  The Ringer currently has 3 teams at 33-37 and 2 teams at 31-39, for a cumulative record of 161-189 (46.0% winning rate). Of course, some of the Ringer's picks contradict each other -- one Ringer team taking the home team, and another taking the away team. Removing the bets where Ringer teams contradicted each other would probably yield an ever lower winning percentage, because taking both sides of a bet has a winning percentage of 50%, which is better than the Ringer's overall win rate.
+Mathletix won the week, with a total record of 6-4 versus the Ringer's 10-15 record (note: their website incorrectly lists *The Handicapos* as going 5-0 when they actually went 4-1. I'm petty enough to notice, but not petty enough to email them about it.)  
 
-Someone taking the opposite of every one of the Ringer experts' picks would be up 11.9 units on the year, for a +3.4% rate of return.
+The Ringer currently has 3 teams at 33-37 and 2 teams at 31-39, for a cumulative record of 161-189 (46.0% winning rate). Of course, some of the Ringer's picks contradict each other -- one Ringer team taking the home team, and another taking the away team on the same game. Removing the bets where Ringer teams contradicted each other would just make things worse, though, because taking both sides of a bet has a winning percentage of 50%, which is better than the Ringer's overall win rate.
+
+Someone taking the opposite of every one of the Ringer experts' picks would be up 11.9 units on the year, for a +3.4% rate of return. There's only a 6.7% chance of getting results that bad by flipping a coin. 
+
+As I've written about before, I don't think that makes them bad as far as gambling experts go. Rather, I believe everything they know about football has already been incorporated into the line, so their knowledge is kind of a curse -- they're overvaluing information that the market has already absorbed, so they end up losing more than 50% of the time.
 
 *Lines taken Wednesday morning*
 
