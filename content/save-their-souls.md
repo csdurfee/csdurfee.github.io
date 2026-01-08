@@ -22,6 +22,7 @@ Both games are good examples of the fact that closing lines aren't necessarily m
 last week: 1-3-1, -209   
 Overall: 21-18-1, +245  
 line shopping: +125    
+
 * LAC +13 -109 (prophetX)
 * CAR +3 -110 (prophetX)
 * GB +8 -110 (hard rock)
@@ -32,6 +33,7 @@ line shopping: +125
 last week: 2-2-1, 0    
 Overall: 15-22-3, -787       
 line shopping: +133       
+
 * JAX -12.5 -110 (prophetX)
 * CAR +3 -110 (prophetX)
 * DET +3 -110 (lowvig)

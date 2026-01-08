@@ -14,9 +14,7 @@ I thought it was a pretty cool idea, though, so I tracked down a better source o
 
 All code and data is available online at [https://github.com/csdurfee/scrape_yahoo_odds/](https://github.com/csdurfee/scrape_yahoo_odds/). The `explore.ipynb` notebook has all the calculations and charts used in this article.
 
-As usual with gambling content, I'm presenting this data because I think it is interesting to study how it works, and what it tells us about basketball and human nature. Math is cool. Basketball is cool. Human nature is frequently not cool, but always interesting. Gambling is lame.  If you have money burning a hole in your pocket, please give it to me instead of the MGM Grand.
-
-OK, lecture over.
+As usual with gambling content, I'm presenting this data because I think it is interesting to study how it works, and what it tells us about basketball and human nature. I don't recommend you bet based on information in this article, or at all.
 
 The data I'm looking at is every regular season and playoff NBA game from the 2021-22, 2022-23, 2023-2024 and 2024-2025 seasons. No preseason games or All-Star games, but the Emirates NBA Cup championship game is included. 
 
