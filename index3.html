@@ -28,7 +28,679 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Jul 17, 2025</h4>
+        <div id="content">            <h4 class="date">Jul 18, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/the-public-wants-what-the-public-gets.html" rel="bookmark" title="Permanent Link to &quot;The public wants what the public gets&quot;">The public wants what the public gets</a>
+                </h2>
+
+                
+                
+
+                <p>code available at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.</p>
+<p><a href="https://www.youtube.com/watch?v=AE1ct5yEuVY" target="_blank"><img alt="The Jam, &quot;Going Underground&quot;" src="https://img.youtube.com/vi/AE1ct5yEuVY/0.jpg"></a></p>
+<h3>Two types of people</h3>
+<p>Lots of sportsbooks publish info on how much <em>action</em> they've gotten on each side.</p>
+<p>Here's DraftKings':  <a href="https://dknetwork.draftkings.com/draftkings-sportsbook-betting-splits/">https://dknetwork.draftkings.com/draftkings-sportsbook-betting-splits/</a></p>
+<p>It's a smart move. It's good for SEO (to the extent that still matters). And I'm sure they get a lot of people who decide to take bets from that page. </p>
+<p>For example, the Pacers were playing Brooklyn the night I wrote this. 27% of the bets were on Brooklyn at +10.5. 73% are on Pacers -10.5.</p>
+<p>Somebody who sees that and decides to make a bet based on that information could bet either way. They could either tell themselves, "Everybody's taking the Pacers, so it must be a good bet" or "Everybody's taking the Pacers, so it must be a bad bet". </p>
+<p>What are those two groups like when they're not betting on basketball, do you think? Do they use the same kind of toothpaste? Watch the same kind of TV shows? Vote the same way?</p>
+<h3>The public gets what the public wants</h3>
+<p>One bit of gambling lore is that there are "public" teams that get bet on more frequently, regardless of the line. Like, your cousin who's a Cowboys fan is going to bet the Cowboys on Thanksgiving regardless of whether it's a fair line or not.  He'd watch the game and root for the Cowboys anyway, but it's a little more fun that way. The Cowboys aren't just a random number generator to him.</p>
+<p>There's a social aspect to gambling now that I imagine didn't exist when it was underground. Lots of gamblers will <em>follow</em> bets that other people have placed. If the bet wins, I'm sure it's a cool communal thing to be a part of. But social media often doesn't obey the <em>wisdom of crowds</em> -- in places like reddit where users vote content up and down, the conventional wisdom is going to be amplified, and people with minority opinions are going to be suppressed. If well over 90% of sports gamblers lose money long term, the majority opinions are going to be bad. </p>
+<p>I scraped betting percentage data from <a href="https://www.sportsbookreview.com/betting-odds/nba-basketball/">sportsbookreview</a> (SBR) for the 2024-5 season. They don't say where they get the betting percentages from. If I had to guess, it would be MGM Grand, their primary source of other data. The SBR numbers seemed to indicate more <em>action</em> overall than a couple other sources I found -- the betting percentages were closer together. Other sites had games where there's 10% action on one side and 90% on the other, which seems implausible on a large volume of bets. So it's probably a pretty big site, whatever it is.</p>
+<p>As with the data from the previous installment, there are 32 games out of 1230 missing data.</p>
+<p>The <code>money_percents</code> column is the median amount bet on each team. The <code>money_game_winners</code> column tracks the number of games where that team got the majority of the money bet on their side. Both of these can be taken as indicators of how much teams are favored by the public.</p>
+<p>Here are the teams sorted by money_percents. The teams near the top were less popular with gamblers, the teams at the bottom more popular.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">winner</th>
+<th style="text-align: right;">loser</th>
+<th style="text-align: right;">ats_win_pct</th>
+<th style="text-align: right;">money_percents</th>
+<th style="text-align: right;">money_game_winners</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">New Orleans</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">39.5</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr>
+<td style="text-align: left;">Charlotte</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">41.5</td>
+<td style="text-align: right;">24</td>
+</tr>
+<tr>
+<td style="text-align: left;">Miami</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr>
+<td style="text-align: left;">Philadelphia</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">43.5</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr>
+<td style="text-align: left;">Portland</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">43.5</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr>
+<td style="text-align: left;">Orlando</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr>
+<td style="text-align: left;">Utah</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">33</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sacramento</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">32</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Clippers</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr>
+<td style="text-align: left;">San Antonio</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">31</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chicago</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">36</td>
+</tr>
+<tr>
+<td style="text-align: left;">New York</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">38</td>
+</tr>
+<tr>
+<td style="text-align: left;">Phoenix</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">36</td>
+</tr>
+<tr>
+<td style="text-align: left;">Washington</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">37</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Lakers</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr>
+<td style="text-align: left;">Indiana</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr>
+<td style="text-align: left;">Atlanta</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr>
+<td style="text-align: left;">Boston</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr>
+<td style="text-align: left;">Minnesota</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dallas</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr>
+<td style="text-align: left;">Detroit</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr>
+<td style="text-align: left;">Brooklyn</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr>
+<td style="text-align: left;">Toronto</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">47</td>
+</tr>
+<tr>
+<td style="text-align: left;">Golden State</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">51</td>
+</tr>
+<tr>
+<td style="text-align: left;">Houston</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">49</td>
+</tr>
+<tr>
+<td style="text-align: left;">Oklahoma City</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">54.5</td>
+<td style="text-align: right;">54</td>
+</tr>
+<tr>
+<td style="text-align: left;">Milwaukee</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">56.5</td>
+<td style="text-align: right;">56</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cleveland</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">53</td>
+</tr>
+<tr>
+<td style="text-align: left;">Memphis</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">51</td>
+</tr>
+<tr>
+<td style="text-align: left;">Denver</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">58.5</td>
+<td style="text-align: right;">63</td>
+</tr>
+</tbody>
+</table>
+<h3>The public favorites</h3>
+<p>The most popular teams with NBA gamblers were Denver, Cleveland, Memphis, Milwaukee, and Oklahoma City. Denver got the most money in 63 of 82 games they played, which is remarkable.</p>
+<p>Cleveland, OKC and Memphis were dominant for most of the season.</p>
+<p>Denver and Milwaukee have two of the best and most entertaining players in the league. Both Giannis for Milwaukee and Jokic for Denver are fun to root for. People like to take bets on teams that are fun to follow. </p>
+<h3>The ugly dogs</h3>
+<p>The bottom teams were New Orleans, Charlotte, Miami, Philadelphia and Portland. All these teams except for Portland were total bummers to watch and cheer for this year. They had injuries and organizational dysfunction that led to totally wasted seasons. People don't like to take bets on teams that are a bummer to follow.</p>
+<p>This hints at the fact that a lot of people are taking bets because they want that team to win the bet, rather than because they believe the bet has a positive expected value. It's entertainment, not a business investment.</p>
+<h3>Against the spread</h3>
+<p>Here's the same data sorted by record against the spread.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">winner</th>
+<th style="text-align: right;">loser</th>
+<th style="text-align: right;">ats_win_pct</th>
+<th style="text-align: right;">money_percents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Philadelphia</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">43.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Phoenix</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">48</td>
+</tr>
+<tr>
+<td style="text-align: left;">Washington</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">49</td>
+</tr>
+<tr>
+<td style="text-align: left;">New Orleans</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">39.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sacramento</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">45</td>
+</tr>
+<tr>
+<td style="text-align: left;">Denver</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">58.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dallas</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr>
+<td style="text-align: left;">Charlotte</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">41.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Minnesota</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr>
+<td style="text-align: left;">New York</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">48</td>
+</tr>
+<tr>
+<td style="text-align: left;">Indiana</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">51</td>
+</tr>
+<tr>
+<td style="text-align: left;">Atlanta</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr>
+<td style="text-align: left;">San Antonio</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">47</td>
+</tr>
+<tr>
+<td style="text-align: left;">Boston</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr>
+<td style="text-align: left;">Miami</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr>
+<td style="text-align: left;">Memphis</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">57</td>
+</tr>
+<tr>
+<td style="text-align: left;">Orlando</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr>
+<td style="text-align: left;">Utah</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">45</td>
+</tr>
+<tr>
+<td style="text-align: left;">Golden State</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">54</td>
+</tr>
+<tr>
+<td style="text-align: left;">Detroit</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">53</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chicago</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">47</td>
+</tr>
+<tr>
+<td style="text-align: left;">Houston</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">54</td>
+</tr>
+<tr>
+<td style="text-align: left;">Milwaukee</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">56.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Brooklyn</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">53</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Clippers</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">46</td>
+</tr>
+<tr>
+<td style="text-align: left;">Portland</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">43.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Lakers</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">51</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cleveland</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">57</td>
+</tr>
+<tr>
+<td style="text-align: left;">Toronto</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">53</td>
+</tr>
+<tr>
+<td style="text-align: left;">Oklahoma City</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">54.5</td>
+</tr>
+</tbody>
+</table>
+<p>Philadelphia, Washington and Phoenix were just as terrible at the sportsbook as they were on the basketball court. OKC and Cleveland had outstanding seasons in both places.</p>
+<p>However, there's only a rough correlation between how good the teams were at actual basketball, and at beating the spread. Minnesota, New York and Denver were in the bottom 10 by winning % against the spread, even though they had good records and were doing their best to win. Denver lost to the eventual champs, and New York and Minnesota made the conference finals. Indiana was the 10th worst team against the spread, and made the NBA Finals. Toronto and Brooklyn weren't really trying to win a lot of basketball games, but ended up in the top 10. There is no good reason I can think of for the Lakers to be in the top 4 against the spread -- aren't they the epitome of a public team that should be getting unfavorable lines? </p>
+<h3>Which teams should the public love and hate?</h3>
+<p>I calculated the amount of units a gambler would win or lose if they bet on each team when they got the majority of the bets.  This is a sort of measure how happy the proverbial public should be about each team.</p>
+<p><code>public_units</code> is the amount won/lost betting in favor of the team. Phoenix, Sacramento, Dallas, Denver and Indiana disappointed the public the most.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">public_units</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Phoenix</td>
+<td style="text-align: right;">-16.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sacramento</td>
+<td style="text-align: right;">-14.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dallas</td>
+<td style="text-align: right;">-13.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">Denver</td>
+<td style="text-align: right;">-12.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">Indiana</td>
+<td style="text-align: right;">-12.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">Atlanta</td>
+<td style="text-align: right;">-11.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Utah</td>
+<td style="text-align: right;">-11.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chicago</td>
+<td style="text-align: right;">-10.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">Minnesota</td>
+<td style="text-align: right;">-9.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Detroit</td>
+<td style="text-align: right;">-7.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">Philadelphia</td>
+<td style="text-align: right;">-6.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">New York</td>
+<td style="text-align: right;">-6.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">Brooklyn</td>
+<td style="text-align: right;">-5.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">Washington</td>
+<td style="text-align: right;">-5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Boston</td>
+<td style="text-align: right;">-3.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">New Orleans</td>
+<td style="text-align: right;">-3.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">Memphis</td>
+<td style="text-align: right;">-1.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Charlotte</td>
+<td style="text-align: right;">-1.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">Miami</td>
+<td style="text-align: right;">-1</td>
+</tr>
+<tr>
+<td style="text-align: left;">San Antonio</td>
+<td style="text-align: right;">-0.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Orlando</td>
+<td style="text-align: right;">-0.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">Milwaukee</td>
+<td style="text-align: right;">1.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">Golden State</td>
+<td style="text-align: right;">2.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Lakers</td>
+<td style="text-align: right;">4.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">Houston</td>
+<td style="text-align: right;">4.9</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cleveland</td>
+<td style="text-align: right;">6.8</td>
+</tr>
+<tr>
+<td style="text-align: left;">Portland</td>
+<td style="text-align: right;">10.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">Toronto</td>
+<td style="text-align: right;">11.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Clippers</td>
+<td style="text-align: right;">12.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">Oklahoma City</td>
+<td style="text-align: right;">18.3</td>
+</tr>
+</tbody>
+</table>
+<p>This is a pretty random list of teams, in both directions. It's a good illustration that gamblingball is different from basketball. It's not clear whether gamblingball is a game with an element of skill, or if it's all chance.</p>
+<h3>Are records against the spread due to chance?</h3>
+<p>If we assume that all variations are due to randomess, each game should be a coin flip whether the underdog or favorite wins against the spread.</p>
+<p>Calculating exact odds using the binomial distribution, 94% of NBA teams should have between 33 and 49 wins against the spread over an 82 game season.</p>
+<p>We'd expect 2 teams to be outside that range, and there are 3. Philadelphia went 26-52 in 78 games we have data for. Even if they won the other 4 games that are missing data, they'd only have 30 wins. So that record was definitely an outlier, but overall the season was about what we'd expect based on chance.</p>
+<p>I find it very believable that some teams are more likely to have a winning record against the spread, because they are underestimated by the handicappers or the betting public. They end up getting lines that are too generous, and thus do better than expected against the spread over the long run. Toronto could be an example of that. They were bad, but they weren't really as bad as people thought.</p>
+<p>Other teams could be inherently worse against the spread, as well. Perhaps they are super popular to bet on, so the lines tend to move against them -- a <em>public team</em>. Or perhaps gamblers and sportsbooks overvalue the team -- the conventional wisdom is that they'll be good when they're not. That definitely describes Philadelphia and Phoenix.</p>
+<p>In both cases, <em>the teams themselves</em> aren't necessarily doing anything to be better or worse against the spread than an average team would be. It's about the perceptions of the bookmakers and gamblers. Teams can't help what bookmakers set the lines to be.</p>
+<h3>Do gamblers follow the record against the spread?</h3>
+<p>If a team's record against the spread is due solely to random error, then we've got a <a href="/LeSimulation.html">LeMartingale</a> on our hands. The current record would have no bearing on the future record. So gamblers shouldn't factor it in when deciding to take a bet or not.</p>
+<p>By the end of the season, there was a significant correlation between money percents and win percentage against the spread. I wanted to see how that might've changed over time. So I generated the table shown above for every single day of the season, and calculated the correlation on that day.  Here's what that looks like over time:</p>
+<p><img alt="/img/money-ats-win-pct.png" src="/img/money-ats-win-pct.png"></p>
+<p>The money percentages are cumulative, the mean of all games in the season that have come before -- it's not showing gamblers' betting behavior on a particular day. The graph is a lot smoother that way, but we're losing something.</p>
+<p>It also doesn't show whether records against the spread are a Martingale or not. The correlation between betting percentages and win records increases over time, but that doesn't mean this is because gamblers are behaving <em>rationally</em>. </p>
+<p>The jump in correlation around mid-Februrary corresponds to the All-Star break, which is curious.</p>
+<p>Stay tuned; I'll have more on this.</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/the-public-wants-what-the-public-gets.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
+                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
+                </div>
+            </article>            <h4 class="date">Jul 17, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -1002,131 +1674,6 @@ max        2.486584
                     &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/football.html" class="tags">football</a>
-                </div>
-            </article>            <h4 class="date">May 22, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/majority-voting-in-ensemble-learning.html" rel="bookmark" title="Permanent Link to &quot;Majority Voting in Ensemble Learning&quot;">Majority Voting in Ensemble Learning</a>
-                </h2>
-
-                
-                
-
-                <p>(notebook is available at <a href="https://github.com/csdurfee/ensemble_learning/blob/main/ensemble_voting.ipynb">github.com/csdurfee/ensemble_learning</a>.)</p>
-<h2>Ensemble Learning</h2>
-<p>AI and machine learning systems are often used for classification. Is this email spam or not? Is this person a good credit risk or not? Is this a photo of a cat or not?</p>
-<p>There are a lot of ways to build classifiers, and they all potentially have different strengths and weaknesses. It's natural to try combining multiple models together to produce better results than the individual models would. </p>
-<p>Model A might be bad at classifying black cats but good at orange ones, model B might be bad at classifying orange cats but good at black ones, model C is OK at both. So if we average together the results of the three classifiers, or go with the majority opinion between them, the results might be better than the individual classifiers.</p>
-<p>This is called an ensemble. Random forests and gradient boosting are two popular machine learning techniques that use ensembles of <em>weak learners</em> -- a large number of deliberately simple models that are all trained on different subsets of the data. This strategy can lead to systems that are more powerful than their individual components. While each little tree in a random forest is weak and prone to overfitting, the forest as a whole can be robust and give high quality predictions.</p>
-<h2>Majority Voting</h2>
-<p>We can also create ensembles of <em>strong learners</em> -- combining multiple powerful models together. Each individual model is powerful enough to do the entire classification on its own, but we hope to achieve higher accuracy by combining their results.  The most common way to do that is with voting. Query several classifiers, and have the ensemble return the majority pick, or otherwise combine the results.</p>
-<p>There are some characteristics of ensembles that seem pretty common sense [1]. The classifiers in the ensemble need to be <em>diverse</em>: as different as possible in the mistakes they make. If they all make the same mistakes, then there's no way for the ensemble to correct for that. </p>
-<p>The more classification categories, the more classifiers are needed in the ensemble. However, in real world settings, there's usually a point where adding more classifiers doesn't improve the ensemble. </p>
-<h2><a name="model"></a>The Model</h2>
-<p>I like building really simple models. They can illustrate fundamental characteristics, and show what happens at the extremes. </p>
-<p>So I created an extremely simple model of majority voting (see <a href="https://github.com/csdurfee/ensemble_learning/blob/main/ensemble_voting.ipynb">notebook</a>). I'm generating a random list of 0's and 1's, indicating the ground truth of some binary classification problem. Then I make several copies of the ground truth and randomly flip <code>x%</code> of the bits. Each of those copies represent the responses from an individual classifier within the ensemble. Each fake classifier will have <code>100-x%</code> accuracy. There's no correlation between the wrong answers that each classifier gives, because the changes were totally random. </p>
-<p>For every pair of fake classifiers with 60% accuracy, they will both be right <code>60% * 60% = 36%</code> of the time, and both wrong <code>40% * 40% = 16%</code>. So they will agree <code>36% + 16% = 52%</code> of the time at minimum.</p>
-<p>That's different from the real world. Machine learning algorithms trained on the same data will make a lot of the same mistakes and get a lot of the same questions right. If there are outliers in the data, any classifier can overfit on them. And they're all going to find the same basic trends in the data. If there aren't a lot of good walrus pictures in the training data, every model is probably going to be bad at recognizing walruses. There's no way to make up for what isn't there.</p>
-<h2>Theory vs Reality</h2>
-<p>In the real world, there seem to be limits on how much an ensemble can improve classification. On paper, there are none, as the simulation shows.</p>
-<p>What is the probability of the ensemble being wrong about a particular classification?</p>
-<p>That's the probability that the majority of the classifiers predict 0, given that the true value is 1 (and vice versa). If each classifier is more likely to be right than wrong, as the number of classifiers goes to infinity, the probability of the majority of predictions being wrong goes to 0.</p>
-<p>If each binary classifier has a probability &gt; .5 of being right, we can make the ensemble arbitrarily precise if we add enough classifiers to the ensemble (assuming their errors are independent). We could grind the math using the normal approximation to get the exact number if need be.</p>
-<p>Let's say each classifier is only right 50.5% of the time. We might have to add 100,000 of them to the ensemble, but we can make the error rate arbitrarily small.</p>
-<h2>Correlated errors ruin ensembles</h2>
-<p>The big difference between my experiment and reality is that the errors the fake classifiers make are totally uncorrelated with each other. I don't think that would ever happen in the real world. </p>
-<p>The more the classifiers' wrong answers are correlated with each other, the less useful the ensemble becomes. If they are 100% correlated with each other, the ensemble will give the exact same results as the individual classifiers, right? An ensemble doesn't <em>have to</em> improve results.</p>
-<p>To put it in human terms, the "wisdom of the crowd" comes from people in the crowd having wrong beliefs about uncorrelated things (and being right more often than not overall). If most people are wrong in the same way, there's no way to overcome that with volume. </p>
-<p>My experience has been that different models tend to make the same mistakes, even if they're using very different AI/machine learning algorithms, and a lot of that is driven by weaknesses in the training data used.</p>
-<p>For a more realistic scenario, I created fake classifiers with correlated answers, so that they agree with the ground truth 60% of the time, and with each other 82% of the time, instead of the minimum 52% of the time. 
-The Cohen kappa score is .64, on a scale from -1 to 1, so they aren't as correlated as they could be.</p>
-<p>The simulation shows that if the responses are fairly strongly correlated with each other, there's a hard limit to how much the ensemble can improve things. </p>
-<p>Even with 99 classifiers in the ensemble, the simulation only achieves an f1 score of .62. That's just a slight bump from the .60 achieved individually. There is no marginal value to adding more than 5 classifiers to the ensemble at this level of correlation.</p>
-<h2>Ensembles: The Rich Get Richer</h2>
-<p>I've seen voting ensembles suggested for especially tricky classification problems, where the accuracy of even the  best models is pretty low. I haven't found that to be true, though, and the simulation backs that up. Ensembles are only going to give a significant boost for binary classification if the individual classifiers are significantly better than 50% accuracy.</p>
-<p>The more accurate the individual classifiers, the bigger the boost from the ensemble. These numbers are for an ensemble of 3 classifiers (in the ideal case of no correlation between their responses):</p>
-<table>
-<thead>
-<tr>
-<th>Classifier Accuracy</th>
-<th>Ensemble Accuracy</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>55%</td>
-<td>57%</td>
-</tr>
-<tr>
-<td>60%</td>
-<td>65%</td>
-</tr>
-<tr>
-<td>70%</td>
-<td>78%</td>
-</tr>
-<tr>
-<td>80%</td>
-<td>90%</td>
-</tr>
-</tbody>
-</table>
-<h2>Hard vs. soft voting</h2>
-<p>There are two different ways of doing majority voting, hard and soft. This choice can have an impact on how well an ensemble works, but I haven't seen a lot of guidance on when to use each. </p>
-<p><em>Hard voting</em> is where we convert the outputs of each binary classifier into a boolean yes/no, and go with the majority opinion. If there are an odd number of components and it's a binary classification, there's always going to be a clear winner. That's what I've been simulating so far.</p>
-<p><em>Soft voting</em> is where we combine the raw outputs of all the components, and then round the combined result to make the prediction. <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.VotingClassifier.html#sklearn.ensemble.VotingClassifier">sklearn's documentation</a> advises to use soft voting "for an ensemble of well-calibrated classifiers".</p>
-<p>In the real world, binary classifiers don't return a nice, neat 0 or 1 value. They return some value between 0 or 1 indicating a relative level of confidence in the prediction, and we round that value to 0 or 1. A lot of models will never return a 0 or 1 -- for them, nothing is impossible, just extremely unlikely.</p>
-<p>If a classifier returns <code>.2</code>, we can think of it as the model giving a <code>20%</code> chance that the answer is <code>1</code> and an <code>80%</code> chance it's <code>0</code>. That's not really true, but the big idea is that there's potentially additional context that we're throwing away by rounding the individual results.</p>
-<p>For instance, say the raw results are <code>[.3,.4,.9]</code>. With hard voting, these would get rounded to <code>[0,0,1]</code>, so it would return <code>0</code>. With soft voting, it would take the average of <code>[.3,.4,.9]</code>, which is <code>.53</code>, which rounds to <code>1</code>. So the two methods can return different answers.</p>
-<p>To emulate the soft voting case, I flipped a percentage of the bits, as before. Then I replaced every 0 with a number chosen randomly from the uniform distribution from <code>[0,.5]</code> and every <code>1</code> with a sample from <code>[.5,1]</code>. The values will still round to what they did before, but there's additional noise on top. </p>
-<p>In this simulation (3 classifiers), the soft voting ensemble gives less of a boost than the hard voting ensemble -- about half the benefits. As with hard voting, the more accurate the individual classifiers are, the bigger the boost the ensemble gives. </p>
-<table>
-<thead>
-<tr>
-<th>Classifier Accuracy</th>
-<th>Ensemble Accuracy</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>55%</td>
-<td>56%</td>
-</tr>
-<tr>
-<td>60%</td>
-<td>62%</td>
-</tr>
-<tr>
-<td>70%</td>
-<td>74%</td>
-</tr>
-<tr>
-<td>80%</td>
-<td>85%</td>
-</tr>
-</tbody>
-</table>
-<h2>Discussion</h2>
-<p>Let's say a classifier returns <code>.21573</code> and I round that down to 0. How much of the <code>.21573</code> that got lost was noise, and how much was signal? If a classification task is truly binary, it could be all noise. Let's say we're classifying numbers as odd or even. Those are unambiguous categories, so a perfect classifier should always return exactly 0 or 1. It shouldn't say that three is odd, with 90% confidence. In that case, it clearly means the classifier is 10% wrong. There's no good reason for uncertainty.</p>
-<p>On the other hand, say we're classifying whether photos contain a cat or not. What if a cat is wearing a walrus costume in one of the photos? Shouldn't the classifier return a value greater than 0 for the possibility of it not being a cat, even if there really is a cat in the photo? Isn't it somehow less cat-like than another photo where it's not wearing a walrus costume? In this case, the <code>.21573</code> at least partially represents signal, doesn't it? It's saying "this is pretty cat-like, but not as cat-like as another photo that scored <code>.0001</code>".</p>
-<p>When I'm adding noise to emulate the soft voting case, is that <em>fair</em>? A different way of fuzzing the numbers (selecting the noise from a non-uniform distribution, for instance) might reduce the gap in performance between hard and soft voting ensembles, and it would probably be more realistic. But the point of a model like this is to show the extremes -- it's possible that hard voting will give better results than soft voting, so it's worth testing.</p>
-<h2>Big Takeaways</h2>
-<ol>
-<li>Ensembles aren't magic; they can only improve things significantly if the underlying classifiers are diverse and fairly accurate.</li>
-<li>Hard and soft voting aren't interchangeable. If there's a lot of random noise in the responses, hard voting is probably a better option, otherwise soft voting is probably better. It's definitely worth testing both options when building an ensemble.</li>
-<li>Anyone thinking of using an ensemble should look at the amount of correlation between the responses from different classifiers. If the classifiers are all making basically the same mistakes, an ensemble won't help regardless of hard vs. soft voting. If models with very different architectures are failing in the same ways, that could be a weakness in the training data that can't be fixed by an ensemble.</li>
-</ol>
-<h3>References</h3>
-<p>[1] Bonab, Hamed; Can, Fazli (2017). "Less is More: A Comprehensive Framework for the Number of Components of Ensemble Classifiers". arXiv:1709.02925</p>
-<p>Tsymbal, A., Pechenizkiy, M., &amp; Cunningham, P. (2005). Diversity in search strategies for ensemble feature selection. Information Fusion, 6(1), 83–98. doi:10.1016/j.inffus.2004.04.003 </p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/majority-voting-in-ensemble-learning.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/machine-learning.html" rel="tag">machine learning</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/machine-learning.html" class="tags">machine learning</a>
                 </div>
             </article>
 

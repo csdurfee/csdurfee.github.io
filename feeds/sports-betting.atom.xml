@@ -1,5 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>mathletix - sports betting</title><link href="/" rel="alternate"></link><link href="/feeds/sports-betting.atom.xml" rel="self"></link><id>/</id><updated>2025-11-18T10:20:00-10:00</updated><entry><title>Early season NBA trends</title><link href="/early-season-nba-trends.html" rel="alternate"></link><published>2025-11-18T10:20:00-10:00</published><updated>2025-11-18T10:20:00-10:00</updated><author><name>casey durfee</name></author><id>tag:None,2025-11-18:/early-season-nba-trends.html</id><summary type="html">&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=eyF1T1gGuzU" target="_blank"&gt;&lt;img alt="&amp;quot;Round 6&amp;quot;, by Prince Jammy" src="https://img.youtube.com/vi/eyF1T1gGuzU/0.jpg"&gt;&lt;/a&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>mathletix - sports betting</title><link href="/" rel="alternate"></link><link href="/feeds/sports-betting.atom.xml" rel="self"></link><id>/</id><updated>2026-01-07T10:20:00-10:00</updated><entry><title>NFL spread betting statistics: more folly of crowds</title><link href="/nfl-spread-betting-statistics-more-folly-of-crowds.html" rel="alternate"></link><published>2026-01-07T10:20:00-10:00</published><updated>2026-01-07T10:20:00-10:00</updated><author><name>casey durfee</name></author><id>tag:None,2026-01-07:/nfl-spread-betting-statistics-more-folly-of-crowds.html</id><summary type="html">&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=ru5zYr8aB0k" target="_blank"&gt;&lt;img alt="Sterolab, &amp;quot;Wow and Flutter&amp;quot;" src="https://img.youtube.com/vi/ru5zYr8aB0k/0.jpg"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Song: &lt;a href="https://www.youtube.com/watch?v=ru5zYr8aB0k" target="_blank"&gt;Stereolab, "Wow and Flutter"&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This time, I'm looking at NFL gambling statistics from the last five seasons. The data is from BetMGM, scraped from Yahoo's website (&lt;a href="https://sports.yahoo.com/nfl/cleveland-browns-carolina-panthers-20220911029/?section=odds"&gt;example page&lt;/a&gt;) via an internal API (&lt;a href="https://sports.yahoo.com/site/api/resource/sports.graphite.gameOdds;dataType=graphite;endpoint=graphite;gameIds=nfl.g.20221002021"&gt;example request&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;My previous analysis of NBA betting data from the same source is &lt;a href="/lessons-from-four-years-of-betmgm-nba-gambling-stats.html"&gt;available here&lt;/a&gt;. Code …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=ru5zYr8aB0k" target="_blank"&gt;&lt;img alt="Sterolab, &amp;quot;Wow and Flutter&amp;quot;" src="https://img.youtube.com/vi/ru5zYr8aB0k/0.jpg"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Song: &lt;a href="https://www.youtube.com/watch?v=ru5zYr8aB0k" target="_blank"&gt;Stereolab, "Wow and Flutter"&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This time, I'm looking at NFL gambling statistics from the last five seasons. The data is from BetMGM, scraped from Yahoo's website (&lt;a href="https://sports.yahoo.com/nfl/cleveland-browns-carolina-panthers-20220911029/?section=odds"&gt;example page&lt;/a&gt;) via an internal API (&lt;a href="https://sports.yahoo.com/site/api/resource/sports.graphite.gameOdds;dataType=graphite;endpoint=graphite;gameIds=nfl.g.20221002021"&gt;example request&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;My previous analysis of NBA betting data from the same source is &lt;a href="/lessons-from-four-years-of-betmgm-nba-gambling-stats.html"&gt;available here&lt;/a&gt;. Code is available at &lt;a href="https://github.com/csdurfee/scrape_yahoo_odds/"&gt;https://github.com/csdurfee/scrape_yahoo_odds/&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;There's not as much NFL data as I'd like, or any data nerd would. We only have 1,360 games worth of data spread over the five years since gambling was legalized. Around 140 of those games are missing data about betting percentages, so have been excluded from most of the analysis. I'm only looking at regular season games.&lt;/p&gt;
+&lt;p&gt;As usual, I'm presenting this data because I think it's an interesting window into how people and markets behave around sports. There's no reason to believe the trends I highlight here will continue in the future. &lt;em&gt;It's not eternal, imperishable&lt;/em&gt;. Which is to say: I don't think you should bet on the information given here, or at all.&lt;/p&gt;
+&lt;h1&gt;Previously, in the NBA&lt;/h1&gt;
+&lt;p&gt;When I looked at the NBA, I found that a bet on the &lt;em&gt;public side&lt;/em&gt;, the side that gets more money bet on it, wins 49.2% of the time against the spread. So there's a slight bias against the &lt;em&gt;public&lt;/em&gt;, but not enough that somebody could make money betting the opposite way.&lt;/p&gt;
+&lt;p&gt;I was expecting something similar for the NFL. I believed that NFL lines were probably quite fair, meaning no matter how you slice the data -- home vs. away team, favorite vs. underdog, popular vs. unpopular side -- a gambler will end up losing over the long run no matter which side they take.&lt;/p&gt;
+&lt;p&gt;Turns out, that's not true. &lt;/p&gt;
+&lt;h1&gt;Spreads: the popular side gets crushed&lt;/h1&gt;
+&lt;p&gt;The side with a higher wager percentage (by number of bets placed) has gone 605-755 over the past 5 years. That's a winning percentage of 44.5%.  Someone taking the unpopular side (&lt;em&gt;fading the public&lt;/em&gt;) on every NFL game would've won 55.5% of their bets, for a profit of 89.5 units at standard -110 odds. That's an Expected Value of +6.6% on each bet. &lt;/p&gt;
+&lt;p&gt;Here are the winning percentages for &lt;em&gt;fading the public&lt;/em&gt; by year:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="/img/nfl-fade.png" src="/img/nfl-fade.png"&gt;&lt;/p&gt;
+&lt;p&gt;The yellow lines are a 90% confidence interval, assuming that &lt;em&gt;fading the public&lt;/em&gt; should only win 50% of the time. 2021-2023 are outside the range we'd expect due to chance, but 2024 and 2025 have been in range, so whatever trend may have been causing the imbalance could already be gone. For instance, gamblers may have gotten more savvy over time, or the lines less imbalanced because of more market competition.&lt;/p&gt;
+&lt;p&gt;The green dotted line is at 52.4%, the minimum win rate to break even at -110 odds. The average entrant in the &lt;a href="/nobody-wins-at-nfl-betting.html"&gt;Super Contest&lt;/a&gt; has never exceeded that in 13 seasons, while &lt;em&gt;fading the public&lt;/em&gt; has done so in 4 out of 5 seasons.&lt;/p&gt;
+&lt;p&gt;There are a fair number of games where the stake percentage (amount of money) and the wager percentage (number of bets) disagree about which side is the &lt;em&gt;public&lt;/em&gt; side.  Excluding those games leads to even more impressive results -- a 649-500 record against the spread for the unpopular side. That bumps the win percentage up to 56.5%, and +99 units at -110 odds, or +124 units at &lt;em&gt;reduced juice&lt;/em&gt;. That's an expected value of +8.6% on each bet.&lt;/p&gt;
+&lt;p&gt;We should expect pretty much any binary slice of the data to win between 47 and 53% of the time, assuming the imbalance is due to chance. For example, the home team went 650-710 (47.8%) against the spread. The underdog went 681-679 (50.1%). Home underdogs went 260-275 (48.6%).&lt;/p&gt;
+&lt;p&gt;Of course, this is hindsight bias. Imagine if, 5 years ago, someone had proposed to always fade the public on the NFL. I would have thought it was a bad idea. Wouldn't you?&lt;/p&gt;
+&lt;h2&gt;Other spread trends&lt;/h2&gt;
+&lt;p&gt;The &lt;em&gt;public&lt;/em&gt; tends to favor the away team, taking it in 724/1340 games (59% of the time).&lt;/p&gt;
+&lt;p&gt;They also generally take the favorite on the spread. They took the favorite in 877/1340 games (64.5% of the time). &lt;/p&gt;
+&lt;p&gt;Both of those trends were true for NBA basketball as well. Gamblers seem to love their away favorites. When there's an away favorite, they take it 78% of the time (415/535 games). When there's an away underdog, they take it 54% of the time (448/824 games).&lt;/p&gt;
+&lt;h2&gt;Chunky spreads&lt;/h2&gt;
+&lt;p&gt;Some final scores in football are more likely than others. &lt;a href="https://www.youtube.com/watch?v=Qxr3_b8qkCw"&gt;Scorigami&lt;/a&gt;, yadda yadda.&lt;/p&gt;
+&lt;p&gt;That means point differentials are going to have differing degrees of likelihood. A final score difference of 3 is going to be more likely than 5, because scoring a field goal to win a tie game is more likely than the long sequence of actions that would lead to a 5 point differential. (For example, one team might be up by 8 and the other team scores a field goal.)&lt;/p&gt;
+&lt;p&gt;The spreads are an estimate of the mean outcome of every game, not a guess at the final outcome. So they'll be less widely dispersed, but they should have roughly the same shape. For more detail, see the section "What would perfect lines even look like?" &lt;a href="/last-fair-deal-in-the-country.html"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Here are NBA point spreads. Except for a bit of weirdness in the center due to NBA not having ties, and winning/losing by one point being rare for basketball reasons, it's a nice smooth curve:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="/img/home-spread-frequencies.png" src="/img/home-spread-frequencies.png"&gt;&lt;/p&gt;
+&lt;p&gt;Here's what spreads for the NFL look like. The lack of data isn't helping, but the overall shape clearly isn't a nice smooth curve. The spikes are much higher for certain numbers.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="/img/nfl-home-spread.png" src="/img/nfl-home-spread.png"&gt;&lt;/p&gt;
+&lt;p&gt;Here are the most common home spreads. These represent 73% of all NFL spreads.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;|   spread |   count |   cumulative % |
+|---------:|--------:|---------------:|
+|     -3   |     109 |              8 |
+|      3   |      90 |             15 |
+|     -3.5 |      89 |             21 |
+|     -2.5 |      86 |             28 |
+|      2.5 |      64 |             32 |
+|      3.5 |      56 |             36 |
+|     -6.5 |      51 |             40 |
+|     -7   |      49 |             44 |
+|     -1.5 |      40 |             47 |
+|      1.5 |      38 |             49 |
+|     -7.5 |      37 |             52 |
+|     -5.5 |      37 |             55 |
+|     -4.5 |      37 |             58 |
+|      7   |      35 |             60 |
+|     -4   |      32 |             63 |
+|      1   |      32 |             65 |
+|     -1   |      28 |             67 |
+|     -6   |      28 |             69 |
+|      6.5 |      27 |             71 |
+|      5.5 |      27 |             73 |
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;NFL betting is a game of 3's. 36% of lines are around +3 or -3. It's unusual to see lines that are greater than 7 or less than -7.5.&lt;/p&gt;
+&lt;h3&gt;Actual point differentials&lt;/h3&gt;
+&lt;p&gt;What about the differentials of actual games? I had to pull scores from another datasource, since the yahoo API only provides gambling data. I'm using the score data from &lt;a href="https://www.pro-football-reference.com/years/2025/games.htm"&gt;pro-football-reference.com&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Here are spreads and final score differentials laid on top of each other. The orange part is where they overlap. The score differentials are much more dispersed, but they both show similar spikes at certain numbers:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="/img/nfl-spread-score.png" src="/img/nfl-spread-score.png"&gt;&lt;/p&gt;
+&lt;p&gt;The spikes at the 3's and 7's are a bit more legible if I zoom in:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="/img/nfl-spread-score-zoom.png" src="/img/nfl-spread-score-zoom.png"&gt;&lt;/p&gt;
+&lt;p&gt;Here are the most common final score differentials for the away team -- which would be the &lt;em&gt;seemingly ideal&lt;/em&gt; point spreads for the home team.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;|   away_score_diff |   count |
+|------------------:|--------:|
+|                 3 |     101 |
+|                -3 |      98 |
+|                 7 |      54 |
+|                -6 |      51 |
+|                -7 |      51 |
+|                -2 |      43 |
+|                 6 |      42 |
+|                 1 |      39 |
+|                 4 |      38 |
+|                10 |      37 |
+|                -8 |      37 |
+|                14 |      35 |
+|                 5 |      34 |
+|               -17 |      33 |
+|                -4 |      31 |
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Lots of the games end on 3's, 7's and 6's, just like the lines. Unlike the lines, none of them land on the half point.&lt;/p&gt;
+&lt;p&gt;The average outcome in the NFL is the home team winning by 2 points, so that's a decent estimate of home field advantage.&lt;/p&gt;
+&lt;p&gt;About half of all NFL games are within 8 points (a touchdown and a 2 point conversion) of the average outcome.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nx"&gt;count&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="m m-Double"&gt;1359.000000&lt;/span&gt;
+&lt;span class="nx"&gt;mean&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="m m-Double"&gt;2.062546&lt;/span&gt;
+&lt;span class="nx"&gt;std&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="m m-Double"&gt;14.187563&lt;/span&gt;
+&lt;span class="nx"&gt;min&lt;/span&gt;&lt;span class="w"&gt;       &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="m m-Double"&gt;40.000000&lt;/span&gt;
+&lt;span class="mi"&gt;25&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="m m-Double"&gt;6.000000&lt;/span&gt;
+&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="w"&gt;         &lt;/span&gt;&lt;span class="m m-Double"&gt;2.000000&lt;/span&gt;
+&lt;span class="mi"&gt;75&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="m m-Double"&gt;10.000000&lt;/span&gt;
+&lt;span class="nx"&gt;max&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="m m-Double"&gt;50.000000&lt;/span&gt;
+&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;home_score_diff&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;dtype&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;float64&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;What do errors against the spread look like?&lt;/h3&gt;
+&lt;p&gt;Let's compare the final point differential to the spread. The spread should be an unbiased estimate of the mean outcome between the two teams. We only get one data point to judge the quality of the line's estimate of the mean, which is sort of unfair, but that's just how it works with sports betting. I'll refer to the difference between the point differential and the spread as the error. &lt;/p&gt;
+&lt;p&gt;As I talked about in &lt;a href="/last-fair-deal-in-the-country.html"&gt;"Last fair deal in the country"&lt;/a&gt;, because the line makers aren't trying to predict the actual outcome, merely the average outcome, some large errors are inevitable. The line makers can't actually predict the future, and aren't really trying to.&lt;/p&gt;
+&lt;p&gt;For example, the Miami Dolphins once beat the Broncos 70 to 20. The spread on the game was Dolphins -6, meaning it was off by 44 points relative to the final score. That doesn't mean the line really should have been Dolphins -50, though. It's hard to believe that if the game were played over and over again, the Dolphins would win by an average of 50 points, which is what a 50 point line signifies.&lt;/p&gt;
+&lt;p&gt;So we need to look at the errors as a whole rather than individual games to decide whether the line makers are good at their jobs or not. If the spreads are fair, the average error should be zero, and the errors should be fairly symmetrically distributed -- there should be about as many games where the error is -7 as it is +7, for instance.&lt;/p&gt;
+&lt;p&gt;Here's what the errors look like. The median is exactly zero, so kudos to the sportsbooks for that one. The right side is where the home team outperformed the spread, and the left is where they underperformed. There are a few more blowouts against the spread (more than 20 points) for the home team than the away team, but otherwise it's reasonably symmetrical.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="/img/nfl-error.png" src="/img/nfl-error.png"&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nx"&gt;count&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="m m-Double"&gt;1358.000000&lt;/span&gt;
+&lt;span class="nx"&gt;mean&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="m m-Double"&gt;0.437040&lt;/span&gt;
+&lt;span class="nx"&gt;std&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="m m-Double"&gt;12.628641&lt;/span&gt;
+&lt;span class="nx"&gt;min&lt;/span&gt;&lt;span class="w"&gt;       &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="m m-Double"&gt;37.000000&lt;/span&gt;
+&lt;span class="mi"&gt;25&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="m m-Double"&gt;7.375000&lt;/span&gt;
+&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="w"&gt;         &lt;/span&gt;&lt;span class="m m-Double"&gt;0.000000&lt;/span&gt;
+&lt;span class="mi"&gt;75&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="w"&gt;         &lt;/span&gt;&lt;span class="m m-Double"&gt;8.500000&lt;/span&gt;
+&lt;span class="nx"&gt;max&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="m m-Double"&gt;44.000000&lt;/span&gt;
+&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;spread_error&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;dtype&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;float64&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Next week: much more on NFL betting.&lt;/p&gt;
+&lt;h1&gt;Mathletix Bajillion, playoffs round one edition&lt;/h1&gt;
+&lt;p&gt;Both teams had wicked regressions to the mean this week. &lt;/p&gt;
+&lt;p&gt;I'll finish the season out, but I'm tempted to quit, because I think I've proved my point about line shopping: both teams are essentially earning a free bet every 30 or so bets by using betting exchanges rather than retail sportsbooks.&lt;/p&gt;
+&lt;p&gt;Both teams ended up making similar picks, because there are only 6 games to choose from.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Lines taken Wednesday morning&lt;/em&gt;&lt;/p&gt;
+&lt;h3&gt;The Neil McAul-Stars&lt;/h3&gt;
+&lt;p&gt;last week: 1-4, -330  &lt;br&gt;
+Overall: 22-22-1, -85  &lt;br&gt;
+line shopping: +135    &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CAR +10.5 +100 (lowvig)&lt;/li&gt;
+&lt;li&gt;CHI +1.5 -109 (prophetx)&lt;/li&gt;
+&lt;li&gt;JAX +1 -107 (lowvig)&lt;/li&gt;
+&lt;li&gt;PIT +3 -105 (lowvig)&lt;/li&gt;
+&lt;li&gt;SF +5 -107 (prophetx)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;The Vincent Hand-Eggs&lt;/h3&gt;
+&lt;p&gt;last week: 5-0, +500    &lt;br&gt;
+Overall: 20-22-3, -287       &lt;br&gt;
+line shopping: +133     &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CAR +10.5 +100 (lowvig)&lt;/li&gt;
+&lt;li&gt;NE -3.5 -109 (prophetx)&lt;/li&gt;
+&lt;li&gt;BUF -1 +101 (prophetx)&lt;/li&gt;
+&lt;li&gt;SF +5 -107 (prophetx)&lt;/li&gt;
+&lt;li&gt;CHI +1.5 -109 (prophetx)&lt;/li&gt;
+&lt;/ul&gt;</content><category term="sports betting"></category><category term="football"></category><category term="your parlay sucks"></category></entry><entry><title>Early season NBA trends</title><link href="/early-season-nba-trends.html" rel="alternate"></link><published>2025-11-18T10:20:00-10:00</published><updated>2025-11-18T10:20:00-10:00</updated><author><name>casey durfee</name></author><id>tag:None,2025-11-18:/early-season-nba-trends.html</id><summary type="html">&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=eyF1T1gGuzU" target="_blank"&gt;&lt;img alt="&amp;quot;Round 6&amp;quot;, by Prince Jammy" src="https://img.youtube.com/vi/eyF1T1gGuzU/0.jpg"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Song: &lt;a href="https://www.youtube.com/watch?v=eyF1T1gGuzU" target="_blank"&gt;"Round 6", by Prince Jammy&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;A few interesting statistics from the first dozen games of the 2025-26 NBA season.&lt;/p&gt;
 &lt;p&gt;I'm generally talking about stats per 100 possessions, rather than raw stats (unless otherwise noted).&lt;/p&gt;
@@ -494,8 +639,7 @@ line shopping: +6&lt;/p&gt;
 &lt;p&gt;In &lt;a href="/the-public-wants-what-the-public-gets.html"&gt;a previous installment&lt;/a&gt;, I looked at statistics about NBA gambling that I obtained from sportsbookreview.com. I thought it was pretty interesting, but there were some huge gaps in the data, and I wasn't sure what sportsbook some of it was coming from. So I didn't have a ton of confidence in my results.&lt;/p&gt;
 &lt;p&gt;I thought it was a pretty cool idea, though, so I tracked down a better source of data via Yahoo's NBA pages. Yahoo loads gambling data from the BetMGM sportsbook, and I found a nice internal API for getting it all. I was able to get data on the past four seasons of NBA games, and although data is missing for some games, it's much more complete, and has a bunch more info, than the original dataset.&lt;/p&gt;
 &lt;p&gt;All code and data is available online at &lt;a href="https://github.com/csdurfee/scrape_yahoo_odds/"&gt;https://github.com/csdurfee/scrape_yahoo_odds/&lt;/a&gt;. The &lt;code&gt;explore.ipynb&lt;/code&gt; notebook has all the calculations and charts used in this article.&lt;/p&gt;
-&lt;p&gt;As usual with gambling content, I'm presenting this data because I think it is interesting to study how it works, and what it tells us about basketball and human nature. Math is cool. Basketball is cool. Human nature is frequently not cool, but always interesting. Gambling is lame.  If you have money burning a hole in your pocket, please give it to me instead of the MGM Grand.&lt;/p&gt;
-&lt;p&gt;OK, lecture over.&lt;/p&gt;
+&lt;p&gt;As usual with gambling content, I'm presenting this data because I think it is interesting to study how it works, and what it tells us about basketball and human nature. I don't recommend you bet based on information in this article, or at all.&lt;/p&gt;
 &lt;p&gt;The data I'm looking at is every regular season and playoff NBA game from the 2021-22, 2022-23, 2023-2024 and 2024-2025 seasons. No preseason games or All-Star games, but the Emirates NBA Cup championship game is included. &lt;/p&gt;
 &lt;p&gt;There are 435 games that are missing stake/wager data (the percentage of money and bets placed on each side, respectively.) That leaves 4,840 NBA games that I have analyzed. The stake and wager percentages seem to be pretty similar to each other, so I'm just using the wager data.&lt;/p&gt;
 &lt;h2&gt;What do the spreads look like? Are there any obvious biases?&lt;/h2&gt;
