@@ -28,7 +28,352 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Jan 07, 2026</h4>
+        <div id="content">            <h4 class="date">Jan 10, 2026</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/nfl-point-totals-and-money-lines.html" rel="bookmark" title="Permanent Link to &quot;NFL point totals and money lines&quot;">NFL point totals and money lines</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=Fowldx4hRtI" target="_blank"><img alt="Sam and Dave, &quot;Hold On, I'm Coming&quot;" src="https://img.youtube.com/vi/Fowldx4hRtI/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=Fowldx4hRtI" target="_blank">Sam and Dave, "Hold On, I'm Coming"</a></p>
+<p>Code: <a href="https://github.com/csdurfee/scrape_yahoo_odds/blob/main/explore_football.ipynb">https://github.com/csdurfee/scrape_yahoo_odds/blob/main/explore_football.ipynb</a></p>
+<p>This week, more insights into NFL betting from BetMGM gambling data (harvested from Yahoo). I'm looking at the last 5 seasons of regular season NFL games (2021-2022 thru 2025-2026). There are 1,359 games total, around 140 of which are missing betting percentage data, so have been excluded from parts of this analysis.</p>
+<h1>Point totals</h1>
+<p>Gamblers can wager on whether the total number of points scored in an NFL game will be over or under a certain number. These bets are sometimes called <em>over/unders</em>. </p>
+<p>Spreads are a wager on the difference in team scores, and point totals are a wager on the sum. It's kind of an odd bet, because it doesn't matter which team wins. All bets are math problems, but over/unders are more obviously so. </p>
+<p>The over has won 48.4% of the time (658/1359 games). Point totals almost never push (hit the number exactly, meaning neither side wins). That's only happened in 12 of 1358 games. About 60% of point totals are on the half point (6.5 instead of 6, for example), so they can't push.</p>
+<p>The win rate for overs has changed over the past 5 seasons. The over won about 46% of the time from 2021-23, and 53% of the time from 2024-25. That possibly mirrors what we saw <a href="/nfl-spread-betting-statistics-more-folly-of-crowds.html">last time</a> -- it was wildly profitable to <em>fade the public</em> on spread bets from 2021-23, and wasn't the last two seasons. I don't have a good theory as to why the win percents mirror each other.</p>
+<p><img alt="/img/fade-spread-total.png" src="/img/fade-spread-total.png"></p>
+<p>Taking the under is usually equivalent to fading the public, because <a href="/overs-money-lines-and-pigeonholes.html">as with the NBA</a>, the betting public greatly prefers the over on point totals, taking them 86.8% (1056/1217) of the time. When the public takes the over, they win 48.1% of the time. On the rare occasions where they take the under, they win 46.6% of the time. So, this is yet another example of where gamblers as a whole do worse than a coin flip. In 3 of the 5 seasons, they did poorly enough that <em>fading</em> their picks would have been profitable.</p>
+<p>Half of all point total spreads are between 41.5 and 47.5, with the median being 44.5. A naive betting strategy would be to assume that low point totals are too low (always take the over if the total is less than 44.5), and high point totals are too high (take the under if the total is greater than or equal to 44.5). This strategy would've gone 700-658 (51.6%). It's not much, but there might be a slight advantage to betting on <em>boring</em> point total outcomes.</p>
+<p>Here are the win rates for betting on the over, by point total range (split by quartiles):</p>
+<table>
+<thead>
+<tr>
+<th>start (&gt;)</th>
+<th>end (&lt;=)</th>
+<th>over won</th>
+<th>over lost</th>
+<th>over win percent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>41.5</td>
+<td>211</td>
+<td>185</td>
+<td>53.2%</td>
+</tr>
+<tr>
+<td>41.5</td>
+<td>44.5</td>
+<td>161</td>
+<td>200</td>
+<td>44.5%</td>
+</tr>
+<tr>
+<td>44.5</td>
+<td>47.5</td>
+<td>151</td>
+<td>140</td>
+<td>51.9%</td>
+</tr>
+<tr>
+<td>47.5</td>
+<td>max</td>
+<td>134</td>
+<td>176</td>
+<td>42.2%</td>
+</tr>
+</tbody>
+</table>
+<p>Some of the variation is just noise, but based on this breakdown, taking overs on high point totals seems like a bad move.</p>
+<p>Here are what the actual point totals look like: </p>
+<p><img alt="/img/nfl-point-totals.png" src="/img/nfl-point-totals.png"></p>
+<h2>Point total errors</h2>
+<p>Here are what the errors against the point total look like. Positive values are games that went over the total, negative are games that went under.</p>
+<p><img alt="/img/nfl-over-under.png" src="/img/nfl-over-under.png"></p>
+<p>The median error is -0.5, so the errors are fairly balanced even if the graph isn't symmetrical.  As with other NFL data, there are spikes because some point totals are more likely than others.</p>
+<p>There's a longer tail to the positive side than the negative -- it's impossible to score fewer than 0 points, which limits how far under a bet can go, but there's theoretically no limit to how many points the teams can score in the over direction. </p>
+<p>Here's how the total errors break down.</p>
+<div class="highlight"><pre><span></span><code>count    1358.000000
+mean        0.767305
+std        13.402751
+min       -37.500000
+25%        -8.500000
+50%        -0.500000
+75%         9.000000
+max        57.500000
+</code></pre></div>
+
+<p>Point totals are off by an average of 10.6 points. Here are the details about the absolute value of the error:</p>
+<div class="highlight"><pre><span></span><code>count    1358.000000
+mean       10.561119
+std         8.282722
+min         0.000000
+25%         4.000000
+50%         8.500000
+75%        14.500000
+max        57.500000
+</code></pre></div>
+
+<h1>NFL money lines and the favorite-longshot bias</h1>
+<p>A money line bet is the simplest type of bet to understand, because it's a wager on who will win the game outright. A bet on the underdog will pay out more than you have to risk, because it's less likely to happen.</p>
+<p>Money line data is always going to be high variance -- one +400 bet winning or not can wildly change the Expected Value. That was a problem with the NBA, which has 5x the games of the NFL, so it's definitely going to be a problem here.</p>
+<p>The public's money line picks do better than their spread picks. They're making an average of -3.1% on money line bets, which is a step up from the -6.7% they're doing on the spread. That mirrors the NBA, where the public does significantly better on the money line than spread bets.</p>
+<p>The public is also a slightly better Expected Value than taking money line bets randomly. The public are saved by their love of favorites, which they took in 96% (1181/1228) of games, and are a relatively good deal on the money line.</p>
+<p>Each bet has two sides. Underdog money lines on NFL football are a bad bet in general (-7.3% EV), but huge underdogs are especially bad (-29.7% EV). This is evidence of the <a href="/lessons-from-four-years-of-betmgm-nba-gambling-stats.html">favorite-longshot bias</a> in NFL betting. A -30% EV puts longshot underdog money lines in the same league as the biggest sucker bets you can take -- Same Game Parlays, <a href="/cool-parlay-bro.html">4+ leg parlays</a>, and teasers.</p>
+<p>"EV %" is the expected value of taking every bet in each category. Overall, money line bets have a -5.5% EV.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">label</th>
+<th>start</th>
+<th>end</th>
+<th>num games</th>
+<th>EV %</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">all favorites</td>
+<td>-9999</td>
+<td>-1</td>
+<td>1271</td>
+<td>-3.9%</td>
+</tr>
+<tr>
+<td style="text-align: left;">mild favorites</td>
+<td>-200</td>
+<td>-1</td>
+<td>662</td>
+<td>-2.8%</td>
+</tr>
+<tr>
+<td style="text-align: left;">heavy favorites</td>
+<td>-400</td>
+<td>-200</td>
+<td>406</td>
+<td>-7.5%</td>
+</tr>
+<tr>
+<td style="text-align: left;">huge favorites</td>
+<td>-9999</td>
+<td>-400</td>
+<td>203</td>
+<td>-0.2%</td>
+</tr>
+<tr>
+<td style="text-align: left;">----------------</td>
+<td>----</td>
+<td>----</td>
+<td>----</td>
+<td>------</td>
+</tr>
+<tr>
+<td style="text-align: left;">all dogs</td>
+<td>1</td>
+<td>9999</td>
+<td>1185</td>
+<td>-7.3%</td>
+</tr>
+<tr>
+<td style="text-align: left;">mild dogs</td>
+<td>1</td>
+<td>200</td>
+<td>663</td>
+<td>-5.4%</td>
+</tr>
+<tr>
+<td style="text-align: left;">heavy dogs</td>
+<td>200</td>
+<td>400</td>
+<td>399</td>
+<td>-3.4%</td>
+</tr>
+<tr>
+<td style="text-align: left;">huge dogs</td>
+<td>400</td>
+<td>9999</td>
+<td>123</td>
+<td>-29.7%</td>
+</tr>
+<tr>
+<td style="text-align: left;">----------------</td>
+<td>----</td>
+<td>----</td>
+<td>----</td>
+<td>------</td>
+</tr>
+<tr>
+<td style="text-align: left;">everythang</td>
+<td>-9999</td>
+<td>9999</td>
+<td>2456</td>
+<td>-5.5%</td>
+</tr>
+</tbody>
+</table>
+<p>That -29.67% for huge dogs is hiding a big discrepancy. Huge home dogs <code>(&gt;= +400)</code> have actually made money, winning 8/31 games. Huge away dogs have only won 6/92 games, for an absurd -63% Expected Value. The average odds for these bets is +600 (1 in 7 chance of winning), so we'd expect 13 of 92 bets to win, not 6.</p>
+<p>Like I said at the top, money line dogs are going to be extremely variable, and the +400 number is a totally arbitrary cutoff. But even if huge away dogs had won twice as often, they'd still be unprofitable. Woof!</p>
+<p>Money line favorites turn out to be a slightly better value than spread bets. But the estimated EVs are very sensitive to changes. I've been working on this project for a couple of weeks now, and noticed the numbers changing pretty significantly over the last 2 weeks of the NFL season. So the estimates are not telling the whole story about the range of possible outcomes.</p>
+<h3>Bootstrapping money lines</h3>
+<p>Since every bet has a different payout, they're not going to follow some nice, polite distribution. In order to estimate the variance in outcomes, I'm going to use bootstrapping, <a href="/one-in-e.html">a popular technique in these parts</a>. </p>
+<p>I'm using the <a href="https://scikits-bootstrap.readthedocs.io/en/stable/">scikits-bootstrap</a> library to generate a 90% confidence interval for the Expected Values. It samples random subsets of the bets in each category and calculates the EV of each subset. Then it returns the 5th and 95th percentile outcomes, which is a plausible range of values for the EV.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">label</th>
+<th>start</th>
+<th>end</th>
+<th>num games</th>
+<th>5th %ile</th>
+<th>EV</th>
+<th>95th %ile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">all favorites</td>
+<td>-9999</td>
+<td>-1</td>
+<td>1271</td>
+<td>-7.2%</td>
+<td>-3.9%</td>
+<td>-0.6%</td>
+</tr>
+<tr>
+<td style="text-align: left;">mild favorites</td>
+<td>-200</td>
+<td>-1</td>
+<td>662</td>
+<td>-8.3%</td>
+<td>-2.8%</td>
+<td>2.4%</td>
+</tr>
+<tr>
+<td style="text-align: left;">heavy favorites</td>
+<td>-400</td>
+<td>-200</td>
+<td>406</td>
+<td>-13.0%</td>
+<td>-7.5%</td>
+<td>-2.6%</td>
+</tr>
+<tr>
+<td style="text-align: left;">huge favorites</td>
+<td>-9999</td>
+<td>-400</td>
+<td>203</td>
+<td>-5.3%</td>
+<td>-0.2%</td>
+<td>4.0%</td>
+</tr>
+<tr>
+<td style="text-align: left;">----------------</td>
+<td>----</td>
+<td>----</td>
+<td>----</td>
+<td>------</td>
+<td>---</td>
+<td>-----</td>
+</tr>
+<tr>
+<td style="text-align: left;">all dogs</td>
+<td>1</td>
+<td>9999</td>
+<td>1185</td>
+<td>-14.0%</td>
+<td>-7.3%</td>
+<td>-0.2%</td>
+</tr>
+<tr>
+<td style="text-align: left;">mild dogs</td>
+<td>1</td>
+<td>200</td>
+<td>663</td>
+<td>-12.6%</td>
+<td>-5.4%</td>
+<td>2.3%</td>
+</tr>
+<tr>
+<td style="text-align: left;">heavy dogs</td>
+<td>200</td>
+<td>400</td>
+<td>399</td>
+<td>-16.5%</td>
+<td>-3.4%</td>
+<td>10.5%</td>
+</tr>
+<tr>
+<td style="text-align: left;">huge dogs</td>
+<td>400</td>
+<td>9999</td>
+<td>123</td>
+<td>-55.3%</td>
+<td>-29.7%</td>
+<td>4.7%</td>
+</tr>
+<tr>
+<td style="text-align: left;">----------------</td>
+<td>----</td>
+<td>----</td>
+<td>----</td>
+<td>------</td>
+<td>---</td>
+<td>-----</td>
+</tr>
+<tr>
+<td style="text-align: left;">everythang</td>
+<td>-9999</td>
+<td>9999</td>
+<td>2456</td>
+<td>-9.1%</td>
+<td>-5.5%</td>
+<td>-1.7%</td>
+</tr>
+</tbody>
+</table>
+<p>Those are some pretty wide confidence intervals. Even the big categories like <code>all favorites</code> lead to a wide range of outcomes.</p>
+<p>Even with the -29.7% EV for huge dogs, we can't rule out some small hope that somebody could make money taking them, I suppose. But as always, if there's randomness involved, we don't get to pick whether we get the 5th percentile result, the average result, or the 95th percentile result.</p>
+<h1>Mathletix Bajillion, playoffs round 2</h1>
+<p>After a dramatic 10-0 run by the Hand-Eggs, both teams are now in the black for the season.</p>
+<p><em>Lines taken Wednesday morning</em></p>
+<h3>The Neil McAul-Stars</h3>
+<p>last week: 3-2, +88 <br>
+Overall: 25-24-1, +3  <br>
+line shopping: +143    </p>
+<ul>
+<li>BUF +1 -101 (prophetx)</li>
+<li>SF +7 +104 (prophetx)</li>
+<li>NE -3 -109 (prophetx)</li>
+<li>CHI +4 -104 (prophetx)</li>
+</ul>
+<h3>The Vincent Hand-Eggs</h3>
+<p>last week: 5-0, +501          <br>
+Overall: 25-22-3, +214      <br>
+line shopping: +134   </p>
+<ul>
+<li>NE -3 -109 (prophetx)</li>
+<li>SEA -7 -108 (prophetx)</li>
+<li>BUF +1.5 -107 (prophetx)</li>
+<li>LAR -3.5  -110 (prophetx)</li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/nfl-point-totals-and-money-lines.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/football.html" class="tags">football</a>
+                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
+                </div>
+            </article>            <h4 class="date">Jan 07, 2026</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -995,109 +1340,6 @@ line shopping: +16    </p>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
                     &nbsp;<a href="/tag/bajillion.html" class="tags">bajillion</a>
-                </div>
-            </article>            <h4 class="date">Nov 14, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/what-do-gambling-shows-talk-about.html" rel="bookmark" title="Permanent Link to &quot;What do gambling shows talk about?&quot;">What do gambling shows talk about?</a>
-                </h2>
-
-                
-                
-
-                <p><a href="https://www.youtube.com/watch?v=vZlY5cozx50" target="_blank"><img alt="Scientist, &quot;Plague of Zombies&quot;" src="https://img.youtube.com/vi/vZlY5cozx50/0.jpg"></a></p>
-<p>Song: <a href="https://www.youtube.com/watch?v=vZlY5cozx50" target="_blank">Scientist, "Plague of Zombies"</a></p>
-<p>This is a departure from the usual content on here, in that there's no real math or analysis. There's also not much of an audience for this website yet, so I hope you'll indulge me this week.</p>
-<p>I was curious what all these gambling shows talk about for hours, when the picks they produce collectively appear to be no better than randomly chosen. I'm always interested in how people make decisions. How does their process work for choosing what bets to take? How might it work better?</p>
-<p>Before I get too far into this, I know I'm being a killjoy. These podcasts are for entertainment purposes, just like betting is entertainment for a lot of people, not a sincere attempt to make money over the long term. Some degenerate gambling behavior is part of the appeal of these podcasts. They're selling the idea that "gambling is fun" as much as any particular bets.</p>
-<p>It's still weird to be a gambling expert who can't do better than a coin flip.</p>
-<p><a href="/majority-voting-in-ensemble-learning.html">I previously showed</a> how combining multiple machine learning algorithms thru voting will only improve results when they make independent mistakes, and are significantly better than guessing. Those are both pretty intuitive conditions, and I think they're true of groups of people as well. If everybody has the same opinion, or makes the same sort of mistakes, or nobody really knows anything, there can't be a wisdom of crowds.</p>
-<p>Humans have a big advantage over combining machine learning algorithms. We can talk with each other, challenge each others' assumptions, provide counterexamples, and so on. </p>
-<p>There's not a ton of that in the gambling podcasts I listened to. Gambling talk is all about inventing stories about the future. It's sort of a competition for who can pitch the best narrative for the game. These stories are almost their own literary genre, and the construction of these are more important than the picks themselves. There aren't a lot of opportunities for the wisdom of crowds or some sort of error correction to occur.</p>
-<blockquote>
-<p>Imagine I had a magic black box that was right about NBA lines 56% of the time. I could sell those picks, and be one of the better handicappers on the internet. While I could certainly write a little story for each one, maybe in the style of Raymond Carver -- "Will You Please Take The Over, Please?" -- the story doesn't make the bet more likely to be true, though, right? A factual story would be the same for every bet, and not very interesting: "there is slightly more value on this side of the bet, according to the model." </p>
-</blockquote>
-<h2>What we talk about when we talk about sports betting</h2>
-<p>Gambling personalities are always talking about what has happened in the past -- connections to previous games they've bet on, dubious historical trends, and the tendencies of certain players. Interactions like, "I thought you had a rule never to bet against Baker Mayfield?" "But he's 2-7 on the road in early Sunday games after a Monday night game where he got over 30 rushing yards."</p>
-<p>These arbitrary connections remind me of a bit from <a href="https://www.sccs.swarthmore.edu/users/00/pwillen1/lit/citysum.htm">Calvino's <em>Invisible Cities</em></a>:</p>
-<blockquote>
-<p>In Ersilia, to establish the relationships that sustain the city's life, the inhabitants stretch strings from the corners of the houses, white or black or gray or black-and-white according to whether they mark a relationship of blood, of trade, authority, agency. When the strings become so numerous that you can no longer pass among them, the inhabitants leave: the houses are dismantled; only the strings and their supports remain.</p>
-</blockquote>
-<p>There were quite a few of those useless strings in the <a href="https://www.theringer.com/podcasts/the-ringer-gambling-show/2025/11/06/raiders-broncos-preview-week-10-look-ahead-and-best-bets-for-the-weekend">November 6th episode of the Ringer Gambling Show</a>.</p>
-<h3>The top bun</h3>
-<p>On a couple of occasions, the show discussed whether certain information was already priced into the line or not. Since gambling should be about determining which bets have positive expected value, that's a very useful thing to discuss. "If this spread looks wrong, what does the market know that we don't? Or what do we know that the market doesn't?"</p>
-<p>If the goal is to win, the implicit question should always be: why do we think we have an advantage over other gamblers taking the other side? Why are we special? Why do we think the line isn't perfect?</p>
-<h3>Superstitions and biases</h3>
-<p>They were resistant to bet on teams that they had recently lost money on -- not wanting to get burned again. This is clearly not a financial choice, but an emotional one. <a href="/do-you-wanna-win.html">The axe forgets, the tree remembers.</a></p>
-<p>Team loyalty also affected their betting decisions. They avoided taking Baltimore because Ariel is a Ravens fan (the bet would have won). Jon suggested betting against his team, the Dolphins, which Ariel jokingly called "an emotional hedge". The Dolphins won. So they cost themselves two potential wins due to their fandom.</p>
-<p>They decided not to take a bet on Houston (which ended up winning) because, in Jon's words, "betting on Davis Mills is not a pleasant experience". Whether a team or player was fun to bet on came up a couple of other times as well. Someone just trying to make a profit wouldn't care how fun the games are to watch. They might not even watch the games at all. Whether the gambler watches the game or not has no influence on the outcome. </p>
-<p>Bets need to be fun, not just a good value. These gambling experts still want to experience "the sweat" -- watching the game and rooting for their bet to win. As I wrote last week, betting on the Browns and losing is like losing twice, so even if the Browns are a better value, they are a bad pick for emotional reasons. Who wants to have to be a Browns fan, if only for a few hours?</p>
-<p>It's sort of like Levi-Strauss said about food. It's not enough that a type of food is good to eat, it must also be good to think about. The Houston Texans led by Davis Mills are not "bon à penser".</p>
-<h3>Not enough useful disagreement</h3>
-<p>All three of the bets they were in total agreement on (PIT, TB, ARI) lost. Nobody presented a case against those bets, so there was no opportunity for any of them to change their minds or reconsider their beliefs. </p>
-<p>I'm not endorsing pointless contrarianism -- not every side needs to be argued. Don't be that one guy in every intro to philosophy class. But if both sides of an issue (or a bet) have <em>roughly</em> equal chances of being true, there should be a compelling case to be made for either side. Someone who can't make both cases fairly convincingly probably doesn't know enough to say which case is stronger.</p>
-<h3>Two types of hot streaks</h3>
-<p>For gamblers, there's one type of hot streak that's always bound to end. A team has won a few games it shouldn't have won, therefore they're bound to lose the next one. Their lucky streak will fail. In the real world, there's no invisible hand that pulls things down to their averages on a set schedule. In a small sample size of 17 games in an NFL season, there's no reason to think things will be fair by the end, much less the very next game. Now, a team could be overvalued by the market because they got some lucky wins, which makes them a value to bet against. But teams don't have some fixed number of "lucky games" every year, and once they've burned through those, their luck has to turn.</p>
-<p>The other type of hot streak is bound to keep going. The team were divided whether to bet the Rams or not. They decided to go with Ariel's opinion, because she's been on a <em>hot streak</em> lately. If Ariel's record was demonstrably better than the other two hosts' over a long period of time, it would make sense deferring to her as the tiebreaker. But winning a few bets in a row doesn't mean the next bet is any more likely (or less likely) to win. As a teammate, that's a supportive thing to do, so I'm sure that's part of it. But people who gamble tend to think they <em>have it</em> sometimes, and <em>don't have it</em> other times. Sometimes they're hot, sometimes they're cold.</p>
-<p><a href="/tag/the-hot-hand.html">We've seen this before with NBA basketball</a>. Basketball players have an innate tendency to believe in the hot hand, even though it doesn't exist, so much so that it actually hurts their performance. </p>
-<p>Why would the hot hand exist when it comes to predicting the future? What laws of physics would allow someone to predict the future better at some times rather than others? A gambler, regardless of skill level, will occasionally have hot streaks or cold streaks based on chance alone. So a gambler on a <em>hot streak</em> shouldn't change what type of bets they take, or how much they wager, just like NBA players shouldn't change what type of shots they take. But they do.</p>
-<h3>The problem with props</h3>
-<p>They suggested a bunch of prop bets. 5 of the 6 suggested were overs -- bets on players scoring at least one touchdown, or going over a certain number of yards. 4 out of 5 of the overs lost.</p>
-<p>Gamblers greatly prefer betting the over on prop bets, which creates a problem. There's little to no money wagered on the under, which means gamblers taking the over are betting against the house, not other gamblers. That should be a warning sign.  Sportsbooks are rational economic engines. If they're taking on more risk in the form of one-sided bets, they're going to want more reward in the form of a higher profit margin. </p>
-<p>For a lot of prop bets, the big sportsbooks don't even allow taking the under. If a gambler can bet both sides, at least we can calculate the <em>overround</em>, or profit margin on the bet. With one-sided bets like these, there's no way to know how <em>juiced</em> the lines are (my guess would be to <a href="https://64.media.tumblr.com/e91782455e611125cf20b32b5af467f2/tumblr_o83n41AhtQ1spaqz2o7_r1_250.gif">Buster Bluth</a> levels.)</p>
-<p><img alt="/img/no-unders.png" src="/img/no-unders.png"></p>
-<p>Traditionally, a sportsbook wants to have equal action on both sides of a bet. They don't really care what the line is. As long as the money's basically even (<a href="https://en.wikipedia.org/wiki/Mathematics_of_bookmaking">they have <em>made a book</em></a>), they can expect to make money no matter which team comes out on top.</p>
-<p>With these one sided prop bets, there's no way for the free market to move the price by people betting the under instead. So the line doesn't need to be that close to the actual odds. Without action on both sides, sportsbooks have to be extremely vigilant about never setting an inaccurate line that gives the over too much of a chance of winning. And I don't think that gamblers taking overs on prop bets are too price sensitive. So the sportsbooks have multiple reasons to make the overs a bad deal.</p>
-<p>Even sportsbooks that offer unders charge a huge amount of vig on prop bets to offset the additional uncertainty to the sportsbook. There are so many prop bets on each game relative to the number of people who take them. They can get away with setting the lines algorithmically because the lines don't need to be all that accurate with a bunch of extra juice on top. </p>
-<p>This screenshot is from an offshore "reduced juice" sportsboook that allows bets on the unders.</p>
-<p><img alt="/img/lowvig-props.png" src="/img/lowvig-props.png"></p>
-<p>We can convert the lines to win probabilities and add them up to calculate the overround, as covered a couple of articles ago.</p>
-<p>For the Saquon Barkley bet, the overround is 8.9%. For Hurts it's 8.3%, for Brown it's 7.4%, and 7.9% for Smith. </p>
-<p>The overround for a normal spread bet is 4.5%. We saw it's about the same with NBA money lines.  Because this book is <em>reduced juice</em>, overrounds on spread bets are around 2.6% -- for instance odds of <code>-108/-102</code> or <code>-105/-105</code> instead of <code>-110/-110</code>.</p>
-<p>Prop bets have 2x the juice of a traditional spread bet, and over 3x reduced juice. That requires the gambler to win far more often just to break even. </p>
-<h2>Ways to potentially reduce bias</h2>
-<p><a href="/sports-betting-and-the-limits-of-rationality.html">I've previously written about an experiment</a> that showed gamblers tend to take the favorite, even when they've been told it's a worse bet than the underdog. That wasn't true of the Ringer teams last week. They only took 11 favorites out of 25, so they didn't show that particular bias. But I think the experiment gives a hint how to reduce bias in general.</p>
-<p>The researchers found that people could be corrected of their bias towards favorites by writing out what they thought the lines should be before seeing what the lines were. It causes the person to actually try and do the math problem of whether the bet is a good investment or not, rather than anchoring on the price set by the market, and picking the better team, or the conventional wisdom.</p>
-<p>It would be interesting to try having each team member decide what the fair line was, then average them out. Do predictions made that way perform better? </p>
-<p>Similarly, it would be helpful to convert any odds from the American style (like +310, or -160) to the equivalent probability. People who have gambled a lot might have an intuitive sense of what -160 means, but for me, the equivalent 61.5%, or "about 5/8" is much clearer. I can imagine a large pizza missing 3 of the 8 slices.</p>
-<p>Betting jargon and betting superstitions should be avoided. Does each bet make sense as a <em>financial transaction</em>? Personal feelings and the enjoyability of the bet shouldn't factor in. The quality of the game and who is playing in it shouldn't matter.</p>
-<h3>The bottom bun</h3>
-<p>Despite not being a gambler, the gambling podcasts I listened to were fairly enjoyable. It's basically Buddies Talk About Sports, which is a pleasant enough thing to have on in the background. Nobody would listen to Casey's Rational Betting Show, for multiple reasons.</p>
-<h2>The Mathletix Bajillion, week 2</h2>
-<p>The Ringer crew had a good week, collectively going 14-11 (56%). One team out of five is now in the green. mathletix still won the week, winning 60% of our bets.</p>
-<p>As a reminder, one set of picks is generated algorithmically, the other randomly. I'll reveal which one at the end of the competition.</p>
-<p>"line shopping" refers to how much money was saved, or extra money was gained, by taking the best odds available instead of betting at a retail sportsbook.</p>
-<p>All lines as of Friday morning.</p>
-<h3>The Neil McAul-Stars</h3>
-<p>last week: 5-0, +504   <br>
-line shopping: +4</p>
-<ul>
-<li>LAC -3 +100 (prophetX)</li>
-<li>TB +5.5 +100 (lowvig)</li>
-<li>MIN -3 +105 (lowvig)</li>
-<li>ARI +3 -101 (prophetX)</li>
-<li>SEA +3.5 -111 (prophetX)</li>
-</ul>
-<h3>The Vincent Hand-eggs</h3>
-<p>last week: 1-4, -334   <br>
-line shopping: +6</p>
-<ul>
-<li>LAR -3 -110 (hard rock)</li>
-<li>SF  -3 -101 (prophetX)</li>
-<li>DET +2.5 +100 (lowvig)</li>
-<li>TEN +6 -107 (prophetX)</li>
-<li>GB -7 -105 (prophetX)</li>
-</ul>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/what-do-gambling-shows-talk-about.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/football.html" class="tags">football</a>
-                    &nbsp;<a href="/tag/bajillion.html" class="tags">bajillion</a>
-                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
                 </div>
             </article>
 

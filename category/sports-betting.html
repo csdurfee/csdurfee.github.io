@@ -31,7 +31,352 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Jan 07, 2026</h4>
+        <div id="content">            <h4 class="date">Jan 10, 2026</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/nfl-point-totals-and-money-lines.html" rel="bookmark" title="Permanent Link to &quot;NFL point totals and money lines&quot;">NFL point totals and money lines</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=Fowldx4hRtI" target="_blank"><img alt="Sam and Dave, &quot;Hold On, I'm Coming&quot;" src="https://img.youtube.com/vi/Fowldx4hRtI/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=Fowldx4hRtI" target="_blank">Sam and Dave, "Hold On, I'm Coming"</a></p>
+<p>Code: <a href="https://github.com/csdurfee/scrape_yahoo_odds/blob/main/explore_football.ipynb">https://github.com/csdurfee/scrape_yahoo_odds/blob/main/explore_football.ipynb</a></p>
+<p>This week, more insights into NFL betting from BetMGM gambling data (harvested from Yahoo). I'm looking at the last 5 seasons of regular season NFL games (2021-2022 thru 2025-2026). There are 1,359 games total, around 140 of which are missing betting percentage data, so have been excluded from parts of this analysis.</p>
+<h1>Point totals</h1>
+<p>Gamblers can wager on whether the total number of points scored in an NFL game will be over or under a certain number. These bets are sometimes called <em>over/unders</em>. </p>
+<p>Spreads are a wager on the difference in team scores, and point totals are a wager on the sum. It's kind of an odd bet, because it doesn't matter which team wins. All bets are math problems, but over/unders are more obviously so. </p>
+<p>The over has won 48.4% of the time (658/1359 games). Point totals almost never push (hit the number exactly, meaning neither side wins). That's only happened in 12 of 1358 games. About 60% of point totals are on the half point (6.5 instead of 6, for example), so they can't push.</p>
+<p>The win rate for overs has changed over the past 5 seasons. The over won about 46% of the time from 2021-23, and 53% of the time from 2024-25. That possibly mirrors what we saw <a href="/nfl-spread-betting-statistics-more-folly-of-crowds.html">last time</a> -- it was wildly profitable to <em>fade the public</em> on spread bets from 2021-23, and wasn't the last two seasons. I don't have a good theory as to why the win percents mirror each other.</p>
+<p><img alt="/img/fade-spread-total.png" src="/img/fade-spread-total.png"></p>
+<p>Taking the under is usually equivalent to fading the public, because <a href="/overs-money-lines-and-pigeonholes.html">as with the NBA</a>, the betting public greatly prefers the over on point totals, taking them 86.8% (1056/1217) of the time. When the public takes the over, they win 48.1% of the time. On the rare occasions where they take the under, they win 46.6% of the time. So, this is yet another example of where gamblers as a whole do worse than a coin flip. In 3 of the 5 seasons, they did poorly enough that <em>fading</em> their picks would have been profitable.</p>
+<p>Half of all point total spreads are between 41.5 and 47.5, with the median being 44.5. A naive betting strategy would be to assume that low point totals are too low (always take the over if the total is less than 44.5), and high point totals are too high (take the under if the total is greater than or equal to 44.5). This strategy would've gone 700-658 (51.6%). It's not much, but there might be a slight advantage to betting on <em>boring</em> point total outcomes.</p>
+<p>Here are the win rates for betting on the over, by point total range (split by quartiles):</p>
+<table>
+<thead>
+<tr>
+<th>start (&gt;)</th>
+<th>end (&lt;=)</th>
+<th>over won</th>
+<th>over lost</th>
+<th>over win percent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>41.5</td>
+<td>211</td>
+<td>185</td>
+<td>53.2%</td>
+</tr>
+<tr>
+<td>41.5</td>
+<td>44.5</td>
+<td>161</td>
+<td>200</td>
+<td>44.5%</td>
+</tr>
+<tr>
+<td>44.5</td>
+<td>47.5</td>
+<td>151</td>
+<td>140</td>
+<td>51.9%</td>
+</tr>
+<tr>
+<td>47.5</td>
+<td>max</td>
+<td>134</td>
+<td>176</td>
+<td>42.2%</td>
+</tr>
+</tbody>
+</table>
+<p>Some of the variation is just noise, but based on this breakdown, taking overs on high point totals seems like a bad move.</p>
+<p>Here are what the actual point totals look like: </p>
+<p><img alt="/img/nfl-point-totals.png" src="/img/nfl-point-totals.png"></p>
+<h2>Point total errors</h2>
+<p>Here are what the errors against the point total look like. Positive values are games that went over the total, negative are games that went under.</p>
+<p><img alt="/img/nfl-over-under.png" src="/img/nfl-over-under.png"></p>
+<p>The median error is -0.5, so the errors are fairly balanced even if the graph isn't symmetrical.  As with other NFL data, there are spikes because some point totals are more likely than others.</p>
+<p>There's a longer tail to the positive side than the negative -- it's impossible to score fewer than 0 points, which limits how far under a bet can go, but there's theoretically no limit to how many points the teams can score in the over direction. </p>
+<p>Here's how the total errors break down.</p>
+<div class="highlight"><pre><span></span><code>count    1358.000000
+mean        0.767305
+std        13.402751
+min       -37.500000
+25%        -8.500000
+50%        -0.500000
+75%         9.000000
+max        57.500000
+</code></pre></div>
+
+<p>Point totals are off by an average of 10.6 points. Here are the details about the absolute value of the error:</p>
+<div class="highlight"><pre><span></span><code>count    1358.000000
+mean       10.561119
+std         8.282722
+min         0.000000
+25%         4.000000
+50%         8.500000
+75%        14.500000
+max        57.500000
+</code></pre></div>
+
+<h1>NFL money lines and the favorite-longshot bias</h1>
+<p>A money line bet is the simplest type of bet to understand, because it's a wager on who will win the game outright. A bet on the underdog will pay out more than you have to risk, because it's less likely to happen.</p>
+<p>Money line data is always going to be high variance -- one +400 bet winning or not can wildly change the Expected Value. That was a problem with the NBA, which has 5x the games of the NFL, so it's definitely going to be a problem here.</p>
+<p>The public's money line picks do better than their spread picks. They're making an average of -3.1% on money line bets, which is a step up from the -6.7% they're doing on the spread. That mirrors the NBA, where the public does significantly better on the money line than spread bets.</p>
+<p>The public is also a slightly better Expected Value than taking money line bets randomly. The public are saved by their love of favorites, which they took in 96% (1181/1228) of games, and are a relatively good deal on the money line.</p>
+<p>Each bet has two sides. Underdog money lines on NFL football are a bad bet in general (-7.3% EV), but huge underdogs are especially bad (-29.7% EV). This is evidence of the <a href="/lessons-from-four-years-of-betmgm-nba-gambling-stats.html">favorite-longshot bias</a> in NFL betting. A -30% EV puts longshot underdog money lines in the same league as the biggest sucker bets you can take -- Same Game Parlays, <a href="/cool-parlay-bro.html">4+ leg parlays</a>, and teasers.</p>
+<p>"EV %" is the expected value of taking every bet in each category. Overall, money line bets have a -5.5% EV.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">label</th>
+<th>start</th>
+<th>end</th>
+<th>num games</th>
+<th>EV %</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">all favorites</td>
+<td>-9999</td>
+<td>-1</td>
+<td>1271</td>
+<td>-3.9%</td>
+</tr>
+<tr>
+<td style="text-align: left;">mild favorites</td>
+<td>-200</td>
+<td>-1</td>
+<td>662</td>
+<td>-2.8%</td>
+</tr>
+<tr>
+<td style="text-align: left;">heavy favorites</td>
+<td>-400</td>
+<td>-200</td>
+<td>406</td>
+<td>-7.5%</td>
+</tr>
+<tr>
+<td style="text-align: left;">huge favorites</td>
+<td>-9999</td>
+<td>-400</td>
+<td>203</td>
+<td>-0.2%</td>
+</tr>
+<tr>
+<td style="text-align: left;">----------------</td>
+<td>----</td>
+<td>----</td>
+<td>----</td>
+<td>------</td>
+</tr>
+<tr>
+<td style="text-align: left;">all dogs</td>
+<td>1</td>
+<td>9999</td>
+<td>1185</td>
+<td>-7.3%</td>
+</tr>
+<tr>
+<td style="text-align: left;">mild dogs</td>
+<td>1</td>
+<td>200</td>
+<td>663</td>
+<td>-5.4%</td>
+</tr>
+<tr>
+<td style="text-align: left;">heavy dogs</td>
+<td>200</td>
+<td>400</td>
+<td>399</td>
+<td>-3.4%</td>
+</tr>
+<tr>
+<td style="text-align: left;">huge dogs</td>
+<td>400</td>
+<td>9999</td>
+<td>123</td>
+<td>-29.7%</td>
+</tr>
+<tr>
+<td style="text-align: left;">----------------</td>
+<td>----</td>
+<td>----</td>
+<td>----</td>
+<td>------</td>
+</tr>
+<tr>
+<td style="text-align: left;">everythang</td>
+<td>-9999</td>
+<td>9999</td>
+<td>2456</td>
+<td>-5.5%</td>
+</tr>
+</tbody>
+</table>
+<p>That -29.67% for huge dogs is hiding a big discrepancy. Huge home dogs <code>(&gt;= +400)</code> have actually made money, winning 8/31 games. Huge away dogs have only won 6/92 games, for an absurd -63% Expected Value. The average odds for these bets is +600 (1 in 7 chance of winning), so we'd expect 13 of 92 bets to win, not 6.</p>
+<p>Like I said at the top, money line dogs are going to be extremely variable, and the +400 number is a totally arbitrary cutoff. But even if huge away dogs had won twice as often, they'd still be unprofitable. Woof!</p>
+<p>Money line favorites turn out to be a slightly better value than spread bets. But the estimated EVs are very sensitive to changes. I've been working on this project for a couple of weeks now, and noticed the numbers changing pretty significantly over the last 2 weeks of the NFL season. So the estimates are not telling the whole story about the range of possible outcomes.</p>
+<h3>Bootstrapping money lines</h3>
+<p>Since every bet has a different payout, they're not going to follow some nice, polite distribution. In order to estimate the variance in outcomes, I'm going to use bootstrapping, <a href="/one-in-e.html">a popular technique in these parts</a>. </p>
+<p>I'm using the <a href="https://scikits-bootstrap.readthedocs.io/en/stable/">scikits-bootstrap</a> library to generate a 90% confidence interval for the Expected Values. It samples random subsets of the bets in each category and calculates the EV of each subset. Then it returns the 5th and 95th percentile outcomes, which is a plausible range of values for the EV.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">label</th>
+<th>start</th>
+<th>end</th>
+<th>num games</th>
+<th>5th %ile</th>
+<th>EV</th>
+<th>95th %ile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">all favorites</td>
+<td>-9999</td>
+<td>-1</td>
+<td>1271</td>
+<td>-7.2%</td>
+<td>-3.9%</td>
+<td>-0.6%</td>
+</tr>
+<tr>
+<td style="text-align: left;">mild favorites</td>
+<td>-200</td>
+<td>-1</td>
+<td>662</td>
+<td>-8.3%</td>
+<td>-2.8%</td>
+<td>2.4%</td>
+</tr>
+<tr>
+<td style="text-align: left;">heavy favorites</td>
+<td>-400</td>
+<td>-200</td>
+<td>406</td>
+<td>-13.0%</td>
+<td>-7.5%</td>
+<td>-2.6%</td>
+</tr>
+<tr>
+<td style="text-align: left;">huge favorites</td>
+<td>-9999</td>
+<td>-400</td>
+<td>203</td>
+<td>-5.3%</td>
+<td>-0.2%</td>
+<td>4.0%</td>
+</tr>
+<tr>
+<td style="text-align: left;">----------------</td>
+<td>----</td>
+<td>----</td>
+<td>----</td>
+<td>------</td>
+<td>---</td>
+<td>-----</td>
+</tr>
+<tr>
+<td style="text-align: left;">all dogs</td>
+<td>1</td>
+<td>9999</td>
+<td>1185</td>
+<td>-14.0%</td>
+<td>-7.3%</td>
+<td>-0.2%</td>
+</tr>
+<tr>
+<td style="text-align: left;">mild dogs</td>
+<td>1</td>
+<td>200</td>
+<td>663</td>
+<td>-12.6%</td>
+<td>-5.4%</td>
+<td>2.3%</td>
+</tr>
+<tr>
+<td style="text-align: left;">heavy dogs</td>
+<td>200</td>
+<td>400</td>
+<td>399</td>
+<td>-16.5%</td>
+<td>-3.4%</td>
+<td>10.5%</td>
+</tr>
+<tr>
+<td style="text-align: left;">huge dogs</td>
+<td>400</td>
+<td>9999</td>
+<td>123</td>
+<td>-55.3%</td>
+<td>-29.7%</td>
+<td>4.7%</td>
+</tr>
+<tr>
+<td style="text-align: left;">----------------</td>
+<td>----</td>
+<td>----</td>
+<td>----</td>
+<td>------</td>
+<td>---</td>
+<td>-----</td>
+</tr>
+<tr>
+<td style="text-align: left;">everythang</td>
+<td>-9999</td>
+<td>9999</td>
+<td>2456</td>
+<td>-9.1%</td>
+<td>-5.5%</td>
+<td>-1.7%</td>
+</tr>
+</tbody>
+</table>
+<p>Those are some pretty wide confidence intervals. Even the big categories like <code>all favorites</code> lead to a wide range of outcomes.</p>
+<p>Even with the -29.7% EV for huge dogs, we can't rule out some small hope that somebody could make money taking them, I suppose. But as always, if there's randomness involved, we don't get to pick whether we get the 5th percentile result, the average result, or the 95th percentile result.</p>
+<h1>Mathletix Bajillion, playoffs round 2</h1>
+<p>After a dramatic 10-0 run by the Hand-Eggs, both teams are now in the black for the season.</p>
+<p><em>Lines taken Wednesday morning</em></p>
+<h3>The Neil McAul-Stars</h3>
+<p>last week: 3-2, +88 <br>
+Overall: 25-24-1, +3  <br>
+line shopping: +143    </p>
+<ul>
+<li>BUF +1 -101 (prophetx)</li>
+<li>SF +7 +104 (prophetx)</li>
+<li>NE -3 -109 (prophetx)</li>
+<li>CHI +4 -104 (prophetx)</li>
+</ul>
+<h3>The Vincent Hand-Eggs</h3>
+<p>last week: 5-0, +501          <br>
+Overall: 25-22-3, +214      <br>
+line shopping: +134   </p>
+<ul>
+<li>NE -3 -109 (prophetx)</li>
+<li>SEA -7 -108 (prophetx)</li>
+<li>BUF +1.5 -107 (prophetx)</li>
+<li>LAR -3.5  -110 (prophetx)</li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/nfl-point-totals-and-money-lines.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/football.html" class="tags">football</a>
+                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
+                </div>
+            </article>            <h4 class="date">Jan 07, 2026</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -1603,678 +1948,6 @@ line shopping: +6</p>
 
                 <div class="info">
                     <a href="/small-stakes-give-you-the-minimum-blues.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
-                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
-                </div>
-            </article>            <h4 class="date">Jul 18, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/the-public-wants-what-the-public-gets.html" rel="bookmark" title="Permanent Link to &quot;The public wants what the public gets&quot;">The public wants what the public gets</a>
-                </h2>
-
-                
-                
-
-                <p>code available at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.</p>
-<p><a href="https://www.youtube.com/watch?v=AE1ct5yEuVY" target="_blank"><img alt="The Jam, &quot;Going Underground&quot;" src="https://img.youtube.com/vi/AE1ct5yEuVY/0.jpg"></a></p>
-<h3>Two types of people</h3>
-<p>Lots of sportsbooks publish info on how much <em>action</em> they've gotten on each side.</p>
-<p>Here's DraftKings':  <a href="https://dknetwork.draftkings.com/draftkings-sportsbook-betting-splits/">https://dknetwork.draftkings.com/draftkings-sportsbook-betting-splits/</a></p>
-<p>It's a smart move. It's good for SEO (to the extent that still matters). And I'm sure they get a lot of people who decide to take bets from that page. </p>
-<p>For example, the Pacers were playing Brooklyn the night I wrote this. 27% of the bets were on Brooklyn at +10.5. 73% are on Pacers -10.5.</p>
-<p>Somebody who sees that and decides to make a bet based on that information could bet either way. They could either tell themselves, "Everybody's taking the Pacers, so it must be a good bet" or "Everybody's taking the Pacers, so it must be a bad bet". </p>
-<p>What are those two groups like when they're not betting on basketball, do you think? Do they use the same kind of toothpaste? Watch the same kind of TV shows? Vote the same way?</p>
-<h3>The public gets what the public wants</h3>
-<p>One bit of gambling lore is that there are "public" teams that get bet on more frequently, regardless of the line. Like, your cousin who's a Cowboys fan is going to bet the Cowboys on Thanksgiving regardless of whether it's a fair line or not.  He'd watch the game and root for the Cowboys anyway, but it's a little more fun that way. The Cowboys aren't just a random number generator to him.</p>
-<p>There's a social aspect to gambling now that I imagine didn't exist when it was underground. Lots of gamblers will <em>follow</em> bets that other people have placed. If the bet wins, I'm sure it's a cool communal thing to be a part of. But social media often doesn't obey the <em>wisdom of crowds</em> -- in places like reddit where users vote content up and down, the conventional wisdom is going to be amplified, and people with minority opinions are going to be suppressed. If well over 90% of sports gamblers lose money long term, the majority opinions are going to be bad. </p>
-<p>I scraped betting percentage data from <a href="https://www.sportsbookreview.com/betting-odds/nba-basketball/">sportsbookreview</a> (SBR) for the 2024-5 season. They don't say where they get the betting percentages from. If I had to guess, it would be MGM Grand, their primary source of other data. The SBR numbers seemed to indicate more <em>action</em> overall than a couple other sources I found -- the betting percentages were closer together. Other sites had games where there's 10% action on one side and 90% on the other, which seems implausible on a large volume of bets. So it's probably a pretty big site, whatever it is.</p>
-<p>As with the data from the previous installment, there are 32 games out of 1230 missing data.</p>
-<p>The <code>money_percents</code> column is the median amount bet on each team. The <code>money_game_winners</code> column tracks the number of games where that team got the majority of the money bet on their side. Both of these can be taken as indicators of how much teams are favored by the public.</p>
-<p>Here are the teams sorted by money_percents. The teams near the top were less popular with gamblers, the teams at the bottom more popular.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;"></th>
-<th style="text-align: right;">winner</th>
-<th style="text-align: right;">loser</th>
-<th style="text-align: right;">ats_win_pct</th>
-<th style="text-align: right;">money_percents</th>
-<th style="text-align: right;">money_game_winners</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">New Orleans</td>
-<td style="text-align: right;">34</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">39.5</td>
-<td style="text-align: right;">20</td>
-</tr>
-<tr>
-<td style="text-align: left;">Charlotte</td>
-<td style="text-align: right;">36</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">41.5</td>
-<td style="text-align: right;">24</td>
-</tr>
-<tr>
-<td style="text-align: left;">Miami</td>
-<td style="text-align: right;">39</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">49</td>
-<td style="text-align: right;">43</td>
-<td style="text-align: right;">20</td>
-</tr>
-<tr>
-<td style="text-align: left;">Philadelphia</td>
-<td style="text-align: right;">26</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">43.5</td>
-<td style="text-align: right;">29</td>
-</tr>
-<tr>
-<td style="text-align: left;">Portland</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">58</td>
-<td style="text-align: right;">43.5</td>
-<td style="text-align: right;">25</td>
-</tr>
-<tr>
-<td style="text-align: left;">Orlando</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">29</td>
-</tr>
-<tr>
-<td style="text-align: left;">Utah</td>
-<td style="text-align: right;">39</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">33</td>
-</tr>
-<tr>
-<td style="text-align: left;">Sacramento</td>
-<td style="text-align: right;">35</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">32</td>
-</tr>
-<tr>
-<td style="text-align: left;">L.A. Clippers</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">34</td>
-<td style="text-align: right;">58</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">27</td>
-</tr>
-<tr>
-<td style="text-align: left;">San Antonio</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">31</td>
-</tr>
-<tr>
-<td style="text-align: left;">Chicago</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">36</td>
-</tr>
-<tr>
-<td style="text-align: left;">New York</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">38</td>
-</tr>
-<tr>
-<td style="text-align: left;">Phoenix</td>
-<td style="text-align: right;">29</td>
-<td style="text-align: right;">49</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">36</td>
-</tr>
-<tr>
-<td style="text-align: left;">Washington</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">49</td>
-<td style="text-align: right;">37</td>
-</tr>
-<tr>
-<td style="text-align: left;">L.A. Lakers</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">59</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">42</td>
-</tr>
-<tr>
-<td style="text-align: left;">Indiana</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">43</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">42</td>
-</tr>
-<tr>
-<td style="text-align: left;">Atlanta</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">41</td>
-</tr>
-<tr>
-<td style="text-align: left;">Boston</td>
-<td style="text-align: right;">39</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">43</td>
-</tr>
-<tr>
-<td style="text-align: left;">Minnesota</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">43</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">43</td>
-</tr>
-<tr>
-<td style="text-align: left;">Dallas</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">41</td>
-</tr>
-<tr>
-<td style="text-align: left;">Detroit</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">53</td>
-<td style="text-align: right;">43</td>
-</tr>
-<tr>
-<td style="text-align: left;">Brooklyn</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">35</td>
-<td style="text-align: right;">55</td>
-<td style="text-align: right;">53</td>
-<td style="text-align: right;">41</td>
-</tr>
-<tr>
-<td style="text-align: left;">Toronto</td>
-<td style="text-align: right;">49</td>
-<td style="text-align: right;">28</td>
-<td style="text-align: right;">64</td>
-<td style="text-align: right;">53</td>
-<td style="text-align: right;">47</td>
-</tr>
-<tr>
-<td style="text-align: left;">Golden State</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">54</td>
-<td style="text-align: right;">51</td>
-</tr>
-<tr>
-<td style="text-align: left;">Houston</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">54</td>
-<td style="text-align: right;">54</td>
-<td style="text-align: right;">49</td>
-</tr>
-<tr>
-<td style="text-align: left;">Oklahoma City</td>
-<td style="text-align: right;">53</td>
-<td style="text-align: right;">29</td>
-<td style="text-align: right;">65</td>
-<td style="text-align: right;">54.5</td>
-<td style="text-align: right;">54</td>
-</tr>
-<tr>
-<td style="text-align: left;">Milwaukee</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">54</td>
-<td style="text-align: right;">56.5</td>
-<td style="text-align: right;">56</td>
-</tr>
-<tr>
-<td style="text-align: left;">Cleveland</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">59</td>
-<td style="text-align: right;">57</td>
-<td style="text-align: right;">53</td>
-</tr>
-<tr>
-<td style="text-align: left;">Memphis</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">50</td>
-<td style="text-align: right;">57</td>
-<td style="text-align: right;">51</td>
-</tr>
-<tr>
-<td style="text-align: left;">Denver</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">58.5</td>
-<td style="text-align: right;">63</td>
-</tr>
-</tbody>
-</table>
-<h3>The public favorites</h3>
-<p>The most popular teams with NBA gamblers were Denver, Cleveland, Memphis, Milwaukee, and Oklahoma City. Denver got the most money in 63 of 82 games they played, which is remarkable.</p>
-<p>Cleveland, OKC and Memphis were dominant for most of the season.</p>
-<p>Denver and Milwaukee have two of the best and most entertaining players in the league. Both Giannis for Milwaukee and Jokic for Denver are fun to root for. People like to take bets on teams that are fun to follow. </p>
-<h3>The ugly dogs</h3>
-<p>The bottom teams were New Orleans, Charlotte, Miami, Philadelphia and Portland. All these teams except for Portland were total bummers to watch and cheer for this year. They had injuries and organizational dysfunction that led to totally wasted seasons. People don't like to take bets on teams that are a bummer to follow.</p>
-<p>This hints at the fact that a lot of people are taking bets because they want that team to win the bet, rather than because they believe the bet has a positive expected value. It's entertainment, not a business investment.</p>
-<h3>Against the spread</h3>
-<p>Here's the same data sorted by record against the spread.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;"></th>
-<th style="text-align: right;">winner</th>
-<th style="text-align: right;">loser</th>
-<th style="text-align: right;">ats_win_pct</th>
-<th style="text-align: right;">money_percents</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Philadelphia</td>
-<td style="text-align: right;">26</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">43.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Phoenix</td>
-<td style="text-align: right;">29</td>
-<td style="text-align: right;">49</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">48</td>
-</tr>
-<tr>
-<td style="text-align: left;">Washington</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">49</td>
-</tr>
-<tr>
-<td style="text-align: left;">New Orleans</td>
-<td style="text-align: right;">34</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">39.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Sacramento</td>
-<td style="text-align: right;">35</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">45</td>
-</tr>
-<tr>
-<td style="text-align: left;">Denver</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">58.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Dallas</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">52</td>
-</tr>
-<tr>
-<td style="text-align: left;">Charlotte</td>
-<td style="text-align: right;">36</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">41.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Minnesota</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">43</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">52</td>
-</tr>
-<tr>
-<td style="text-align: left;">New York</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">48</td>
-</tr>
-<tr>
-<td style="text-align: left;">Indiana</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">43</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">51</td>
-</tr>
-<tr>
-<td style="text-align: left;">Atlanta</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">52</td>
-</tr>
-<tr>
-<td style="text-align: left;">San Antonio</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">47</td>
-</tr>
-<tr>
-<td style="text-align: left;">Boston</td>
-<td style="text-align: right;">39</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">52</td>
-</tr>
-<tr>
-<td style="text-align: left;">Miami</td>
-<td style="text-align: right;">39</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">49</td>
-<td style="text-align: right;">43</td>
-</tr>
-<tr>
-<td style="text-align: left;">Memphis</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">50</td>
-<td style="text-align: right;">57</td>
-</tr>
-<tr>
-<td style="text-align: left;">Orlando</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">44</td>
-</tr>
-<tr>
-<td style="text-align: left;">Utah</td>
-<td style="text-align: right;">39</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">45</td>
-</tr>
-<tr>
-<td style="text-align: left;">Golden State</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">54</td>
-</tr>
-<tr>
-<td style="text-align: left;">Detroit</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">53</td>
-</tr>
-<tr>
-<td style="text-align: left;">Chicago</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">47</td>
-</tr>
-<tr>
-<td style="text-align: left;">Houston</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">54</td>
-<td style="text-align: right;">54</td>
-</tr>
-<tr>
-<td style="text-align: left;">Milwaukee</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">54</td>
-<td style="text-align: right;">56.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Brooklyn</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">35</td>
-<td style="text-align: right;">55</td>
-<td style="text-align: right;">53</td>
-</tr>
-<tr>
-<td style="text-align: left;">L.A. Clippers</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">34</td>
-<td style="text-align: right;">58</td>
-<td style="text-align: right;">46</td>
-</tr>
-<tr>
-<td style="text-align: left;">Portland</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">58</td>
-<td style="text-align: right;">43.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">L.A. Lakers</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">59</td>
-<td style="text-align: right;">51</td>
-</tr>
-<tr>
-<td style="text-align: left;">Cleveland</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">33</td>
-<td style="text-align: right;">59</td>
-<td style="text-align: right;">57</td>
-</tr>
-<tr>
-<td style="text-align: left;">Toronto</td>
-<td style="text-align: right;">49</td>
-<td style="text-align: right;">28</td>
-<td style="text-align: right;">64</td>
-<td style="text-align: right;">53</td>
-</tr>
-<tr>
-<td style="text-align: left;">Oklahoma City</td>
-<td style="text-align: right;">53</td>
-<td style="text-align: right;">29</td>
-<td style="text-align: right;">65</td>
-<td style="text-align: right;">54.5</td>
-</tr>
-</tbody>
-</table>
-<p>Philadelphia, Washington and Phoenix were just as terrible at the sportsbook as they were on the basketball court. OKC and Cleveland had outstanding seasons in both places.</p>
-<p>However, there's only a rough correlation between how good the teams were at actual basketball, and at beating the spread. Minnesota, New York and Denver were in the bottom 10 by winning % against the spread, even though they had good records and were doing their best to win. Denver lost to the eventual champs, and New York and Minnesota made the conference finals. Indiana was the 10th worst team against the spread, and made the NBA Finals. Toronto and Brooklyn weren't really trying to win a lot of basketball games, but ended up in the top 10. There is no good reason I can think of for the Lakers to be in the top 4 against the spread -- aren't they the epitome of a public team that should be getting unfavorable lines? </p>
-<h3>Which teams should the public love and hate?</h3>
-<p>I calculated the amount of units a gambler would win or lose if they bet on each team when they got the majority of the bets.  This is a sort of measure how happy the proverbial public should be about each team.</p>
-<p><code>public_units</code> is the amount won/lost betting in favor of the team. Phoenix, Sacramento, Dallas, Denver and Indiana disappointed the public the most.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;"></th>
-<th style="text-align: right;">public_units</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Phoenix</td>
-<td style="text-align: right;">-16.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Sacramento</td>
-<td style="text-align: right;">-14.2</td>
-</tr>
-<tr>
-<td style="text-align: left;">Dallas</td>
-<td style="text-align: right;">-13.6</td>
-</tr>
-<tr>
-<td style="text-align: left;">Denver</td>
-<td style="text-align: right;">-12.6</td>
-</tr>
-<tr>
-<td style="text-align: left;">Indiana</td>
-<td style="text-align: right;">-12.6</td>
-</tr>
-<tr>
-<td style="text-align: left;">Atlanta</td>
-<td style="text-align: right;">-11.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Utah</td>
-<td style="text-align: right;">-11.1</td>
-</tr>
-<tr>
-<td style="text-align: left;">Chicago</td>
-<td style="text-align: right;">-10.2</td>
-</tr>
-<tr>
-<td style="text-align: left;">Minnesota</td>
-<td style="text-align: right;">-9.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Detroit</td>
-<td style="text-align: right;">-7.4</td>
-</tr>
-<tr>
-<td style="text-align: left;">Philadelphia</td>
-<td style="text-align: right;">-6.7</td>
-</tr>
-<tr>
-<td style="text-align: left;">New York</td>
-<td style="text-align: right;">-6.1</td>
-</tr>
-<tr>
-<td style="text-align: left;">Brooklyn</td>
-<td style="text-align: right;">-5.2</td>
-</tr>
-<tr>
-<td style="text-align: left;">Washington</td>
-<td style="text-align: right;">-5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Boston</td>
-<td style="text-align: right;">-3.2</td>
-</tr>
-<tr>
-<td style="text-align: left;">New Orleans</td>
-<td style="text-align: right;">-3.1</td>
-</tr>
-<tr>
-<td style="text-align: left;">Memphis</td>
-<td style="text-align: right;">-1.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Charlotte</td>
-<td style="text-align: right;">-1.2</td>
-</tr>
-<tr>
-<td style="text-align: left;">Miami</td>
-<td style="text-align: right;">-1</td>
-</tr>
-<tr>
-<td style="text-align: left;">San Antonio</td>
-<td style="text-align: right;">-0.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Orlando</td>
-<td style="text-align: right;">-0.4</td>
-</tr>
-<tr>
-<td style="text-align: left;">Milwaukee</td>
-<td style="text-align: right;">1.4</td>
-</tr>
-<tr>
-<td style="text-align: left;">Golden State</td>
-<td style="text-align: right;">2.7</td>
-</tr>
-<tr>
-<td style="text-align: left;">L.A. Lakers</td>
-<td style="text-align: right;">4.2</td>
-</tr>
-<tr>
-<td style="text-align: left;">Houston</td>
-<td style="text-align: right;">4.9</td>
-</tr>
-<tr>
-<td style="text-align: left;">Cleveland</td>
-<td style="text-align: right;">6.8</td>
-</tr>
-<tr>
-<td style="text-align: left;">Portland</td>
-<td style="text-align: right;">10.3</td>
-</tr>
-<tr>
-<td style="text-align: left;">Toronto</td>
-<td style="text-align: right;">11.3</td>
-</tr>
-<tr>
-<td style="text-align: left;">L.A. Clippers</td>
-<td style="text-align: right;">12.3</td>
-</tr>
-<tr>
-<td style="text-align: left;">Oklahoma City</td>
-<td style="text-align: right;">18.3</td>
-</tr>
-</tbody>
-</table>
-<p>This is a pretty random list of teams, in both directions. It's a good illustration that gamblingball is different from basketball. It's not clear whether gamblingball is a game with an element of skill, or if it's all chance.</p>
-<h3>Are records against the spread due to chance?</h3>
-<p>If we assume that all variations are due to randomess, each game should be a coin flip whether the underdog or favorite wins against the spread.</p>
-<p>Calculating exact odds using the binomial distribution, 94% of NBA teams should have between 33 and 49 wins against the spread over an 82 game season.</p>
-<p>We'd expect 2 teams to be outside that range, and there are 3. Philadelphia went 26-52 in 78 games we have data for. Even if they won the other 4 games that are missing data, they'd only have 30 wins. So that record was definitely an outlier, but overall the season was about what we'd expect based on chance.</p>
-<p>I find it very believable that some teams are more likely to have a winning record against the spread, because they are underestimated by the handicappers or the betting public. They end up getting lines that are too generous, and thus do better than expected against the spread over the long run. Toronto could be an example of that. They were bad, but they weren't really as bad as people thought.</p>
-<p>Other teams could be inherently worse against the spread, as well. Perhaps they are super popular to bet on, so the lines tend to move against them -- a <em>public team</em>. Or perhaps gamblers and sportsbooks overvalue the team -- the conventional wisdom is that they'll be good when they're not. That definitely describes Philadelphia and Phoenix.</p>
-<p>In both cases, <em>the teams themselves</em> aren't necessarily doing anything to be better or worse against the spread than an average team would be. It's about the perceptions of the bookmakers and gamblers. Teams can't help what bookmakers set the lines to be.</p>
-<h3>Do gamblers follow the record against the spread?</h3>
-<p>If a team's record against the spread is due solely to random error, then we've got a <a href="/LeSimulation.html">LeMartingale</a> on our hands. The current record would have no bearing on the future record. So gamblers shouldn't factor it in when deciding to take a bet or not.</p>
-<p>By the end of the season, there was a significant correlation between money percents and win percentage against the spread. I wanted to see how that might've changed over time. So I generated the table shown above for every single day of the season, and calculated the correlation on that day.  Here's what that looks like over time:</p>
-<p><img alt="/img/money-ats-win-pct.png" src="/img/money-ats-win-pct.png"></p>
-<p>The money percentages are cumulative, the mean of all games in the season that have come before -- it's not showing gamblers' betting behavior on a particular day. The graph is a lot smoother that way, but we're losing something.</p>
-<p>It also doesn't show whether records against the spread are a Martingale or not. The correlation between betting percentages and win records increases over time, but that doesn't mean this is because gamblers are behaving <em>rationally</em>. </p>
-<p>The jump in correlation around mid-Februrary corresponds to the All-Star break, which is curious.</p>
-<p>Stay tuned; I'll have more on this.</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/the-public-wants-what-the-public-gets.html">posted at 10:20</a>
                     &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>

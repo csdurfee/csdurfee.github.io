@@ -29,123 +29,7 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Jul 17, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/last-fair-deal-in-the-country.html" rel="bookmark" title="Permanent Link to &quot;Last fair deal in the country&quot;">Last fair deal in the country</a>
-                </h2>
-
-                
-                
-
-                <p>(This is an excerpt from a larger project about sports gambling. Code used, and early drafts of some of the chapters can be found at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.)</p>
-<p><a href="https://www.youtube.com/watch?v=0UGvyPnuLtQ" target="_blank"><img alt="The Grateful Dead, &quot;Loser&quot;" src="https://img.youtube.com/vi/0UGvyPnuLtQ/0.jpg"></a></p>
-<h2>Efficiency of betting markets</h2>
-<p>The efficient market hypothesis says that given enough time and competition, free markets are able to establish the correct price for a commodity. In the case of sports betting, we could think of it as the price of a money line bet. </p>
-<p>On a money line bet, you are betting on who will win the game straight up. You get a smaller payout for betting on the favorite, and a larger payout betting on the underdog. In the United States, money line bets are written in a goofy way. If the money line is negative, that's how much money you have to risk in order to win $100. For example, -200 indicates you have to risk $200 to win $100. If it is positive, that's how much money you win if you risk $100. If it sounds like a bad way to write the odds, you're correct.</p>
-<p>A market maker will respond to an imbalance in bets by adjusting the price. If CLE -300 is a good value, people will rationally want to take it, driving the price up to, say -400. If it is a bad value, people will rationally want to take the other side and the price might go down to -200. These rational actors will collectively push the price towards the best possible estimate that humans can make given all information available at the time. It serves as a sort of collective intelligence.</p>
-<p>In the first installment, I showed that humans are irrational when it comes to sports betting, so I was skeptical of how good, or fair, the lines could be. Could I find proof of this collective intelligence in action? Are there any obvious market inefficiencies?</p>
-<h3>The data &amp; stuff to know</h3>
-<p>Stats are from the NBA season. I screen-scraped the data from <a href="https://www.sportsbookreview.com/betting-odds/nba-basketball/">sportsbookreview.com</a>. All data is from the MGM Grand. Unfortunately, some data is missing around Christmas, and a few random days in between. 32 games are missing from the data set out of 1230 total, 2.6% of all games. These are games that don't appear on sportsbookreview's website, or have incomplete data on there.</p>
-<p>This is an analysis of the MGM Grand's NBA lines for 2025. It's not a comprehensive guide to how the lines work.</p>
-<p>There are always two lines on each game, one for the home team and one for the away team. Each side may have different vigs. Say for instance Bucks @ Pacers starts out at IND +3.5 -110/MIL -3.5 -110. It could close at IND +3.5 -115/MIL -3.5 -105. So it costs more to bet on the Pacers, but the actual line didn't move.  I'm mostly ignoring that, but will point out when it's relevant.</p>
-<p>"Line" and "spread" mean the same thing.</p>
-<p>"Reduced juice" means risking -105 or -106 instead of the usual -110 to win 100. A "unit" is a gambler's standard betting size. "4.1 units of profit" would mean +$410 for a gambler betting $100 a game. Both are explained in much more detail in the book.</p>
-<h3>A note about pushes</h3>
-<p>When the final score agrees with the line exactly, neither side of the bet can be declared a winner. This is called a push. The bet is cancelled and everybody gets their money back. The casino makes nothing.</p>
-<p>The MGM Grand always keeps point spreads on the half point (eg +6.5 or +7.5 rather than +7) so that they will never push. I don't think it's a bad policy, and I'm surprised more sportsbooks don't do it. The sportsbooks know how good their customers are at betting, so they should probably shade the point spread a half a point towards the side of the bet that has the less savvy bettors on it. (This assumes the sportsbook can identify and ban arbitrage gamblers, but more about that in the book.) </p>
-<h3>Analysis</h3>
-<p>If there is a wisdom of crowds, the final lines should be more accurate than the opening lines. Are they?</p>
-<p>My code calculates the difference between the final score and the line, called the error.  Because the MGM's lines always end in a half point, that means the error is going to be artificially high -- there will never be a game where it is exactly zero.</p>
-<p>The opening and closing lines are a set of predictions. The smaller the difference between the line and reality, the better the prediction. <a href="https://en.wikipedia.org/wiki/Mean_squared_error">Mean Squared Error</a> is a standard way to compare two prediction systems in statistics and machine learning.</p>
-<p>The MSE for the opening lines is 191.06, and the closing lines is 184.8. So we can say that in aggregate, the closing lines are more accurate than the opening lines.</p>
-<p>MSE can't tell us how good the closing lines are, though, just that one set of predictions is better than another set. It's a relative measure, not an absolute one. We're squaring the error, so the MSE will always be positive. The errors in one direction don't cancel out ones in the other direction. </p>
-<p>Let's look at how far the lines were off by. the Os are the opening lines, and X's are the closing lines. If the <em>X</em> is closer to the center line than the <em>O</em>, the market action made the line more accurate. I've plotted a random sample of 300 games to make the plot more readable.</p>
-<p><img alt="/img/scatter-mess.png" src="/img/scatter-mess.png"></p>
-<p>Unfortunately, that doesn't really show us much about how or when the closing lines are better than the opening ones. </p>
-<h3>Adam Smith, Handicapper</h3>
-<p>When were the closing lines more accurate than the opening lines?</p>
-<p>The closing lines were better in 467 games, versus 384 games where the opening lines were better, and 347 games where the line never changed.</p>
-<p>If the free market were a handicapper, and we interpreted the line movements as a bet on one side, they would have a 54.88% winning percentage (and 347 pushes).</p>
-<p>While that's a respectable win percentage for a human trying to beat the spread, I was expecting better from the free market. The market only being right 55% of the time holds true for a couple of previous seasons I have looked at as well. NBA betting, as a market, is not very efficient.</p>
-<p>There are good reasons for that. Sportsbooks that set the opening lines aren't trying that hard to be accurate. It's just a first guess. Only a tiny percentage of money is wagered at the opening line number. However, there are good reasons why lines tend not to move very much, even when the opening line is a bad one. For an in-depth explanation, check out <em>The Logic of Sports Betting</em>, by Miller and Davidow.</p>
-<h3>The myth of closing line value</h3>
-<p><a href="https://www.pinnacle.com/betting-resources/en/betting-strategy/using-the-closing-line-to-test-your-skill-in-betting/7e6jwjm5ykejuwkq">The conventional wisdom</a> is that sports betting markets are efficient, so that the only way to make money over the long run is by doing better than the closing lines, picking up on any flaws in the opening lines before the market eliminates them. Anyone else can only make a profit due to chance. From this perspective, the right way to measure a handicapper's skill is how their picks compare to the closing line. Say the opening line is Nuggets -3, and I take the bet at that number. The closing line is Nuggets -6. Then I captured 3 points of value against the closing line. This is known as closing line value (CLV). (We can figure out how valuable those 3 points are, and I show how in the book.)</p>
-<p>Beating the closing line might be positively correlated with higher profits when analyzing betting records of touts -- people who sell betting picks for money. But when the market is wrong 45% of the time, focusing too much on CLV seems like a bad idea. There's no good reason to believe that a gambler is destined to lose money by picking against the closing lines. What if their strategy is to mostly bet against the prevailing wisdom on the 45% of games where the market is wrong?</p>
-<p>CLV is a prime example of <a href="https://en.wikipedia.org/wiki/Goodhart's_law">Goodhart's Law</a>. As a measure of a handicapper's skill, it's probably fine (though not ideal). But it shouldn't be the target. A gambler shouldn't make picks explicitly to capture as much CLV as possible. That could be different on other sports. Football -- both forms of it -- attracts a lot more betting than the NBA does, so if you're looking for the wisdom of crowds, maybe look there.</p>
-<p>Say the opening line is Nuggets -3 against the Timberwolves. I like the Nuggets in this matchup, but I think the public will go for the Timberwolves and it will finish at Nuggets -1/Timberwolves +1.</p>
-<p>If I was trying to capture as much CLV as possible on this bet, I should take the Timberwolves +3 on the opening line, even though that's not the side I actually like! </p>
-<p>If I was trying to actually win the bet, I should take the Nuggets at the closing line, hoping maybe I can get Nuggets -1 or even Nuggets +1. I can never get positive CLV on the Nuggets, because the market was wrong about them. Not me, the market!</p>
-<p>CLV gets described as being the best way to test a handicapper's skill, but it's obviously non-optimal. Maybe it's the contrarian in me, but Opening Line Value -- identifying bets where the market is going to be wrong, and waiting till the last minute to place the bet -- is more impressive.</p>
-<p>The best way to test a handicapper is to have them write out what they think the lines should be, rather than making a binary decision about somebody else's line (favorite or underdog). If a handicapper's lines are closer to the truth than the closing lines, they are good at handicapping. Looking at what bets they took is only a secondary signal of that. If they took Nuggets -7, is it because they thought the true line should be Nuggets -8, or Nuggets -12? </p>
-<h3>When the line doesn't move</h3>
-<p>Setting aside why the market moves in the wrong direction 45% of the time, I'm curious about the games where the spread didn't move at all. Maybe those lines were perfect as-is? If so, we'd expect to see equal splits of home vs. away winners, and underdog vs. favorite winners.  There shouldn't be any bias to those games. The free market is essentially labelling these the pinnacle of the handicapper's art, impossible to be improved upon. </p>
-<p>The difference between the predicted outcome (the line) and the actual outcome is a combination of how much the line maker got it wrong, plus random variation. So the games where the line didn't move should be totally random, right?</p>
-<p>They're not. If we look at games where the line didn't move, the away team went 184-163 in those games. Someone betting the away team in every game where the line didn't move would win 53% of their bets, for 4.7 units of profit at full vig, or 11.2 units of profit at <em>reduced juice</em>.</p>
-<p>There's also a bias towards underdogs, who went 186-161 in this situation. Always taking the underdog would give a 53.6% winning percentage, for 8.9 units at full vig, or 15.3 units at reduced juice.</p>
-<p>There's an even bigger bias if we combine the two. Away underdogs went 122-92 in these games, which is a 55.2% winning percentage, for 13.1 units of profit at full vig, and 17.1 at reduced juice.</p>
-<p>None of these results are statistically significant, but they are very :thinking_face_emoji:</p>
-<h3>About the vig</h3>
-<p>When the vig is imbalanced, the side with the higher vig should be more likely to win, because they're winning less money in return. Moving the vig from -110 to -115 is a way for the bookmaker to discourage bets on one side without moving the line. Likewise moving it to -105 is a way to encourage bets on that side.</p>
-<p>Since the MGM Grand always keeps their lines on the half point, we'd expect them to adjust the vig often rather than change the spread. They do for most of the games where they didn't move the lines, but 39% of the time the vig stays at -110.</p>
-<p>If we break down the games where the line didn't move by vig, the underdogs went 62-43 when the vig was high (-115), 74-62 when the vig was at the standard level (-110), and 50-56 at low vig (-105).</p>
-<p>Someone taking the underdogs when the line doesn't move, and the vig is -110 or -115, would've gone 136-105 this season, a 56.4% winning percentage, and around 18 units of profit (factoring in the additional -115 vig on some bets).</p>
-<p>Now, the strategy is pretty convoluted, and I wouldn't bet on it holding for future seasons, but it's definitely evidence there could be irrational factors at work in the market. It certainly doesn't show the market to be the well oiled machine that Closing Line Value assumes it is.</p>
-<h3>Must love dogs</h3>
-<p>Winners ended up being pretty evenly divided between favorites and underdogs by the end of the season, but underdogs were way ahead for most of the year.  </p>
-<p>Betting every single underdog against the spread over the first quarter of the season would've been fairly profitable -- a 165-136 record (54.8% winning percentage), and 15.4 units profit at full vig. People betting favorites got killed at the beginning of the season.</p>
-<p>Dogs and favorites were basically even through the middle half of the season, before favorites finished off 167-144 (53.7% win percentage) to even things out.</p>
-<p>Here's a plot of the winning percentage of favorites over the course of the season. I skipped the first 50 games because of noise. The yellow line represents the winning percentage necessary for betting all underdogs to be profitable (at standard vig). That happens when the favorites win less than 47.6% of the time (which means underdogs win more than 52.4% of the time.)</p>
-<p>It wasn't until the last month of the season that blindly betting all underdogs started being a losing proposition, even factoring in the vig.</p>
-<p><img alt="/img/wp-vs-gameno.png" src="/img/wp-vs-gameno.png"></p>
-<h3>Did the lines improve over time?</h3>
-<p>I was curious if there was evidence that the errors were getting smaller, or more predictable over time.</p>
-<p>The raw errors are too noisy to see any sort of pattern:</p>
-<p><img alt="/img/err-vs-line.png" src="/img/err-vs-line.png"></p>
-<p>This is a plot of the 100 game moving average of the absolute error of the closing line. I don't see any trends to suggest the lines got more accurate with time.</p>
-<p><img alt="/img/closing-line-err.png" src="/img/closing-line-err.png"></p>
-<p>The size of the error against the closing line isn't the ideal metric, because not all points are created equal -- the higher the line, the less surprising the error. (I'm going to skip discussing that for now, but it's explained in the book.)</p>
-<h3>Did the lines change over time?</h3>
-<p>I wondered whether the size of the lines changed over time -- did the games get more or less competitive over the course of the season?</p>
-<p>This is a 100 game moving average of the average size of the spread. As we can see, the lines did get bigger near the end of the year.</p>
-<p><img alt="/img/spread-over-time.png" src="/img/spread-over-time.png"></p>
-<p>It's possible the trend is due to scheduling, but the change at the end seems significant -- teams tend to give up near the end of the year. Bad teams want to be as bad as possible in order to get the best odds in the NBA draft, so they're not that competitive. </p>
-<p>(I have a lot more to say about tanking, but I'll stay off my soapbox for now.)</p>
-<h3>What type of games are affected by line movement?</h3>
-<p>There were 130 games where the winner flipped from the favorite to the underdog, or the underdog to the favorite, because of the line movement. In other words, these are games where either side could have won the bet, depending on whether you took the opening line or the closing line.</p>
-<p>These games were perfectly balanced -- 65 times, the favorite won (vs the closing line); 65 times the underdog won.</p>
-<p>What about games where the spread was extremely accurate (off by 3 points or less)? Underdogs went 138-121 in those games (53.2%).</p>
-<p>The difference is more dramatic in games where the line was off by 1 point or less. The underdogs went 56-33 (63% win percentage). Of course, there's no way to use that as a betting strategy since we can't identify these games before the fact, but it does show a small potential bias in favor of underdogs. </p>
-<h3>What would "perfect" lines even look like?</h3>
-<p>It's rare to see NBA lines that are bigger than +15/-15 points. There were 15 this season, about 4.4% of all games. That's around one NBA game a week with a line that high.</p>
-<p>By contrast, 31% of NBA games end with a score differential of over 15 points. That's 7x more often, roughly one game a day.</p>
-<p>The lines really shouldn't be as large as the final score differential, because they are an estimate of the mean outcome of the game. If the Celtics beat the Raptors by 54 points, that doesn't mean the line <em>should</em> have been Celtics -54. The Celtics and Raptors played 4 times last season (data taken from <a href="https://www.basketball-reference.com/teams/TOR/2025_games.html">basketball-reference</a>). I'm going to ignore home court advantage -- imagine these are played at a neutral gym. The first game, Boston won by 3. The second, Boston won by 54. The third game, the Raptors won by 13. The last game, Boston won by 10.</p>
-<p>Boston won by an average of 13.5 points, so BOS -13.5 would be a reasonable line for all four games, as that's the best estimate we can make of their difference in skill. Only 1 of the 4 games ended up close to that line. For the other 3 games, the error was at least 10 points. That's pretty typical for NBA games. The error is usually around 10 points.</p>
-<p>In this scenario, Boston -- despite being the much better team -- would have gone 1-3 against the spread. If the line for all four games was BOS -9.5, they would have gone 2-2, but the error would still be 44.5 points on the second game, and 23.5 on the third one. </p>
-<p>The actual outcomes might be all over the place, but the spread isn't meant to predict the actual outcome, just the point where both sides are equally likely to win the bet. In a small sample size, there's no guarantee both sides will win 50% of the games, even if the line was perfect.</p>
-<p>Here's a histogram of the spreads (for the away team) overlaid on a histogram of the errors against the spread:</p>
-<p><img alt="/img/spread-vs-score-diff.png" src="/img/spread-vs-score-diff.png"></p>
-<p>If we look at just the score differential, we can stick a bell curve over the top and it looks pretty normal:</p>
-<p><img alt="/img/score-diff-normal.png" src="/img/score-diff-normal.png"></p>
-<h3>Simulating games from the spreads</h3>
-<p>The problem is, these aren't outcomes from one distribution. Every game is essentially a sample from a different distribution. Each game has a different mean (the spread, or rather the ideal version of it) and a different variance (how predictable games are between the two teams). Combining them all together, the results end up looking kinda normal (because a lot of things do).</p>
-<p>I decided to simulate the entire season to show how the point differentials are going to be much bigger than the original lines.</p>
-<p>I simulated every game by sampling from a normal distribution with the mean set to that game's spread, and the variance equal to the sample variance of all games that season with that spread. </p>
-<p>Here's how they match up:</p>
-<p><img alt="/img/point-differential.png" src="/img/point-differential.png"></p>
-<p>I know that's a pretty rough simulation. There's some weirdness in the middle. NBA games never end in a tie, and they end in a one point difference less often than expected due to tactical reasons, so there's a little notch right in the center of the green curve. If a team is down one, they foul the other team and hope they miss at least one of their free throws. There's also more simulated games than I would expect that end with a differential of +1 or -1. There very well may be a bug in my code. So there's a muddle in the middle. But the spread of the data is the same, which is the main point.</p>
-<p>Hopefully the simulation shows that the lines shouldn't be bigger than they are, even though they are frequently off by many multiples compared to the final result. An error of 10 is about what we'd expect on average, and big errors don't necessarily mean <em>Vegas</em> was wrong. If the line is Dallas -3 and the other team wins by 27, that doesn't mean the line was off by 30 points. The line is meant to be an estimate of the mean outcome, if the teams played each other a large number of time under the exact same conditions. We only ever see one sample, though, and a lot of times it is far from the mean.</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/last-fair-deal-in-the-country.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
-                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags selected">your parlay sucks</a>
-                </div>
-            </article>            <h4 class="date">Jul 18, 2025</h4>
+        <div id="content">            <h4 class="date">Jul 18, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -2307,6 +2191,351 @@ line shopping: +133     </p>
 
                 <div class="info">
                     <a href="/nfl-spread-betting-statistics-more-folly-of-crowds.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/football.html" class="tags">football</a>
+                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags selected">your parlay sucks</a>
+                </div>
+            </article>            <h4 class="date">Jan 10, 2026</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/nfl-point-totals-and-money-lines.html" rel="bookmark" title="Permanent Link to &quot;NFL point totals and money lines&quot;">NFL point totals and money lines</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=Fowldx4hRtI" target="_blank"><img alt="Sam and Dave, &quot;Hold On, I'm Coming&quot;" src="https://img.youtube.com/vi/Fowldx4hRtI/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=Fowldx4hRtI" target="_blank">Sam and Dave, "Hold On, I'm Coming"</a></p>
+<p>Code: <a href="https://github.com/csdurfee/scrape_yahoo_odds/blob/main/explore_football.ipynb">https://github.com/csdurfee/scrape_yahoo_odds/blob/main/explore_football.ipynb</a></p>
+<p>This week, more insights into NFL betting from BetMGM gambling data (harvested from Yahoo). I'm looking at the last 5 seasons of regular season NFL games (2021-2022 thru 2025-2026). There are 1,359 games total, around 140 of which are missing betting percentage data, so have been excluded from parts of this analysis.</p>
+<h1>Point totals</h1>
+<p>Gamblers can wager on whether the total number of points scored in an NFL game will be over or under a certain number. These bets are sometimes called <em>over/unders</em>. </p>
+<p>Spreads are a wager on the difference in team scores, and point totals are a wager on the sum. It's kind of an odd bet, because it doesn't matter which team wins. All bets are math problems, but over/unders are more obviously so. </p>
+<p>The over has won 48.4% of the time (658/1359 games). Point totals almost never push (hit the number exactly, meaning neither side wins). That's only happened in 12 of 1358 games. About 60% of point totals are on the half point (6.5 instead of 6, for example), so they can't push.</p>
+<p>The win rate for overs has changed over the past 5 seasons. The over won about 46% of the time from 2021-23, and 53% of the time from 2024-25. That possibly mirrors what we saw <a href="/nfl-spread-betting-statistics-more-folly-of-crowds.html">last time</a> -- it was wildly profitable to <em>fade the public</em> on spread bets from 2021-23, and wasn't the last two seasons. I don't have a good theory as to why the win percents mirror each other.</p>
+<p><img alt="/img/fade-spread-total.png" src="/img/fade-spread-total.png"></p>
+<p>Taking the under is usually equivalent to fading the public, because <a href="/overs-money-lines-and-pigeonholes.html">as with the NBA</a>, the betting public greatly prefers the over on point totals, taking them 86.8% (1056/1217) of the time. When the public takes the over, they win 48.1% of the time. On the rare occasions where they take the under, they win 46.6% of the time. So, this is yet another example of where gamblers as a whole do worse than a coin flip. In 3 of the 5 seasons, they did poorly enough that <em>fading</em> their picks would have been profitable.</p>
+<p>Half of all point total spreads are between 41.5 and 47.5, with the median being 44.5. A naive betting strategy would be to assume that low point totals are too low (always take the over if the total is less than 44.5), and high point totals are too high (take the under if the total is greater than or equal to 44.5). This strategy would've gone 700-658 (51.6%). It's not much, but there might be a slight advantage to betting on <em>boring</em> point total outcomes.</p>
+<p>Here are the win rates for betting on the over, by point total range (split by quartiles):</p>
+<table>
+<thead>
+<tr>
+<th>start (&gt;)</th>
+<th>end (&lt;=)</th>
+<th>over won</th>
+<th>over lost</th>
+<th>over win percent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>41.5</td>
+<td>211</td>
+<td>185</td>
+<td>53.2%</td>
+</tr>
+<tr>
+<td>41.5</td>
+<td>44.5</td>
+<td>161</td>
+<td>200</td>
+<td>44.5%</td>
+</tr>
+<tr>
+<td>44.5</td>
+<td>47.5</td>
+<td>151</td>
+<td>140</td>
+<td>51.9%</td>
+</tr>
+<tr>
+<td>47.5</td>
+<td>max</td>
+<td>134</td>
+<td>176</td>
+<td>42.2%</td>
+</tr>
+</tbody>
+</table>
+<p>Some of the variation is just noise, but based on this breakdown, taking overs on high point totals seems like a bad move.</p>
+<p>Here are what the actual point totals look like: </p>
+<p><img alt="/img/nfl-point-totals.png" src="/img/nfl-point-totals.png"></p>
+<h2>Point total errors</h2>
+<p>Here are what the errors against the point total look like. Positive values are games that went over the total, negative are games that went under.</p>
+<p><img alt="/img/nfl-over-under.png" src="/img/nfl-over-under.png"></p>
+<p>The median error is -0.5, so the errors are fairly balanced even if the graph isn't symmetrical.  As with other NFL data, there are spikes because some point totals are more likely than others.</p>
+<p>There's a longer tail to the positive side than the negative -- it's impossible to score fewer than 0 points, which limits how far under a bet can go, but there's theoretically no limit to how many points the teams can score in the over direction. </p>
+<p>Here's how the total errors break down.</p>
+<div class="highlight"><pre><span></span><code>count    1358.000000
+mean        0.767305
+std        13.402751
+min       -37.500000
+25%        -8.500000
+50%        -0.500000
+75%         9.000000
+max        57.500000
+</code></pre></div>
+
+<p>Point totals are off by an average of 10.6 points. Here are the details about the absolute value of the error:</p>
+<div class="highlight"><pre><span></span><code>count    1358.000000
+mean       10.561119
+std         8.282722
+min         0.000000
+25%         4.000000
+50%         8.500000
+75%        14.500000
+max        57.500000
+</code></pre></div>
+
+<h1>NFL money lines and the favorite-longshot bias</h1>
+<p>A money line bet is the simplest type of bet to understand, because it's a wager on who will win the game outright. A bet on the underdog will pay out more than you have to risk, because it's less likely to happen.</p>
+<p>Money line data is always going to be high variance -- one +400 bet winning or not can wildly change the Expected Value. That was a problem with the NBA, which has 5x the games of the NFL, so it's definitely going to be a problem here.</p>
+<p>The public's money line picks do better than their spread picks. They're making an average of -3.1% on money line bets, which is a step up from the -6.7% they're doing on the spread. That mirrors the NBA, where the public does significantly better on the money line than spread bets.</p>
+<p>The public is also a slightly better Expected Value than taking money line bets randomly. The public are saved by their love of favorites, which they took in 96% (1181/1228) of games, and are a relatively good deal on the money line.</p>
+<p>Each bet has two sides. Underdog money lines on NFL football are a bad bet in general (-7.3% EV), but huge underdogs are especially bad (-29.7% EV). This is evidence of the <a href="/lessons-from-four-years-of-betmgm-nba-gambling-stats.html">favorite-longshot bias</a> in NFL betting. A -30% EV puts longshot underdog money lines in the same league as the biggest sucker bets you can take -- Same Game Parlays, <a href="/cool-parlay-bro.html">4+ leg parlays</a>, and teasers.</p>
+<p>"EV %" is the expected value of taking every bet in each category. Overall, money line bets have a -5.5% EV.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">label</th>
+<th>start</th>
+<th>end</th>
+<th>num games</th>
+<th>EV %</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">all favorites</td>
+<td>-9999</td>
+<td>-1</td>
+<td>1271</td>
+<td>-3.9%</td>
+</tr>
+<tr>
+<td style="text-align: left;">mild favorites</td>
+<td>-200</td>
+<td>-1</td>
+<td>662</td>
+<td>-2.8%</td>
+</tr>
+<tr>
+<td style="text-align: left;">heavy favorites</td>
+<td>-400</td>
+<td>-200</td>
+<td>406</td>
+<td>-7.5%</td>
+</tr>
+<tr>
+<td style="text-align: left;">huge favorites</td>
+<td>-9999</td>
+<td>-400</td>
+<td>203</td>
+<td>-0.2%</td>
+</tr>
+<tr>
+<td style="text-align: left;">----------------</td>
+<td>----</td>
+<td>----</td>
+<td>----</td>
+<td>------</td>
+</tr>
+<tr>
+<td style="text-align: left;">all dogs</td>
+<td>1</td>
+<td>9999</td>
+<td>1185</td>
+<td>-7.3%</td>
+</tr>
+<tr>
+<td style="text-align: left;">mild dogs</td>
+<td>1</td>
+<td>200</td>
+<td>663</td>
+<td>-5.4%</td>
+</tr>
+<tr>
+<td style="text-align: left;">heavy dogs</td>
+<td>200</td>
+<td>400</td>
+<td>399</td>
+<td>-3.4%</td>
+</tr>
+<tr>
+<td style="text-align: left;">huge dogs</td>
+<td>400</td>
+<td>9999</td>
+<td>123</td>
+<td>-29.7%</td>
+</tr>
+<tr>
+<td style="text-align: left;">----------------</td>
+<td>----</td>
+<td>----</td>
+<td>----</td>
+<td>------</td>
+</tr>
+<tr>
+<td style="text-align: left;">everythang</td>
+<td>-9999</td>
+<td>9999</td>
+<td>2456</td>
+<td>-5.5%</td>
+</tr>
+</tbody>
+</table>
+<p>That -29.67% for huge dogs is hiding a big discrepancy. Huge home dogs <code>(&gt;= +400)</code> have actually made money, winning 8/31 games. Huge away dogs have only won 6/92 games, for an absurd -63% Expected Value. The average odds for these bets is +600 (1 in 7 chance of winning), so we'd expect 13 of 92 bets to win, not 6.</p>
+<p>Like I said at the top, money line dogs are going to be extremely variable, and the +400 number is a totally arbitrary cutoff. But even if huge away dogs had won twice as often, they'd still be unprofitable. Woof!</p>
+<p>Money line favorites turn out to be a slightly better value than spread bets. But the estimated EVs are very sensitive to changes. I've been working on this project for a couple of weeks now, and noticed the numbers changing pretty significantly over the last 2 weeks of the NFL season. So the estimates are not telling the whole story about the range of possible outcomes.</p>
+<h3>Bootstrapping money lines</h3>
+<p>Since every bet has a different payout, they're not going to follow some nice, polite distribution. In order to estimate the variance in outcomes, I'm going to use bootstrapping, <a href="/one-in-e.html">a popular technique in these parts</a>. </p>
+<p>I'm using the <a href="https://scikits-bootstrap.readthedocs.io/en/stable/">scikits-bootstrap</a> library to generate a 90% confidence interval for the Expected Values. It samples random subsets of the bets in each category and calculates the EV of each subset. Then it returns the 5th and 95th percentile outcomes, which is a plausible range of values for the EV.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">label</th>
+<th>start</th>
+<th>end</th>
+<th>num games</th>
+<th>5th %ile</th>
+<th>EV</th>
+<th>95th %ile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">all favorites</td>
+<td>-9999</td>
+<td>-1</td>
+<td>1271</td>
+<td>-7.2%</td>
+<td>-3.9%</td>
+<td>-0.6%</td>
+</tr>
+<tr>
+<td style="text-align: left;">mild favorites</td>
+<td>-200</td>
+<td>-1</td>
+<td>662</td>
+<td>-8.3%</td>
+<td>-2.8%</td>
+<td>2.4%</td>
+</tr>
+<tr>
+<td style="text-align: left;">heavy favorites</td>
+<td>-400</td>
+<td>-200</td>
+<td>406</td>
+<td>-13.0%</td>
+<td>-7.5%</td>
+<td>-2.6%</td>
+</tr>
+<tr>
+<td style="text-align: left;">huge favorites</td>
+<td>-9999</td>
+<td>-400</td>
+<td>203</td>
+<td>-5.3%</td>
+<td>-0.2%</td>
+<td>4.0%</td>
+</tr>
+<tr>
+<td style="text-align: left;">----------------</td>
+<td>----</td>
+<td>----</td>
+<td>----</td>
+<td>------</td>
+<td>---</td>
+<td>-----</td>
+</tr>
+<tr>
+<td style="text-align: left;">all dogs</td>
+<td>1</td>
+<td>9999</td>
+<td>1185</td>
+<td>-14.0%</td>
+<td>-7.3%</td>
+<td>-0.2%</td>
+</tr>
+<tr>
+<td style="text-align: left;">mild dogs</td>
+<td>1</td>
+<td>200</td>
+<td>663</td>
+<td>-12.6%</td>
+<td>-5.4%</td>
+<td>2.3%</td>
+</tr>
+<tr>
+<td style="text-align: left;">heavy dogs</td>
+<td>200</td>
+<td>400</td>
+<td>399</td>
+<td>-16.5%</td>
+<td>-3.4%</td>
+<td>10.5%</td>
+</tr>
+<tr>
+<td style="text-align: left;">huge dogs</td>
+<td>400</td>
+<td>9999</td>
+<td>123</td>
+<td>-55.3%</td>
+<td>-29.7%</td>
+<td>4.7%</td>
+</tr>
+<tr>
+<td style="text-align: left;">----------------</td>
+<td>----</td>
+<td>----</td>
+<td>----</td>
+<td>------</td>
+<td>---</td>
+<td>-----</td>
+</tr>
+<tr>
+<td style="text-align: left;">everythang</td>
+<td>-9999</td>
+<td>9999</td>
+<td>2456</td>
+<td>-9.1%</td>
+<td>-5.5%</td>
+<td>-1.7%</td>
+</tr>
+</tbody>
+</table>
+<p>Those are some pretty wide confidence intervals. Even the big categories like <code>all favorites</code> lead to a wide range of outcomes.</p>
+<p>Even with the -29.7% EV for huge dogs, we can't rule out some small hope that somebody could make money taking them, I suppose. But as always, if there's randomness involved, we don't get to pick whether we get the 5th percentile result, the average result, or the 95th percentile result.</p>
+<h1>Mathletix Bajillion, playoffs round 2</h1>
+<p>After a dramatic 10-0 run by the Hand-Eggs, both teams are now in the black for the season.</p>
+<p><em>Lines taken Wednesday morning</em></p>
+<h3>The Neil McAul-Stars</h3>
+<p>last week: 3-2, +88 <br>
+Overall: 25-24-1, +3  <br>
+line shopping: +143    </p>
+<ul>
+<li>BUF +1 -101 (prophetx)</li>
+<li>SF +7 +104 (prophetx)</li>
+<li>NE -3 -109 (prophetx)</li>
+<li>CHI +4 -104 (prophetx)</li>
+</ul>
+<h3>The Vincent Hand-Eggs</h3>
+<p>last week: 5-0, +501          <br>
+Overall: 25-22-3, +214      <br>
+line shopping: +134   </p>
+<ul>
+<li>NE -3 -109 (prophetx)</li>
+<li>SEA -7 -108 (prophetx)</li>
+<li>BUF +1.5 -107 (prophetx)</li>
+<li>LAR -3.5  -110 (prophetx)</li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/nfl-point-totals-and-money-lines.html">posted at 10:20</a>
                     &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/football.html" class="tags">football</a>
