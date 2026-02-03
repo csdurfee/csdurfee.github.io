@@ -10,7 +10,7 @@ Song: [Kids See Ghosts, "Kids See Ghosts"](https://www.youtube.com/watch?v=cHFzy
 
 [Spreadsheet here](https://docs.google.com/spreadsheets/d/1omE0MMJA-KDpZ2FV8Fc0mqx9mkpyFwG73LkAKaVU0Ag/edit?usp=sharing)
 
-Notebook:
+Notebook: [https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/NFL-win-totals.ipynb](https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/NFL-win-totals.ipynb)
 
 Some stats courtesy of [pro-football-reference.com](https://www.pro-football-reference.com/)
 
