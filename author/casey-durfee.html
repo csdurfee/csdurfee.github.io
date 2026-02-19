@@ -30,7 +30,64 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Feb 01, 2026</h4>
+        <div id="content">            <h4 class="date">Feb 17, 2026</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/nba-clutch-statistics.html" rel="bookmark" title="Permanent Link to &quot;NBA clutch statistics&quot;">NBA clutch statistics</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=RJmsNX9emKs" target="_blank"><img alt="iiO – Rapture (Deep Dish Space Remix)" src="https://img.youtube.com/vi/RJmsNX9emKs/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=RJmsNX9emKs" target="_blank">iiO – Rapture (Deep Dish Space Remix)</a></p>
+<p>Notebook: <a href="https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/nba-clutch-stats.ipynb">https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/nba-clutch-stats.ipynb</a></p>
+<p>This week, I'm discussing <a href="https://www.nba.com/stats/teams/clutch-traditional?Season=2010-11">team clutch statistics from nba.com</a>.</p>
+<p>A basketball player who tends to make good plays in high-pressure situations is known as being "clutch". When the game is on the line, who do you want taking the last shot, or guarding the other team's best player?</p>
+<p>Like a lot of other psychological phenomena, I think "clutchness" is mostly something we notice in retrospect. It's easy to remember when our favorite players "came up clutch". It's harder to remember times when they didn't, and impossible to accurately decide whether a player is objectively <em>clutcher</em> than average or not based on our subjective memories, rather than using statistics. </p>
+<p>With the <em>hot hand</em> phenomenon, we notice a player "can't miss" after they've already made a few shots in a row, and then they make another one. Although I've shown that the opposite of the hot hand exists in the NBA, I can't argue against the feeling that a player is <em>on fire</em>, or <em>can get hot</em>. I feel it, too. Like <em>clutchness</em>, some players just seem to have it, and some don't. But I think it's mostly an artifact of how we remember things.</p>
+<p>This is perhaps reflected in the NBA's <a href="https://en.wikipedia.org/wiki/NBA_Clutch_Player_of_the_Year">Clutch Player of the Year award</a>. Last year, it was won by Jalen Brunson, who is a player I think NBA fans would consider pretty clutch -- at least on offense.  But <a href="https://www.nba.com/stats/players/clutch-traditional?PerMode=Per100Possessions&amp;Season=2024-25&amp;dir=A&amp;sort=AST">statistically</a>, besides scoring a lot, Brunson wasn't one of the best players in clutch time last season. His team, the Knicks, only went 17-11 (60.7%) in clutch games, which was almost exactly matched their overall record, 50-32 (61%). They won as many games in the clutch as I'd expect them to. But Brunson feels like a <em>clutch guy</em>. It's an award based on <em>vibes</em>, rather than objective facts.</p>
+<p>This week, I'm examining team level NBA clutch statistics. The NBA formally defines <em>clutch time</em> as the last 5 minutes of a game, when the score is within 5 points. Obviously some threshold had to be chosen, but I wonder if a species with 4 fingers on each hand would have set the threshold at the last 4 minutes, when the game is within 4 points.</p>
+<h2>Our old frenemy, conditional probability</h2>
+<p>The math behind statistics isn't that hard, compared to some kinds (lookin' at you, partial differential equations). The real difficulty is the process of thinking statistically. It's easy to find statistical correlations that seem important or profound, but are actually meaningless once the mess of conditional probabilities are untangled, like a box of old Christmas lights, and the right baseline is established.</p>
+<p>An example I came across recently involves bets on NFL point totals, where one can wager on whether the total number of points scored by both teams is higher or lower than a certain number. Let's say an NFL game is a blowout -- one team wins by more than 20 points. 55% of the time, when a game is a blowout, the bet on the over wins. Is this an interesting correlation?</p>
+<p>We might take the 55% as evidence of the <em>rubber band effect</em>, where teams that are ahead by a large margin tend to play with less intensity on defense, allowing the other team to score <em>garbage time points</em> -- scores that don't affect the outcome of the game, but make the final score look more competitive than the game actually was. It looks like the <em>rubber band effect</em> makes the over point total more likely to win, right?</p>
+<p>Nope! There's a hidden conditional. In order for one team to win by at least 20 points, at least one team has to score 20 points first. In the set of games where one team scored at least 20, the over wins 60% of the time. So the game being a blowout lowers the probability of the over winning, when considering those games against their true peers. A 20-0 blowout probably should happen more often than a 40-20 blowout. That makes sense. But so does "teams leading by a lot get lazy on defense, leading to more points than expected". And that's wrong.</p>
+<h2>Clutch time is mediocrity time</h2>
+<p>Clutch games are pretty common, around half of all NBA contests. That's stayed pretty consistent from year to year, though perhaps the rate is going down over time:</p>
+<p><img alt="/img/percent-clutch-time.png" src="/img/percent-clutch-time.png"></p>
+<p>Here's a plot of each teams' winning percentage versus percentage of games played in the clutch:</p>
+<p><img alt="/img/clutch-density.png" src="/img/clutch-density.png"></p>
+<p>In order for an NBA game to have clutch time, it has to be a close game in the first place. Really good teams and really bad teams will be involved in fewer <em>clutch</em> games than teams in the middle, because they're usually either winning or losing by a large margin at the end of the game.</p>
+<p>Maybe <em>clutch</em> should be seen as a backhanded complement. Houston is known as "Clutch City" because of the Rockets, which is an odd thing. For starters, I don't know why a rocket would need a clutch, unless it is some sort of steampunk apparatus. Second, the team that earned the "Clutch City" moniker was the 1993 Rockets, who blew multiple big leads in the Finals, and just barely won the championship in 7 games against a team they should've beaten easily. And it's unlikely the Rockets would have beaten the Bulls, if Michael Jordan hadn't been playing baseball that season. Houston only became "Clutch City" due to luck and the team's inability to finish games off. Is it really <em>clutch</em> to dig yourself out of a hole that you created? </p>
+<p>There's a similar thing with NFL football. Brett Favre and John Elway are known as clutch quarterbacks because they led a lot of game winning drives. But many times, they were only in the position to have to win the game on the last drive because they threw 3 interceptions earlier in the game.</p>
+<h2>Do especially clutch teams exist?</h2>
+<p>I think we should start with the assumption that teams' records in clutch situations should be close to their record overall. Here's a plot of win percentage in clutch vs. non-clutch games.</p>
+<p><img alt="/img/clutch-non-clutch.png" src="/img/clutch-non-clutch.png"></p>
+<p>Teams that are bad lose at similar rates in both clutch and non-clutch games. Teams that are good tend to be good in both. Teams that are bad tend to be bad in both. Most teams are mediocre at both.</p>
+<h3>Offense and Defensive Ratings in the clutch</h3>
+<p>Offensive and Defensive Ratings are a measure of the average number of points scored/given up by a team per 100 possessions.</p>
+<p>There is a clear effect on these numbers in clutch time. Offensive and defensive ratings are both about 2.5 points lower in the final minutes of close games. Either offenses are worse, or defenses are better, or a bit of both. But it's a little bit harder for teams to score.</p>
+<p>What would constitute evidence that a team actually has a special ability to win games in the clutch, versus just doing what they always do?</p>
+<p>I decided to look at teams that are better on both offense and defense in clutch situations.  These are the teams in the upper left quadrant of this graph:</p>
+<p><img alt="/img/clutch-off-def.png" src="/img/clutch-off-def.png"></p>
+<p>I restricted to teams that were at least 3 points better on both offense and defense.  51 teams since 2010 have met that threshold. </p>
+<p>That set includes some great teams, such as the 2015 Golden State Warriors, who went a record 73-9 in the regular season, and 3 that won the NBA championship (2010 Mavericks, 2012 Miami Heat, and 2014 Warriors).</p>
+<p>But the set also includes some truly bad teams, like the 2010 Cleveland Cavaliers, who went 19-63, 2013 Philadelphia 76ers, who also went 19-63, and the 2023 Charlotte Hornets, who went 21-61. 11 of 51 teams on the list didn't even make the playoffs, and 10 of them lost more games than they won.</p>
+<p>The 40 <em>clutch</em> teams that made the playoffs won an average of 5.8 playoff games, versus 5.2 for all teams that made the playoffs. So these <em>clutch teams</em> do a little better in the postseason, but it's not a massive bump.</p>
+<p>It's possible coaching makes a difference. There are four teams coached by Rick Carlisle on the list (2010, 2014, 2015 Mavericks; 2024 Pacers). Or perhaps certain players are significant. There are also four teams starring James Harden (2013, 2017 and 2019 Rockets; 2023 LA Clippers).</p>
+<p>While being <em>clutch</em> is a positive signal, but not as strong as being a good team overall. Among the last 15 NBA champions, they average a rank of 5.3 in clutch win percentage, but 2.6 in overall win percentage on the season. Because it's a smaller sample, performance in clutch games really should be a less accurate predictor of team skill than their overall record, and it is.</p>
+<p>More on NBA clutch stats next week.</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/nba-clutch-statistics.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/basketball.html" rel="tag">basketball</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
+                </div>
+            </article>            <h4 class="date">Feb 01, 2026</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -1319,142 +1376,6 @@ line shopping: +33    </p>
                     &nbsp;&middot;&nbsp;<a href="/category/nba.html" rel="tag">NBA</a>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
-                </div>
-            </article>            <h4 class="date">Nov 19, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/home-of-elvis-and-the-ancient-greeks.html" rel="bookmark" title="Permanent Link to &quot;Home of Elvis and the Ancient Greeks&quot;">Home of Elvis and the Ancient Greeks</a>
-                </h2>
-
-                
-                
-
-                <p><a href="https://www.youtube.com/watch?v=bHs_o8qbND0" target="_blank"><img alt="Talking Heads, &quot;Cities&quot;, live at Montreaux Jazz Festival, 1982" src="https://img.youtube.com/vi/bHs_o8qbND0/0.jpg"></a></p>
-<p>Song: <a href="https://www.youtube.com/watch?v=bHs_o8qbND0" target="_blank">Talking Heads, "Cities", live at Montreaux Jazz Festival, 1982</a></p>
-<h3>What's going on with the Grizzlies?</h3>
-<p>The easiest answer is they're miserably bad on offense. It's also the oddest thing about this team to me, since they scored effortlessly last year. The Grizzlies had found something that worked last season. They had the 6th best Offensive Rating, and 10th best Defensive Rating.  Considering the Indiana Pacers made it within one game of winning the NBA Championship with the 9th best Offensive Rating and 13th best Defensive Rating, the Grizzlies were definitely a borderline contender.</p>
-<p>This year, they're 27th in Offensive Rating, 21 positions worse than last year. (The falloff on defense is a little more understandable, since they have several very good defensive players injured right now.)</p>
-<p>eFG+ is a measure of effective FG%, normalized so that 100 is league average.  Here are the top 8 Grizzlies players by minutes played the last two seasons:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Position</th>
-<th style="text-align: left;">2025</th>
-<th style="text-align: left;">2024</th>
-<th style="text-align: right;">2025 eFG+</th>
-<th style="text-align: right;">2024 eFG+</th>
-<th style="text-align: right;">Diff</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Center</td>
-<td style="text-align: left;">Jock Landale</td>
-<td style="text-align: left;">Zach Edey</td>
-<td style="text-align: right;">108</td>
-<td style="text-align: right;">111</td>
-<td style="text-align: right;">-3</td>
-</tr>
-<tr>
-<td style="text-align: left;">PF</td>
-<td style="text-align: left;">Jaren Jackson Jr</td>
-<td style="text-align: left;">Jaren Jackson Jr</td>
-<td style="text-align: right;">98</td>
-<td style="text-align: right;">101</td>
-<td style="text-align: right;">-3</td>
-</tr>
-<tr>
-<td style="text-align: left;">SF</td>
-<td style="text-align: left;">Jaylen Wells</td>
-<td style="text-align: left;">Jaylen Wells</td>
-<td style="text-align: right;">82</td>
-<td style="text-align: right;">97</td>
-<td style="text-align: right;">-15</td>
-</tr>
-<tr>
-<td style="text-align: left;">SG</td>
-<td style="text-align: left;">KCP</td>
-<td style="text-align: left;">Desmond Bane</td>
-<td style="text-align: right;">77</td>
-<td style="text-align: right;">104</td>
-<td style="text-align: right;">-27</td>
-</tr>
-<tr>
-<td style="text-align: left;">PG</td>
-<td style="text-align: left;">Ja Morant</td>
-<td style="text-align: left;">Ja Morant</td>
-<td style="text-align: right;">71</td>
-<td style="text-align: right;">93</td>
-<td style="text-align: right;">-22</td>
-</tr>
-<tr>
-<td style="text-align: left;">Bench 1</td>
-<td style="text-align: left;">Santi Aldama</td>
-<td style="text-align: left;">Santi Aldama</td>
-<td style="text-align: right;">96</td>
-<td style="text-align: right;">106</td>
-<td style="text-align: right;">-10</td>
-</tr>
-<tr>
-<td style="text-align: left;">Bench 2</td>
-<td style="text-align: left;">Cedric Coward</td>
-<td style="text-align: left;">Scottie Pippen Jr</td>
-<td style="text-align: right;">105</td>
-<td style="text-align: right;">102</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr>
-<td style="text-align: left;">Bench 3</td>
-<td style="text-align: left;">Cam Spencer</td>
-<td style="text-align: left;">Brandon Clarke</td>
-<td style="text-align: right;">109</td>
-<td style="text-align: right;">115</td>
-<td style="text-align: right;">-6</td>
-</tr>
-</tbody>
-</table>
-<p>Except for rookie Cedric Coward, every single slot is a downgrade. Wells and Aldama have been significantly worse than last season, but the most dramatic is Ja Morant. The only player with around as many minutes played and a lower eFG+ are <a href="https://www.basketball-reference.com/players/s/sheppbe01.html">Ben Sheppard</a> and <a href="https://www.basketball-reference.com/players/w/walkeja02.html">Jarace Walker</a> of the Indiana Pacers, young players who have been forced into playing a lot of minutes due to injuries.</p>
-<h3>Where have all the backup PGs gone?</h3>
-<p>A big problem for the Grizzlies is that they don't really have a backup point guard. They're far from the only team with a lack of PGs on the roster this season.</p>
-<p>The Dallas Mavericks have been playing rookie forward Cooper Flagg as PG even though they knew their starting PG, Kyrie Irving, was injured coming into the season. The Nuggets have been experimenting with having forward Peyton Watson as backup PG. The Houston Rockets have no true PG in their "oops, all bigs" starting lineup, though Reed Sheppard is playing more and more off the bench, and looking pretty good.</p>
-<p>It's an odd trend to me. Backup point guards have traditionally been cheap and easy to find -- guys like Ish Smith and D.J Augustin. They're like small, functional trucks. They made a ton of them back in the day, but they kinda don't exist anymore, despite how useful and reasonably priced they were. Does that make <a href="https://www.basketball-reference.com/players/k/kawamyu01.html">Yuki Kawamura</a> the <a href="https://en.wikipedia.org/wiki/Kei_truck">Kei truck</a> of this analogy? Yes, yes it does.</p>
-<p>The Rockets and Nuggets are doing fine so far without playing a backup PG, but the Grizzlies' situation is just baffling to me. Ja Morant is one of the more injury prone players in the league. You didn't think you needed to find a real backup for him? (Wouldn't Russell Westbrook look good in a Grizzlies uniform?)</p>
-<p>The Grizzlies have a stretch of easier opponents coming up, so I think they'll start looking a little better for that reason alone. Maybe they'll get some mojo back. But I'm always about process, rather than outcomes, and I just don't get the Grizzlies' process right now. They had something pretty cool going last year, and now they don't. </p>
-<p>Teams can't control a lot of factors. Injuries, who they play on a given night, the bounce of the ball on the rim on a last second shot. There's a lot of luck. But the Grizzlies' problems seem to come down to things the coaching staff and front office can control: vision, planning, vibes, communication, style of play.</p>
-<h1>Mathletix Bajillion, week 3</h1>
-<p>One of these teams is random, one is chosen by an algorithm put together by me, a non-football guy. Can you guess which one is which?</p>
-<p>All lines are as of Thursday morning.</p>
-<h3>The Neil McAul-Stars</h3>
-<p>last week: 1-4, -301  <br>
-Overall: 6-4, +203  <br>
-line shopping: +43    </p>
-<ul>
-<li>PIT +2.5 -105 (lowvig)</li>
-<li>GB -6.5 +100 (lowvig)</li>
-<li>NO -2 -108 (prophetx)</li>
-<li>TB +6.5 +101 (prophetx)</li>
-<li>PHI -3 -110 (hard rock)</li>
-</ul>
-<h3>The Vincent Hand-Eggs</h3>
-<p>last week: 2-2-1, -10  <br>
-Overall: 3-6-1, -344  <br>
-line shopping: +16    </p>
-<ul>
-<li>CIN +6.5 -107 (rivers)</li>
-<li>CHI -2.5 -105 (lowvig)</li>
-<li>ATL +2 -102 (prophetx)</li>
-<li>BUF -5.5 -101 (prophetx)</li>
-<li>DET -10.5 -102 (prophetx)</li>
-</ul>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/home-of-elvis-and-the-ancient-greeks.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/nba.html" rel="tag">NBA</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
-                    &nbsp;<a href="/tag/bajillion.html" class="tags">bajillion</a>
                 </div>
             </article>
 

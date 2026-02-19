@@ -29,152 +29,7 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Aug 08, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/do-you-wanna-win.html" rel="bookmark" title="Permanent Link to &quot;Do you wanna win?&quot;">Do you wanna win?</a>
-                </h2>
-
-                
-                
-
-                <p><a href="https://www.youtube.com/watch?v=5ZXonXfHP2U" target="_blank"><img alt="The Impressions, &quot;Do You Wanna Win?&quot;" src="https://img.youtube.com/vi/5ZXonXfHP2U/0.jpg"></a></p>
-<p>Song: <a href="https://www.youtube.com/watch?v=5ZXonXfHP2U" target="_blank">The Impressions, "Do You Wanna Win?"</a></p>
-<p>(This is an excerpt from a larger project about sports gambling. Code used, and early drafts of some of the chapters can be found at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.)</p>
-<p>I'm going to return to the subject of sports betting this week. Let's start with something easy. How do you avoid going broke betting on sports? That's easy. Reduce your bet size to zero. Scared money don't lose none.</p>
-<p>As long as there is randomness, there will be outliers and unexpected results. It is impossible to escape randomness in sports betting. Any time you decide to bet, you enter the kingdom of randomness and have to abide by its laws. It doesn't matter whether you have an advantage over the house (unless the advantage is truly massive). Nothing is guaranteed.</p>
-<p>This is a pretty hard thing for us to know how to deal with, when our brains are pattern-finding machines. Our brains will find patterns to give us a sense of control.</p>
-<h3>Notes</h3>
-<p>I talk about "win rate" a bunch below. That means the percent of the time a gambler can win bets at even odds (such as a standard spread bet on the NBA or NFL.)</p>
-<p>The random walks shown below are a little different from a standard one, because I'm simulating the vig. The walker goes 1 block north when the coin comes up heads (or they win the bet), and 1.1 blocks south when the coin comes up tails (or they lose the bet.)</p>
-<h2>In the marches of madness</h2>
-<p>The NCAA holds the March Madness tournament every year to determine who the best college basketball team is. It's a single elimination tournament of 64 teams, arranged into a big bracket.</p>
-<p>Say we do a March Madness style bracket with coin flippers instead of basketball teams. We randomly assign them places in the bracket. For each matchup, the coin flipper at the top of the matchup flips a coin. If they get heads, they survive and advance. If they get tails, they lose.</p>
-<p>Somebody's going to go 6-0 and win that tournament.</p>
-<p>Now imagine we expanded that to every single person on the planet. Every single person gets matched up into a 64 person bracket, then each of those winners get added to another 64 team bracket, and so on. </p>
-<p>Eventually, someone has to emerge the victor with a 32-0 record or something -- the greatest coin flipper in the world. Right?</p>
-<h2>Random walks</h2>
-<p>Imagine going on a walk. Every time you get to an intersection, you flip a coin. If it's heads, you go one block north and one block east. If it's tails, you go one block south and one block east. This is called a random walk. It's a bit like a gambler's profits or losses plotted on a graph as a function of time.</p>
-<p>I think there's a huge value in knowing what random walks look like. Do they remind you of anything?</p>
-<p><img alt="/img/rw0.5.png" src="/img/rw0.5.png"></p>
-<p>Touts are people who sell recommendations about which bets to take. Pay $30 and they'll tell you which side to bet on the big game tonight. (I have a whole section about touts in the book.) The best tout I could find has had pretty steady success for nearly 20 years, with a win rate of 54.1% against the standard vig.  That's statistically significant, but it's not enough to guarantee success moving forwards. Even if they continue to place bets that should win 54.1% of the time -- they're flipping a slightly biased coin -- that doesn't mean they'll make money on those bets. Let's look at some random walks at 54.1% win rate:</p>
-<p><img alt="/img/rw0.541.png" src="/img/rw0.541.png"></p>
-<p>Three of the random walks ended up around 50 units after 1000 bets, which is pretty good. Two of them made a tiny bit of money. The other four lost money. This is a small sample size, but a 44% chance of losing money after paying for 1,000 picks at $30 a pop isn't great. (More info on the economics of touts in the book.)</p>
-<p>The touts I looked at generally don't sell picks for every single game. So with 1200 games in an NBA season, this could be several years' worth of results.</p>
-<p>Imagine all of these as 9 different touts, with the exact same level of skill at picking games. But some of them look like geniuses, and some look like bozos. There would probably be some selection bias. The ones with the bad records would drop out -- who's buying their picks if they're losing money?  And the ones who did better than their true skill level of 54.1% would be more likely to stick with it. Yet all these random walks were generated with the same 54.1% win rate.</p>
-<p>If you bought 1,000 picks from this tout, you don't get to choose which of the <span class="math">\(2^{1000} = (2^{10})^{100} \approx 10^{300}\)</span> possible random walks you will actually get. If each bet has a 54.1% chance of winning, there's no guarantee you will have exactly 541 wins and 459 losses at the end of 1000 bets. </p>
-<p>Here's what someone who is right 60% of the time looks like. </p>
-<p><img alt="/img/rw0.6.png" src="/img/rw0.6.png"></p>
-<p>Success is pretty boring.</p>
-<p>I've always said it's much harder to learn from success than from failure. At a 60% win rate, none of them really have long cold streaks, just small breaks between hot streaks. It wouldn't be interesting to tell stories about those graphs. There's nothing to learn, really.</p>
-<p>I don't think it's possible to win 60% against the spread, based on what are called push charts, discussed in the book.</p>
-<p>The graphs at the 54.1% success rate appear a lot more human. They have hot and cold streaks, swoons, periods where they seem stuck in a range of values. Some of them <em>scuffled the whole time</em>, a couple <em>finally got locked in near the end</em>, a couple were <em>consistently good</em>. Some had good years, some had bad years. Even though they are randomly generated, they look like they have more to teach us, like they offer more opportunities to tell stories. But they all have the exact same win rate, or level of skill at handicapping.</p>
-<p>No outcome is guaranteed, but the higher the win rate, the more consistently the graph is going to go up and to the right at a steady pace. </p>
-<p>Finally, here are some walks at 52.4% win rate, the break-even point. Most results end up close to zero after 1000 bets, but there is always a possibility of an extended run towards the positive or negative side -- it happened 4/9 times in this sample:</p>
-<p><img alt="/img/rw0.524.png" src="/img/rw0.524.png"></p>
-<h3>The Axe Forgets, The Tree Remembers</h3>
-<p>If those 9 graphs were stock prices, which one would you consider the best investment? </p>
-<p>Well, we know they're equally bad investments. They're winning just enough to break even, but not make profits.</p>
-<p>They all have the same Expected Value moving forwards. Previous results are meaningless and have no bearing on whether the next step will be up or down. Every step is the start of an entirely new random walk. The coin doesn't remember what has happened in the past. We do.</p>
-<p>This is what's known in math as a <a href="https://en.wikipedia.org/wiki/Martingale_(probability_theory)">Martingale</a>, named after a betting system that was popular in France hundreds of years ago. (I previously talked about Martingales in the series on the hot hand.)</p>
-<p>The basic idea behind all these betting systems is to <em>chase</em> losses by betting more when you're losing. Hopefully it's obvious that these chase systems are crazy, though formally proving it led to a lot of interesting math.</p>
-<h3>Fallacy and ruin</h3>
-<p>Even though chase systems are irrational, they've persisted through the centuries. Human beings are wired to be semi-rational -- we use previous data to try and predict the future, but we use it even when the data was randomly generated, and even when we don't have a significant amount of data. We need coherent stories to tell about why things happened. There is no rational reason to believe in a chase system, but I think there are semi-rational reasons to fall prey to <a href="https://en.wikipedia.org/wiki/Gambler%27s_fallacy">the gambler's fallacy</a>. </p>
-<p>I hope these random walks show that having a modest, plausible advantage over the house isn't a guarantee of success, even over a really long timespan. Positive Expected Value is necessary, but not sufficient, for making money long term.</p>
-<p>The vast majority of gamblers bet with negative expected value due to the vig, and possibly biases in the lines against <em>public teams</em>, as we saw in a previous installment. If each bet the average gambler makes has a negative expected value, they can't fix that by betting MORE.  </p>
-<p>"If I keep doubling down, eventually I'll win it all back." Maybe if you have infinite capital and unlimited time. Otherwise the <a href="https://en.wikipedia.org/wiki/Gambler%27s_ruin">Gambler's Ruin</a> is certain. The market can stay liquid longer than you can stay irrational.</p>
-<h2>Maximizing profits: the Kelly criterion</h2>
-<p>Let's say a bettor really does have an edge over the house -- they can beat the spreads on NBA basketball 56% of the time.</p>
-<p>Even with that advantage, it's easy to go broke betting too much at once. Suppose they bet 25% of their bankroll on each bet.  What happens after 200 bets?  200 bets is not a lot, roughly 1 month of NBA games if they bet on every game.</p>
-<p>Once in a blue moon they end up a big winner, but 53% of the time the gambler is left with less than 5% of their bankroll after 200 bets even though they have a pretty healthy advantage over the house. So it's still a game of chance rather than skill, even though it would require a lot of mental labor to make the picks, and time to actually bet the picks. The mean rate of return is quite impressive (turning $100 into $4,650), but the median result is bankruptcy (turning $100 into $3).</p>
-<p>Intuitively, there has to be some connection between the betting advantage and the optimal amount to risk on each bet. If a gambler only has a tiny advantage, they should only be making tiny bets as a percentage of their total bankroll. The better they are, the more they can risk. And if they have no advantage, they shouldn't bet real money at all.</p>
-<p>That intuition is correct. The Kelly criterion gives a formula for the exact percent of the bankroll to risk on each bet in order to maximize Expected Value, given a certain level of advantage. <a href="https://en.wikipedia.org/wiki/Kelly_criterion">https://en.wikipedia.org/wiki/Kelly_criterion</a></p>
-<p>In this case, the Kelly criterion says to bet 7.6% of the total bankroll on each bet.  I did 100,000 simulations of a sequence of 200 bets following the Kelly criterion. The gambler only went broke around one time in 1,000, which is much better. The median result was turning $100 into $168, which is pretty good. However, the gambler still lost money 31% of the time.</p>
-<p>This is just one month of betting, assuming the gambler bets on every NBA game. Losing money 31% of the time seems pretty high for what's supposed to be the optimal way to bet.  </p>
-<p>How about a longer period of time? I simulated 1,000 bets this time, nearly a whole season of the NBA. The median outcome is turning $100 into $1356, which is a sweet rate of return. But the chances of going broke actually increased! The player will go broke 1.4% of the time, about 11x more often on 1000 bets than 200, which seems unfair, but the Kelly criterion doesn't make any guarantees about not going broke. It just offers the way to optimize Expected Value if the gambler knows the exact advantage they have over the house.</p>
-<h3>Partial Kelly Betting</h3>
-<p>Kelly Betting is the optimal way to maximize profits, but what about lower stakes? The real power of Kelly betting is its compounding nature -- as the bankroll gets bigger or smaller, the bet size scales up or down as well. It also corresponds to our incorrect intuitive understanding of randomness -- it makes sense someone should bet smaller amounts when they're on a <em>cold streak</em>, and larger amounts when they're on a <em>hot streak</em>. </p>
-<p>What if the gambler only bets 2% of their bankroll instead of the 7.6% recommended by the Kelly criterion? They don't go broke a single time in 100,000 simulations of 1,000 bets.  The mean rate of return is 4.6x and the median is 3.7x. That's a pretty nice return on investment, relative to the risk. The gambler still lost money 2.8% of the time, though. Being conservative, betting a lot of games at positive expected value, and betting the right way greatly increase the chances of success, but nothing can eliminate the possibility of failure.</p>
-<p>Imagine doing 1000 bets at 56% win percentage and a conservative bet size, and still losing money. Wild, isn't it? If you take one thing away from this article, it should be:</p>
-<h1>Failure is always an option.</h1>
-<h3>Betting a constant amount</h3>
-<p>You wouldn't have that problem with betting a constant amount, right? Say a gambler has a bankroll of $100 and bets to win $20 on each game. 1000 games, 56 win %.</p>
-<p>This Expected Value of playing this way doesn't have any randomness in it. It's just a simple algebra problem. According to EV, they should end up with $252 at the end of the season, for a profit of $152. Nice. But as I've mentioned before, EV says nothing about the range of possible outcomes.</p>
-<p>If I actually simulate it, a pretty wide range of outcomes are possible. 99% of the time, the gambler makes money, but 6 times out of 100,000, they lose everything and more. (6 in 100,000 is about the same odds as winning a 14 leg parlay.)</p>
-<p>With betting a fixed size, the rate of return is lower and the risk of going broke doesn't go away. So it's sub-optimal compared to Kelly-style betting with a very small percentage of the total bankroll.</p>
-<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
-
-    var mathjaxscript = document.createElement('script');
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
-
-    var configscript = document.createElement('script');
-    configscript.type = 'text/x-mathjax-config';
-    configscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        availableFonts: ['STIX', 'TeX']," +
-        "        preferredFont: 'STIX'," +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/do-you-wanna-win.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
-                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
-                </div>
-            </article>            <h4 class="date">Oct 19, 2025</h4>
+        <div id="content">            <h4 class="date">Oct 19, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -1759,6 +1614,63 @@ line shopping: +99     </p>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
                     &nbsp;<a href="/tag/bajillion.html" class="tags">bajillion</a>
+                </div>
+            </article>            <h4 class="date">Feb 17, 2026</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/nba-clutch-statistics.html" rel="bookmark" title="Permanent Link to &quot;NBA clutch statistics&quot;">NBA clutch statistics</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=RJmsNX9emKs" target="_blank"><img alt="iiO – Rapture (Deep Dish Space Remix)" src="https://img.youtube.com/vi/RJmsNX9emKs/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=RJmsNX9emKs" target="_blank">iiO – Rapture (Deep Dish Space Remix)</a></p>
+<p>Notebook: <a href="https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/nba-clutch-stats.ipynb">https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/nba-clutch-stats.ipynb</a></p>
+<p>This week, I'm discussing <a href="https://www.nba.com/stats/teams/clutch-traditional?Season=2010-11">team clutch statistics from nba.com</a>.</p>
+<p>A basketball player who tends to make good plays in high-pressure situations is known as being "clutch". When the game is on the line, who do you want taking the last shot, or guarding the other team's best player?</p>
+<p>Like a lot of other psychological phenomena, I think "clutchness" is mostly something we notice in retrospect. It's easy to remember when our favorite players "came up clutch". It's harder to remember times when they didn't, and impossible to accurately decide whether a player is objectively <em>clutcher</em> than average or not based on our subjective memories, rather than using statistics. </p>
+<p>With the <em>hot hand</em> phenomenon, we notice a player "can't miss" after they've already made a few shots in a row, and then they make another one. Although I've shown that the opposite of the hot hand exists in the NBA, I can't argue against the feeling that a player is <em>on fire</em>, or <em>can get hot</em>. I feel it, too. Like <em>clutchness</em>, some players just seem to have it, and some don't. But I think it's mostly an artifact of how we remember things.</p>
+<p>This is perhaps reflected in the NBA's <a href="https://en.wikipedia.org/wiki/NBA_Clutch_Player_of_the_Year">Clutch Player of the Year award</a>. Last year, it was won by Jalen Brunson, who is a player I think NBA fans would consider pretty clutch -- at least on offense.  But <a href="https://www.nba.com/stats/players/clutch-traditional?PerMode=Per100Possessions&amp;Season=2024-25&amp;dir=A&amp;sort=AST">statistically</a>, besides scoring a lot, Brunson wasn't one of the best players in clutch time last season. His team, the Knicks, only went 17-11 (60.7%) in clutch games, which was almost exactly matched their overall record, 50-32 (61%). They won as many games in the clutch as I'd expect them to. But Brunson feels like a <em>clutch guy</em>. It's an award based on <em>vibes</em>, rather than objective facts.</p>
+<p>This week, I'm examining team level NBA clutch statistics. The NBA formally defines <em>clutch time</em> as the last 5 minutes of a game, when the score is within 5 points. Obviously some threshold had to be chosen, but I wonder if a species with 4 fingers on each hand would have set the threshold at the last 4 minutes, when the game is within 4 points.</p>
+<h2>Our old frenemy, conditional probability</h2>
+<p>The math behind statistics isn't that hard, compared to some kinds (lookin' at you, partial differential equations). The real difficulty is the process of thinking statistically. It's easy to find statistical correlations that seem important or profound, but are actually meaningless once the mess of conditional probabilities are untangled, like a box of old Christmas lights, and the right baseline is established.</p>
+<p>An example I came across recently involves bets on NFL point totals, where one can wager on whether the total number of points scored by both teams is higher or lower than a certain number. Let's say an NFL game is a blowout -- one team wins by more than 20 points. 55% of the time, when a game is a blowout, the bet on the over wins. Is this an interesting correlation?</p>
+<p>We might take the 55% as evidence of the <em>rubber band effect</em>, where teams that are ahead by a large margin tend to play with less intensity on defense, allowing the other team to score <em>garbage time points</em> -- scores that don't affect the outcome of the game, but make the final score look more competitive than the game actually was. It looks like the <em>rubber band effect</em> makes the over point total more likely to win, right?</p>
+<p>Nope! There's a hidden conditional. In order for one team to win by at least 20 points, at least one team has to score 20 points first. In the set of games where one team scored at least 20, the over wins 60% of the time. So the game being a blowout lowers the probability of the over winning, when considering those games against their true peers. A 20-0 blowout probably should happen more often than a 40-20 blowout. That makes sense. But so does "teams leading by a lot get lazy on defense, leading to more points than expected". And that's wrong.</p>
+<h2>Clutch time is mediocrity time</h2>
+<p>Clutch games are pretty common, around half of all NBA contests. That's stayed pretty consistent from year to year, though perhaps the rate is going down over time:</p>
+<p><img alt="/img/percent-clutch-time.png" src="/img/percent-clutch-time.png"></p>
+<p>Here's a plot of each teams' winning percentage versus percentage of games played in the clutch:</p>
+<p><img alt="/img/clutch-density.png" src="/img/clutch-density.png"></p>
+<p>In order for an NBA game to have clutch time, it has to be a close game in the first place. Really good teams and really bad teams will be involved in fewer <em>clutch</em> games than teams in the middle, because they're usually either winning or losing by a large margin at the end of the game.</p>
+<p>Maybe <em>clutch</em> should be seen as a backhanded complement. Houston is known as "Clutch City" because of the Rockets, which is an odd thing. For starters, I don't know why a rocket would need a clutch, unless it is some sort of steampunk apparatus. Second, the team that earned the "Clutch City" moniker was the 1993 Rockets, who blew multiple big leads in the Finals, and just barely won the championship in 7 games against a team they should've beaten easily. And it's unlikely the Rockets would have beaten the Bulls, if Michael Jordan hadn't been playing baseball that season. Houston only became "Clutch City" due to luck and the team's inability to finish games off. Is it really <em>clutch</em> to dig yourself out of a hole that you created? </p>
+<p>There's a similar thing with NFL football. Brett Favre and John Elway are known as clutch quarterbacks because they led a lot of game winning drives. But many times, they were only in the position to have to win the game on the last drive because they threw 3 interceptions earlier in the game.</p>
+<h2>Do especially clutch teams exist?</h2>
+<p>I think we should start with the assumption that teams' records in clutch situations should be close to their record overall. Here's a plot of win percentage in clutch vs. non-clutch games.</p>
+<p><img alt="/img/clutch-non-clutch.png" src="/img/clutch-non-clutch.png"></p>
+<p>Teams that are bad lose at similar rates in both clutch and non-clutch games. Teams that are good tend to be good in both. Teams that are bad tend to be bad in both. Most teams are mediocre at both.</p>
+<h3>Offense and Defensive Ratings in the clutch</h3>
+<p>Offensive and Defensive Ratings are a measure of the average number of points scored/given up by a team per 100 possessions.</p>
+<p>There is a clear effect on these numbers in clutch time. Offensive and defensive ratings are both about 2.5 points lower in the final minutes of close games. Either offenses are worse, or defenses are better, or a bit of both. But it's a little bit harder for teams to score.</p>
+<p>What would constitute evidence that a team actually has a special ability to win games in the clutch, versus just doing what they always do?</p>
+<p>I decided to look at teams that are better on both offense and defense in clutch situations.  These are the teams in the upper left quadrant of this graph:</p>
+<p><img alt="/img/clutch-off-def.png" src="/img/clutch-off-def.png"></p>
+<p>I restricted to teams that were at least 3 points better on both offense and defense.  51 teams since 2010 have met that threshold. </p>
+<p>That set includes some great teams, such as the 2015 Golden State Warriors, who went a record 73-9 in the regular season, and 3 that won the NBA championship (2010 Mavericks, 2012 Miami Heat, and 2014 Warriors).</p>
+<p>But the set also includes some truly bad teams, like the 2010 Cleveland Cavaliers, who went 19-63, 2013 Philadelphia 76ers, who also went 19-63, and the 2023 Charlotte Hornets, who went 21-61. 11 of 51 teams on the list didn't even make the playoffs, and 10 of them lost more games than they won.</p>
+<p>The 40 <em>clutch</em> teams that made the playoffs won an average of 5.8 playoff games, versus 5.2 for all teams that made the playoffs. So these <em>clutch teams</em> do a little better in the postseason, but it's not a massive bump.</p>
+<p>It's possible coaching makes a difference. There are four teams coached by Rick Carlisle on the list (2010, 2014, 2015 Mavericks; 2024 Pacers). Or perhaps certain players are significant. There are also four teams starring James Harden (2013, 2017 and 2019 Rockets; 2023 LA Clippers).</p>
+<p>While being <em>clutch</em> is a positive signal, but not as strong as being a good team overall. Among the last 15 NBA champions, they average a rank of 5.3 in clutch win percentage, but 2.6 in overall win percentage on the season. Because it's a smaller sample, performance in clutch games really should be a less accurate predictor of team skill than their overall record, and it is.</p>
+<p>More on NBA clutch stats next week.</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/nba-clutch-statistics.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/basketball.html" rel="tag">basketball</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
                 </div>
             </article>
 
