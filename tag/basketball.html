@@ -29,641 +29,7 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Oct 19, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/lessons-from-four-years-of-betmgm-nba-gambling-stats.html" rel="bookmark" title="Permanent Link to &quot;Lessons from four years of BetMGM NBA gambling stats&quot;">Lessons from four years of BetMGM NBA gambling stats</a>
-                </h2>
-
-                
-                
-
-                <p><a href="https://www.youtube.com/watch?v=6QYbZsBPawI" target="_blank"><img alt="The Meters, &quot;People Say&quot;" src="https://img.youtube.com/vi/6QYbZsBPawI/0.jpg"></a></p>
-<p>Song: <a href="https://www.youtube.com/watch?v=6QYbZsBPawI" target="_blank">The Meters, "People Say"</a></p>
-<p>In <a href="/the-public-wants-what-the-public-gets.html">a previous installment</a>, I looked at statistics about NBA gambling that I obtained from sportsbookreview.com. I thought it was pretty interesting, but there were some huge gaps in the data, and I wasn't sure what sportsbook some of it was coming from. So I didn't have a ton of confidence in my results.</p>
-<p>I thought it was a pretty cool idea, though, so I tracked down a better source of data via Yahoo's NBA pages. Yahoo loads gambling data from the BetMGM sportsbook, and I found a nice internal API for getting it all. I was able to get data on the past four seasons of NBA games, and although data is missing for some games, it's much more complete, and has a bunch more info, than the original dataset.</p>
-<p>All code and data is available online at <a href="https://github.com/csdurfee/scrape_yahoo_odds/">https://github.com/csdurfee/scrape_yahoo_odds/</a>. The <code>explore.ipynb</code> notebook has all the calculations and charts used in this article.</p>
-<p>As usual with gambling content, I'm presenting this data because I think it is interesting to study how it works, and what it tells us about basketball and human nature. I don't recommend you bet based on information in this article, or at all.</p>
-<p>The data I'm looking at is every regular season and playoff NBA game from the 2021-22, 2022-23, 2023-2024 and 2024-2025 seasons. No preseason games or All-Star games, but the Emirates NBA Cup championship game is included. </p>
-<p>There are 435 games that are missing stake/wager data (the percentage of money and bets placed on each side, respectively.) That leaves 4,840 NBA games that I have analyzed. The stake and wager percentages seem to be pretty similar to each other, so I'm just using the wager data.</p>
-<h2>What do the spreads look like? Are there any obvious biases?</h2>
-<p>The home team went 2393-2447 (49.5%) against the spread over the last 4 years. The favorite team went 2427-2413 (50.1%) against the spread in that time.</p>
-<p>The home team was the favorite in 3044/4840 (62.8%) of games. The median spread is the home team -3.5 (favored by 3.5 points). Here are the frequencies:</p>
-<p><img alt="home-spread-frequencies" src="/img/home-spread-frequencies.png"></p>
-<p>Basketball games never end in a tie, and there are strategic reasons why NBA games rarely end in a one point difference.</p>
-<p>Around half of all home lines are one of -2.5, -1.5, -4.5, -3.5, +1.5, -6.5, -5.5, -7.5 or +2.5 (in descending order of frequency).</p>
-<p>98.3% of all MGM lines are on the half point (eg 8.5 instead of 8). This is so the sportsbook can avoid pushes (ties), where they have to give everybody's money back.</p>
-<h2>More evidence of the folly of crowds</h2>
-<p>First, some betting jargon, if you're new here. Teams that are popular with bettors are known as <em>public</em> teams. The side of a particular bet that gets more <em>action</em> is known as the <em>public side</em>. If that side of the bet won, people say <em>the public won</em>. Betting the less popular side is known as <em>fading the public</em>. When the less popular side wins against the spread, people will say <em>Vegas won</em> or <em>sharps won</em> (a <em>sharp</em> is someone who is good at betting, as opposed to a <em>square</em>, who is bad at betting.)</p>
-<p>Looking at the stake/wager data, we can find out which team was more popular to bet on for each game. How do those <em>public</em> teams do collectively? Are the public any better or worse at making picks than just flipping a coin?</p>
-<p>Due to well-earned cynicism, I was expecting that the public would be a bit worse than a coin flip. And they are. <em>The public</em> went 2381-2459 (49.19%) against the spread over the past 4 years.</p>
-<p>The public greatly prefer betting on the away team. 2742/4840 (56.7%) of public bets are on the away team. The public also greatly prefer favorites. 2732/4840 (56.4%) of bets are on them.  </p>
-<p>Here's how the bets break down:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;"></th>
-<th style="text-align: right;">favorite</th>
-<th style="text-align: right;">dog</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">AWAY</td>
-<td style="text-align: right;">1215</td>
-<td style="text-align: right;">1527</td>
-</tr>
-<tr>
-<td style="text-align: left;">HOME</td>
-<td style="text-align: right;">1517</td>
-<td style="text-align: right;">581</td>
-</tr>
-</tbody>
-</table>
-<p>This crosstab is a little misleading. The home team is usually favored, so there are fewer home underdogs than road underdogs. However, there's still a discrepancy. The home team is the underdog 37% of the time, but only 27% of bets on underdogs are on the home team, and 28% of bets on the home team are on underdogs.</p>
-<p>Of the 4 categories, the only one with a winning record for the public is away favorites -- 623-592 (51.3% win rate). The second best type is home underdogs, which went 289-292 (49.7%). </p>
-<p>The two most popular bet types with the public are big losers. Away underdogs went 742-785 (48.6%), and home favorites went a putrid 727-792 (47.9%).</p>
-<p>Overall, someone taking the public side of every bet over the past 4 years would have lost 324 units. If they bet $100 on every game, they would be down $32,400. Someone taking the opposite side of all these bets (<em>fading the public</em>) would "only" lose 160 units, or $16,000. </p>
-<p>It would've been profitable betting <em>reduced juice</em> (risk 106 to win 100 instead of 110) to <em>fade the public</em> on all away underdog and home favorite picks. The problem with that strategy is that reduced juice sportsbooks actively attract smart players, so they have <em>sharper</em> (more accurate) lines. A retail sportsbook like BetMGM doesn't need <em>sharp</em> lines because they ban any players who win too much. Against <em>sharp</em> lines, I wouldn't expect the strategy to be profitable.</p>
-<h2>How have teams done against the spread over the past 4 years?</h2>
-<p>Over the past 4 seasons, team records against the spread appear fairly random. The only real outlier is the Oklahoma City Thunder, who have won an astounding 59.3% of their games against the spread. This is remarkable to me because they've been one of the best and most hyped teams in basketball the past couple years. They dominated the league last season, winning 68/82 (82.9%) games, and the NBA Championship. They're not exactly an under the radar team. Yet they appear to have been underestimated by both <em>Vegas</em> and the betting public.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;"></th>
-<th style="text-align: right;"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Oklahoma City</td>
-<td style="text-align: right;">0.593</td>
-</tr>
-<tr>
-<td style="text-align: left;">Toronto</td>
-<td style="text-align: right;">0.544</td>
-</tr>
-<tr>
-<td style="text-align: left;">Boston</td>
-<td style="text-align: right;">0.54</td>
-</tr>
-<tr>
-<td style="text-align: left;">Memphis</td>
-<td style="text-align: right;">0.529</td>
-</tr>
-<tr>
-<td style="text-align: left;">Orlando</td>
-<td style="text-align: right;">0.528</td>
-</tr>
-<tr>
-<td style="text-align: left;">Chicago</td>
-<td style="text-align: right;">0.516</td>
-</tr>
-<tr>
-<td style="text-align: left;">Dallas</td>
-<td style="text-align: right;">0.515</td>
-</tr>
-<tr>
-<td style="text-align: left;">Cleveland</td>
-<td style="text-align: right;">0.508</td>
-</tr>
-<tr>
-<td style="text-align: left;">New York</td>
-<td style="text-align: right;">0.504</td>
-</tr>
-<tr>
-<td style="text-align: left;">Golden State</td>
-<td style="text-align: right;">0.504</td>
-</tr>
-<tr>
-<td style="text-align: left;">Indiana</td>
-<td style="text-align: right;">0.503</td>
-</tr>
-<tr>
-<td style="text-align: left;">Houston</td>
-<td style="text-align: right;">0.502</td>
-</tr>
-<tr>
-<td style="text-align: left;">LA Lakers</td>
-<td style="text-align: right;">0.5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Miami</td>
-<td style="text-align: right;">0.499</td>
-</tr>
-<tr>
-<td style="text-align: left;">Philadelphia</td>
-<td style="text-align: right;">0.498</td>
-</tr>
-<tr>
-<td style="text-align: left;">Minnesota</td>
-<td style="text-align: right;">0.496</td>
-</tr>
-<tr>
-<td style="text-align: left;">Detroit</td>
-<td style="text-align: right;">0.495</td>
-</tr>
-<tr>
-<td style="text-align: left;">Utah</td>
-<td style="text-align: right;">0.492</td>
-</tr>
-<tr>
-<td style="text-align: left;">Denver</td>
-<td style="text-align: right;">0.491</td>
-</tr>
-<tr>
-<td style="text-align: left;">Sacramento</td>
-<td style="text-align: right;">0.49</td>
-</tr>
-<tr>
-<td style="text-align: left;">LA Clippers</td>
-<td style="text-align: right;">0.489</td>
-</tr>
-<tr>
-<td style="text-align: left;">San Antonio</td>
-<td style="text-align: right;">0.488</td>
-</tr>
-<tr>
-<td style="text-align: left;">Charlotte</td>
-<td style="text-align: right;">0.487</td>
-</tr>
-<tr>
-<td style="text-align: left;">Milwaukee</td>
-<td style="text-align: right;">0.484</td>
-</tr>
-<tr>
-<td style="text-align: left;">Brooklyn</td>
-<td style="text-align: right;">0.483</td>
-</tr>
-<tr>
-<td style="text-align: left;">Portland</td>
-<td style="text-align: right;">0.477</td>
-</tr>
-<tr>
-<td style="text-align: left;">New Orleans</td>
-<td style="text-align: right;">0.476</td>
-</tr>
-<tr>
-<td style="text-align: left;">Phoenix</td>
-<td style="text-align: right;">0.471</td>
-</tr>
-<tr>
-<td style="text-align: left;">Atlanta</td>
-<td style="text-align: right;">0.442</td>
-</tr>
-<tr>
-<td style="text-align: left;">Washington</td>
-<td style="text-align: right;">0.439</td>
-</tr>
-</tbody>
-</table>
-<p>While it's not impossible OKC's record against the spread is due to chance alone, a 59.3% winning percentage over 332 games seems like a failure of the market.</p>
-<h2>Who are the most common favorites?</h2>
-<p>Boston has been the most dominant, being favored in 319/361 (88.4%) of their games over the past four seasons, followed by Milwaukee, Denver and Golden State. </p>
-<p>Detroit, Charlotte, Washington and San Antonio were the most common underdogs.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;"></th>
-<th style="text-align: right;"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Boston</td>
-<td style="text-align: right;">0.884</td>
-</tr>
-<tr>
-<td style="text-align: left;">Milwaukee</td>
-<td style="text-align: right;">0.734</td>
-</tr>
-<tr>
-<td style="text-align: left;">Denver</td>
-<td style="text-align: right;">0.711</td>
-</tr>
-<tr>
-<td style="text-align: left;">Golden State</td>
-<td style="text-align: right;">0.707</td>
-</tr>
-<tr>
-<td style="text-align: left;">Cleveland</td>
-<td style="text-align: right;">0.706</td>
-</tr>
-<tr>
-<td style="text-align: left;">Phoenix</td>
-<td style="text-align: right;">0.691</td>
-</tr>
-<tr>
-<td style="text-align: left;">Miami</td>
-<td style="text-align: right;">0.608</td>
-</tr>
-<tr>
-<td style="text-align: left;">Minnesota</td>
-<td style="text-align: right;">0.595</td>
-</tr>
-<tr>
-<td style="text-align: left;">LA Clippers</td>
-<td style="text-align: right;">0.588</td>
-</tr>
-<tr>
-<td style="text-align: left;">New York</td>
-<td style="text-align: right;">0.572</td>
-</tr>
-<tr>
-<td style="text-align: left;">Philadelphia</td>
-<td style="text-align: right;">0.568</td>
-</tr>
-<tr>
-<td style="text-align: left;">Memphis</td>
-<td style="text-align: right;">0.56</td>
-</tr>
-<tr>
-<td style="text-align: left;">Oklahoma City</td>
-<td style="text-align: right;">0.557</td>
-</tr>
-<tr>
-<td style="text-align: left;">Dallas</td>
-<td style="text-align: right;">0.542</td>
-</tr>
-<tr>
-<td style="text-align: left;">Sacramento</td>
-<td style="text-align: right;">0.535</td>
-</tr>
-<tr>
-<td style="text-align: left;">LA Lakers</td>
-<td style="text-align: right;">0.509</td>
-</tr>
-<tr>
-<td style="text-align: left;">Atlanta</td>
-<td style="text-align: right;">0.498</td>
-</tr>
-<tr>
-<td style="text-align: left;">Indiana</td>
-<td style="text-align: right;">0.456</td>
-</tr>
-<tr>
-<td style="text-align: left;">Chicago</td>
-<td style="text-align: right;">0.426</td>
-</tr>
-<tr>
-<td style="text-align: left;">Toronto</td>
-<td style="text-align: right;">0.414</td>
-</tr>
-<tr>
-<td style="text-align: left;">Brooklyn</td>
-<td style="text-align: right;">0.411</td>
-</tr>
-<tr>
-<td style="text-align: left;">Utah</td>
-<td style="text-align: right;">0.406</td>
-</tr>
-<tr>
-<td style="text-align: left;">New Orleans</td>
-<td style="text-align: right;">0.385</td>
-</tr>
-<tr>
-<td style="text-align: left;">Orlando</td>
-<td style="text-align: right;">0.358</td>
-</tr>
-<tr>
-<td style="text-align: left;">Houston</td>
-<td style="text-align: right;">0.309</td>
-</tr>
-<tr>
-<td style="text-align: left;">Portland</td>
-<td style="text-align: right;">0.245</td>
-</tr>
-<tr>
-<td style="text-align: left;">San Antonio</td>
-<td style="text-align: right;">0.215</td>
-</tr>
-<tr>
-<td style="text-align: left;">Washington</td>
-<td style="text-align: right;">0.213</td>
-</tr>
-<tr>
-<td style="text-align: left;">Charlotte</td>
-<td style="text-align: right;">0.194</td>
-</tr>
-<tr>
-<td style="text-align: left;">Detroit</td>
-<td style="text-align: right;">0.188</td>
-</tr>
-</tbody>
-</table>
-<h2>Who are the most common public teams?</h2>
-<p>We saw <em>the public</em> likes to bet on the away team, and the favorite. Do they have team-specific tendencies?</p>
-<p>They certainly do. The LA Lakers and Golden State Warriors are most popular, being the picked by the public in 72% of their games. Detroit and Orlando are the least popular, only getting the majority of bets in 31% of their games.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;"></th>
-<th style="text-align: right;"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">LA Lakers</td>
-<td style="text-align: right;">0.716</td>
-</tr>
-<tr>
-<td style="text-align: left;">Golden State</td>
-<td style="text-align: right;">0.716</td>
-</tr>
-<tr>
-<td style="text-align: left;">Milwaukee</td>
-<td style="text-align: right;">0.694</td>
-</tr>
-<tr>
-<td style="text-align: left;">Phoenix</td>
-<td style="text-align: right;">0.607</td>
-</tr>
-<tr>
-<td style="text-align: left;">Denver</td>
-<td style="text-align: right;">0.603</td>
-</tr>
-<tr>
-<td style="text-align: left;">Dallas</td>
-<td style="text-align: right;">0.577</td>
-</tr>
-<tr>
-<td style="text-align: left;">Boston</td>
-<td style="text-align: right;">0.557</td>
-</tr>
-<tr>
-<td style="text-align: left;">Memphis</td>
-<td style="text-align: right;">0.551</td>
-</tr>
-<tr>
-<td style="text-align: left;">Chicago</td>
-<td style="text-align: right;">0.545</td>
-</tr>
-<tr>
-<td style="text-align: left;">Indiana</td>
-<td style="text-align: right;">0.541</td>
-</tr>
-<tr>
-<td style="text-align: left;">Philadelphia</td>
-<td style="text-align: right;">0.538</td>
-</tr>
-<tr>
-<td style="text-align: left;">Cleveland</td>
-<td style="text-align: right;">0.52</td>
-</tr>
-<tr>
-<td style="text-align: left;">Miami</td>
-<td style="text-align: right;">0.519</td>
-</tr>
-<tr>
-<td style="text-align: left;">Utah</td>
-<td style="text-align: right;">0.518</td>
-</tr>
-<tr>
-<td style="text-align: left;">Oklahoma City</td>
-<td style="text-align: right;">0.518</td>
-</tr>
-<tr>
-<td style="text-align: left;">Minnesota</td>
-<td style="text-align: right;">0.504</td>
-</tr>
-<tr>
-<td style="text-align: left;">LA Clippers</td>
-<td style="text-align: right;">0.502</td>
-</tr>
-<tr>
-<td style="text-align: left;">Brooklyn</td>
-<td style="text-align: right;">0.497</td>
-</tr>
-<tr>
-<td style="text-align: left;">Atlanta</td>
-<td style="text-align: right;">0.495</td>
-</tr>
-<tr>
-<td style="text-align: left;">New York</td>
-<td style="text-align: right;">0.484</td>
-</tr>
-<tr>
-<td style="text-align: left;">San Antonio</td>
-<td style="text-align: right;">0.436</td>
-</tr>
-<tr>
-<td style="text-align: left;">Washington</td>
-<td style="text-align: right;">0.425</td>
-</tr>
-<tr>
-<td style="text-align: left;">Sacramento</td>
-<td style="text-align: right;">0.417</td>
-</tr>
-<tr>
-<td style="text-align: left;">Houston</td>
-<td style="text-align: right;">0.401</td>
-</tr>
-<tr>
-<td style="text-align: left;">Toronto</td>
-<td style="text-align: right;">0.382</td>
-</tr>
-<tr>
-<td style="text-align: left;">Charlotte</td>
-<td style="text-align: right;">0.359</td>
-</tr>
-<tr>
-<td style="text-align: left;">Portland</td>
-<td style="text-align: right;">0.341</td>
-</tr>
-<tr>
-<td style="text-align: left;">New Orleans</td>
-<td style="text-align: right;">0.322</td>
-</tr>
-<tr>
-<td style="text-align: left;">Detroit</td>
-<td style="text-align: right;">0.314</td>
-</tr>
-<tr>
-<td style="text-align: left;">Orlando</td>
-<td style="text-align: right;">0.311</td>
-</tr>
-</tbody>
-</table>
-<p>This is a very similar ranking to what I saw in the previous data -- the public don't appear to be picking bets for purely rational reasons. They like to bet on popular teams, good teams, and teams with popular players. They don't like to bet on unpopular or bad teams, even though both sides have the same chance of winning against the spread. It makes sense as an aesthetic choice, but not as a mathematical choice.</p>
-<p>There is a bit of correlation (r = .08) between team popularity and their record against the spread. Bettors do slightly prefer to bet on teams that do well against the spread:</p>
-<p><img alt="popularity-vs-spread" src="/img/popularity-vs-spread.png"></p>
-<p>Oklahoma City is that lonely dot far off to the right, far better than every other team but only slightly more popular than average.</p>
-<h2>Money lines and the favorite/longshot bias</h2>
-<p>So far I've only been looking at bets against the spread. This new dataset also includes info on money line bets.</p>
-<p>In some ways, money line bets are easier to understand -- just bet on the team you think will win. If you like the favorite, you will win less than you risk; if you like the underdog you win more than you risk. If it's say Oklahoma City versus Dallas, the two sides might be OKC -320 (risk $320 to win $100, implying about a 75% chance of winning) and DAL +260 (risk $100 to win $260).</p>
-<p>With spread bets, both sides have an equal chance of winning, and are usually priced the same. But with money lines, the gambler doesn't know the true odds, so they don't know the vig they're paying. </p>
-<p>There is data to suggest that underdogs pay more in vig, and are therefore more profitable for the sportsbook. This is called the <a href="https://www.football-data.co.uk/blog/favourite_longshot_bias_revisited.php">favorite-longshot bias</a> -- conventional betting wisdom is the expected value of taking an underdog money line bet (especially a big underdog) is lower than taking the favorite. People who bet the underdog are in essence paying a premium to have a more thrilling outcome if they do win.</p>
-<p>While it's a documented phenomenon in <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3271248">horse racing</a>, there's <a href="https://www.pinnacle.com/betting-resources/en/betting-strategy/why-the-favourite-longshot-bias-is-not-a-bias/qjb2prcq4q96nftd">some debate as to whether it exists</a> in general, so I analyzed the 4,634 games with money line betting data. </p>
-<p>If somebody always bet the favorite on every NBA game, or the underdog, what would be their rate of return?  Is it better or worse than the -4.5% rate on spread bets?</p>
-<p>I did find evidence of the favorite-longshot bias in the NBA money lines. When risking a constant amount of money on each bet, underdogs had a rate of return of -5.47% versus -4.09% for favorites.  Favorites between -200 and -400 offer the best rate of return of any type of money line bet, at -2.97%. Every single type of underdog bet does worse than -4.5% of the typical spread bet.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">label</th>
-<th>start</th>
-<th>end</th>
-<th>num games</th>
-<th>return %</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">all faves</td>
-<td>-9999</td>
-<td>-1</td>
-<td>4839</td>
-<td>-4.09%</td>
-</tr>
-<tr>
-<td style="text-align: left;">mild faves</td>
-<td>-200</td>
-<td>-1</td>
-<td>2174</td>
-<td>-4.19%</td>
-</tr>
-<tr>
-<td style="text-align: left;">heavy faves</td>
-<td>-400</td>
-<td>-200</td>
-<td>1612</td>
-<td>-2.97%</td>
-</tr>
-<tr>
-<td style="text-align: left;">huge faves</td>
-<td>-9999</td>
-<td>-400</td>
-<td>1053</td>
-<td>-5.59%</td>
-</tr>
-<tr>
-<td style="text-align: left;">all dogs</td>
-<td>1</td>
-<td>9999</td>
-<td>4634</td>
-<td>-5.47%</td>
-</tr>
-<tr>
-<td style="text-align: left;">mild dogs</td>
-<td>1</td>
-<td>200</td>
-<td>2440</td>
-<td>-5.60%</td>
-</tr>
-<tr>
-<td style="text-align: left;">heavy dogs</td>
-<td>200</td>
-<td>400</td>
-<td>1430</td>
-<td>-5.69%</td>
-</tr>
-<tr>
-<td style="text-align: left;">huge dogs</td>
-<td>400</td>
-<td>9999</td>
-<td>764</td>
-<td>-4.65%</td>
-</tr>
-</tbody>
-</table>
-<p>The number of dogs and favorites aren't equal because some games have money lines where both sides are negative, say -110, like a traditional bet with a spread of zero. There's also a big asymmetry when the odds are long. For instance the favorite might be -800 and the underdog is +561. That doesn't represent a huge vig, it's just a quirk of how American-style odds work (covered in the book).</p>
-<h3>Caveats and bootstraps</h3>
-<p>The table above isn't telling the whole story. I'm not conveying a sense of the volatility in the rate of return. Huge underdogs have a bigger payout when they do win, so the outcomes are going to be a lot more variable than betting the favorites.</p>
-<p>-4.65% is the best estimate of the rate of return for huge underdogs, but maybe we just got lucky, or unlucky. A couple of longshot bets winning or losing could drastically change the overall return rate.</p>
-<p>To test volatility, I used bootstrapping, <a href="/one-in-e.html">previously covered in <em>one in e</em></a>. I repeatedly randomly sampled 80% (611/764) of the huge underdog bets and calculated the rate of return on that set. Looking at the range of outcomes helps illustrate the variability of these bets.</p>
-<p>Doing that 100 times leads to a pretty wide spread of rates of return:</p>
-<p><img alt="huge-dog-bootstrap" src="/img/huge-dog-bootstrap.png"></p>
-<p>Although the mean value is close to the overall mean, 15% of bootstrapped samples actually had a positive rate of return.  This is similar to what we saw in <a href="/cool-parlay-bro.html"><em>cool parlay, bro</em></a>, where due to variance, even gamblers with no advantage over the house had a small chance of making money over a long period of time off of parlays. I described that situation "like a lottery where you have a 12% chance of winning $3,617, but an 88% chance of losing $10,221." This is a similar proposition.</p>
-<h3>Bridgejumper parlays and p-hacking</h3>
-<p>We'd need a lot more data to get a crisp estimate of the rate of return on huge underdogs, but we can have more confidence in the estimated -5.59% rate for huge favorites. Huge favorites being disadvantaged kind of contradicts the favorite-longshot bias theory, but it doesn't surprise me at all due to a strange phenomenon I've seen over and over again online.</p>
-<p>It's a type of bet <em>sharps</em> might call "<a href="https://equinedge.com/glossary/exotic-betting/bridgejumper">bridgejumper</a> parlays" and <em>squares</em> on the internet unironically call "free money parlays" -- a parlay of a whole bunch of heavy favorite money lines together. </p>
-<p>The gambler starts with some heavy favorite they like and keep adding more heavy favorites to the parlay till they get <em>plus odds</em> (they can win more than they risk), ending up with 5-6 heavy favorites on the same parlay. They will pick legs of the parlay from different sports, if necessary. There usually aren't enough heavy favorites in the NBA on a particular night to get to the magic &gt; +100 payout.</p>
-<p>An example you might see posted on reddit or twitter would be a 6 leg parlay with a payout of +105 like:</p>
-<ul>
-<li>Celtics -600</li>
-<li>Nuggets -900</li>
-<li>OKC -1000</li>
-<li>Lakers -600</li>
-<li>Duke -600</li>
-<li>Some UFC Guy, because they needed a sixth bet -700</li>
-</ul>
-<p>I've talked to a couple people who take bridgejumper parlays, and they genuinely seem to think they've found some kind of glitch in the matrix -- all of the legs of the bet have a high chance of winning, therefore the bet is a sure thing. </p>
-<p>A sensible person would know that sportsbooks aren't in the business of offering free money so maybe they're missing something. A humble person would assume they probably hadn't discovered some clever trick the sportsbooks don't know about. But most people who get into betting aren't sensible or humble (they think they can see the future, after all), so for a certain class of bettor, this type of wager just <em>feels</em> like a sure thing. </p>
-<p>In parlay form, the fallacy seems obvious to me. Just because the individual risk on each leg of the parlay is small, that doesn't mean the combined risk is.</p>
-<p>There's a more sophisticated version of this fallacy in statistics called p-hacking. As always, <a href="https://xkcd.com/882/">there's an xkcd about it</a>. A particular experiment might have a 5% chance of giving a false result. 5% is a pretty small number. But if you do 13 of those experiments, there's about a 50% chance that at least one of them will give a false result. Even people who are good at math and science probably don't have a good sense of what <span class="math">\(.95^{13}\)</span> equals. It's sort of like a 13 leg parlay of money line bets at -1900.</p>
-<p>Next time: more on point totals, money lines, and human nature.</p>
-<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
-
-    var mathjaxscript = document.createElement('script');
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
-
-    var configscript = document.createElement('script');
-    configscript.type = 'text/x-mathjax-config';
-    configscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        availableFonts: ['STIX', 'TeX']," +
-        "        preferredFont: 'STIX'," +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/lessons-from-four-years-of-betmgm-nba-gambling-stats.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
-                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
-                </div>
-            </article>            <h4 class="date">Oct 26, 2025</h4>
+        <div id="content">            <h4 class="date">Oct 26, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -1673,6 +1039,79 @@ line shopping: +99     </p>
                     &nbsp;&middot;&nbsp;<a href="/category/basketball.html" rel="tag">basketball</a>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
+                </div>
+            </article>            <h4 class="date">Mar 01, 2026</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/stupid-analytics-and-tanking-a-coda.html" rel="bookmark" title="Permanent Link to &quot;Stupid analytics and tanking: a coda&quot;">Stupid analytics and tanking: a coda</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=t_JSmYN2YV0" target="_blank"><img alt="&quot;One Two Three (No Gravity)&quot;, by Closer Musik" src="https://img.youtube.com/vi/t_JSmYN2YV0/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=t_JSmYN2YV0" target="_blank">"One Two Three (No Gravity)", by Closer Musik</a></p>
+<p>I've been working on non-mathletix things, so I thought it would be a good time to revisit some previous topics. I ended up touching on almost every topic I've ever covered here, which I swear is not some SEO internal linking strategy. Consider it a coda for the site.</p>
+<h1>The bajillionth NBA tanking thinkpiece</h1>
+<p>Tanking in the NBA only works if a team's only problem is a star player. Otherwise, it's just making excuses for being bad, and delaying or preventing fixes to organizational problems. </p>
+<p>Oceans of ink/pixels have been spilled about tanking, <a href="/two-ways-to-go-from-the-middle.html">including on this very website</a>. It's a classic example of perverse incentives and unintended consequences, and most of the fixes I've seen have their own set of issues. </p>
+<p>Perhaps it's the former philosophy major in me, but throwing out answers before defining what the questions mean is a bad idea. Tanking is bad (nebulously defined), but trying to fix it doesn't mean the league will become better off. It's very easy to just create new issues. What would a perfect league look like? Only so many teams can be contenders at one time. What do the rest of them do, that isn't tanking, but gives them reasons to hope?</p>
+<p>As I talked about regarding the Kings, people point to the Thunder and Spurs as evidence that tanking works, as though it's some magic elevator to success. They both rapidly became top teams in the league after a few years of intentionally being bad. (The Pistons and Rockets did, too.)</p>
+<p>But the Thunder and Spurs already had really good organizations before they decided to be bad. Handing talented players to organizations like the Kings, that suck at everything else, feels like a massive waste, especially when it's a multi-year tank job. Can we really trust the Wizards to develop <a href="/keys-to-the-kingdom.html">Kyshawn George</a> into the best version of himself?</p>
+<p>As Keith Parrish <a href="https://www.youtube.com/watch?v=iWGDWOEmQrE">pointed out recently on the <em>Grits and Grinds</em> podcast</a>, tanking also hurts coach development and evaluation. There's no way to know if a coach is good or not if you are incentivizing them to be bad. How can a coach learn to run a playoff caliber team, or win in high-pressure situations, if the team isn't trying to be competitive at the end of games? </p>
+<p>I have some confidence the coaches of the Nets and Jazz are good, because their organizations seem to have to actively fight them in order to keep the tank rolling -- trading away good players, (apparently) mandating players sit out the 4th quarter, players coming down with season-ending surgeries for dubious injuries. Are they going to reach their potential as coaches, when they have to deal with all this nonsense?</p>
+<p>The Toronto Raptors have turned the corner. Last year they were intentionally bad, and this year they're pretty good. They didn't end up with a good draft pick even after fairly shameless tanking efforts last year, though. The Jazz got fined this season for not playing their best players at all in the 4th quarter of a competitive game, but the Raptors invented that crap last season.</p>
+<p>Was it worth losing a year of experience at being a competent basketball team in order to end up with the 9th pick instead of the 12th? I guess we'll see, but Derik Queen, selected by the Pelicans at 13, has looked better than Collin Murray-Boyles, who the Raptors selected with that griftily-acquired 9th pick. </p>
+<p>Murray-Boyles is having a pretty good season as a rookie, and I wish nothing for the best for him. But he would be below Queen and Cedric Coward (11th pick) if there was a re-draft right now. They could have tanked and gotten a better player, if they played their cards right.</p>
+<p>Front office staff don't count against the salary cap. It's amazing to me that some insanely rich owner like Steve Ballmer hasn't offered Sam Presti a $100M a year to GM their team (who knows, maybe he has). It would probably still be a value, compared to the guy the Clippers just extended, Lawrence Frank. (The guy who traded SGA and the farm for Paul George, not the "What's the Matter With Kansas" guy). Beyond the GM spot, there is no reason why the Raptors shouldn't hire an army of nerds <a href="https://www.linkedin.com/in/caseydurfee/">like yours truly</a> to figure out how to do much better with slightly worse picks.</p>
+<h3>The favorite-longshot bias &amp; the NBA draft</h3>
+<p>I think there's probably a <a href="/nfl-point-totals-and-money-lines.html">favorite-longshot bias</a> at work with the NBA lottery. Bets on longshots tend to be massively profitable for whoever is offering the bets, going back to horse races hundreds of years ago. This has continued with the rise of prediction markets, which are rife with longshot sucker bets, <a href="https://www.jbecker.dev/research/prediction-market-microstructure">as this great analysis shows</a>:</p>
+<blockquote>
+<p>Contracts trading at 5 cents win only 4.18% of the time, implying mispricing of -16.36%. Conversely, contracts at 95 cents win 95.83% of the time. This pattern is consistent; all contracts priced below 20 cents underperform their odds, while those above 80 cents outperform.</p>
+</blockquote>
+<p>I think part of why people take longshot sucker bets is because humans are bad at estimating small probabilities. People tend not to <em>feel</em> numbers in the same way every time. It's context dependent. 1 in 17 might seem like a good chance for a tanking NBA team to get the #1 pick, but a small chance of a negative outcome when somebody's considering a risky behavior. </p>
+<p>I've seen that firsthand in the engineering world. If you've never managed mission-critical systems, the difference between 99% and 99.99% might seem small, but it's the difference between 8 hours a month of failure, and 4 minutes a month.</p>
+<p>The expected value of getting a top pick is also prone to bias. There's a decent probability of a top pick being a bust, and a non-top pick being a great player. Yet teams and fans treat a high draft pick as a sure thing, and middling picks as being worthless.</p>
+<p>If everyone in the NBA was healthy, my top players would be Jokic (drafted 41st overall), SGA (11th overall), Giannis (15th overall), and Wemby (1st overall). People say that the worst thing to be in the NBA is in the middle, but 3 of the top 4 players in the league right now could have been drafted there. </p>
+<p>There are plenty of non-lottery players who can be coached up, and NBA teams need to be extremely deep now, something I think many organizations undervalue. A star player can make a big difference, but there need to be pieces around them, and tanking doesn't do anything to improve the chances of getting the other 12 guys, coaching them up, keeping them healthy, establishing an identity. </p>
+<p><a href="/early-season-nba-trends.html">As previously discussed</a>, four of the OKC Thunder's rotation players were undrafted or selected in the 2nd round. A team looking to emulate OKC's success could do almost everything that led to it without ever tanking.</p>
+<p>Calculating the value of tanking requires multiplying two numbers together: the odds of getting a top pick, and the odds of that pick turning into a franchise-altering player. If the favorite-longshot bias applies to both, it's kinda like a gambler taking a parlay of two sucker bets together. Sometimes those sucker parlays hit, just like sometimes lottery tickets hit, but they're not a rational investment. Multiplying two overestimates together will create an even bigger overestimate. Multiplying two high variance events together will create even higher variance.</p>
+<h1>Stupid analytics, silly hiring process edition</h1>
+<p>The Cleveland Browns made waves this offseason for their approach to hiring a new head coach. This process required candidates to write an essay about why they wanted to coach the Browns, and go through multiple personality tests, among other indignities. </p>
+<p>This was billed by the team as being a data-driven, analytical approach to hiring (as if the same franchise that decided to hire DeShaun Watson for the highest guaranteed contract in NFL history should be listened to about hiring). </p>
+<p>Naturally, it attracted a lot of ire from people who think that analytics are a way for nerds to feel like they're a part of sports they don't have the talent to play. The Browns are so obviously a stupid team. If they're trying to use analytics, that's proof that analytics are stupid, too.</p>
+<p>There's some anti-intellectualism to this view, but it's not wrong when it comes to labeling the Browns' approach as ridiculous. The reason to use analytics is to get a better, more unbiased view of sports or business or whatever. It's not enough to ritualistically or performatively use data, you have to use the right data in the right way, or it won't increase the odds of success.</p>
+<p>Forcing a potential NFL coach to write a personal essay in order to get hired is a data-driven approach only in the most fatuous sense. Yes, the Browns are collecting data, and basing their hiring decisions on it. But the data and the process are stupid on the face of it. </p>
+<p>There's no reason to believe there's a correlation between being good at writing essays and being good at winning football games. Even if it had slightly positive predictive value, it's also annoying to the applicant. That probably lowers the average talent level of candidates, which will already be lower than average because they're the freaking Browns, and nobody with better options is going to apply anyway. It's <a href="/cool-parlay-bro.html">adverse selection</a> -- the sort of coaches willing to jump through their silly hoops are guaranteed to be lower quality.</p>
+<h3>The NFL combine</h3>
+<p>The NFL combine was last week. I previously covered the combine <a href="/what-are-the-most-important-events-at-the-nfl-combine.html">in the early days of this website</a>. Check it out. It's probably the fanciest visualizations I've done. </p>
+<p>Many players are getting buzz from how well they did in the combine, and may have earned themselves millions of dollars by increasing their draft position, so good for them. But the combine has the potential to be <em>stupid analytics</em>.</p>
+<p>Performance at the combine is definitely correlated with how high a player is drafted, but to quote the great movie <em>Moneyball</em>, "we're not selling jeans here. We're not looking for Fabio." The NFL is not a beauty pageant, and being a freak athlete is less valuable at the pro level, where nearly everyone is a freak athlete. The less disparity in physical abilities, the more the intangibles like mental acuity, emotional temperament, and staying healthy (which is both a skill and a talent) matter. Because drafting is such a big decision, it's perhaps natural to overfocus on the things that can be measured, like the combine, rather than the important things that can't be measured.</p>
+<p>I've found little evidence that performance at the combine predicts how good a player will be in the NFL. I don't care about the combine, but anyone who thinks it is significant should probably be able to prove it.</p>
+<h3>Player comps</h3>
+<p>The final bit of <em>stupid analytics</em> I want to touch on is player comparisons. Articles about the NBA or NFL draft will often name a couple similar players to a prospect to give readers a feel for how they play. </p>
+<p>It's not a bad idea, in theory. But the comps often aren't about a player's style, or how good they are, but who they look like. <a href="https://www.nbadraft.net/players/rocco-zikarsky/">This NBA draft website's entry for Australian big man Rocco Zikarsky</a> led me to some of the most egregious examples of racial profiling I've seen in a while:</p>
+<p><img alt="/img/rocco.png" src="/img/rocco.png"></p>
+<p>Zikarsky is extremely tall, extremely Australian, and extremely white, even by NBA standards. The two comps the site gives are Mark Eaton (extremely tall, extremely white) and Luc Longley (all three). </p>
+<p>I guess it's technically "analysis", but crap like this undoubtedly does more harm than good. People who read analysis like this are stupider about the NBA for having read it.</p>
+<p>The site loves intra-racial comparisons, to the point that it almost seems like a running joke. </p>
+<p>Their comps for Johnny Furphy are Sam Dekker and Gordon Hayward, two more white guys. Gradey Dick also gets compared to Hayward. Kon Kneuppel is compared to Chris Mullin, another white guy, and Jared Dudley, a light-skinned black guy. That's as color-blind as they get. </p>
+<p>Egor Demin is compared to Josh Giddey and Svi Mykhailiuk. Danny Wolf is compared to Henry Ellenson and Moritz Wagner. Brooks Barnhizer is compared to Dean Wade. Reed Sheppard is compared to Mark Price and Jimmer Fredette. Donovan Clingan is compared to Jakob Poetl and Walker Kessler. Chet Holmgren is compared to Kristaps Porzingis. Christian Braun is compared to Chase Budinger. Nikola Jokic is compared to Nikola Vucevic.</p>
+<p>The one that makes me think it's trolling is <a href="https://www.nbadraft.net/players/ryan-kalkbrenner/">Ryan Kalkbrenner</a> being compared to Ante Tomic, who I had to look up. He never played a minute in the NBA but was drafted in the 2nd round in 2008. How is that comparison useful for an NBA fan? Anyone with enough hoops knowledge to know Ante Tomic should be able to think of a comparison that actually played in the league.</p>
+<p>Sheesh. Nearly all these comparisons are laughable based on how the guys actually play. If their player comps are so obviously bad and biased, why should anyone trust the rest of their analysis? I'm not really a fan of the draft preview subgenre of sportswriting and am admittedly not the target market. Maybe the predictive power of the stories doesn't matter, <a href="/what-do-gambling-shows-talk-about.html">like with gambling podcasters</a>, and their cool bro stories. Is this the story that draft enthusiasts want to hear?</p>
+<h3>Quick math time</h3>
+<p><a href="https://open.substack.com/pub/jameslnuzzo/p/racial-demographics-of-the-nba-and">Around 1 in 5 NBA players are white.</a> Unless you assume there's some link between race and basketball playing style, the chances of a player's two best comps both being white should be 1 in 25, or 4%. The chances of a player having two black comps should be 64%, or 16x higher. </p>
+<p>There should be 4x more black players with two white comps than white players with two white comps, because there are 4x more black players overall. Yet I've never seen a black player get two white comps, and it's pretty rare for a white player to get two black comps. Usually the comps aren't quite as blatantly biased as this site's, but there's always a little stench of it.</p>
+<p>Last year, there was some controversy when Isaiah Hartenstein described himself as a "bright skinned" Black guy, because his father is half Black. Now, I have zero authority, and even less desire, to judge who gets to call themselves Black or not. But I think we can use this crappy website to make a Cleveland Browns-style <em>data driven</em> decision on the matter. Hartenstein's pre-draft comps? Donatas Motiejunas and Dino Radja, two white guys. That settles it!</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/stupid-analytics-and-tanking-a-coda.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/nba.html" rel="tag">NBA</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
+                    &nbsp;<a href="/tag/football.html" class="tags">football</a>
                 </div>
             </article>
 

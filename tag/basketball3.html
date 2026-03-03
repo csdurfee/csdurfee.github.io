@@ -216,6 +216,112 @@ max        1.845302
                     &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
                     &nbsp;<a href="/tag/the-hot-hand.html" class="tags">the hot hand</a>
                 </div>
+            </article>            <h4 class="date">May 28, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/simulating-hot-and-lukewarm-hands.html" rel="bookmark" title="Permanent Link to &quot;Simulating hot and lukewarm hands&quot;">Simulating hot and lukewarm hands</a>
+                </h2>
+
+                
+                
+
+                <p>(Notebooks and other code available at: <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>. There's a bunch of stuff in the notebook about the Wald-Wolfowitz test that I will save for another week.)</p>
+<p>In my last installment, I was looking at season long shooting records from the NBA, and I concluded that NBA players were less streaky than expected. They have fewer long strings of makes and misses than a series of coin flips would.</p>
+<p>I've been thinking this could be due to "heat check" shots -- a player has made a bunch of shots in a row, or are having a good shooting game in general, so they take harder shots than they normally take. 
+It would explain some players that fans consider streaky or "heat check" players who are actually super un-streaky. Jordan Poole was the least streaky player over the last 4 seasons, which defies my expectations. Say he believes he is streaky, so tends to take bad shots when</p>
+<p>Or it could be due to "get a bucket" shots -- a player is having a bad shooting game, so they force higher percentage shots and potentially free throws. </p>
+<p>There's a quirk of NBA stats to remember: if a player is fouled while shooting, it only counts as a field goal attempt if they make the shot. So driving to the hoop is guaranteed to not decrease a player's field goal percentage if they successfully draw a foul, or get called for an offensive foul.</p>
+<p>I'm not sure I've made an airtight case for the <em>lukewarm hand</em>. Combining every game in a season could hide the hot hand effect. What about individual games?</p>
+<h2>Game-level shooting statistics show a lukewarm tendency</h2>
+<p>I am using the complete shooting statistics available from this kaggle project: <a href="https://www.kaggle.com/datasets/mexwell/nba-shots">https://www.kaggle.com/datasets/mexwell/nba-shots</a></p>
+<p>I'm looking at the 2023-2024 season, since the current season isn't included yet.</p>
+<p>I went through every game that every player played in the NBA season and calculated the expected vs. actual number of streaks.  </p>
+<p>There are 24,895 player+game combos. 10,285 of them had more streaks than expected against 8,977 who had fewer streaks than expected (and around 5,000 that are exactly as expected). This is a significant imbalance towards the "lukewarm hand" side.</p>
+<p>Here's the histogram of individual game z-scores:</p>
+<p><img alt="individual game z-scores, 2023" src="/img/game-zscores-2023.png"></p>
+<p>And the breakdown:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">count</span><span class="w">    </span><span class="m m-Double">18982.000000</span>
+<span class="nx">mean</span><span class="w">         </span><span class="m m-Double">0.051765</span>
+<span class="nx">std</span><span class="w">          </span><span class="m m-Double">0.988789</span>
+<span class="nx">min</span><span class="w">         </span><span class="o">-</span><span class="m m-Double">3.332292</span>
+<span class="mi">25</span><span class="o">%</span><span class="w">         </span><span class="o">-</span><span class="m m-Double">0.707107</span>
+<span class="mi">50</span><span class="o">%</span><span class="w">          </span><span class="m m-Double">0.104103</span>
+<span class="mi">75</span><span class="o">%</span><span class="w">          </span><span class="m m-Double">0.816497</span>
+<span class="nx">max</span><span class="w">          </span><span class="m m-Double">3.583243</span>
+<span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="nx">z_score</span><span class="p">,</span><span class="w"> </span><span class="nx">dtype</span><span class="p">:</span><span class="w"> </span><span class="nx">float64</span>
+</code></pre></div>
+
+<p>Limiting to higher volume games (at least 10 makes or 10 misses) shows the same tendency.</p>
+<p><img alt="high attempt games, 2023-24" src="/img/high-attempt-games.png"></p>
+<div class="highlight"><pre><span></span><code><span class="nx">count</span><span class="w">    </span><span class="m m-Double">2536.000000</span>
+<span class="nx">mean</span><span class="w">        </span><span class="m m-Double">0.055925</span>
+<span class="nx">std</span><span class="w">         </span><span class="m m-Double">1.010195</span>
+<span class="nx">min</span><span class="w">        </span><span class="o">-</span><span class="m m-Double">3.079575</span>
+<span class="mi">25</span><span class="o">%</span><span class="w">        </span><span class="o">-</span><span class="m m-Double">0.616678</span>
+<span class="mi">50</span><span class="o">%</span><span class="w">         </span><span class="m m-Double">0.072404</span>
+<span class="mi">75</span><span class="o">%</span><span class="w">         </span><span class="m m-Double">0.750366</span>
+<span class="nx">max</span><span class="w">         </span><span class="m m-Double">3.583243</span>
+<span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="nx">z_score</span><span class="p">,</span><span class="w"> </span><span class="nx">dtype</span><span class="p">:</span><span class="w"> </span><span class="nx">float64</span>
+</code></pre></div>
+
+<p>There definitely appears to be a bias towards the lukewarm hand in individual game data. The mean z scores aren't that much bigger than zero, but it's a huge sample size.</p>
+<h2>Simulating streaky and non-streaky players</h2>
+<p>I coded up a simulation of a non-streaky player. When they have hit a minimum number of attempts in the game, if their shooting percentage goes above a certain level, they get a penalty. If it goes below a certain level, they get a boost.</p>
+<p>I was able to create results that look like NBA players in aggregate with an extremely simplified model. </p>
+<p>The parameters were arbitrarily chosen. By default, the thresholds are 20% and 80%, and the boost/penalty is 20%. So a 50% shooter who has taken at least 4 shots and is shooting 80% or better for the game will get their FG% knocked down to 30% till their game percentage drops below the threshold. Likewise if they hit 20% or less, they get a boost until they're over the threshold.</p>
+<p>I used the game level shooting statistics I got for the individual game-by-game analysis. I then replayed every shot in the NBA in the 2023-24 season using the simulated lukewarm player (and the actual fg% and number of shots attempted in each game). This is what I got:</p>
+<p><img alt="sim-z-scores" src="/img/sim-z-scores.png"></p>
+<div class="highlight"><pre><span></span><code><span class="nx">count</span><span class="w">    </span><span class="m m-Double">526.000000</span>
+<span class="nx">mean</span><span class="w">       </span><span class="m m-Double">0.218032</span>
+<span class="nx">std</span><span class="w">        </span><span class="m m-Double">0.965737</span>
+<span class="nx">min</span><span class="w">       </span><span class="o">-</span><span class="m m-Double">2.397958</span>
+<span class="mi">25</span><span class="o">%</span><span class="w">       </span><span class="o">-</span><span class="m m-Double">0.491051</span>
+<span class="mi">50</span><span class="o">%</span><span class="w">        </span><span class="m m-Double">0.241554</span>
+<span class="mi">75</span><span class="o">%</span><span class="w">        </span><span class="m m-Double">0.836839</span>
+<span class="nx">max</span><span class="w">        </span><span class="m m-Double">3.787951</span>
+<span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="nx">z_score</span><span class="p">,</span><span class="w"> </span><span class="nx">dtype</span><span class="p">:</span><span class="w"> </span><span class="nx">float64</span>
+</code></pre></div>
+
+<p>My simulation was actually less biased to the right than the actual results:</p>
+<p><img alt="actual-2023-24" src="/img/actual-2023-24.png"></p>
+<p>Several big things to note:</p>
+<ol>
+<li>I simulated every player in the league as being a little un-streaky.</li>
+<li>I simulated them being un-streaky in both directions</li>
+<li>The boost/penalty are pretty big -- going from 50% FG percentage to 30% is going from a good NBA player to a bad college player level, and the boost to 70% FG percentage has no precedent. The most accurate shooters in the NBA are usually big men who only shoot dunks and layups, and they still usually end up in the 60-65% range.</li>
+</ol>
+<p>Which is to say, my simulation is kind of silly and seemingly over-exaggerated. And it's still not as lukewarm as real NBA players are.  Wild, isn't it?</p>
+<h2>Streakiness in only one direction</h2>
+<p>I also simulated players who were only streaky in one direction: "get a bucket" players who get a boost to shooting percentage when they are shooting poorly, but no penalty when they are doing well, and "heat check" players who only get the penalty.</p>
+<p>The results were biased to the unstreaky side, but about half as much as the ones that are streaky in both directions. I had to crank the penalties/boosts up to unrealistic levels to get the bias of the z-scores up to the .2-.3 range I'm seeing with real season-level data.</p>
+<h2>The truly streaky player</h2>
+<p>Of course, I had to simulate the hot hand. The <code>TrulyStreakyPlayer</code> is the exact opposite of the <code>LukewarmPlayer</code>. They get a 20% boost when they're shooting well on the game, and a 20% penalty when they're shooting poorly.</p>
+<p>What stands out to me here is how much it affects the z-score. I was expecting the z-scores to be biased to the negative side by about as much as the unstreaky player was to the positive side. But the effect was a lot more dramatic:</p>
+<div class="highlight"><pre><span></span><code>count    524.000000
+mean      -0.455522
+std        1.144570
+min       -4.413268
+25%       -1.225128
+50%       -0.458503
+75%        0.404549
+max        2.486584
+</code></pre></div>
+
+<p><img alt="truly-streaky-player" src="/img/truly-streaky-player.png"></p>
+<p>Unlike the un-streaky simulations, the streaky behavior increased the dispersion (<code>std</code>), like we saw with the real shot data. There are many more outliers to the negative side than we'd expect.</p>
+<h2>What next?</h2>
+<p>I could certainly sim a mixture of streaky and unstreaky players, and eventually maybe get something that matches the real numbers pretty closely. But there are so many parameters to fit that it would be pretty arbitrary. Someone else could produce a different model that works just as well. </p>
+<p>Most importantly, it couldn't tell us which players might be streaky due to chance versus streaky due to behavior/shot selection. So I think the next step is looking at the shot selection in the "hot hand" vs. "get a bucket" situations -- do players switch to higher percentage shots when they're having a bad game, and worse shots when they're shooting better than usual?</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/simulating-hot-and-lukewarm-hands.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags selected">basketball</a>
+                    &nbsp;<a href="/tag/the-hot-hand.html" class="tags">the hot hand</a>
+                </div>
             </article>
 
                 <div class="clear"></div>
