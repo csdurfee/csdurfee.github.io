@@ -1,4 +1,4 @@
-Title: Stupid analytics and tanking: a coda
+Title: Tanking and cognitive bias
 Date: 2026-03-01 10:20
 Category: NBA
 Tags: basketball, football
@@ -10,13 +10,13 @@ Song: ["One Two Three (No Gravity)", by Closer Musik](https://www.youtube.com/wa
 I've been working on non-mathletix things, so I thought it would be a good time to revisit some previous topics.
 
 # Tanking in the NBA only works if a team's only problem is lack of a star player. 
-Otherwise, it's just a cop-out for being bad, and delaying or preventing fixes to organizational problems. 
+Otherwise, it's just a cop-out for being bad, and delays or prevents fixes to organizational problems. 
 
 Oceans of ink/pixels have been spilled about tanking, [including on this very website](/two-ways-to-go-from-the-middle.html). It's a classic example of perverse incentives and unintended consequences, and most of the fixes I've seen have their own set of issues. I worked on my own proposed solution -- basically, teams could declare themselves as rebuilding at the start of the year and have a chance at top draft picks in exchange for reducing ticket prices for fans, and receiving less in revenue sharing. My idea might fix some issues, but inevitably would create other ones. Any sufficiently complex game will have some sort of *meta* to it that has the potential for being exploited.
 
 Tanking is bad (nebulously defined), but trying to fix it doesn't mean the league will become better off. It's very easy to create new issues. What would a perfect league look like? Only so many teams can be contenders at one time. What do the rest of them do, that isn't tanking, but is entertaining and interesting for fans?
 
-As I previously talked about regarding the Kings, people point to the Thunder and Spurs as evidence that tanking works, as though it's some magic elevator to success. They both rapidly became top teams in the league after a few years of intentionally being bad. The Pistons and Rockets did, too.
+As I previously talked about regarding the Kings, people point to the Thunder and Spurs as evidence that tanking works, as though it's some magic elevator to success. They both rapidly became top teams in the league after a few years of intentionally being bad. The Pistons and Rockets did, too. It's easy to draw the wrong conclusions from that.
 
 But the Thunder and Spurs already had really good organizations before they decided to be bad. Handing talented players to organizations like the Kings, that suck at everything else, feels like a massive waste, especially when it's a multi-year tank job. Can we really trust the Wizards to develop [Kyshawn George](/keys-to-the-kingdom.html) into the best version of himself?
 
@@ -45,14 +45,14 @@ Who knows if they would have reached their full potential if they had been draft
 
 [As previously discussed](/early-season-nba-trends.html), four of the OKC Thunder's rotation players were undrafted or selected in the 2nd round. A team looking to emulate OKC's success could do almost everything that led to it without ever tanking.
 
-Calculating the value of tanking requires multiplying two numbers together: the odds of getting a top pick, and the odds of that pick turning into a franchise-altering player. Multiplying two overestimates together will create an even bigger overestimate. Multiplying two high variance events together will create even higher variance.
+Calculating the value of tanking requires multiplying two numbers together: the odds of getting a top pick, and the odds of that pick turning into a franchise-altering player. Multiplying two overestimates together will create an even bigger overestimate. 
 
 # Stupid analytics, silly hiring process edition
 The Cleveland Browns made waves this offseason for their approach to hiring a new head coach. This process required candidates to write an essay about why they wanted to coach the Browns, among other indignities. 
 
-This was billed by the team as being a data-driven, analytical approach to hiring -- as if the same franchise that decided to hire DeShaun Watson for the highest guaranteed contract in NFL history should be feeling good about their hiring process. 
+This was billed by the team as being a data-driven, analytical approach to hiring -- as if the same franchise that decided to hire DeShaun Watson for the largest guaranteed contract in NFL history should be feeling good about their hiring process. 
 
-Naturally, it attracted a lot of ire from people who think that analytics are bad for sports, a way for nerds to feel like they're a part of sports they don't have the talent to play. The Browns are so obviously a stupid team. If they're trying to use analytics in an obviously stupid way, that's proof that analytics are stupid, too.
+Naturally, it attracted a lot of ire from people who think that analytics are bad, a way for nerds to feel like they're a part of sports they don't have the talent to play. The Browns are so obviously a stupid team. If they're trying to use analytics, that's proof that analytics are stupid, too.
 
 There's some anti-intellectualism to this view, but it's not wrong when it comes to recognizing the Browns' approach is ridiculous. The reason to use analytics is to get a better, more unbiased view of sports or business or whatever. It's not enough to *performatively* use data, you have to use the right data in the right way, or it won't increase the odds of success.
 
@@ -74,7 +74,7 @@ It's not a bad idea, in theory. But the comps often aren't about a player's styl
 
 ![/img/rocco.png](/img/rocco.png)
 
-Superficially, Zikarsky is extremely tall, extremely white, and extremely Australian. The two comps the site gives are Mark Eaton (extremely tall, extremely white) and Luc Longley (all three). I guess it's technically "analysis", but crap like this undoubtedly does more harm than good. People who read analysis like this are less well-informed about the NBA for having read it. 
+Superficially, Zikarsky is extremely tall, extremely white, and extremely Australian. The two comps the site gives are Mark Eaton (extremely tall, extremely white) and Luc Longley (all three). I guess it's technically "analysis", but crap like this undoubtedly does more harm than good. People who read analysis like this are less well-informed about the NBA for having read it. Bad data can be a lot worse than no data.
 
 The site loves intra-racial comparisons, to the point that it almost seems like a running joke. 
 
