@@ -8,11 +8,13 @@ License: none (public domain)
 /* Modified by Tyler Carr */
 
 :root {
-    --main-bg-color: #1c2833;
+    --main-bg-color: #02070b;
     --code-bg-color: #17202a;
     --accent-color: #C7254E;
     --tab-bg-hover: var(--code-bg-color);
     --info-bg-color: var(--code-gb-color);
+    --key-color: #508fce;
+    --dark-grey: #1d3043;
 }
 
 
@@ -70,20 +72,20 @@ table {
 }
 
 body {
-    font-family: Georgia, serif;
+    font-family: Arimo, Georgia, serif;
     font-size: 16px;
     line-height: 1.5em;
 }
 
 header, #wrapper {
-    padding: 0 10px;
+    padding: 0 28px;
     max-width: 910px;
     margin: auto;
 }
 
 a {
     text-decoration: none;
-    color: #15A9DB;
+    color: var(--key-color);
 }
 
 ul {
@@ -150,11 +152,11 @@ thead {
 }
 
 .date {
-    color: #CCC;
+    color: var(--key-color);
     float: left;
     clear: both;
     width: 130px;
-    font-size: 1.5em;
+    font-size: 47px;
     line-height: 1em;
     margin: 0 20px 1em 0;
 }
@@ -186,7 +188,9 @@ thead {
 }
 
 .post {
-    margin: 0 0 4.5em 150px;
+    margin: 0 30px 30px 0px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid var(--key-color);
 }
 .post.archives {
     margin-bottom: 1.5em;
@@ -197,7 +201,7 @@ thead {
 }
 
 .page {
-    margin: 0 90px;
+    margin: 0 30px;
 }
 
 .highlight {
@@ -291,26 +295,33 @@ nav li {
 }
 nav a {
     display: block;
-    padding: 4.5em 10px 10px 10px;
+    padding: 30px 10px 10px 10px;
 }
 nav a:hover {
     background-color: var(--tab-bg-hover);
     color: var(--accent-color);
 }
 nav li.selected a {
-    background-color: #15A9DB;
+    background-color: var(--key-color);
     color: #FFF;
 }
 
-header .header_box {
-/*    padding-top: 4.5em; */
-    
-}
+
 .site_title {
     position: relative; 
-    bottom: 15px; 
-    color: #15A9DB
+    bottom: 5px; 
+    color: var(--key-color);
+    font-size: 60px;
+    border-bottom: 6px dotted;
+    font-weight: bold;
 }
+.site_subtitle {
+    font-size: 50px;
+    margin-left: 20px;
+    position: relative;
+    bottom: 5px;
+}
+
 header h1 {
     font-size: 1.5em;
     line-height: 1em;
@@ -330,7 +341,7 @@ header h2 {
     font-family: sans-serif;
     line-height: 2.5em;
     margin: 4.5em 0 3em;
-    background-color:  #2e4053;
+    background-color:  var(--dark-grey);
     border-radius: 5px;
 }
 .pages a.next_page {
@@ -339,7 +350,7 @@ header h2 {
     text-align: center;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    background-color: #EEE;
+    background-color: var(--dark-grey);
 }
 .pages a.prev_page {
     float: left;
@@ -347,14 +358,14 @@ header h2 {
     text-align: center;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
-    background-color: #EEE;
+    background-color: var(--dark-grey);
 }
 .pages a {
     color: inherit;
     border: none;
 }
 .pages a:hover {
-    background-color: #DDD;
+    background-color: var(--key-color);
 }
 .pages span {
     display: block;
@@ -369,14 +380,11 @@ code {
     border-top-right-radius: 4px;
     box-sizing: border-box;
     background-color: #17202a;
-    color: #C7254E;
+    color: var(--key-color);
     font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
     font-size: 12.6px;
     line-height: 18px;
-    padding-bottom: 2px;
-    padding-left: 0px;
-    padding-right: 4px;
-    padding-top: 2px;
+    padding: 2px;
 }
 
 footer {
@@ -385,7 +393,6 @@ footer {
     text-align: center;
     color: #BBB;
     margin: 3em 0;
-    border: 1px solid #EEE;
     border-radius: 5px;
 }
 footer p { margin: 0; }
@@ -404,14 +411,15 @@ footer p { margin: 0; }
 @media screen and (max-width: 800px), print {
     #wrapper {
         margin: 0;
-        padding: 1em;
+        padding: 28px;
     }
     .date {
         width: 100%;
         margin: 0 0 .5em 0;
     }
     .post {
-        margin: 0 0 4.5em 0;
+        margin: 0 0 17px 0;
+
     }
     .post pre,
     .post code {
@@ -422,6 +430,9 @@ footer p { margin: 0; }
     }
     nav ul {
         margin: 0 0 1em 0;
+    }
+    .site_subtitle {
+        font-size: 30px;
     }
 }
 @media print {
@@ -457,4 +468,12 @@ footer p { margin: 0; }
 }
 @page {
     margin: 1.5cm;
+}
+
+h2 {
+    font-size: 32px;
+}
+
+h3 {
+    font-size: 24px;
 }

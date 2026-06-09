@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <title>mathletix | articles tagged "Laravel"</title>
     <link rel="shortcut icon" type="image/png" href="/favicon.png">
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
@@ -12,20 +14,26 @@
     <meta name="generator" content="Pelican" />
     <meta name="description" content="" />
     <meta name="author" content="casey durfee" />
+
+    
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav style="overflow: hidden;">
             <ul>
-                <li class="ephemeral selected"><a href="/tag/laravel.html">Laravel</a></li>
-                <li><a href="/">Home</a></li>
-                <li><a href="/pages/aboutbest-of.html">About/Best Of</a></li>
+                    <li><a href="/">Home</a></li>
+                        <li><a href="/pages/aboutbest-of.html">About/Best Of</a></li>
             </ul>
         </nav>
         <div class="header_box" style="height: 50px">
-        <h1><a href="/">
-            <image src='' class="avatar" width="50px" /><span class="site_title">mathletix</span>
-            </a></h1></div>
+            <div class="h1">
+                <a href="/">
+                    <span class="site_title">mathletix</span>
+                        <span class="site_subtitle">&raquo; Laravel</span>
+                </a>
+            </div>
+        </div>
         </div>
     </header>
     <div id="wrapper">
@@ -86,8 +94,8 @@
 <p>The model tells us almost nothing about what a user record is or how it works. It doesn't tell us which properties exist and what their datatypes are. If you know what "Fillable" means to Laravel, you can tell that the user should be allowed to mass-update the name, email and password fields, but the rest of it is pretty useless as documentation of how the model actually works.</p>
 <p>You might notice <code>created_at</code> and <code>updated_at</code> are also datetime fields in the SQL, like <code>email_verified_at</code>. So why don't those properties need to be cast as well? Laravel tries to add those columns to <em>every.single.table</em> in the database unless you explicitly turn it off, and they are handled <em>automagically</em>. (Find someone who loves you as much as Laravel loves those auto-added timestamps.) </p>
 <p>Why not have the actual functions doing the casting referenced in the model rather than strings? PHP has first class functions; we don't need to use strings as the values in the array returned by <code>casts()</code>. I shouldn't really have to know what function <code>hashed</code> or <code>datetime</code> maps to, I should just be able to click on the function name to get to the definition.</p>
-<p>Neither the SQL nor the model class tell us if any validation is being done on the data, or where. Databases <em>can</em> do data validation using <code>CHECK</code> constraints, so in a more old-fashioned type of database, we might get that info from the SQL schema. It would be nice if ORMs set up <code>CHECK</code> constraints as a part of the table schema, but I've never seen one that does. It's a shame, because there's a pretty suprising bug here because I'm using SQLite for the dtabase. SQLite varchar fields are text fields by another name, which can be up to a billion characters long. You can specify a <code>VARCHAR(100)</code> or whatever, but the database doesn't enforce it. If we want to restrict a SQLite text field to always be some reasonable length, we <em>have</em> to use <code>CHECK</code> constraints.</p>
-<p>Do we really want to allow billion character long usernames (<em>tres commas</em>!), or is there something in the PHP code that limits their length? Can we trust that code always getss run?  Name, email and password are <code>not null</code> in the DB. Is something checking to see that's true before trying to write to the database, or is it relying on the database server to return an error if those columns are omitted? Shouldn't usernames and/or email addresses be unique? How is that enforced?</p>
+<p>Neither the SQL nor the model class tell us if any validation is being done on the data, or where. Databases <em>can</em> do data validation using <code>CHECK</code> constraints, so in a more old-fashioned type of database, we might get that info from the SQL schema. It would be nice if ORMs set up <code>CHECK</code> constraints as a part of the table schema, but I've never seen one that does. It's a shame, because there's a pretty suprising bug here because I'm using SQLite for the database. SQLite varchar fields are text fields by another name, which can be up to a billion characters long. You can specify a <code>VARCHAR(100)</code> or whatever, but the database doesn't enforce it. If we want to restrict a SQLite text field to always be some reasonable length, we <em>have</em> to use <code>CHECK</code> constraints.</p>
+<p>Do we really want to allow billion character long usernames (<em>tres commas</em>!), or is there something in the PHP code that limits their length? Can we trust that code always gets run?  Name, email and password are <code>not null</code> in the DB. Is something checking to see that's true before trying to write to the database, or is it relying on the database server to return an error if those columns are omitted? Shouldn't usernames and/or email addresses be unique? How is that enforced?</p>
 <p>These are pretty reasonable questions to ask, and most MVC frameworks will give you the answers just by looking at the model classes.  To answer those questions in Laravel, you have to look at everywhere in the code it writes to the database, and what bespoke set of validations are being used in each place. There's no reason to believe validation is being applied in a uniform fashion.</p>
 <p>For contrast, here's what part of a <a href="https://www.djangoproject.com/">Django</a> user model looks like:</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">User</span><span class="p">(</span><span class="n">AbstractUser</span><span class="p">):</span>
@@ -111,7 +119,7 @@
 </code></pre></div>
 
 <p>We can immediately tell what data types the fields are, which ones are required, and what validation is run on each field. The <code>username_validator</code> is supplied as the actual function, not some string that gets mapped to a function somewhere in the depths of the framework, so you can just click on it and be taken to the definition.</p>
-<p>We can get to the definition of <code>EmailField</code> in one click in an IDE, and see that it tries to validate the email address against the official RFC. We can also see that the labels and error messages will be internationalized by the <code>_()</code> function. Nice.</p>
+<p>We can get to the definition of <code>EmailField</code> in one click in an IDE, and see that it tries to validate the email address against the official RFC. We can also see that the labels and error messages will be translated by the <code>_()</code> function. Nice.</p>
 <p>Most of all, we can feel confident that these validators and constraints will be applied anywhere in the code that is using the User class. The validations are correctly encapsulated in the model.</p>
 <p>PHP isn't capable of as much Fancy Metaprogramming Magic as Python/Ruby, so the syntax can't be as elegant as Django's, but why can't we just declare the columns in the model class in Laravel? For instance, could we have a <code>public string $username</code> property on the class that the ORM fills in? <a href="https://www.yiiframework.com/doc/guide/2.0/en/structure-models#attributes">That's how Yii works</a>. <a href="https://symfony.com/doc/current/doctrine.html">Symfony, too</a>. It at least gives some sense of what the columns are on the database and how they map to PHP types, and it makes code completion work in the IDE.</p>
 <p>Unfortunately, if you try that in Laravel, you'll error about <code>Typed property $name must not be accessed before initialization</code>. You can't actually define the model in your model classes, because it interferes with Laravel's use of <a href="https://www.php.net/manual/en/language.oop5.magic.php">PHP's <code>__get()</code> and <code>__call()</code> <em>magic</em> methods</a>.</p>
@@ -130,22 +138,22 @@
 <span class="p">}</span>
 </code></pre></div>
 
-<p>As Lift's namespace clearly indicates, it's Just Some Wendell's experiment. But it's a pretty compelling proof of concept, at the very least -- whether you want to trust it in production or not is your call. The package has been around for three years, so there's some longevity. But it's puzzling that similar functionality isn't a core part of Laravel by now. </p>
-<p>There are a half dozen ways of doing every trivial thing in Laravel, but not even one way to do this super important thing? Along with the lack of Role-Based Access Control, it makes me wonder if the people setting the direction for Laravel know what really matters in the real world.</p>
+<p>As Laravel Lift's namespace clearly indicates, it's Just Some Wendell's experiment. But it's a pretty compelling proof of concept, at the very least -- whether you want to trust it in production or not is your call. The package has been around for three years, so there's some longevity. But it's puzzling that similar functionality isn't a core part of Laravel by now. </p>
+<p>There are a half dozen ways of doing every trivial thing in Laravel, but not even one way to do this super important thing? Along with the lack of Role-Based Access Control, it makes me wonder if the people setting the direction for Laravel know what matters in the real world.</p>
 <p>It's weird because Laravel, like everybody, is chasing the AI zeitgeist at this point. Type hinting is kind of having a moment these days, because it makes AI and humans using them better at making reliable stuff quickly. Isn't that more important than all the crap in Laravel's <a href="https://laravel.com/docs/13.x/ai-sdk#images">official AI SDK</a> that I have a hard time imagining anybody using?</p>
 <h3>Searching for a source of truth</h3>
 <p>If you can't declare the columns in the model file, where do you declare them in Laravel? The closest thing to a source of truth ends up being the migrations used to create/modify the tables used. Here's the migration to create the user table:</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 
 <span class="nx">Schema</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">();</span>
-        <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
-        <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">unique</span><span class="p">();</span>
-        <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">timestamp</span><span class="p">(</span><span class="s1">&#39;email_verified_at&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">nullable</span><span class="p">();</span>
-        <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">);</span>
-        <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">rememberToken</span><span class="p">();</span>
-        <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">timestamps</span><span class="p">();</span>
-    <span class="p">});</span>
+    <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">();</span>
+    <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
+    <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">unique</span><span class="p">();</span>
+    <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">timestamp</span><span class="p">(</span><span class="s1">&#39;email_verified_at&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">nullable</span><span class="p">();</span>
+    <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">);</span>
+    <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">rememberToken</span><span class="p">();</span>
+    <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">timestamps</span><span class="p">();</span>
+<span class="p">});</span>
 </code></pre></div>
 
 <p>That still doesn't give us the whole picture, though. For instance, there may be later migrations that alter the table by adding more columns, or changing the datatypes. The <code>$table-&gt;timestamps()</code> call is what adds both the <code>created_at</code> and <code>updated_at</code> columns to the database. So there isn't even a 1:1 correspondence between this file and the database schema produced.</p>
@@ -154,7 +162,7 @@
 <p>Validation rules are critical for ensuring that the data in the database is in a standard, predictable format. Validation isn't a separate concern from what the model does. It's integral to it. Weird data in the database always always always leads to weird bugs downstream. For more benign bugs, either somebody goes in and cleans the data up, or everybody has to remember that sometimes the <code>foo</code> field is a null and sometimes it's a blank string, and code around it till the end of time.</p>
 <p>Lack of validation can lead to security issues as well -- XSS, SQL Injection, and Remote Code Execution can all start with bad validation/sanitization/type checking on data written to the database. Like authorization, it's deceptively hard to do validation right, and kinda boring, but extremely important.</p>
 <p>So how does Laravel do validation? If you read the last post, it shouldn't surprise you to learn that there are a bunch of options, and <a href="https://laravel.com/docs/13.x/validation">the documentation</a> tells you to use whatever you feel like.</p>
-<p>The first recommended method is to do validation in the controller class where the data is being submitted to. An example directly from the documentation:</p>
+<p>The first recommended method is to do validation in the controller class where the data is being submitted. An example directly from the documentation:</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 
 <span class="k">public</span> <span class="k">function</span> <span class="nf">store</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span><span class="o">:</span> <span class="nx">RedirectResponse</span>
@@ -186,9 +194,10 @@
 
 <p>Even if the code had a giant SQL injection vulnerability with the limit/offset/order_by parameters, the request isn't going to get that far.</p>
 <p>There are other benefits. Because the inputs (and outputs) are well specified, fastAPI can generate an <a href="https://www.openapis.org/">OpenAPI</a> interface for free. That means a nice UI for testing API endpoints and auto-generation of API client libraries in any language you can think of, among other benefits. (It would be cool if it did GraphQL as well, but nothing's perfect.)</p>
+<p>While I think type-mania can go too far, user inputs should always be treated like it's nuclear waste, and handled with proper containment procedures.</p>
 <h3>Validation logic should be a part of the model</h3>
 <p>In Laravel-land, if there are multiple endpoints that write to the database, there's no guarantee they will all use the same validation rules.</p>
-<p>It might be nice if there was only ever one endpoint per data type, but that's not how it works in reality. There might be one endpoint used by the website, another used by the JSON API, and a 3rd used in a mobile app webview, a 4th one on some old promo page everyone forgot about, and a 5th one in an admin tool. And what about loading/syncing data from another datasource via a batch job? Shouldn't that get validated, too? Why is data validation so tightly coupled to the HTTP request/response cycle?</p>
+<p>It might be nice if there was only ever one endpoint per data type, but that's not how it works in reality. There might be one endpoint used by the website, another used by the JSON API, and a 3rd used in a mobile app webview, a 4th one on some old promo page everyone forgot about, and a 5th one in an admin tool. And what about loading/syncing data from another datasource via a batch job? Shouldn't that get validated, too? Why is data validation so tightly coupled to the HTTP request/response cycle and one particular endpoing?</p>
 <p>To the framework's credit, you can create an independent <code>Validator</code> object in Laravel that isn't tightly coupled to the HTTP request, but the documentation doesn't explain why you'd want to do that (which is always, IMO; the alternative is madness.)</p>
 <p>Instead, the official way to do more sophisticated data validation in Laravel is to create a custom HTTP request class called a <a href="https://laravel.com/docs/13.x/validation#form-request-validation">Form Request</a>. Now we're tightly coupling the validation rules not just to HTTP requests, but HTML forms and authorization rules as well. We're moving in the wrong direction! </p>
 <p>Form requests are just a way to move some model logic from the controller class (where it shouldn't be) to a different part of the controller layer (where it also shouldn't be). Keeping controllers "skinny" is one of Laravel's guiding principles, according to founder <a href="https://laraveldaily.com/post/taylor-otwell-thin-controllers-fat-models-approach">Taylor Ottwell</a>. But form requests are just hiding evidence of stuff that shouldn't be in the controller at all.</p>
@@ -341,10 +350,6 @@
 
             <div class="clear"></div>
             <footer>
-                <p>
-                <a href="https://github.com/tcarwash/blue-penguin-dark">Blue Penguin Dark</a> Theme
-                &middot;
-                Powered by <a href="http://getpelican.com">Pelican</a>
                 &middot;
                 <a href="/feeds/all.atom.xml" rel="alternate">Atom Feed</a>
             </footer>
