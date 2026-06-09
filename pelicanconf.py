@@ -40,4 +40,4 @@ STATIC_PATHS = ["img", "extra/CNAME"]
 EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
 ARTICLE_EXCLUDES = ["img"]
 PAGE_EXCLUDES = ["img"]
-THEME = "/Users/casey2/code/blue-penguin-dark"
+THEME = "/Users/casey2/code/curious_bird"
