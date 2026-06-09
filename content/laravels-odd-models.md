@@ -62,9 +62,9 @@ You might notice `created_at` and `updated_at` are also datetime fields in the S
 
 Why not have the actual functions doing the casting referenced in the model rather than strings? PHP has first class functions; we don't need to use strings as the values in the array returned by `casts()`. I shouldn't really have to know what function `hashed` or `datetime` maps to, I should just be able to click on the function name to get to the definition.
 
-Neither the SQL nor the model class tell us if any validation is being done on the data, or where. Databases *can* do data validation using `CHECK` constraints, so in a more old-fashioned type of database, we might get that info from the SQL schema. It would be nice if ORMs set up `CHECK` constraints as a part of the table schema, but I've never seen one that does. It's a shame, because there's a pretty suprising bug here because I'm using SQLite for the dtabase. SQLite varchar fields are text fields by another name, which can be up to a billion characters long. You can specify a `VARCHAR(100)` or whatever, but the database doesn't enforce it. If we want to restrict a SQLite text field to always be some reasonable length, we *have* to use `CHECK` constraints.
+Neither the SQL nor the model class tell us if any validation is being done on the data, or where. Databases *can* do data validation using `CHECK` constraints, so in a more old-fashioned type of database, we might get that info from the SQL schema. It would be nice if ORMs set up `CHECK` constraints as a part of the table schema, but I've never seen one that does. It's a shame, because there's a pretty suprising bug here because I'm using SQLite for the database. SQLite varchar fields are text fields by another name, which can be up to a billion characters long. You can specify a `VARCHAR(100)` or whatever, but the database doesn't enforce it. If we want to restrict a SQLite text field to always be some reasonable length, we *have* to use `CHECK` constraints.
 
-Do we really want to allow billion character long usernames (*tres commas*!), or is there something in the PHP code that limits their length? Can we trust that code always getss run?  Name, email and password are `not null` in the DB. Is something checking to see that's true before trying to write to the database, or is it relying on the database server to return an error if those columns are omitted? Shouldn't usernames and/or email addresses be unique? How is that enforced?
+Do we really want to allow billion character long usernames (*tres commas*!), or is there something in the PHP code that limits their length? Can we trust that code always gets run?  Name, email and password are `not null` in the DB. Is something checking to see that's true before trying to write to the database, or is it relying on the database server to return an error if those columns are omitted? Shouldn't usernames and/or email addresses be unique? How is that enforced?
 
 These are pretty reasonable questions to ask, and most MVC frameworks will give you the answers just by looking at the model classes.  To answer those questions in Laravel, you have to look at everywhere in the code it writes to the database, and what bespoke set of validations are being used in each place. There's no reason to believe validation is being applied in a uniform fashion.
 
@@ -93,7 +93,7 @@ class User(AbstractUser):
 
 We can immediately tell what data types the fields are, which ones are required, and what validation is run on each field. The `username_validator` is supplied as the actual function, not some string that gets mapped to a function somewhere in the depths of the framework, so you can just click on it and be taken to the definition.
 
-We can get to the definition of `EmailField` in one click in an IDE, and see that it tries to validate the email address against the official RFC. We can also see that the labels and error messages will be internationalized by the `_()` function. Nice.
+We can get to the definition of `EmailField` in one click in an IDE, and see that it tries to validate the email address against the official RFC. We can also see that the labels and error messages will be translated by the `_()` function. Nice.
 
 Most of all, we can feel confident that these validators and constraints will be applied anywhere in the code that is using the User class. The validations are correctly encapsulated in the model.
 
@@ -118,9 +118,9 @@ class User {
 }
 ```
 
-As Lift's namespace clearly indicates, it's Just Some Wendell's experiment. But it's a pretty compelling proof of concept, at the very least -- whether you want to trust it in production or not is your call. The package has been around for three years, so there's some longevity. But it's puzzling that similar functionality isn't a core part of Laravel by now. 
+As Laravel Lift's namespace clearly indicates, it's Just Some Wendell's experiment. But it's a pretty compelling proof of concept, at the very least -- whether you want to trust it in production or not is your call. The package has been around for three years, so there's some longevity. But it's puzzling that similar functionality isn't a core part of Laravel by now. 
 
-There are a half dozen ways of doing every trivial thing in Laravel, but not even one way to do this super important thing? Along with the lack of Role-Based Access Control, it makes me wonder if the people setting the direction for Laravel know what really matters in the real world.
+There are a half dozen ways of doing every trivial thing in Laravel, but not even one way to do this super important thing? Along with the lack of Role-Based Access Control, it makes me wonder if the people setting the direction for Laravel know what matters in the real world.
 
 It's weird because Laravel, like everybody, is chasing the AI zeitgeist at this point. Type hinting is kind of having a moment these days, because it makes AI and humans using them better at making reliable stuff quickly. Isn't that more important than all the crap in Laravel's [official AI SDK](https://laravel.com/docs/13.x/ai-sdk#images) that I have a hard time imagining anybody using?
 
@@ -131,14 +131,14 @@ If you can't declare the columns in the model file, where do you declare them in
 <?php
 
 Schema::create('users', function (Blueprint $table) {
-        $table->id();
-        $table->string('name');
-        $table->string('email')->unique();
-        $table->timestamp('email_verified_at')->nullable();
-        $table->string('password');
-        $table->rememberToken();
-        $table->timestamps();
-    });
+    $table->id();
+    $table->string('name');
+    $table->string('email')->unique();
+    $table->timestamp('email_verified_at')->nullable();
+    $table->string('password');
+    $table->rememberToken();
+    $table->timestamps();
+});
 ```
 
 That still doesn't give us the whole picture, though. For instance, there may be later migrations that alter the table by adding more columns, or changing the datatypes. The `$table->timestamps()` call is what adds both the `created_at` and `updated_at` columns to the database. So there isn't even a 1:1 correspondence between this file and the database schema produced.
@@ -152,7 +152,7 @@ Lack of validation can lead to security issues as well -- XSS, SQL Injection, an
 
 So how does Laravel do validation? If you read the last post, it shouldn't surprise you to learn that there are a bunch of options, and [the documentation](https://laravel.com/docs/13.x/validation) tells you to use whatever you feel like.
 
-The first recommended method is to do validation in the controller class where the data is being submitted to. An example directly from the documentation:
+The first recommended method is to do validation in the controller class where the data is being submitted. An example directly from the documentation:
 
 ```php
 <?php
@@ -187,14 +187,17 @@ class FilterParams(BaseModel):
 async def read_items(filter_query: Annotated[FilterParams, Query()]):
     # do cool stuff here using our well validated filter_query object
 ```
+
 Even if the code had a giant SQL injection vulnerability with the limit/offset/order_by parameters, the request isn't going to get that far.
 
 There are other benefits. Because the inputs (and outputs) are well specified, fastAPI can generate an [OpenAPI](https://www.openapis.org/) interface for free. That means a nice UI for testing API endpoints and auto-generation of API client libraries in any language you can think of, among other benefits. (It would be cool if it did GraphQL as well, but nothing's perfect.)
 
+While I think type-mania can go too far, user inputs should always be treated like it's nuclear waste, and handled with proper containment procedures.
+
 ### Validation logic should be a part of the model
 In Laravel-land, if there are multiple endpoints that write to the database, there's no guarantee they will all use the same validation rules.
 
-It might be nice if there was only ever one endpoint per data type, but that's not how it works in reality. There might be one endpoint used by the website, another used by the JSON API, and a 3rd used in a mobile app webview, a 4th one on some old promo page everyone forgot about, and a 5th one in an admin tool. And what about loading/syncing data from another datasource via a batch job? Shouldn't that get validated, too? Why is data validation so tightly coupled to the HTTP request/response cycle?
+It might be nice if there was only ever one endpoint per data type, but that's not how it works in reality. There might be one endpoint used by the website, another used by the JSON API, and a 3rd used in a mobile app webview, a 4th one on some old promo page everyone forgot about, and a 5th one in an admin tool. And what about loading/syncing data from another datasource via a batch job? Shouldn't that get validated, too? Why is data validation so tightly coupled to the HTTP request/response cycle and one particular endpoing?
 
 To the framework's credit, you can create an independent `Validator` object in Laravel that isn't tightly coupled to the HTTP request, but the documentation doesn't explain why you'd want to do that (which is always, IMO; the alternative is madness.)
 
