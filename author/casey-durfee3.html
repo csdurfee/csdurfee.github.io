@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="english">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>mathletix | Articles by casey durfee</title>
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="mathletix Full Atom Feed" />
+    <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css" />
+    <meta name="generator" content="Pelican" />
+    <meta name="description" content="" />
+    <meta name="author" content="casey durfee" />
+</head>
+<body>
+    <header>
+        <nav style="overflow: hidden;">
+            <ul>
+
+                <li class="ephemeral selected"><a href="/author/casey-durfee3.html">casey durfee</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/pages/aboutbest-of.html">About/Best Of</a></li>
+            </ul>
+        </nav>
+        <div class="header_box" style="height: 50px">
+        <h1><a href="/">
+            <image src='' class="avatar" width="50px" /><span class="site_title">mathletix</span>
+            </a></h1></div>
+        </div>
+    </header>
+    <div id="wrapper">
+        <div id="content">            <h4 class="date">Sep 23, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/primes-and-self-similarity.html" rel="bookmark" title="Permanent Link to &quot;Primes and self-similarity&quot;">Primes and self-similarity</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank"><img alt="John Hollenbeck &amp; NDR Big Band, &quot;Entitlement&quot;" src="https://img.youtube.com/vi/ncmIlVdL8po/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank">John Hollenbeck &amp; NDR Big Band, "Entitlement"</a></p>
+<p>I've been messing around with prime numbers, because there are several places where they intersect with both <a href="/do-you-wanna-win.html">random walks</a> and the <a href="/riding-the-waves.html">arcsine distribution</a>.  It's going to take a while to finally tie that bow, though.</p>
+<p>So it's a quick one this week: a kinda-cool story, and a kinda-cool graph.</p>
+<h3>Random Primes</h3>
+<p>The prime numbers are simple to find, but not easy. They're not randomly distributed, but it's hard to come up with easy ways to find them, and they act like random numbers in certain ways.  Why is 47 prime and 57 non-prime? You can't really tell just by looking.</p>
+<p>To find the primes, we can write down every number from, say, 1 to 1000. Then we cross out 2, and every number divisible by 2 (4, 6, 8, etc.). Repeat that with 3 (6, 9, 12, etc.), and so on. The numbers left behind are prime. This is the famous <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes</a> -- it's a tedious way to find prime numbers, but it's by far the easiest to understand.</p>
+<p>The sieve gave mathematician David Hawkins an idea [1]: what about doing that same process, but randomly?  For each number, flip a coin, if it comes up heads, cross the number out. That will eliminate half of the numbers on the first pass. Take the lowest number <code>k</code> that remains and eliminate each of the remaining numbers with probability <code>1/k</code>. Say it's 4. For each remaining number, we flip a 4 sided die and if it comes up 4, we cross it out. </p>
+<p>If we go through all the numbers, what's left over won't look like real prime numbers -- there should be as many even fake primes as odd ones, for starters. But the remaining numbers will be as sparse as the actual prime numbers. As the sample size N heads to infinity, the chances of a random number being a real prime, and being a fake prime, are the same -- <code>1/log(N)</code>.</p>
+<p>This is a brilliant way to figure out what we know about prime numbers are due to their density, and what are due to other, seemingly more magical (but still non-random) factors. </p>
+<p>Several characteristics of real primes apply to the random primes. And tantalizingly, things that can't be proven about real primes can be proven about the fake ones. It's been conjectured that there are infinitely many pairs of twin primes -- primes that are separated by 2 numbers. An example would be 5 and 7, or 11 and 13. It makes sense for a lot of reasons that there should be an infinite number of twin primes.  But mathematicians have been trying to prove it for over 150 years, without success.</p>
+<p>Random primes can be odd or even, so the analogy to twin primes would be two random primes that are only one apart, say 5 and 6. It's relatively simple to prove that there are an infinite number of random twin primes [2]. That could easily be fool's gold -- treating the primes like they're randomly distributed gives mathematicians a whole toolbox of statistical techniques to use on them, but they're not random, or arbitrary. They're perfectly logical, and yet still inscrutible, hidden in plain sight.</p>
+<h3>Largest prime factors of composite numbers</h3>
+<p>I was intrigued by the largest prime factor of composite (non-prime) numbers. Are there any patterns?</p>
+<p>As background, every number can be split into a unique set of prime factors. For instance, the number 24 can be factored into <code>24 = 8 * 3 = 2 * 2 * 2 * 3</code>. Let's say we knock off the biggest prime factor. We get: <code>2 * 2 * 2 = 8</code>. The raw numbers rapidly get too big, so I looked at the log of the ratio:</p>
+<p><img alt="/img/logratios100k.png" src="/img/logratios100k.png"></p>
+<p>The red curve is the distribution of the first 100,000 composite numbers, the orange is the next 100,000 composite numbers, and so on. </p>
+<p>What if we bump up an order of magnitude? This time, the red curve is the first million composite numbers, the orange is the next million, and so on. Here's what that looks like:</p>
+<p><img alt="/img/logratios1M.png" src="/img/logratios1M.png"></p>
+<p>Pretty much the same graph, right? The X axis is different, but the shapes are very similar to the first one. </p>
+<p>Let's go another order of magnitude up. The first 10,000,000 versus the next 10,000,000, and so on?</p>
+<p><img alt="/img/logratios10M.png" src="/img/logratios10M.png"></p>
+<p>We get the same basic shapes again! The self-similarity is kinda cool. Is it possible to come up with some function for the distribution for this quantity? You tell me.</p>
+<h3>The perils of interpolation</h3>
+<p>These graphs are flawed. I'm generating these graphs using Kernel Density Estimation, a technique for visualizing the density of data. Histograms, another common way, can be misleading. The choice of bin size can radically alter what the histogram looks like.</p>
+<p>But KDE can also be misleading. These graphs make it look like the curve starts at zero.  That's not true. The minimum possible value happens when a number is of the form <code>2*p</code>, where p is a prime -- the value will be <code>log(2)</code>, about .693.</p>
+<p>This data is actually way <em>chunkier</em> than KDE is treating it.  Every point of data is the log of a whole number. So there aren't that many unique values. For instance, between 0 and 1 on the X axis, there's only one possible value -- <code>log(2)</code>. Between 1 and 3, there are only 18 possible values, <code>log(2)</code> thru <code>log(19)</code> -- those being the only integers with a <code>log</code> less than 3 and greater than 1.</p>
+<p>This makes it hard to visualize the data accurately. There are too many possible values to display each one individually, but not enough for KDE's smoothing to be appropriate.</p>
+<p>The <em>kernel</em> in Kernel Density Estimation is the algorithm used to smooth the data --  it's basically a moving average that assumes something about the distribution of the data. People usually use the Gaussian kernel, which treats the data like a normal distribution -- smooth and bell curvy. A better choice for chunky data is the <em>tophat</em> kernel, which treats the space between points like a uniform distribution -- in other words, a flat line. If the sparseness of the data on the X axis were due to a small sample size, the tophat kernel would display plateaus that aren't in the real data. But here, I calculated data for the first 100 Million numbers, so there's no lack of data. The sparseness of the data is by construction. <code>log(2)</code> will be the only value between 0 and 1, no matter how many numbers we go up to. So the left side of the graph <em>should</em> look fairly chunky.</p>
+<p>The tophat kernel does a much better job of conveying the non-smoothness of the distribution:</p>
+<p><img alt="/img/tophat.png" src="/img/tophat.png"></p>
+<h3>References</h3>
+<p>[1] https://chance.dartmouth.edu/chance_news/recent_news/chance_primes_chapter2.html</p>
+<p>[2] for sufficiently large values of <em>simple</em></p>
+<p>[3] https://scikit-learn.org/stable/auto_examples/neighbors/plot_kde_1d.html</p>
+<p>[4] https://en.wikipedia.org/wiki/Kernel_density_estimation</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/primes-and-self-similarity.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/math.html" rel="tag">math</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/number-theory.html" class="tags">number theory</a>
+                    &nbsp;<a href="/tag/machine-learning.html" class="tags">machine learning</a>
+                    &nbsp;<a href="/tag/some-educational-value.html" class="tags">some educational value</a>
+                </div>
+            </article>            <h4 class="date">Sep 10, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/one-in-e.html" rel="bookmark" title="Permanent Link to &quot;One in e&quot;">One in e</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank"><img alt="Klonhertz, &quot;Three Girl Rhumba&quot;" src="https://img.youtube.com/vi/16At3u6Nz0Y/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank">Klonhertz, "Three Girl Rhumba"</a></p>
+<p>Notebook available <a href="https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/632%20selection.ipynb">here</a></p>
+<h3>Think of a number</h3>
+<p>Pick a number between 1-100.</p>
+<p>Say I write down the numbers from 1-100 on pieces of paper and put them in a big bag, and randomly select from them. After every selection, I put the paper back in the bag, so the same number can get picked more than once.  If I do that 100 times, what is the chance of your number being chosen?</p>
+<p>The math isn't too tricky. It's often easier to calculate the chances of a thing not happening, then subtract that from 1, to get the chances of the thing happening. There's a 99/100 chance your number doesn't get picked each time. So the probability of never getting selected is $(99/100)^{100} = .366$. Subtract that from one, and there's a 63.4% chance your number will be chosen. Alternately, we'd expect to get 634 unique numbers in 1000 selections.</p>
+<p>When I start picking numbers, there's a low chance of getting a duplicate, but that increases as I go along. On my second pick, there's only a 1/100 chance of getting a duplicate. But if I'm near the end and have gotten 60 uniques so far, there's a 60/100 chance.</p>
+<p>It's kind of a self-correcting process. Every time I pick a unique number, it increases the odds of getting a duplicate on the next pick. Each pick is independent, but the likelihood of getting a duplicate is not.</p>
+<p>I could choose the numbers by flipping a biased coin that comes up heads 63.4% of the time for each one instead. I will get the same number of values on average, and they will be randomly chosen, but the count of values will be much more variable:</p>
+<p><img alt="/img/distinct-binomial.png" src="/img/distinct-binomial.png"></p>
+<p>Of course, if the goal is to select exactly 63 items out of 100, the best way would be to randomly select 63 without replacement so there is no variation in the number of items selected.</p>
+<h3>A number's a number</h3>
+<p>Instead of selecting 100 times from 100 numbers, what if we selected a bajillion times from a bajillion numbers? To put it in math terms, what is $\lim\limits_{n\to\infty} (\frac{n-1}{n})^{n}$ ?</p>
+<p>It turns out this is equal to $\frac{1}{e}$ ! Yeah, e! Your old buddy from calculus class. You know, the $e^{i\pi}$ guy?</p>
+<p>As n goes to infinity, the probability of a number being selected is $1-\frac{1}{e} = .632$. This leads to a technique called bootstrapping, or ".632 selection" in machine learning (back to that in a minute).</p>
+<h3>Don't think of an answer</h3>
+<p>What are the chances that a number gets selected exactly once? Turns out, it's $\frac{1}{e}$, same as the chances of not getting selected! This was surprising enough to me to bother to work out the proof, given at the end.</p>
+<p>That means the chances of a number getting selected more than once is $1 - \frac{2}{e}$. </p>
+<p>The breakdown:</p>
+<ul>
+<li>1/e (36.8%) of numbers don't get selected</li>
+<li>1/e (36.8%) get selected exactly once</li>
+<li>1-2/e (26.4%) get selected 2+ times</li>
+</ul>
+<p>As before, the variance in number of items picked 2+ times is much lower than flipping a coin that comes up heads 26.4% of the time:</p>
+<p><img alt="/img/more-than-once.png" src="/img/more-than-once.png"></p>
+<h3>Derangements</h3>
+<p>Say I'm handing out coats randomly after a party. What are the chances that nobody gets their own coat back? </p>
+<p>This is called a derangement, and the probability is also 1/e. An almost correct way to think about this is the chance of each person not getting their own coat (or each coat not getting their own person, depending on your perspective) is $\frac{(x-1)}{x}$ and there are $x$ coats, so the chances of a derangement are $\frac{x-1}{x}^{x}$.</p>
+<p>This is wrong because each round isn't independent. In the first case, we were doing selection with replacement, so a number being picked one round doesn't affect its probability of being picked next round.  That's not the case here. Say we've got the numbers 1 thru 4. To make a derangement, the first selection can be 2, 3 or 4. The second selection can be 1, 3 or 4. But 3 or 4 might have been picked in the first selection and can't be chosen again. 2/3rds of the time, there will only be two options for the second selection, not three.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Rencontres_numbers">long way 'round the mountain</a> involves introducing a new mathematical function called the subfactorial, denoted as $!x$, which is equal to the integer closest to $\frac{x!}{e}$. $e$ gets in there because in the course of counting the number of possible derangements, a series is produced that converges to $1/e$.</p>
+<p>The number of derangements for a set of size x is $!x$ and the number of permutations is $x!$, so the probability of a derangement as x gets big is $\frac{!x}{x!} = \frac{1}{e}$</p>
+<p>What about the chances of only one person getting their coat back? It's also $\frac{1}{e}$, just like the chances of a number getting selected exactly once when drawing numbers with replacement.  The number of fixed points -- number of people who get their own coat back -- follows a Poisson distribution with mean 1.</p>
+<p>The second process seems very different from the first one. It is selection with replacement versus without replacement. But $e$ is sort of the horizon line of mathematics -- a lot of things tend towards it (or its inverse) in the distance.</p>
+<h3>Bootstrapping</h3>
+<p>Say we're working on a typical statistics/machine learning problem. We're given some training data where we already know the right answer, and we're trying to predict for future results. There are a ton of ways we could build a model. Which model will do the best on the unknown data, and how variable might the accuracy be? </p>
+<p>Bootstrapping is a way to answer those questions. A good way to estimate how accurate a model will be in the future is to train it over and over with different random subsets of the training data, and see how accurate the model is on the data that was held out. That will give a range of accuracy scores which can be used to estimate how well the model will be on new inputs, where we don't know the answers ahead of time. If the model we're building has a small set of parameters we're fitting (like the coefficients in a linear regression), we can also estimate a range of plausible values for those parameters. If that range is really wide, it indicates a certain parameter isn't that important to the model, because it doesn't matter if it's big or small.</p>
+<p>Bootstrapping is a way of answering those questions, using the process described before -- if we have x datapoints, pick x numbers without replacement x times. The ones that get selected at least once are used to train the models, and the ones that don't get selected are used to generate an estimate of accuracy on unseen data. We can do that over and over again and get different splits every time. </p>
+<p>It's a fine way to split up the training data and the validation data to generate a range of plausible accuracy scores, but I couldn't find a good reason other than tradition for doing it that way. The 63.2/36.8 split isn't some magical value. Instead of having the numbers that weren't picked be the holdout group, we could instead leave out the numbers that were only picked once (also 1/e of the numbers), and train on the ones not selected or selected more than once. But picking 63% of values (or some other percentage) without replacement is the best way to do it, in my opinion. </p>
+<p>The <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">original paper</a> doesn't give any statistical insight into why the choice was made, but a remark at the end says, "it is remarkably easy to implement on the computer", and notes the $4 cost of running the experiments on Stanford's <a href="https://www.ibm.com/history/system-370">IBM 370/168 mainframe</a>. Maybe it's just the engineer in me, but it seems like a goofy way to do things, unless you actually want a variable number of items selected each run.</p>
+<p>In the notebook, I showed that bootstrapping is about 40% slower than selection without replacement when using numpy's <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html">choice()</a> function. However, the cost of selecting which items to use for training vs. testing should be insignificant compared to the cost of actually training the models using that train/test split.</p>
+<h3>A chance encounter</h3>
+<p>A quick proof of the chances of being selected exactly once.</p>
+<p>Doing x selections with replacement, the chance of a number being chosen as the very first selection (and no other times) is 
+$\frac{1}{x} * \frac{x-1}{x}^{x-1}$</p>
+<p>There are x possible positions for a number to be selected exactly once. Multiply the above by x, which cancels out 1/x. So the chances of a number being selected exactly once at any position is $(\frac{x-1}{x})^{x-1}$.</p>
+<p>Let's try to find a number $q$ so that $\lim\limits_{x\to\infty} (\frac{x-1}{x})^{x-1} = e^{q}$.</p>
+<p>Taking the log of both sides:<br>
+$q = \lim\limits_{x\to\infty} (x-1) * log(\frac{x-1}{x}) = \lim\limits_{x\to\infty} \frac{log(\frac{x-1}{x})}{1/(x-1)}$</p>
+<p>Let 
+$f(x) = log(\frac{x-1}{x})$
+and 
+$g(x) = \frac{1}{x-1}$</p>
+<p>By L'Hopital's rule, $\lim\limits_{x\to\infty} \frac{f(x)}{g(x)} = \lim\limits_{x\to\infty}\frac{f'(x)}{g'(x)}$</p>
+<p>The derivative of a log of a function is the derivative of the function divided by the function itself, so:</p>
+<p>$f'(x) = \frac{d}{dx} log(\frac{x-1}{x}) = \frac{d}{dx} log(1 - \frac{1}{x}) = \frac{\frac{d}{dx}(1-\frac{1}{x})}{1-\frac{1}{x}} =\frac{\frac{1}{x^{2}}}{{1-\frac{1}{x}}} = \frac{1}{x^{2}-x} = \frac{1}{x(x-1)}$</p>
+<p>and</p>
+<p>$g'(x) = \frac{-1}{(x-1)^{2}}$</p>
+<p>Canceling out (x-1) from both, $\frac{f'(x)}{g'(x)} = \frac{1}{x}  * \frac{x-1}{-1} = -1 * \frac{x-1}{x}$.</p>
+<p>So $q = \lim\limits_{x\to\infty} -1 * \frac{x-1}{x} = -1$</p>
+<p>At the limit, the probability of being selected exactly once is $e^{-1} = \frac{1}{e}$</p>
+<h3>References/Further Reading</h3>
+<p><a href="https://oeis.org/A068985">https://oeis.org/A068985</a></p>
+<p><a href="https://mathworld.wolfram.com/Derangement.html">https://mathworld.wolfram.com/Derangement.html</a></p>
+<p>Great explanation of how to calculate derangements using the inclusion-exclusion principle: <a href="https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/">https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/</a></p>
+<p>The bible of machine learning introduces bootstrapping, but no talk of why that selection process. <a href="https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf">https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf</a></p>
+<p>The original bootstrap paper: <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf</a></p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/one-in-e.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/statistics.html" rel="tag">statistics</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/machine-learning.html" class="tags">machine learning</a>
+                    &nbsp;<a href="/tag/some-educational-value.html" class="tags">some educational value</a>
+                </div>
+            </article>            <h4 class="date">Aug 08, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/do-you-wanna-win.html" rel="bookmark" title="Permanent Link to &quot;Do you wanna win?&quot;">Do you wanna win?</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=5ZXonXfHP2U" target="_blank"><img alt="The Impressions, &quot;Do You Wanna Win?&quot;" src="https://img.youtube.com/vi/5ZXonXfHP2U/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=5ZXonXfHP2U" target="_blank">The Impressions, "Do You Wanna Win?"</a></p>
+<p>(This is an excerpt from a larger project about sports gambling. Code used, and early drafts of some of the chapters can be found at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.)</p>
+<p>I'm going to return to the subject of sports betting this week. Let's start with something easy. How do you avoid going broke betting on sports? That's easy. Reduce your bet size to zero. Scared money don't lose none.</p>
+<p>As long as there is randomness, there will be outliers and unexpected results. It is impossible to escape randomness in sports betting. Any time you decide to bet, you enter the kingdom of randomness and have to abide by its laws. It doesn't matter whether you have an advantage over the house (unless the advantage is truly massive). Nothing is guaranteed.</p>
+<p>This is a pretty hard thing for us to know how to deal with, when our brains are pattern-finding machines. Our brains will find patterns to give us a sense of control.</p>
+<h3>Notes</h3>
+<p>I talk about "win rate" a bunch below. That means the percent of the time a gambler can win bets at even odds (such as a standard spread bet on the NBA or NFL.)</p>
+<p>The random walks shown below are a little different from a standard one, because I'm simulating the vig. The walker goes 1 block north when the coin comes up heads (or they win the bet), and 1.1 blocks south when the coin comes up tails (or they lose the bet.)</p>
+<h2>In the marches of madness</h2>
+<p>The NCAA holds the March Madness tournament every year to determine who the best college basketball team is. It's a single elimination tournament of 64 teams, arranged into a big bracket.</p>
+<p>Say we do a March Madness style bracket with coin flippers instead of basketball teams. We randomly assign them places in the bracket. For each matchup, the coin flipper at the top of the matchup flips a coin. If they get heads, they survive and advance. If they get tails, they lose.</p>
+<p>Somebody's going to go 6-0 and win that tournament.</p>
+<p>Now imagine we expanded that to every single person on the planet. Every single person gets matched up into a 64 person bracket, then each of those winners get added to another 64 team bracket, and so on. </p>
+<p>Eventually, someone has to emerge the victor with a 32-0 record or something -- the greatest coin flipper in the world. Right?</p>
+<h2>Random walks</h2>
+<p>Imagine going on a walk. Every time you get to an intersection, you flip a coin. If it's heads, you go one block north and one block east. If it's tails, you go one block south and one block east. This is called a random walk. It's a bit like a gambler's profits or losses plotted on a graph as a function of time.</p>
+<p>I think there's a huge value in knowing what random walks look like. Do they remind you of anything?</p>
+<p><img alt="/img/rw0.5.png" src="/img/rw0.5.png"></p>
+<p>Touts are people who sell recommendations about which bets to take. Pay $30 and they'll tell you which side to bet on the big game tonight. (I have a whole section about touts in the book.) The best tout I could find has had pretty steady success for nearly 20 years, with a win rate of 54.1% against the standard vig.  That's statistically significant, but it's not enough to guarantee success moving forwards. Even if they continue to place bets that should win 54.1% of the time -- they're flipping a slightly biased coin -- that doesn't mean they'll make money on those bets. Let's look at some random walks at 54.1% win rate:</p>
+<p><img alt="/img/rw0.541.png" src="/img/rw0.541.png"></p>
+<p>Three of the random walks ended up around 50 units after 1000 bets, which is pretty good. Two of them made a tiny bit of money. The other four lost money. This is a small sample size, but a 44% chance of losing money after paying for 1,000 picks at $30 a pop isn't great. (More info on the economics of touts in the book.)</p>
+<p>The touts I looked at generally don't sell picks for every single game. So with 1200 games in an NBA season, this could be several years' worth of results.</p>
+<p>Imagine all of these as 9 different touts, with the exact same level of skill at picking games. But some of them look like geniuses, and some look like bozos. There would probably be some selection bias. The ones with the bad records would drop out -- who's buying their picks if they're losing money?  And the ones who did better than their true skill level of 54.1% would be more likely to stick with it. Yet all these random walks were generated with the same 54.1% win rate.</p>
+<p>If you bought 1,000 picks from this tout, you don't get to choose which of the $2^{1000} = (2^{10})^{100} \approx 10^{300}$ possible random walks you will actually get. If each bet has a 54.1% chance of winning, there's no guarantee you will have exactly 541 wins and 459 losses at the end of 1000 bets. </p>
+<p>Here's what someone who is right 60% of the time looks like. </p>
+<p><img alt="/img/rw0.6.png" src="/img/rw0.6.png"></p>
+<p>Success is pretty boring.</p>
+<p>I've always said it's much harder to learn from success than from failure. At a 60% win rate, none of them really have long cold streaks, just small breaks between hot streaks. It wouldn't be interesting to tell stories about those graphs. There's nothing to learn, really.</p>
+<p>I don't think it's possible to win 60% against the spread, based on what are called push charts, discussed in the book.</p>
+<p>The graphs at the 54.1% success rate appear a lot more human. They have hot and cold streaks, swoons, periods where they seem stuck in a range of values. Some of them <em>scuffled the whole time</em>, a couple <em>finally got locked in near the end</em>, a couple were <em>consistently good</em>. Some had good years, some had bad years. Even though they are randomly generated, they look like they have more to teach us, like they offer more opportunities to tell stories. But they all have the exact same win rate, or level of skill at handicapping.</p>
+<p>No outcome is guaranteed, but the higher the win rate, the more consistently the graph is going to go up and to the right at a steady pace. </p>
+<p>Finally, here are some walks at 52.4% win rate, the break-even point. Most results end up close to zero after 1000 bets, but there is always a possibility of an extended run towards the positive or negative side -- it happened 4/9 times in this sample:</p>
+<p><img alt="/img/rw0.524.png" src="/img/rw0.524.png"></p>
+<h3>The Axe Forgets, The Tree Remembers</h3>
+<p>If those 9 graphs were stock prices, which one would you consider the best investment? </p>
+<p>Well, we know they're equally bad investments. They're winning just enough to break even, but not make profits.</p>
+<p>They all have the same Expected Value moving forwards. Previous results are meaningless and have no bearing on whether the next step will be up or down. Every step is the start of an entirely new random walk. The coin doesn't remember what has happened in the past. We do.</p>
+<p>This is what's known in math as a <a href="https://en.wikipedia.org/wiki/Martingale_(probability_theory)">Martingale</a>, named after a betting system that was popular in France hundreds of years ago. (I previously talked about Martingales in the series on the hot hand.)</p>
+<p>The basic idea behind all these betting systems is to <em>chase</em> losses by betting more when you're losing. Hopefully it's obvious that these chase systems are crazy, though formally proving it led to a lot of interesting math.</p>
+<h3>Fallacy and ruin</h3>
+<p>Even though chase systems are irrational, they've persisted through the centuries. Human beings are wired to be semi-rational -- we use previous data to try and predict the future, but we use it even when the data was randomly generated, and even when we don't have a significant amount of data. We need coherent stories to tell about why things happened. There is no rational reason to believe in a chase system, but I think there are semi-rational reasons to fall prey to <a href="https://en.wikipedia.org/wiki/Gambler%27s_fallacy">the gambler's fallacy</a>. </p>
+<p>I hope these random walks show that having a modest, plausible advantage over the house isn't a guarantee of success, even over a really long timespan. Positive Expected Value is necessary, but not sufficient, for making money long term.</p>
+<p>The vast majority of gamblers bet with negative expected value due to the vig, and possibly biases in the lines against <em>public teams</em>, as we saw in a previous installment. If each bet the average gambler makes has a negative expected value, they can't fix that by betting MORE.  </p>
+<p>"If I keep doubling down, eventually I'll win it all back." Maybe if you have infinite capital and unlimited time. Otherwise the <a href="https://en.wikipedia.org/wiki/Gambler%27s_ruin">Gambler's Ruin</a> is certain. The market can stay liquid longer than you can stay irrational.</p>
+<h2>Maximizing profits: the Kelly criterion</h2>
+<p>Let's say a bettor really does have an edge over the house -- they can beat the spreads on NBA basketball 56% of the time.</p>
+<p>Even with that advantage, it's easy to go broke betting too much at once. Suppose they bet 25% of their bankroll on each bet.  What happens after 200 bets?  200 bets is not a lot, roughly 1 month of NBA games if they bet on every game.</p>
+<p>Once in a blue moon they end up a big winner, but 53% of the time the gambler is left with less than 5% of their bankroll after 200 bets even though they have a pretty healthy advantage over the house. So it's still a game of chance rather than skill, even though it would require a lot of mental labor to make the picks, and time to actually bet the picks. The mean rate of return is quite impressive (turning $100 into $4,650), but the median result is bankruptcy (turning $100 into $3).</p>
+<p>Intuitively, there has to be some connection between the betting advantage and the optimal amount to risk on each bet. If a gambler only has a tiny advantage, they should only be making tiny bets as a percentage of their total bankroll. The better they are, the more they can risk. And if they have no advantage, they shouldn't bet real money at all.</p>
+<p>That intuition is correct. The Kelly criterion gives a formula for the exact percent of the bankroll to risk on each bet in order to maximize Expected Value, given a certain level of advantage. <a href="https://en.wikipedia.org/wiki/Kelly_criterion">https://en.wikipedia.org/wiki/Kelly_criterion</a></p>
+<p>In this case, the Kelly criterion says to bet 7.6% of the total bankroll on each bet.  I did 100,000 simulations of a sequence of 200 bets following the Kelly criterion. The gambler only went broke around one time in 1,000, which is much better. The median result was turning $100 into $168, which is pretty good. However, the gambler still lost money 31% of the time.</p>
+<p>This is just one month of betting, assuming the gambler bets on every NBA game. Losing money 31% of the time seems pretty high for what's supposed to be the optimal way to bet.  </p>
+<p>How about a longer period of time? I simulated 1,000 bets this time, nearly a whole season of the NBA. The median outcome is turning $100 into $1356, which is a sweet rate of return. But the chances of going broke actually increased! The player will go broke 1.4% of the time, about 11x more often on 1000 bets than 200, which seems unfair, but the Kelly criterion doesn't make any guarantees about not going broke. It just offers the way to optimize Expected Value if the gambler knows the exact advantage they have over the house.</p>
+<h3>Partial Kelly Betting</h3>
+<p>Kelly Betting is the optimal way to maximize profits, but what about lower stakes? The real power of Kelly betting is its compounding nature -- as the bankroll gets bigger or smaller, the bet size scales up or down as well. It also corresponds to our incorrect intuitive understanding of randomness -- it makes sense someone should bet smaller amounts when they're on a <em>cold streak</em>, and larger amounts when they're on a <em>hot streak</em>. </p>
+<p>What if the gambler only bets 2% of their bankroll instead of the 7.6% recommended by the Kelly criterion? They don't go broke a single time in 100,000 simulations of 1,000 bets.  The mean rate of return is 4.6x and the median is 3.7x. That's a pretty nice return on investment, relative to the risk. The gambler still lost money 2.8% of the time, though. Being conservative, betting a lot of games at positive expected value, and betting the right way greatly increase the chances of success, but nothing can eliminate the possibility of failure.</p>
+<p>Imagine doing 1000 bets at 56% win percentage and a conservative bet size, and still losing money. Wild, isn't it? If you take one thing away from this article, it should be:</p>
+<h1>Failure is always an option.</h1>
+<h3>Betting a constant amount</h3>
+<p>You wouldn't have that problem with betting a constant amount, right? Say a gambler has a bankroll of $100 and bets to win $20 on each game. 1000 games, 56 win %.</p>
+<p>This Expected Value of playing this way doesn't have any randomness in it. It's just a simple algebra problem. According to EV, they should end up with $252 at the end of the season, for a profit of $152. Nice. But as I've mentioned before, EV says nothing about the range of possible outcomes.</p>
+<p>If I actually simulate it, a pretty wide range of outcomes are possible. 99% of the time, the gambler makes money, but 6 times out of 100,000, they lose everything and more. (6 in 100,000 is about the same odds as winning a 14 leg parlay.)</p>
+<p>With betting a fixed size, the rate of return is lower and the risk of going broke doesn't go away. So it's sub-optimal compared to Kelly-style betting with a very small percentage of the total bankroll.</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/do-you-wanna-win.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
+                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
+                </div>
+            </article>            <h4 class="date">Jul 31, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/harmonics.html" rel="bookmark" title="Permanent Link to &quot;Harmonics&quot;">Harmonics</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=5Ocq8UlLuuw" target="_blank"><img alt="Donna Summer and Giorgio Moroder, &quot;I Feel Love&quot; (Patrick Cowley Remix)" src="https://img.youtube.com/vi/5Ocq8UlLuuw/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=5Ocq8UlLuuw" target="_blank">Donna Summer and Giorgio Moroder, "I Feel Love" (Patrick Cowley Remix)</a></p>
+<p>Notebook: <a href="https://github.com/csdurfee/csdurfee.github.io/blob/main/harmonics.ipynb">https://github.com/csdurfee/csdurfee.github.io/blob/main/harmonics.ipynb</a></p>
+<p>I was gonna do random walks this week, but the thing about random walks is you don't know where you're gonna end up, and I ended up back at last week's topic again. </p>
+<p>Last time, we saw that the sine wave, sawtooth wave and square wave produced very different distributions.</p>
+<p>All three waveforms are used in electronic music, and they all have different acoustic properties. A sine wave sounds like a "boop" -- think of the sound they play to censor someone who says a swear word on the TV.  That's a sine wave with a frequency of 1000Hz. Sawtooth waves are extremely buzzy. A square wave has, ironically, kind of a round sound, at least as far as how it gets used in electronic music.  A good example is the bass line to this week's song. </p>
+<p>It's not a pure square wave, and it's rare to ever hear pure sawtooth or square waves because they're harsh on the ears. Usually multiple waveforms are combined together and then passed through various filters and effects -- in other words, synthesized. </p>
+<p>Pretty much every sound you've ever heard is a mix of different frequencies. Only sine waves are truly pure, just a single frequency. I tried looking for an actual musical instrument that produces pure sine waves, and the closest thing (according to the internet, at least) is a tuning fork. </p>
+<p>Any other musical instrument, or human voice, or backfiring car, will produce overtones. There's one note that is perceived as the <em>fundamental frequency</em>, but every sound is kind of like a little chord when the overtones are included. </p>
+<p>For musical instruments, the loudest overtones are generally at frequencies that are a multiple of the original frequency. These overtones are called <em>harmonics</em>.</p>
+<p>For instance, if I play a note at 400 Hz on a guitar, it will also produce harmonics at 800 Hz (2x the fundamental frequency), 1200 Hz (3x), 1600 Hz (4x), 2000 Hz (5x), and so on. This corresponds to the <a href="https://en.wikipedia.org/wiki/Harmonic_series_(mathematics)">harmonic series in mathematics</a>. It's the sum of the ratios of the wavelengths of the harmonics to the fundamental frequency: 1 + 1/2 + 1/3 + 1/4 + 1/5 + ...</p>
+<h3>The clarinet is the squarest instrument</h3>
+<p>I played the clarinet in grade school and I am the biggest dork on the planet, so it's certainly metaphorically true. But it's also literally true.</p>
+<p>There's a lot that goes into exactly which overtones get produced by a physical instrument, but most instruments put out the whole series of harmonics. <a href="https://newt.phys.unsw.edu.au/jw/clarinetacoustics.html#harmonics">The clarinet is different</a>. Because of a clarinet's physical shape, it pretty much only produces odd harmonics. So, in our example, 400 Hz, 1200 Hz, 2000 Hz, etc.</p>
+<p>The square wave is like an idealized version of a clarinet -- it also only puts out odd harmonics. This is a result of how a square wave is constructed. In the real world, they're formed out of a combination of sine waves. Which sine waves? You guessed it -- the ones that correspond to the odd harmonic frequencies.</p>
+<p>Here's the fundamental frequency combined with the 3rd harmonic:</p>
+<p><img alt="/img/square3.png" src="/img/square3.png"></p>
+<p>It already looks a bit square-wavey. Additional harmonics make the square parts a bit more square.  Here's what it looks like going up to the 19th harmonic:</p>
+<p><img alt="/img/square21.png" src="/img/square21.png"></p>
+<p>In the real world, we can only add a finite number of harmonics, but if we could combine an infinite number of them, we would get the ideal square wave. This is called the <a href="https://en.wikipedia.org/wiki/Fourier_series">Fourier series</a> of the square wave.</p>
+<p>Here's an illustration to help show how the square wave gets built up:</p>
+<p><img alt="/img/square-buildup.png" src="/img/square-buildup.png"></p>
+<p>The red wave is the fundamental frequency. The orange square-ish wave is the result of combining the other colored waves with the red wave.</p>
+<p>The sum normally would be scaled up a bit (multiplied by 4/pi), but it's easier without the scaling to see how the other waves sort of hammer the fundamental frequency into the shape of the square wave. At some points they are pushing it up, and other points pulling it down.</p>
+<p>Perhaps this graph makes it clearer. The red is the fundamental, the yellow is the sum of all the other harmonics, and the orange is the combination of the two:</p>
+<p><img alt="/img/combine-harmonics-square.png" src="/img/combine-harmonics-square.png"></p>
+<p>Where the yellow is above the X axis, it's pulling the fundamental frequency up, and where it's below, it's pulling the fundamental down.</p>
+<h3>The sawtooth</h3>
+<p>A sawtooth wave is what you get when you combine all the harmonics, odd and even. Like the square wave, it starts to take its basic shape right away. Here's the fundamental plus the second harmonic:</p>
+<p><img alt="/img/sawtooth2.png" src="/img/sawtooth2.png"></p>
+<p>And here it is going all the way up to the 10th harmonic:</p>
+<p><img alt="/img/sawtooth10.png" src="/img/sawtooth10.png"></p>
+<p>Red fundamental plus yellow harmonics produce the orange sawtooth wave:</p>
+<p><img alt="/img/combine-harmonics-saw.png" src="/img/combine-harmonics-saw.png"></p>
+<p>Last time, I talked about the sawtooth wave producing a uniform distribution of amplitudes -- the butter gets spread evenly over the toast. The graph above isn't a very smooth stroke of butter. It's not steadily decreasing, particularly at the ends. Here's what the distribution looks like at this point:</p>
+<p><img alt="/img/sawtooth10-amps.png" src="/img/sawtooth10-amps.png"></p>
+<p>With an infinite series of harmonics, that graph will even out to a uniform distribution</p>
+<h3>Getting even</h3>
+<p>What about only the even harmonics? Is that a thing? Not in the natural world as far as I know, but there's nothing stopping me from making one. (It wouldn't be the worst musical crime I've ever committed.)</p>
+<p>Here's what a combo of just the even harmonics looks like:</p>
+<p><img alt="/img/even-harmonics.png" src="/img/even-harmonics.png"></p>
+<p>Thanks to a little code from the pygame project, it's easy to turn that waveform into a sound file. It sounds like an angry computer beep, with a little flutter mixed in.</p>
+<p><a href="/audio/evens_clean.wav" target="_blank">Here's an audio sample</a></p>
+<h3>In my prime</h3>
+<p>The <a href="https://mathworld.wolfram.com/HarmonicSeriesofPrimes.html">harmonic series of primes</a> is what it sounds like: the harmonic series, but just the prime numbers: 1 + 1/2 + 1/3 + 1/5 + 1/7 + 1/11 + 1/13 + ....</p>
+<p>Although it's important in mathematics, I don't have a good musical reason to do this. But if you can throw the prime numbers into something, you gotta do it.</p>
+<p>As a sound, I kinda like it. It's nice and throaty. <a href="/audio/primes.wav" target="_blank">Here's what it sounds like.</a></p>
+<p>It doesn't really sound like a sawtooth wave or a square wave to me. Here's the waveform:</p>
+<p><img alt="/img/prime-waveform.png" src="/img/prime-waveform.png"></p>
+<p>Here's what the distribution of amplitudes looks like:</p>
+<p><img alt="/img/prime-amp.png" src="/img/prime-amp.png"></p>
+<h3>Dissonance</h3>
+<p>Some of the overtones of the harmonic series don't correspond with the 12 notes of the modern western musical scale (called 12 tone equal temprament, or 12TET). The first 4 harmonics of the series are nice and clean, but after that they get weird. Each harmonic in the series is smaller in amplitude than the previous one, so it has less of an effect on the shape of the final wave. So the dissonance is there, but it's way in the background.</p>
+<p>The prime number bloop I made above should be extra <em>weird</em>. The 2nd and 3rd harmonics are included, so those will sound nice, but after that they are at least a little off the standard western scale.</p>
+<p>Say we're playing the <em>prime bloop</em> at A4 (the standard pitch used for tuning).  Here's how the harmonics work out. A cent is 1% of a semitone. So a note that is off by 50 cents is right between two notes on the 12 tone scale.</p>
+<table>
+<thead>
+<tr>
+<th>harmonic #</th>
+<th>frequency</th>
+<th>pitch</th>
+<th>error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>440 Hz</td>
+<td>A4</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>880 Hz</td>
+<td>A5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1320</td>
+<td>E6</td>
+<td>+2 cents</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2200</td>
+<td>C#7</td>
+<td>-14 cents</td>
+</tr>
+<tr>
+<td>7</td>
+<td>3080</td>
+<td>G7</td>
+<td>+31 cents</td>
+</tr>
+<tr>
+<td>11</td>
+<td>4840</td>
+<td>D#8</td>
+<td>-49 cents</td>
+</tr>
+<tr>
+<td>13</td>
+<td>5720</td>
+<td>F8</td>
+<td>+41 cents</td>
+</tr>
+<tr>
+<td>17</td>
+<td>7480</td>
+<td>A#8</td>
+<td>+5 cents</td>
+</tr>
+</tbody>
+</table>
+<p>(Note the 3rd harmonic, E6, is a little <em>off</em> in 12TET, despite being a <em>perfect fifth</em> -- an exact 3:2 ratio with the A5.)</p>
+<h3>Harmonics aren't everything</h3>
+<p>While it's true that any audio can be decomposed into a bunch of sine waves, the fundamental frequency and the harmonics aren't really what gives an instrument its unique timbre. It's hundreds or thousands of tiny overtones that don't line up with the harmonics.</p>
+<p>Here are the spectra of two different piano sounds playing at 220 Hz. One is a somewhat fake piano sound (Fruity DX10), the other a natural, rich sounding one (LABS Soft Piano, which you might've heard before if you listen to those "Lofi Hip Hop Beats to Doomscroll/Not Study To" playlists). Can you guess which is which?</p>
+<p><img alt="/img/real-piano.png" src="/img/real-piano.png"></p>
+<p><img alt="/img/fake-piano.png" src="/img/fake-piano.png"></p>
+<p>The answer may surprise you. I mean, it can't be that surprising since there are only 2 options. But I'd probably get it wrong, if I didn't already know which is which.</p>
+<h3>Sources/Notes</h3>
+<p><a href="https://www.phys.unsw.edu.au/music/">This website from UNSW was invaluable</a>, particularly <a href="https://newt.phys.unsw.edu.au/jw/harmonics.html">https://newt.phys.unsw.edu.au/jw/harmonics.html</a></p>
+<p>Code used to generate the audio: <a href="https://stackoverflow.com/questions/56592522/python-simple-audio-tone-generator">https://stackoverflow.com/questions/56592522/python-simple-audio-tone-generator</a></p>
+<p>"The internet" claiming the sound of a tuning fork is a sine wave here (no citation given): <a href="https://en.wikipedia.org/wiki/Tuning_fork#Description">https://en.wikipedia.org/wiki/Tuning_fork#Description</a>.</p>
+<p>There are many good videos on Youtube about 12TET and Just Intonation, by people who know more about music than me. Here's one from David Bennett: <a href="https://www.youtube.com/watch?v=7JhVcGtT8z4">https://www.youtube.com/watch?v=7JhVcGtT8z4</a></p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/harmonics.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/math.html" rel="tag">math</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/some-educational-value.html" class="tags">some educational value</a>
+                </div>
+            </article>            <h4 class="date">Jul 26, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/riding-the-waves.html" rel="bookmark" title="Permanent Link to &quot;Riding the waves&quot;">Riding the waves</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=ko8cJucsbBU" target="_blank"><img alt="Roy of the Ravers, &quot;Emotinium&quot;" src="https://img.youtube.com/vi/ko8cJucsbBU/0.jpg"></a></p>
+<p>After spending several weeks in the degenerate world of sports gambling, I figured we should go get some fresh air in the land of pure statistics.</p>
+<h2>The Abnormal Distribution</h2>
+<p>Everybody knows what the normal distribution looks like, even if they don't know it as such. You know, the bell curve? The one from the memes?</p>
+<p>In traditional statistics, the One Big Thing you need to know is called the Central Limit Theorem. It says, if you collect some data and take the average of it, that average (the sample mean) will behave in nice, predictable ways. It's the basis of basically all experimental anything.  If you take a bunch of random samples and calculate the sample mean over and over again, those sample means will look like a normal distribution, if the sample sizes are big enough. That makes it possible to draw big conclusions from relatively small amounts of data.</p>
+<p>How big is "big enough"? Well, it partly depends on the shape of the data being sampled from. If the data itself is distributed like a normal distribution, it makes sense that the sample means would also be normally shaped. It takes a smaller sample size to get the sampling distributions looking like a normal distribution.</p>
+<p>While a lot of things in life are normally distributed, some of them aren't. The uniform distribution is when every possible outcome is equally likely. Rolling a single die, for instance. 1-6 are all equally likely. Imagine we're trying to estimate the mean value for rolling a standard 6 sided die. </p>
+<p>A clever way would be to team up sets of sides - 6 goes with 1, 5 goes with 2, 4 goes with 3. Clearly the mean value has to be 3.5, right?</p>
+<p>A less clever way would be to roll a 6 sided die a bunch of times and take the average. We could repeat that process, and track all of these averages. If the sample size is big enough, those averages will make a nice bell curve, with the center at 3.5.</p>
+<p>The uniform distribution is sort of obnoxious if you want to calculate the sample mean. The normal distribution, and a lot of other distributions, have a big peak in the middle and tail off towards the edges. If you pick randomly from one of these distributions, it's far more likely to be close to the middle than it is to be far from the middle. With the uniform distribution, every outcome is equally likely:</p>
+<p><img alt="/img/uniform.png" src="/img/uniform.png"></p>
+<p>Couldn't we do even worse than the uniform distribution, though? What if the tails/outliers were even higher than the center? When I first learned about the Central Limit Theorem, I remember thinking about that - how could you define a distribution to be the most obnoxious one possible? The normal distribution is like a frowny face. The Uniform distribution is like a "not impressed" face. Couldn't we have a smiley face distribution to be the anti-normal distribution?</p>
+<h2>Waveforms and probabilities.</h2>
+<p>All synthesizers in electronic music use a mix of different types of simple waveforms. The sublime <a href="https://en.wikipedia.org/wiki/Roland_TB-303">TB-303</a> synth line in the song at the top is very simple. The TB-303 a monophonic synth -- a single sawtooth wave (or square wave) with a bunch of filters on top that, in the right hands, turn it from buzzy electronic noise to an emotionally expressive instrument, almost like a digitial violin or human voice.</p>
+<p>This got me thinking about what probability distributions based on different types of waveforms would look like. How likely is the waveform to be at each amplitude?</p>
+<p>Here's the sawtooth waveform:</p>
+<p><img alt="/img/sawtooth.png" src="/img/sawtooth.png"></p>
+<p>If we randomly sample from this wave (following a uniform distribution -- all numbers on the x axis are equally likely) and record the y value, then plot the values as a histogram, what would it look like? Think of it like we put a piece of toast on the Y axis of the graph, the X axis is time. How will the butter be distributed? </p>
+<p>It should be a flat line, like the Uniform distribution, since each stroke of butter is at a constant rate. We're alternating between a very fast wipe and a slower one, but in both cases, it doesn't spend any more time on one section of bread than another because it's a straight line.</p>
+<h2>Advanced breakfast techniques</h2>
+<p>A square wave spends almost no time in the middle of the bread, so nearly all the butter will be at the edges. That's not a very interesting graph. What about a sine wave?</p>
+<p>The sawtooth wave always has a constant slope, so the butter is evenly applied. With the sine wave, the slope changes over time. Because of that, the butter knife ends up spending more time at the extreme ends of the bread, where the slope is shallow, compared to the middle of the bread. The more vertical the slope, the faster the knife passes over that bit of bread, and the less butter it gets.</p>
+<p>If we sample a bunch of values from the sine wave and plot their Y values as a histogram, we'll get something that looks like a smiley face -- lots of butter near the edges, less butter near the center of the toast. Or perhaps, in tribute to Ozzy, the index and pinky fingers of someone throwing the devil horns.</p>
+<p><img alt="/img/arcsine-from-sine.png" src="/img/arcsine-from-sine.png"></p>
+<p>That's a perfectly valid buttering strategy in my book. The crust near the edges tends to be drier, and so can soak up more butter. You actually want to go a bit thinner in the middle, to maintain the structural integrity of the toast.</p>
+<p>This distribution of butter forms a probability distribution called the arcsine distribution. It's an anti-normal distribution -- fat in the tails, skinny in the middle. A "why so serious?" distribution the Joker might appreciate. The mean is the least likely value, rather than the most likely value. And yet, the Central Limit Theorem still holds. The mean of even a fairly small number of values will behave like a Normal distribution.</p>
+<p>Here are 1,000 iterations of an average of two samples from the arcsine distribution:</p>
+<p><img alt="/img/arcsin-approx-2.png" src="/img/arcsin-approx-2.png"></p>
+<p>And averages of 5 samples:</p>
+<p><img alt="/img/arcsin-approx-5.png" src="/img/arcsin-approx-5.png"></p>
+<p>And 30 samples at a time. Notice how the x range has shrunk down.</p>
+<p><img alt="/img/arcsin-approx-30.png" src="/img/arcsin-approx-30.png"></p>
+<p>There are a lot of distributions that produce that U-type shape. They're known as <a href="https://en.wikipedia.org/wiki/Bathtub_curve">bathtub curves</a>. They come up when plotting the failure rates of devices (or people). For a lot of things, there's an elevated risk of failure near the beginning and the end, with lower risk in the middle. The curve is showing conditional probability -- for an iPhone to fail on day 500, it has to have not failed on the first 499 days.</p>
+<p><img alt="/img/Bathtub_curve.svg" src="/img/Bathtub_curve.svg"></p>
+<p>(source: Wikipedia/Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=7458336">https://commons.wikimedia.org/w/index.php?curid=7458336</a>)</p>
+<h2>Particle man vs triangle man</h2>
+<p>The Uniform distribution isn't really that ab-Normal. It's flat, but it's very malleable. It turns into the normal distribution almost instantly. The symmetry helps.</p>
+<p>If we take a single sample from a Uniform distribution over and over again, and plot a histogram, it's going to look flat, because every outcome is equally likely.</p>
+<p>If we take the sum (or average) of two Uniform random variables, what would that look like? We're going to randomly select two numbers between 0 and 1 and sum them up. The result will be between 0 and 2. But some outcomes will be more likely than others.  The extremes (0 and 2) should be extremely unlikely, right? Both the random numbers would have to be close to 0 for the sum to be, and vice versa. There are a lot of ways to get a sum of 1, though. It could be .9 and .1, or .8 and .2, and so on.</p>
+<p>If you look online, you can find many explanations of how to get the PDF of the sum of two Uniform distributions using calculus. (<a href="https://courses.cs.washington.edu/courses/cse312/20su/files/student_drive/5.5.pdf">Here's a good one</a>). While formal proofs are important, it's not very intuitive. So, here's another way to think of it.</p>
+<p>Let's say we're taking the sum of two dice instead of two Uniform random variables.  We're gonna start with two 4 sided dice. It will be obvious that we can scale the number of faces up, and the pattern will hold.</p>
+<p>What are the possible combinations of dice? The dice are independent, so each combination is equally likely. Let's write them out by columns according to their totals:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(1, 1)</td>
+<td>(1,2)</td>
+<td>(1,3)</td>
+<td>(1,4)</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>-</td>
+<td>(2,1)</td>
+<td>(2,2)</td>
+<td>(2,3)</td>
+<td>(2,4)</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>(3,1)</td>
+<td>(3,2)</td>
+<td>(3,3)</td>
+<td>(3,4)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>(4,1)</td>
+<td>(4,2)</td>
+<td>(4,3)</td>
+<td>(4,4)</td>
+</tr>
+</tbody>
+</table>
+<p>If we write all the possibilities out like this, it's gonna look like a trapezoid, whether there are 4 faces on the dice, or 4 bajillion. Each row will have one more column that's blank than the one before, and one column that's on its own off to the right. </p>
+<p>If we consolidate the elements, we're gonna get a big triangle, right? Each column up to the mean will have one more combo, and each column after will have one less.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(1, 1)</td>
+<td>(1,2)</td>
+<td>(1,3)</td>
+<td>(1,4)</td>
+<td>(2,4)</td>
+<td>(3,4)</td>
+<td>(4,4)</td>
+</tr>
+<tr>
+<td>-</td>
+<td>(2,1)</td>
+<td>(2,2)</td>
+<td>(2,3)</td>
+<td>(3,3)</td>
+<td>(4,3)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>(3,1)</td>
+<td>(3,2)</td>
+<td>(4,2)</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>(4,1)</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>With a slight re-arrangement of values, it's clear the triangle builds up with each extra face we add to the dice.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(1, 1)</td>
+<td>(1,2)</td>
+<td>(2,2)</td>
+<td>(2,3)</td>
+<td>(3,3)</td>
+<td>(3,4)</td>
+<td>(4,4)</td>
+</tr>
+<tr>
+<td>-</td>
+<td>(2,1)</td>
+<td>(1,3)</td>
+<td>(3,2)</td>
+<td>(2,4)</td>
+<td>(4,3)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>(3,1)</td>
+<td>(1,4)</td>
+<td>(4,2)</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>(4,1)</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>The results for two 2 sided dice are embedded in the left 3 columns of table, then the results for two 3 sided dice on top of them, then two 4 sided dice. Each additional face will add 2 columns to the right. I'm not gonna formally prove anything, but hopefully it's obvious that it will always make a triangle.</p>
+<p>That's the <a href="https://en.wikipedia.org/wiki/Triangular_distribution#Distribution_of_the_mean_of_two_standard_uniform_variables">triangular distribution</a>.</p>
+<p>Here's a simulation, calculating the sum of two random uniform variables over and over, and counting their frequencies:</p>
+<p><img alt="/img/shaggy-triangle.png" src="/img/shaggy-triangle.png"></p>
+<h1>3 is the magic number</h1>
+<p>The sum (or average) of 3 Uniform random variables looks a whole lot like the normal distribution. The sides of the triangle round out, and we get something more like a bell curve. It's more than a parabola because the slope is changing on the sides. Here's what it looks like in simulation:</p>
+<p><img alt="/img/shaggy-parabola.png" src="/img/shaggy-parabola.png"></p>
+<p>Here are three 4 sided dice. It's no longer going up and down by one step per column. The slope is changing as we go up and down the sides.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">3</th>
+<th style="text-align: left;">4</th>
+<th style="text-align: left;">5</th>
+<th style="text-align: left;">6</th>
+<th style="text-align: left;">7</th>
+<th style="text-align: left;">8</th>
+<th style="text-align: left;">9</th>
+<th style="text-align: left;">10</th>
+<th style="text-align: left;">11</th>
+<th style="text-align: left;">12</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">(1, 1, 1)</td>
+<td style="text-align: left;">(2, 1, 1)</td>
+<td style="text-align: left;">(2, 2, 1)</td>
+<td style="text-align: left;">(2, 2, 2)</td>
+<td style="text-align: left;">(3, 3, 1)</td>
+<td style="text-align: left;">(3, 3, 2)</td>
+<td style="text-align: left;">(3, 3, 3)</td>
+<td style="text-align: left;">(4, 4, 2)</td>
+<td style="text-align: left;">(4, 4, 3)</td>
+<td style="text-align: left;">(4, 4, 4)</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 2, 1)</td>
+<td style="text-align: left;">(2, 1, 2)</td>
+<td style="text-align: left;">(3, 2, 1)</td>
+<td style="text-align: left;">(3, 2, 2)</td>
+<td style="text-align: left;">(3, 2, 3)</td>
+<td style="text-align: left;">(4, 4, 1)</td>
+<td style="text-align: left;">(4, 3, 3)</td>
+<td style="text-align: left;">(4, 3, 4)</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 1, 2)</td>
+<td style="text-align: left;">(1, 2, 2)</td>
+<td style="text-align: left;">(3, 1, 2)</td>
+<td style="text-align: left;">(3, 1, 3)</td>
+<td style="text-align: left;">(2, 3, 3)</td>
+<td style="text-align: left;">(4, 3, 2)</td>
+<td style="text-align: left;">(4, 2, 4)</td>
+<td style="text-align: left;">(3, 4, 4)</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(3, 1, 1)</td>
+<td style="text-align: left;">(2, 3, 1)</td>
+<td style="text-align: left;">(2, 3, 2)</td>
+<td style="text-align: left;">(4, 3, 1)</td>
+<td style="text-align: left;">(4, 2, 3)</td>
+<td style="text-align: left;">(3, 4, 3)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 3, 1)</td>
+<td style="text-align: left;">(2, 1, 3)</td>
+<td style="text-align: left;">(2, 2, 3)</td>
+<td style="text-align: left;">(4, 2, 2)</td>
+<td style="text-align: left;">(4, 1, 4)</td>
+<td style="text-align: left;">(3, 3, 4)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 1, 3)</td>
+<td style="text-align: left;">(1, 3, 2)</td>
+<td style="text-align: left;">(1, 3, 3)</td>
+<td style="text-align: left;">(4, 1, 3)</td>
+<td style="text-align: left;">(3, 4, 2)</td>
+<td style="text-align: left;">(2, 4, 4)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 2, 3)</td>
+<td style="text-align: left;">(4, 2, 1)</td>
+<td style="text-align: left;">(3, 4, 1)</td>
+<td style="text-align: left;">(3, 2, 4)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(4, 1, 1)</td>
+<td style="text-align: left;">(4, 1, 2)</td>
+<td style="text-align: left;">(3, 1, 4)</td>
+<td style="text-align: left;">(2, 4, 3)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 4, 1)</td>
+<td style="text-align: left;">(2, 4, 1)</td>
+<td style="text-align: left;">(2, 4, 2)</td>
+<td style="text-align: left;">(2, 3, 4)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 1, 4)</td>
+<td style="text-align: left;">(2, 1, 4)</td>
+<td style="text-align: left;">(2, 2, 4)</td>
+<td style="text-align: left;">(1, 4, 4)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 4, 2)</td>
+<td style="text-align: left;">(1, 4, 3)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">(1, 2, 4)</td>
+<td style="text-align: left;">(1, 3, 4)</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+</tr>
+</tbody>
+</table>
+<p>The notebook has a function to print it for any number of faces and dice. Go crazy if you like, but it quickly becomes illegible.</p>
+<p>Here's the results of three 12 sided dice:</p>
+<p><img alt="/img/three-twelves.png" src="/img/three-twelves.png"></p>
+<p>This isn't a Normal distribution, but it sure looks close to one.   </p>
+<h2>Toast triangles</h2>
+<p>What if we feed the triangular distribution through the <code>sin()</code> function? To keep the toast analogy going, I guess we're spreading the butter with a sine wave pattern, but changing how hard we're pressing down on the knife to match the triangular distribution -- slow at first, then ramping up, then ramping down.</p>
+<p>Turns out, if we take the sine of the sum of two uniform random variables (defined from the range of -pi to +pi), we'll get the arcsin distribution again! [2] I don't know if that's surprising or not, but there you go.</p>
+<h2>Knowing your limits</h2>
+<p>There's a problem with the toast analogy. (Well, at least one. There may be more, but I ate the evidence.)</p>
+<p>The probability density function of the arcsine distribution looks like this:</p>
+<p>It goes up to infinity at the edges!</p>
+<p><img alt="/img/arcsine-pdf.png" src="/img/arcsine-pdf.png"></p>
+<p>The derivative of the <code>arcsin</code> function is <code>1/sqrt(1-x**2)</code> which goes to infinity as x approaches 0 or 1. That's what gives the arcsine distribution its shape. That also sort of breaks the toast analogy. Are we putting an infinite amount of butter on the bread for an infinetesimal amount of time at the ends of the bread? You can break your brain thinking about that, but you should feel confident that we put a finite amount of butter on the toast between any two intervals of time. We're always concerned with the defined amount of area underneath the PDF, not the value at a singular point.</p>
+<p>Here's a histogram of the actual arcsine distribution -- 100,000 sample points put into 1,000 bins:</p>
+<p><img alt="/img/arcsine-hist.png" src="/img/arcsine-hist.png"></p>
+<p>About 9% of the total probability is in the leftmost and rightmost 0.5% of the distribution, so the bins at the edges get really, really tall, but they're also really, really skinny. there's a bound on how big they can be.</p>
+<p>The CDF (area under the curve of the PDF) of the arcsine distribution is well behaved, but its slope goes to infinity at the very edges.</p>
+<p><img alt="/img/arcsine-cdf.png" src="/img/arcsine-cdf.png"></p>
+<h2>One for the road</h2>
+<p>The <code>sinc()</code> function is defined as <code>sin(x)/x</code>. It doesn't lead to a well-known distribution as far as I know, but it looks cool, like the logo of some aerospace company from the 1970's, so here you go:</p>
+<p><img alt="/img/sinc.png" src="/img/sinc.png"></p>
+<p>Would I buy a Camaro with that painted on the hood? Yeah, probably.</p>
+<h2>An arcsine of things to come</h2>
+<p>The arcsine distribution is extremely important in the field of random walks. Say you flip a coin to decide whether to turn north or south every block. How far north or south of where you started will you end up? How many times will you cross the street you started on?</p>
+<p>I showed with the hot hand research that our intuitions about randomness are bad. When it comes to random walks, I think we do even worse. Certain <em>sensible</em> things almost never happen, while <em>weird</em> things happen all the time, and the arcsine distribution explains a lot of that.</p>
+<h3>References/further reading</h3>
+<ul>
+<li><a href="https://www.johndcook.com/blog/2009/02/12/sums-of-uniform-random-values/">https://www.johndcook.com/blog/2009/02/12/sums-of-uniform-random-values/</a></li>
+<li>[2] <a href="https://www.jstor.org/stable/2287407">https://www.jstor.org/stable/2287407</a></li>
+<li><a href="https://archive.org/details/dli.ernet.5666/">https://archive.org/details/dli.ernet.5666/</a></li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/riding-the-waves.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/statistics.html" rel="tag">statistics</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/some-educational-value.html" class="tags">some educational value</a>
+                </div>
+            </article>            <h4 class="date">Jul 24, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/small-stakes-give-you-the-minimum-blues.html" rel="bookmark" title="Permanent Link to &quot;Small stakes give you the minimum blues&quot;">Small stakes give you the minimum blues</a>
+                </h2>
+
+                
+                
+
+                <p>(This is an excerpt from a larger project about sports gambling. Code and early drafts of some of the materials can be found at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.)</p>
+<p><a href="https://www.youtube.com/watch?v=x8nF8L5Fgzc" target="_blank"><img alt="Spoon, &quot;Small Stakes&quot;" src="https://img.youtube.com/vi/x8nF8L5Fgzc/0.jpg"></a></p>
+<p>I'll be talking about "the public" in this installment, by which I mean the side of a wager that gets the most number of bets placed on it.</p>
+<p>I talk about the vig a lot without explaining it. It's explained in the book, but the short version is on standard bets, a gambler needs to win at least 52.4% of the time against the spread to break even due to needing to risk $110 to win $100. That $10 difference is the vig -- how the sportsbook makes their money.</p>
+<p>In gambling circles, bets are often framed as <em>Vegas</em> or <em>the sharps</em> versus <em>the public</em>. <em>Sharp</em> started out as a term for cheaters -- dishonest bookies setting unfair lines, or <em>card sharps</em> who win thru deception rather than skill. The meaning has changed a bit over time. In modern parlance, a <em>sharp</em> is someone who wagers on sports as a game of skill, making money over the long term by placing bets with positive expected value. But the negative connotation persists in popular chatter about gambling. There's something unseemly about using math to decide which bets to take.</p>
+<p>Say there's a game between the Lakers and the Charlotte Hornets, and the Hornets win against the spread. <em>The public</em> lost. What degenerate is betting the Hornets? Sharps, that's who. You'd think <em>the public</em> wouldn't have a problem with <em>the sharps</em> -- at least someone won money off <em>Vegas</em> tonight. Without the <em>sharps</em>, all the money that the public lost would go to Vegas. But <em>Vegas</em> and <em>sharps</em> are often conflated together. It's <em>the public</em> versus everybody.</p>
+<p>It seems unlikely to me that it's always <em>the public</em> on one side of the bet and <em>sharps</em> on the other. The public is still right around 50% of the time, right? They can't be drastically worse than a coin flip, so taking the opposite bets can't be drastically better than a coin flip. That means that <em>sharps</em> are going to agree with <em>the public</em> at least some of the time. They might <em>fade the public</em> (bet the opposite side) more often than they agree with the public, but there's probably a fair amount of both.</p>
+<h3>How do bettors do against the spread as the season goes on?</h3>
+<p>Does the public side do better over time? If records against the spread were random and the lines totally fair, we'd expect the public's winning percentage to bounce around pretty close to 50%, spending about as much time on both sides of the line -- sometimes doing a little better than 50%, sometimes a little worse. Over the course of the season, the public's cumulative record against the spread should get closer and closer to 50%, as the sample variance gets smaller.</p>
+<p>Here's the 2024-2025 data. This is the public's winning percentage, graphed as a 100 game moving average:</p>
+<p><img alt="2024-ma" src="/img/2024-ma.png"></p>
+<p>The white line is the start of the All-Star break. The public was winning well below 50% of their bets until a surge in the 100 or so games before the break, as we can see on the cumulative graph:</p>
+<p><img alt="2024-cumu" src="/img/2024-cumu.png"></p>
+<p>The public ended up going 584-614 on the season. Someone taking the public side of every bet against the closing line would have lost 91.4 units on the season, for a 48.75% winning percentage.</p>
+<p>The yellow line is the break-even point for <em>fading the public</em> -- taking the non-public side on every bet over the season. Up until that surge before the All Star break, it would've been extremely profitable to do so. Even by the end of the year, the public's win percentage didn't get close to 50%. Someone betting at -105 reduced juice could have made .8 units by fading the public on every single bet.</p>
+<p>The public were 369-388 when betting on the favorite, and 215-226 betting on the underdog. They went 293-311 when the away team won, and 291-303 when the home team won. They were bad no matter how you slice it.</p>
+<p>While that's all super weird, it's only one season. My data source (sportsbookreview.com) only has spotty data for the 2023-24 NBA season, but they do have mostly complete data for 2021-22 and 2022-23. (Nothing before that, unfortunately.)</p>
+<h3>2021-22 season</h3>
+<p>I have data for 1108 out of 1230 regular season games for 2021-22.</p>
+<p>The public went 566-542 on the season, for a loss of 30.2 units, much better than 2024-25.</p>
+<p>Here's the 100 game moving average:</p>
+<p><img alt="2021-ma" src="/img/2021-ma.png"></p>
+<p>Except for a dip in early March, the public did consistently fairly well. Not well enough to make money, but better than 50% win percentage.</p>
+<p>On the cumulative graph, while fading the public (yellow line) would have been profitable for the first month or so, the graph spends most of the season over the 50% line. However, it never gets over 52.4%.</p>
+<p><img alt="2021-cumu" src="/img/2021-cumu.png"></p>
+<h3>2022-23 season</h3>
+<p>I have data for 1176 off 1230 games in 2022-23.</p>
+<p>The public went 587-589 for the season, for a loss of 61 units on the season. That's remarkably fair, if the vig weren't a factor. Here's the moving average:</p>
+<p><img alt="2022-ma" src="/img/2022-ma.png"></p>
+<p>And the cumulative:</p>
+<p><img alt="2022-cumu" src="/img/2022-cumu.png"></p>
+<p>This one is similar to the 2023-24 graph, where the public pretty consistently lost a little bit more the 50% of the time, but not often enough to make fading the public a viable strategy.</p>
+<h3>Are team records against the spread random?</h3>
+<p>I started to answer this last time, but didn't have time to go deeper. If betting records are random, previous performance gives no information about future performance. Each game is like a coin flip, with equal chances of heads and tails. Teams will have good or bad records against the spread due to chance alone.</p>
+<p>However, I gave some plausible reasons why this might not be the case.</p>
+<p>The simplest way to test this I could think of was comparing records against the spread in the 1st half of the season to the 2nd half of the season. If the records are random, there should be no correlation between 1st half and 2nd half records.</p>
+<p>I found there was a positive correlation between 1st half and 2nd half records in all three seasons I have data for. In 2023-24, the correlation coefficient was .10. In 2022-23, it was .40, and in 2021-22 it was .27. Only 2022-23 was statistically significant. Assuming randomness, positive and negative correlation should be equally likely. So all three being positive is suspicious. I don't think records against ths spread are totally random.</p>
+<p>Say we track which teams had winning records against the spread over the 1st half of the season, then bet on those teams for the 2nd half of the season. (I didn't bother to filter out the games where teams with winning records play each other, so this analysis isn't perfect.)</p>
+<p>In 2024-25, that would give a record of 297-297 ATS -- can't get more fair than that.</p>
+<p>In 2022-23, it would have gone 279-241, for a profit of 13.9 units at standard vig, and a 53.7% winning percentage.</p>
+<p>In 2021-22, it would have gone 247-225, for a loss of .5 units and a 52.3% winning percentage.</p>
+<p>So, it's definitely not enough to be profitable as a strategy on its own. But it's close, and that's interesting. </p>
+<p>A gambler needs to win at least 52.4% of the time to break even against the vig. Say they're picking from a subset of bets that have a 52.3% chance of winning, as the naive strategy achieved in 2021-22. They'd just barely need to do better than flipping a coin to be profitable. That could be much easier than picking from a set of bets with a 50% chance of winning, right?</p>
+<h3>Final thoughts</h3>
+<p>In all three seasons, the public did a little worse in the first half of the season than the second half. In the two most recent seasons, the cumulative winning percentage was below 50% for nearly the whole season.</p>
+<p>That doesn't seem random to me. It makes sense that sportsbooks would offer slightly more favorable odds to the less popular team in order to attract equal money on both sides. It also makes sense that sportsbooks would be happy if the team with more money on it lost over 50% of the time. The difference between the public winning 50% of the time and the public winning 48.5% of the time could be significant on enough betting volume.</p>
+<p>In all three seasons, there was a positive correlation between a team's record against the spread over the first half of the season and the second half. The correlation is strong enough that over 3 seasons, it's almost possible to make money by betting on teams with a good first half record.</p>
+<p>On both points, I don't have nearly enough data to draw grand conclusions about how "the market" operates -- this is just one sportsbook, and an unknown one at that. Yahoo and DraftKings also provide betting percentage data, which would be useful for cross-checking these trends. I'm going to hold off for now, though -- there are too many other interesting things in the world.</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/small-stakes-give-you-the-minimum-blues.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
+                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
+                </div>
+            </article>            <h4 class="date">Jul 18, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/the-public-wants-what-the-public-gets.html" rel="bookmark" title="Permanent Link to &quot;The public wants what the public gets&quot;">The public wants what the public gets</a>
+                </h2>
+
+                
+                
+
+                <p>code available at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.</p>
+<p><a href="https://www.youtube.com/watch?v=AE1ct5yEuVY" target="_blank"><img alt="The Jam, &quot;Going Underground&quot;" src="https://img.youtube.com/vi/AE1ct5yEuVY/0.jpg"></a></p>
+<h3>Two types of people</h3>
+<p>Lots of sportsbooks publish info on how much <em>action</em> they've gotten on each side.</p>
+<p>Here's DraftKings':  <a href="https://dknetwork.draftkings.com/draftkings-sportsbook-betting-splits/">https://dknetwork.draftkings.com/draftkings-sportsbook-betting-splits/</a></p>
+<p>It's a smart move. It's good for SEO (to the extent that still matters). And I'm sure they get a lot of people who decide to take bets from that page. </p>
+<p>For example, the Pacers were playing Brooklyn the night I wrote this. 27% of the bets were on Brooklyn at +10.5. 73% are on Pacers -10.5.</p>
+<p>Somebody who sees that and decides to make a bet based on that information could bet either way. They could either tell themselves, "Everybody's taking the Pacers, so it must be a good bet" or "Everybody's taking the Pacers, so it must be a bad bet". </p>
+<p>What are those two groups like when they're not betting on basketball, do you think? Do they use the same kind of toothpaste? Watch the same kind of TV shows? Vote the same way?</p>
+<h3>The public gets what the public wants</h3>
+<p>One bit of gambling lore is that there are "public" teams that get bet on more frequently, regardless of the line. Like, your cousin who's a Cowboys fan is going to bet the Cowboys on Thanksgiving regardless of whether it's a fair line or not.  He'd watch the game and root for the Cowboys anyway, but it's a little more fun that way. The Cowboys aren't just a random number generator to him.</p>
+<p>There's a social aspect to gambling now that I imagine didn't exist when it was underground. Lots of gamblers will <em>follow</em> bets that other people have placed. If the bet wins, I'm sure it's a cool communal thing to be a part of. But social media often doesn't obey the <em>wisdom of crowds</em> -- in places like reddit where users vote content up and down, the conventional wisdom is going to be amplified, and people with minority opinions are going to be suppressed. If well over 90% of sports gamblers lose money long term, the majority opinions are going to be bad. </p>
+<p>I scraped betting percentage data from <a href="https://www.sportsbookreview.com/betting-odds/nba-basketball/">sportsbookreview</a> (SBR) for the 2024-5 season. They don't say where they get the betting percentages from. If I had to guess, it would be MGM Grand, their primary source of other data. The SBR numbers seemed to indicate more <em>action</em> overall than a couple other sources I found -- the betting percentages were closer together. Other sites had games where there's 10% action on one side and 90% on the other, which seems implausible on a large volume of bets. So it's probably a pretty big site, whatever it is.</p>
+<p>As with the data from the previous installment, there are 32 games out of 1230 missing data.</p>
+<p>The <code>money_percents</code> column is the median amount bet on each team. The <code>money_game_winners</code> column tracks the number of games where that team got the majority of the money bet on their side. Both of these can be taken as indicators of how much teams are favored by the public.</p>
+<p>Here are the teams sorted by money_percents. The teams near the top were less popular with gamblers, the teams at the bottom more popular.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">winner</th>
+<th style="text-align: right;">loser</th>
+<th style="text-align: right;">ats_win_pct</th>
+<th style="text-align: right;">money_percents</th>
+<th style="text-align: right;">money_game_winners</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">New Orleans</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">39.5</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr>
+<td style="text-align: left;">Charlotte</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">41.5</td>
+<td style="text-align: right;">24</td>
+</tr>
+<tr>
+<td style="text-align: left;">Miami</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr>
+<td style="text-align: left;">Philadelphia</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">43.5</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr>
+<td style="text-align: left;">Portland</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">43.5</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr>
+<td style="text-align: left;">Orlando</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr>
+<td style="text-align: left;">Utah</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">33</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sacramento</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">32</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Clippers</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr>
+<td style="text-align: left;">San Antonio</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">31</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chicago</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">36</td>
+</tr>
+<tr>
+<td style="text-align: left;">New York</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">38</td>
+</tr>
+<tr>
+<td style="text-align: left;">Phoenix</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">36</td>
+</tr>
+<tr>
+<td style="text-align: left;">Washington</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">37</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Lakers</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr>
+<td style="text-align: left;">Indiana</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr>
+<td style="text-align: left;">Atlanta</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr>
+<td style="text-align: left;">Boston</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr>
+<td style="text-align: left;">Minnesota</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dallas</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr>
+<td style="text-align: left;">Detroit</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr>
+<td style="text-align: left;">Brooklyn</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr>
+<td style="text-align: left;">Toronto</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">47</td>
+</tr>
+<tr>
+<td style="text-align: left;">Golden State</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">51</td>
+</tr>
+<tr>
+<td style="text-align: left;">Houston</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">49</td>
+</tr>
+<tr>
+<td style="text-align: left;">Oklahoma City</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">54.5</td>
+<td style="text-align: right;">54</td>
+</tr>
+<tr>
+<td style="text-align: left;">Milwaukee</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">56.5</td>
+<td style="text-align: right;">56</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cleveland</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">53</td>
+</tr>
+<tr>
+<td style="text-align: left;">Memphis</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">51</td>
+</tr>
+<tr>
+<td style="text-align: left;">Denver</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">58.5</td>
+<td style="text-align: right;">63</td>
+</tr>
+</tbody>
+</table>
+<h3>The public favorites</h3>
+<p>The most popular teams with NBA gamblers were Denver, Cleveland, Memphis, Milwaukee, and Oklahoma City. Denver got the most money in 63 of 82 games they played, which is remarkable.</p>
+<p>Cleveland, OKC and Memphis were dominant for most of the season.</p>
+<p>Denver and Milwaukee have two of the best and most entertaining players in the league. Both Giannis for Milwaukee and Jokic for Denver are fun to root for. People like to take bets on teams that are fun to follow. </p>
+<h3>The ugly dogs</h3>
+<p>The bottom teams were New Orleans, Charlotte, Miami, Philadelphia and Portland. All these teams except for Portland were total bummers to watch and cheer for this year. They had injuries and organizational dysfunction that led to totally wasted seasons. People don't like to take bets on teams that are a bummer to follow.</p>
+<p>This hints at the fact that a lot of people are taking bets because they want that team to win the bet, rather than because they believe the bet has a positive expected value. It's entertainment, not a business investment.</p>
+<h3>Against the spread</h3>
+<p>Here's the same data sorted by record against the spread.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">winner</th>
+<th style="text-align: right;">loser</th>
+<th style="text-align: right;">ats_win_pct</th>
+<th style="text-align: right;">money_percents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Philadelphia</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">43.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Phoenix</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">48</td>
+</tr>
+<tr>
+<td style="text-align: left;">Washington</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">49</td>
+</tr>
+<tr>
+<td style="text-align: left;">New Orleans</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">39.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sacramento</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">45</td>
+</tr>
+<tr>
+<td style="text-align: left;">Denver</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">58.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dallas</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr>
+<td style="text-align: left;">Charlotte</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">41.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Minnesota</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr>
+<td style="text-align: left;">New York</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">48</td>
+</tr>
+<tr>
+<td style="text-align: left;">Indiana</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">51</td>
+</tr>
+<tr>
+<td style="text-align: left;">Atlanta</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr>
+<td style="text-align: left;">San Antonio</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">47</td>
+</tr>
+<tr>
+<td style="text-align: left;">Boston</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr>
+<td style="text-align: left;">Miami</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr>
+<td style="text-align: left;">Memphis</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">57</td>
+</tr>
+<tr>
+<td style="text-align: left;">Orlando</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr>
+<td style="text-align: left;">Utah</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">45</td>
+</tr>
+<tr>
+<td style="text-align: left;">Golden State</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">54</td>
+</tr>
+<tr>
+<td style="text-align: left;">Detroit</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">53</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chicago</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">47</td>
+</tr>
+<tr>
+<td style="text-align: left;">Houston</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">54</td>
+</tr>
+<tr>
+<td style="text-align: left;">Milwaukee</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">56.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Brooklyn</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">53</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Clippers</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">46</td>
+</tr>
+<tr>
+<td style="text-align: left;">Portland</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">43.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Lakers</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">51</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cleveland</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">57</td>
+</tr>
+<tr>
+<td style="text-align: left;">Toronto</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">53</td>
+</tr>
+<tr>
+<td style="text-align: left;">Oklahoma City</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">54.5</td>
+</tr>
+</tbody>
+</table>
+<p>Philadelphia, Washington and Phoenix were just as terrible at the sportsbook as they were on the basketball court. OKC and Cleveland had outstanding seasons in both places.</p>
+<p>However, there's only a rough correlation between how good the teams were at actual basketball, and at beating the spread. Minnesota, New York and Denver were in the bottom 10 by winning % against the spread, even though they had good records and were doing their best to win. Denver lost to the eventual champs, and New York and Minnesota made the conference finals. Indiana was the 10th worst team against the spread, and made the NBA Finals. Toronto and Brooklyn weren't really trying to win a lot of basketball games, but ended up in the top 10. There is no good reason I can think of for the Lakers to be in the top 4 against the spread -- aren't they the epitome of a public team that should be getting unfavorable lines? </p>
+<h3>Which teams should the public love and hate?</h3>
+<p>I calculated the amount of units a gambler would win or lose if they bet on each team when they got the majority of the bets.  This is a sort of measure how happy the proverbial public should be about each team.</p>
+<p><code>public_units</code> is the amount won/lost betting in favor of the team. Phoenix, Sacramento, Dallas, Denver and Indiana disappointed the public the most.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">public_units</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Phoenix</td>
+<td style="text-align: right;">-16.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sacramento</td>
+<td style="text-align: right;">-14.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dallas</td>
+<td style="text-align: right;">-13.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">Denver</td>
+<td style="text-align: right;">-12.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">Indiana</td>
+<td style="text-align: right;">-12.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">Atlanta</td>
+<td style="text-align: right;">-11.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Utah</td>
+<td style="text-align: right;">-11.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chicago</td>
+<td style="text-align: right;">-10.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">Minnesota</td>
+<td style="text-align: right;">-9.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Detroit</td>
+<td style="text-align: right;">-7.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">Philadelphia</td>
+<td style="text-align: right;">-6.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">New York</td>
+<td style="text-align: right;">-6.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">Brooklyn</td>
+<td style="text-align: right;">-5.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">Washington</td>
+<td style="text-align: right;">-5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Boston</td>
+<td style="text-align: right;">-3.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">New Orleans</td>
+<td style="text-align: right;">-3.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">Memphis</td>
+<td style="text-align: right;">-1.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Charlotte</td>
+<td style="text-align: right;">-1.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">Miami</td>
+<td style="text-align: right;">-1</td>
+</tr>
+<tr>
+<td style="text-align: left;">San Antonio</td>
+<td style="text-align: right;">-0.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Orlando</td>
+<td style="text-align: right;">-0.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">Milwaukee</td>
+<td style="text-align: right;">1.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">Golden State</td>
+<td style="text-align: right;">2.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Lakers</td>
+<td style="text-align: right;">4.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">Houston</td>
+<td style="text-align: right;">4.9</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cleveland</td>
+<td style="text-align: right;">6.8</td>
+</tr>
+<tr>
+<td style="text-align: left;">Portland</td>
+<td style="text-align: right;">10.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">Toronto</td>
+<td style="text-align: right;">11.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.A. Clippers</td>
+<td style="text-align: right;">12.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">Oklahoma City</td>
+<td style="text-align: right;">18.3</td>
+</tr>
+</tbody>
+</table>
+<p>This is a pretty random list of teams, in both directions. It's a good illustration that gamblingball is different from basketball. It's not clear whether gamblingball is a game with an element of skill, or if it's all chance.</p>
+<h3>Are records against the spread due to chance?</h3>
+<p>If we assume that all variations are due to randomess, each game should be a coin flip whether the underdog or favorite wins against the spread.</p>
+<p>Calculating exact odds using the binomial distribution, 94% of NBA teams should have between 33 and 49 wins against the spread over an 82 game season.</p>
+<p>We'd expect 2 teams to be outside that range, and there are 3. Philadelphia went 26-52 in 78 games we have data for. Even if they won the other 4 games that are missing data, they'd only have 30 wins. So that record was definitely an outlier, but overall the season was about what we'd expect based on chance.</p>
+<p>I find it very believable that some teams are more likely to have a winning record against the spread, because they are underestimated by the handicappers or the betting public. They end up getting lines that are too generous, and thus do better than expected against the spread over the long run. Toronto could be an example of that. They were bad, but they weren't really as bad as people thought.</p>
+<p>Other teams could be inherently worse against the spread, as well. Perhaps they are super popular to bet on, so the lines tend to move against them -- a <em>public team</em>. Or perhaps gamblers and sportsbooks overvalue the team -- the conventional wisdom is that they'll be good when they're not. That definitely describes Philadelphia and Phoenix.</p>
+<p>In both cases, <em>the teams themselves</em> aren't necessarily doing anything to be better or worse against the spread than an average team would be. It's about the perceptions of the bookmakers and gamblers. Teams can't help what bookmakers set the lines to be.</p>
+<h3>Do gamblers follow the record against the spread?</h3>
+<p>If a team's record against the spread is due solely to random error, then we've got a <a href="/LeSimulation.html">LeMartingale</a> on our hands. The current record would have no bearing on the future record. So gamblers shouldn't factor it in when deciding to take a bet or not.</p>
+<p>By the end of the season, there was a significant correlation between money percents and win percentage against the spread. I wanted to see how that might've changed over time. So I generated the table shown above for every single day of the season, and calculated the correlation on that day.  Here's what that looks like over time:</p>
+<p><img alt="/img/money-ats-win-pct.png" src="/img/money-ats-win-pct.png"></p>
+<p>The money percentages are cumulative, the mean of all games in the season that have come before -- it's not showing gamblers' betting behavior on a particular day. The graph is a lot smoother that way, but we're losing something.</p>
+<p>It also doesn't show whether records against the spread are a Martingale or not. The correlation between betting percentages and win records increases over time, but that doesn't mean this is because gamblers are behaving <em>rationally</em>. </p>
+<p>The jump in correlation around mid-Februrary corresponds to the All-Star break, which is curious.</p>
+<p>Stay tuned; I'll have more on this.</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/the-public-wants-what-the-public-gets.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
+                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
+                </div>
+            </article>            <h4 class="date">Jul 17, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/last-fair-deal-in-the-country.html" rel="bookmark" title="Permanent Link to &quot;Last fair deal in the country&quot;">Last fair deal in the country</a>
+                </h2>
+
+                
+                
+
+                <p>(This is an excerpt from a larger project about sports gambling. Code used, and early drafts of some of the chapters can be found at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a>.)</p>
+<p><a href="https://www.youtube.com/watch?v=0UGvyPnuLtQ" target="_blank"><img alt="The Grateful Dead, &quot;Loser&quot;" src="https://img.youtube.com/vi/0UGvyPnuLtQ/0.jpg"></a></p>
+<h2>Efficiency of betting markets</h2>
+<p>The efficient market hypothesis says that given enough time and competition, free markets are able to establish the correct price for a commodity. In the case of sports betting, we could think of it as the price of a money line bet. </p>
+<p>On a money line bet, you are betting on who will win the game straight up. You get a smaller payout for betting on the favorite, and a larger payout betting on the underdog. In the United States, money line bets are written in a goofy way. If the money line is negative, that's how much money you have to risk in order to win $100. For example, -200 indicates you have to risk $200 to win $100. If it is positive, that's how much money you win if you risk $100. If it sounds like a bad way to write the odds, you're correct.</p>
+<p>A market maker will respond to an imbalance in bets by adjusting the price. If CLE -300 is a good value, people will rationally want to take it, driving the price up to, say -400. If it is a bad value, people will rationally want to take the other side and the price might go down to -200. These rational actors will collectively push the price towards the best possible estimate that humans can make given all information available at the time. It serves as a sort of collective intelligence.</p>
+<p>In the first installment, I showed that humans are irrational when it comes to sports betting, so I was skeptical of how good, or fair, the lines could be. Could I find proof of this collective intelligence in action? Are there any obvious market inefficiencies?</p>
+<h3>The data &amp; stuff to know</h3>
+<p>Stats are from the NBA season. I screen-scraped the data from <a href="https://www.sportsbookreview.com/betting-odds/nba-basketball/">sportsbookreview.com</a>. All data is from the MGM Grand. Unfortunately, some data is missing around Christmas, and a few random days in between. 32 games are missing from the data set out of 1230 total, 2.6% of all games. These are games that don't appear on sportsbookreview's website, or have incomplete data on there.</p>
+<p>This is an analysis of the MGM Grand's NBA lines for 2025. It's not a comprehensive guide to how the lines work.</p>
+<p>There are always two lines on each game, one for the home team and one for the away team. Each side may have different vigs. Say for instance Bucks @ Pacers starts out at IND +3.5 -110/MIL -3.5 -110. It could close at IND +3.5 -115/MIL -3.5 -105. So it costs more to bet on the Pacers, but the actual line didn't move.  I'm mostly ignoring that, but will point out when it's relevant.</p>
+<p>"Line" and "spread" mean the same thing.</p>
+<p>"Reduced juice" means risking -105 or -106 instead of the usual -110 to win 100. A "unit" is a gambler's standard betting size. "4.1 units of profit" would mean +$410 for a gambler betting $100 a game. Both are explained in much more detail in the book.</p>
+<h3>A note about pushes</h3>
+<p>When the final score agrees with the line exactly, neither side of the bet can be declared a winner. This is called a push. The bet is cancelled and everybody gets their money back. The casino makes nothing.</p>
+<p>The MGM Grand always keeps point spreads on the half point (eg +6.5 or +7.5 rather than +7) so that they will never push. I don't think it's a bad policy, and I'm surprised more sportsbooks don't do it. The sportsbooks know how good their customers are at betting, so they should probably shade the point spread a half a point towards the side of the bet that has the less savvy bettors on it. (This assumes the sportsbook can identify and ban arbitrage gamblers, but more about that in the book.) </p>
+<h3>Analysis</h3>
+<p>If there is a wisdom of crowds, the final lines should be more accurate than the opening lines. Are they?</p>
+<p>My code calculates the difference between the final score and the line, called the error.  Because the MGM's lines always end in a half point, that means the error is going to be artificially high -- there will never be a game where it is exactly zero.</p>
+<p>The opening and closing lines are a set of predictions. The smaller the difference between the line and reality, the better the prediction. <a href="https://en.wikipedia.org/wiki/Mean_squared_error">Mean Squared Error</a> is a standard way to compare two prediction systems in statistics and machine learning.</p>
+<p>The MSE for the opening lines is 191.06, and the closing lines is 184.8. So we can say that in aggregate, the closing lines are more accurate than the opening lines.</p>
+<p>MSE can't tell us how good the closing lines are, though, just that one set of predictions is better than another set. It's a relative measure, not an absolute one. We're squaring the error, so the MSE will always be positive. The errors in one direction don't cancel out ones in the other direction. </p>
+<p>Let's look at how far the lines were off by. the Os are the opening lines, and X's are the closing lines. If the <em>X</em> is closer to the center line than the <em>O</em>, the market action made the line more accurate. I've plotted a random sample of 300 games to make the plot more readable.</p>
+<p><img alt="/img/scatter-mess.png" src="/img/scatter-mess.png"></p>
+<p>Unfortunately, that doesn't really show us much about how or when the closing lines are better than the opening ones. </p>
+<h3>Adam Smith, Handicapper</h3>
+<p>When were the closing lines more accurate than the opening lines?</p>
+<p>The closing lines were better in 467 games, versus 384 games where the opening lines were better, and 347 games where the line never changed.</p>
+<p>If the free market were a handicapper, and we interpreted the line movements as a bet on one side, they would have a 54.88% winning percentage (and 347 pushes).</p>
+<p>While that's a respectable win percentage for a human trying to beat the spread, I was expecting better from the free market. The market only being right 55% of the time holds true for a couple of previous seasons I have looked at as well. NBA betting, as a market, is not very efficient.</p>
+<p>There are good reasons for that. Sportsbooks that set the opening lines aren't trying that hard to be accurate. It's just a first guess. Only a tiny percentage of money is wagered at the opening line number. However, there are good reasons why lines tend not to move very much, even when the opening line is a bad one. For an in-depth explanation, check out <em>The Logic of Sports Betting</em>, by Miller and Davidow.</p>
+<h3>The myth of closing line value</h3>
+<p><a href="https://www.pinnacle.com/betting-resources/en/betting-strategy/using-the-closing-line-to-test-your-skill-in-betting/7e6jwjm5ykejuwkq">The conventional wisdom</a> is that sports betting markets are efficient, so that the only way to make money over the long run is by doing better than the closing lines, picking up on any flaws in the opening lines before the market eliminates them. Anyone else can only make a profit due to chance. From this perspective, the right way to measure a handicapper's skill is how their picks compare to the closing line. Say the opening line is Nuggets -3, and I take the bet at that number. The closing line is Nuggets -6. Then I captured 3 points of value against the closing line. This is known as closing line value (CLV). (We can figure out how valuable those 3 points are, and I show how in the book.)</p>
+<p>Beating the closing line might be positively correlated with higher profits when analyzing betting records of touts -- people who sell betting picks for money. But when the market is wrong 45% of the time, focusing too much on CLV seems like a bad idea. There's no good reason to believe that a gambler is destined to lose money by picking against the closing lines. What if their strategy is to mostly bet against the prevailing wisdom on the 45% of games where the market is wrong?</p>
+<p>CLV is a prime example of <a href="https://en.wikipedia.org/wiki/Goodhart's_law">Goodhart's Law</a>. As a measure of a handicapper's skill, it's probably fine (though not ideal). But it shouldn't be the target. A gambler shouldn't make picks explicitly to capture as much CLV as possible. That could be different on other sports. Football -- both forms of it -- attracts a lot more betting than the NBA does, so if you're looking for the wisdom of crowds, maybe look there.</p>
+<p>Say the opening line is Nuggets -3 against the Timberwolves. I like the Nuggets in this matchup, but I think the public will go for the Timberwolves and it will finish at Nuggets -1/Timberwolves +1.</p>
+<p>If I was trying to capture as much CLV as possible on this bet, I should take the Timberwolves +3 on the opening line, even though that's not the side I actually like! </p>
+<p>If I was trying to actually win the bet, I should take the Nuggets at the closing line, hoping maybe I can get Nuggets -1 or even Nuggets +1. I can never get positive CLV on the Nuggets, because the market was wrong about them. Not me, the market!</p>
+<p>CLV gets described as being the best way to test a handicapper's skill, but it's obviously non-optimal. Maybe it's the contrarian in me, but Opening Line Value -- identifying bets where the market is going to be wrong, and waiting till the last minute to place the bet -- is more impressive.</p>
+<p>The best way to test a handicapper is to have them write out what they think the lines should be, rather than making a binary decision about somebody else's line (favorite or underdog). If a handicapper's lines are closer to the truth than the closing lines, they are good at handicapping. Looking at what bets they took is only a secondary signal of that. If they took Nuggets -7, is it because they thought the true line should be Nuggets -8, or Nuggets -12? </p>
+<h3>When the line doesn't move</h3>
+<p>Setting aside why the market moves in the wrong direction 45% of the time, I'm curious about the games where the spread didn't move at all. Maybe those lines were perfect as-is? If so, we'd expect to see equal splits of home vs. away winners, and underdog vs. favorite winners.  There shouldn't be any bias to those games. The free market is essentially labelling these the pinnacle of the handicapper's art, impossible to be improved upon. </p>
+<p>The difference between the predicted outcome (the line) and the actual outcome is a combination of how much the line maker got it wrong, plus random variation. So the games where the line didn't move should be totally random, right?</p>
+<p>They're not. If we look at games where the line didn't move, the away team went 184-163 in those games. Someone betting the away team in every game where the line didn't move would win 53% of their bets, for 4.7 units of profit at full vig, or 11.2 units of profit at <em>reduced juice</em>.</p>
+<p>There's also a bias towards underdogs, who went 186-161 in this situation. Always taking the underdog would give a 53.6% winning percentage, for 8.9 units at full vig, or 15.3 units at reduced juice.</p>
+<p>There's an even bigger bias if we combine the two. Away underdogs went 122-92 in these games, which is a 55.2% winning percentage, for 13.1 units of profit at full vig, and 17.1 at reduced juice.</p>
+<p>None of these results are statistically significant, but they are very :thinking_face_emoji:</p>
+<h3>About the vig</h3>
+<p>When the vig is imbalanced, the side with the higher vig should be more likely to win, because they're winning less money in return. Moving the vig from -110 to -115 is a way for the bookmaker to discourage bets on one side without moving the line. Likewise moving it to -105 is a way to encourage bets on that side.</p>
+<p>Since the MGM Grand always keeps their lines on the half point, we'd expect them to adjust the vig often rather than change the spread. They do for most of the games where they didn't move the lines, but 39% of the time the vig stays at -110.</p>
+<p>If we break down the games where the line didn't move by vig, the underdogs went 62-43 when the vig was high (-115), 74-62 when the vig was at the standard level (-110), and 50-56 at low vig (-105).</p>
+<p>Someone taking the underdogs when the line doesn't move, and the vig is -110 or -115, would've gone 136-105 this season, a 56.4% winning percentage, and around 18 units of profit (factoring in the additional -115 vig on some bets).</p>
+<p>Now, the strategy is pretty convoluted, and I wouldn't bet on it holding for future seasons, but it's definitely evidence there could be irrational factors at work in the market. It certainly doesn't show the market to be the well oiled machine that Closing Line Value assumes it is.</p>
+<h3>Must love dogs</h3>
+<p>Winners ended up being pretty evenly divided between favorites and underdogs by the end of the season, but underdogs were way ahead for most of the year.  </p>
+<p>Betting every single underdog against the spread over the first quarter of the season would've been fairly profitable -- a 165-136 record (54.8% winning percentage), and 15.4 units profit at full vig. People betting favorites got killed at the beginning of the season.</p>
+<p>Dogs and favorites were basically even through the middle half of the season, before favorites finished off 167-144 (53.7% win percentage) to even things out.</p>
+<p>Here's a plot of the winning percentage of favorites over the course of the season. I skipped the first 50 games because of noise. The yellow line represents the winning percentage necessary for betting all underdogs to be profitable (at standard vig). That happens when the favorites win less than 47.6% of the time (which means underdogs win more than 52.4% of the time.)</p>
+<p>It wasn't until the last month of the season that blindly betting all underdogs started being a losing proposition, even factoring in the vig.</p>
+<p><img alt="/img/wp-vs-gameno.png" src="/img/wp-vs-gameno.png"></p>
+<h3>Did the lines improve over time?</h3>
+<p>I was curious if there was evidence that the errors were getting smaller, or more predictable over time.</p>
+<p>The raw errors are too noisy to see any sort of pattern:</p>
+<p><img alt="/img/err-vs-line.png" src="/img/err-vs-line.png"></p>
+<p>This is a plot of the 100 game moving average of the absolute error of the closing line. I don't see any trends to suggest the lines got more accurate with time.</p>
+<p><img alt="/img/closing-line-err.png" src="/img/closing-line-err.png"></p>
+<p>The size of the error against the closing line isn't the ideal metric, because not all points are created equal -- the higher the line, the less surprising the error. (I'm going to skip discussing that for now, but it's explained in the book.)</p>
+<h3>Did the lines change over time?</h3>
+<p>I wondered whether the size of the lines changed over time -- did the games get more or less competitive over the course of the season?</p>
+<p>This is a 100 game moving average of the average size of the spread. As we can see, the lines did get bigger near the end of the year.</p>
+<p><img alt="/img/spread-over-time.png" src="/img/spread-over-time.png"></p>
+<p>It's possible the trend is due to scheduling, but the change at the end seems significant -- teams tend to give up near the end of the year. Bad teams want to be as bad as possible in order to get the best odds in the NBA draft, so they're not that competitive. </p>
+<p>(I have a lot more to say about tanking, but I'll stay off my soapbox for now.)</p>
+<h3>What type of games are affected by line movement?</h3>
+<p>There were 130 games where the winner flipped from the favorite to the underdog, or the underdog to the favorite, because of the line movement. In other words, these are games where either side could have won the bet, depending on whether you took the opening line or the closing line.</p>
+<p>These games were perfectly balanced -- 65 times, the favorite won (vs the closing line); 65 times the underdog won.</p>
+<p>What about games where the spread was extremely accurate (off by 3 points or less)? Underdogs went 138-121 in those games (53.2%).</p>
+<p>The difference is more dramatic in games where the line was off by 1 point or less. The underdogs went 56-33 (63% win percentage). Of course, there's no way to use that as a betting strategy since we can't identify these games before the fact, but it does show a small potential bias in favor of underdogs. </p>
+<h3>What would "perfect" lines even look like?</h3>
+<p>It's rare to see NBA lines that are bigger than +15/-15 points. There were 15 this season, about 4.4% of all games. That's around one NBA game a week with a line that high.</p>
+<p>By contrast, 31% of NBA games end with a score differential of over 15 points. That's 7x more often, roughly one game a day.</p>
+<p>The lines really shouldn't be as large as the final score differential, because they are an estimate of the mean outcome of the game. If the Celtics beat the Raptors by 54 points, that doesn't mean the line <em>should</em> have been Celtics -54. The Celtics and Raptors played 4 times last season (data taken from <a href="https://www.basketball-reference.com/teams/TOR/2025_games.html">basketball-reference</a>). I'm going to ignore home court advantage -- imagine these are played at a neutral gym. The first game, Boston won by 3. The second, Boston won by 54. The third game, the Raptors won by 13. The last game, Boston won by 10.</p>
+<p>Boston won by an average of 13.5 points, so BOS -13.5 would be a reasonable line for all four games, as that's the best estimate we can make of their difference in skill. Only 1 of the 4 games ended up close to that line. For the other 3 games, the error was at least 10 points. That's pretty typical for NBA games. The error is usually around 10 points.</p>
+<p>In this scenario, Boston -- despite being the much better team -- would have gone 1-3 against the spread. If the line for all four games was BOS -9.5, they would have gone 2-2, but the error would still be 44.5 points on the second game, and 23.5 on the third one. </p>
+<p>The actual outcomes might be all over the place, but the spread isn't meant to predict the actual outcome, just the point where both sides are equally likely to win the bet. In a small sample size, there's no guarantee both sides will win 50% of the games, even if the line was perfect.</p>
+<p>Here's a histogram of the spreads (for the away team) overlaid on a histogram of the errors against the spread:</p>
+<p><img alt="/img/spread-vs-score-diff.png" src="/img/spread-vs-score-diff.png"></p>
+<p>If we look at just the score differential, we can stick a bell curve over the top and it looks pretty normal:</p>
+<p><img alt="/img/score-diff-normal.png" src="/img/score-diff-normal.png"></p>
+<h3>Simulating games from the spreads</h3>
+<p>The problem is, these aren't outcomes from one distribution. Every game is essentially a sample from a different distribution. Each game has a different mean (the spread, or rather the ideal version of it) and a different variance (how predictable games are between the two teams). Combining them all together, the results end up looking kinda normal (because a lot of things do).</p>
+<p>I decided to simulate the entire season to show how the point differentials are going to be much bigger than the original lines.</p>
+<p>I simulated every game by sampling from a normal distribution with the mean set to that game's spread, and the variance equal to the sample variance of all games that season with that spread. </p>
+<p>Here's how they match up:</p>
+<p><img alt="/img/point-differential.png" src="/img/point-differential.png"></p>
+<p>I know that's a pretty rough simulation. There's some weirdness in the middle. NBA games never end in a tie, and they end in a one point difference less often than expected due to tactical reasons, so there's a little notch right in the center of the green curve. If a team is down one, they foul the other team and hope they miss at least one of their free throws. There's also more simulated games than I would expect that end with a differential of +1 or -1. There very well may be a bug in my code. So there's a muddle in the middle. But the spread of the data is the same, which is the main point.</p>
+<p>Hopefully the simulation shows that the lines shouldn't be bigger than they are, even though they are frequently off by many multiples compared to the final result. An error of 10 is about what we'd expect on average, and big errors don't necessarily mean <em>Vegas</em> was wrong. If the line is Dallas -3 and the other team wins by 27, that doesn't mean the line was off by 30 points. The line is meant to be an estimate of the mean outcome, if the teams played each other a large number of time under the exact same conditions. We only ever see one sample, though, and a lot of times it is far from the mean.</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/last-fair-deal-in-the-country.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
+                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
+                </div>
+            </article>            <h4 class="date">Jul 16, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/cool-parlay-bro.html" rel="bookmark" title="Permanent Link to &quot;Cool Parlay, Bro&quot;">Cool Parlay, Bro</a>
+                </h2>
+
+                
+                
+
+                <p>Code at <a href="https://github.com/csdurfee/book">https://github.com/csdurfee/book</a></p>
+<p>Sportsbooks have many ways of encouraging people to lose their money as quickly and efficiently as possible. One of the best ways to do this is a type of bet called the parlay. "Parlez" means "to talk" in French, so it's no surprise dudes always want to talk about them online.</p>
+<p>The idea behind a parlay is that you can bet on multiple events at once and if they all win, you make a nice profit, otherwise you lose. On a technical level, if the first bet on the parlay wins, the winnings are immediately placed on the second bet in the parlay, if that wins, it rolls over to the third bet, and so on. It's a sequence of bets, with the stakes going up with each bet. The individual bets in the parlay are known as "legs".   </p>
+<p>I'm going to keep asking this question: why would they be offering this bet if it was good for you?  Parlays might be more fun, but that just means they found a way to get you to part with your money easier, which sounds like a bad thing.</p>
+<p>We can compare different bets by using Expected Value (EV). EV is the weighted average of all the possible outcomes. If the expected value is positive, we will make money over the long run; if it's negative, we will lose money. </p>
+<p><a href="https://www.vegasinsider.com/parlay-calculator/">The traditional payout on a 4 team parlay is 10:1</a>. What is the expected value of such a play? is it higher or lower than taking the individual bets?</p>
+<p>It's easy to grind the math on this one, and see which option is better. I can't say "make us more money" because both types of bets are guaranteed losers without some sort of edge.</p>
+<p>Parlays are such a bad type of bet on the surface that to understand them, I have to give a little taste of parlay culture first.</p>
+<h3>Nephew Doug</h3>
+<p>Say you want to place some bets. You just learned about betting on sports, so as a newbie you're trying to learn from experts by listening to gambling podcasts. These guys have been gambling for decades. Surely they must know what's up. Their wisdom will give you the edge for sure. Surely they will keep you from making costly mistakes.</p>
+<p>You've listened to Nephew Doug's podcast, and wrote down his Locks of the Week. You're ready to enter them into your betting app, which has been hand-optimized to be as much of a dopamine and money sink as possible.</p>
+<p>Because you listen every week, you know Nephew Doug has been burdened by the Gods with the gift of prophecy. Just ask him. He's like a modern day Cassandra, only it's about how the Cowboys are always going to suck. </p>
+<p>Now, the Gods like a little competition. The Olympics were invented as a religious ceremony in their honor, after all. But they're not above making a call from on high to nudge the result a little bit. Yes, Zeus is definitely a Chiefs fan.</p>
+<p>So you believe ahead of time Nephew Doug's picks will win 55% of the time. Which way of betting these picks will bring you the most money in the long run?</p>
+<p>1) "throw 'em all in a 4 team parlay" like Doug and his buddy Jorts Guy do  <br>
+2) randomly choose 3 of Nephew Doug's picks and bet them individually. Don't do anything with the 4th one.</p>
+<p>Maybe option 2 seems insane to you. But let's game it out. </p>
+<p>You listen to Nephew Doug, but I don't. My assumption would be this guy is no better than a coin flip -- he only wins 50% of the time, or close to it. Parlays at old school casinos pay at 10:1 and online sportsbooks pay 12.28:1. Let's see how that works out at 10:1 payout, the ones Jorts Guy and Nephew Doug were cutting their teeth on back in the day.</p>
+<p>There are two ways to do the comparison. We could bet $100 on the parlay, and compare to putting $25 on each leg. Or we could compare $100 on the parlay to $100 on each leg.</p>
+<p>Neither way of comparing is entirely fair, though, because the stakes increase throughout each leg of the parlay. If a gambler bets $100 on a 4 team parlay, they're risking $100 on the first leg. Assuming they keep winning, they're risking $190 on the 2nd leg, $300ish dollars on the 3rd leg, and $600ish dollars on the 4th leg. </p>
+<p>For each leg of the parlay, the gambler should consider the risk of losing out on $600 if they took a 3 team parlay and it won. Risking $100 on the 4 leg parlay is sort of like taking 4 different $600 bets, because each one could cost the gambler that much if it loses.</p>
+<p>I will be comparing risking $100 on the parlay versus $25 on each of the legs.</p>
+<h3>7x worse</h3>
+<p>This difference only matters for bettors with a high degree of skill. For the beginner, who we can reasonably assume will no better than a coin flip, the parlay is always a worse option. Almost 7 times worse. The parlays lose about 30% per bet, versus 4.5% for the straight bets.</p>
+<p>Yikes. Maybe parlays are fun, but it's like blowing the whole week's vig budget on Sunday when compared to taking one regular bet a day.</p>
+<p>Even a stretch of good luck is going to get swallowed up real fast if you're losing 30% of the stake on average. These types of parlays are a sadness machine.</p>
+<h3>Partially blessed</h3>
+<p>What if Nephew Doug truly has been partially blessed by the Gods, and can beat the lines 55% of the time? That's pretty good. Only a small percentage of sports bettors can achieve that, in my research.</p>
+<p>The gambler should turn a profit either way, but maybe parlays offer a better return? </p>
+<p>The parlays have an expected return of +0.66%, versus +5% for the straight bets. The straight bets make 7.6x as much money.</p>
+<p>OK, what about if we just don't play the 4th bet? We will bet on the first three legs, and don't play the 4th one. We put the $25 for the fourth bet in our piggy bank and earn a 0% interest rate.</p>
+<p>We're throwing out a bet with positive expected value, and risking angering the Gods by ignoring their chosen sports prophet, Nephew Doug. Perhaps that will tilt things in the parlay's favor.</p>
+<p>Nope! The straight bets have a return of +3.75%, which is still 5.7x better than the parlays.</p>
+<p>Finally, let's say we flip a coin to decide the 4th bet. It will only win 50% of the time, which means it's a guaranteed loser because of the vig -- you win less than you have to risk. (There is much more about the vig in the book.)</p>
+<p>Nope! The coin flip hurts our profitability, but we're still clearing +2.6%, which is 4x better than the parlays. We'd have to do 2 of 4 bets by coin flip for the parlays to be more profitable.</p>
+<p>To be fair, 55% is just <em>barely</em> profitable for an old-school parlay. The profitability increases exponentially as the win rate goes up. There is a win rate where parlays would make more money than the straight bets. If you win 100% of the time, the parlay is definitely a better deal, right? 10x profits taking the parlay versus 4x taking the original bets. </p>
+<p>Successful handicappers who sell their picks on the internet are only winning around 55% of the time. If you have to do as well at something as people who do it for a living just to break even, that's not a great plan.</p>
+<h3>Online Parlays</h3>
+<p>Online 4 leg parlays pay out $1228 per $100 risked, which make them a little less bad. However, they're still way worse for the average gambler than taking the straight bets. At a 50% win rate, online parlays have an expected return of -17%, versus -4.5% for the straight bets. So they're 3.7x worse. They're half as bad as the old school parlays, but still terrible.</p>
+<p>That $1228.33 payout for online parlays was chosen deliberately. It means that online parlays have the same break-even point as the individual bets (at standard vig) -- winning 52.4% of the individual bets. Because parlay profits climb exponentially, that means a skilled bettor with a 55% win rate will have a much higher EV with the parlays. They will have a +21.6% rate of return, versus +5%.</p>
+<h3>EV doesn't describe the range of outcomes</h3>
+<p>Expected Value is a good way of determining whether you can make money taking a certain type of bet, but it doesn't describe the range of possible outcomes.  With parlays, a lot of those outcomes are bad, even for a gambler with enough skill to make them more profitable on paper.</p>
+<p>Simulations are great in this sort of situation, because they can convey the range of possible outcomes in a way EV can't.  I simulated 200 individual bets versus 50 parlays, and ran that 10,000 times. Our virtual gambler wins 55% of the time, and bets $100 on parlays, $25 on each individual bet.</p>
+<p>The individual bets made more money (or lost less money) than the parlays 38% of the time. Just because the expected value is higher for the parlays, that doesn't mean they will always be more profitable. </p>
+<p>More concerningly, the parlays had big losses (down more than $1000 on $100 bets) 33% of the time. That only happened 0.2% of the time on the straight bets. There were almost no small losses with the parlays, because the payout is so high and the number of bets (50 parlays) is so low. Winning one more parlay could be the difference between being down $1000, and breaking even.</p>
+<p>Expected Value can't be the only thing we consider, because we don't live an infinite life. Our whole life is a small sample size, if the variance is high enough. Our bankrolls are always finite. The fact that we might make more money over 100 years is undercut by the fact that we'll die or go broke before then.</p>
+<p>Even for the skilled bettor, parlays make it more of a game of luck. Let's say my simulation represents an entire season of betting on basketball. Imagine playing the parlays with a 55% win rate, being better than almost everybody at handicapping, and still having massive losses one season in three? When you'd make more money taking the individual bets 40% of the time, and only have a 1 in 500 chance of bad losses?</p>
+<h3>Parlay psychology</h3>
+<p>There's a weird psychology to the parlay as well. Even if you played every day, these parlays only win once every couple of weeks, so they'd be kind of a grim strategy in practice. A good bettor taking the individual bets will have winning days over half the time. Is it better to feel like a winner most days, or every other week?</p>
+<p>Most people don't have to consider that question, though. Without a huge amount of skill at betting, the only scenario where they might make sense is as a lottery: something that can deliver a tiny chance of massive payouts without any skill. </p>
+<p>What happens if we do the same simulation, but the win rate is 50%, like a coin flip, or most sports bettors? The parlays make money 38% of the time! Taking 200 straight bets will only make money 26% of the time. Isn't that a little surprising?  Even though the straight bets have better expected value (well, less bad), they also offer less of an opportunity to make money based on chance alone. </p>
+<p>What about over a longer time frame? I simulated 500 parlays versus 2,000 straight bets by flipping a coin. The parlays make money 12% of the time, versus only 1.74% of the time for the straight bets. However, the losses are much, much bigger than the wins:</p>
+<p><img alt="/img/parlay-500.png" src="/img/parlay-500.png"></p>
+<p>12% is 1 in 8, which isn't that rare. 500 parlays could end up stretching over multiple seasons, perhaps a lifetime of sports betting. That means somebody who was making picks by flipping a coin could end up looking like a pretty good bettor for a long stretch if they are taking parlays. Of course, 88% of people will lose money, far more money than the 12% of profitable bettors win. In practical terms, it's like a lottery where you have a 12% chance of winning $3617, but an 88% chance of losing $10,221. Sound like fun?</p>
+<p>It's really, really hard to tell if someone taking bets at long odds is actually good at betting, not without thousands of documented bets. Over 50 parlays, or even 500, it's not that surprising for some people to look smart on parlays by chance alone. It would be much better to assess their skill based on the individual bets they took within the parlays.</p>
+<h3>Other parlays</h3>
+<p>Parlays with only 2 or 3 legs have higher relative payouts compared to 4 leg parlays, so they're not nearly as bad. They'll also have less variance in outcomes than the 4+ leggers. I'll leave those calculations to the reader, though. While they're one of the least bad bets offered by the average sportsbook, it's extremely rare to see people talking about 2 or 3 leg parlays online. Gamblers love the higher payouts and drama of parlays with a bunch of legs. I will have a lot more to say about how people actually play the parlays in a future installment.</p>
+<p>Same Game Parlays (SGPs) are a new type of bet which allows the player to make multiple wagers on the same game. For instance, someone could bet on their favorite team winning and their favorite player scoring over a certain amount of points and the guy they hate on the other team scoring under a certain amount of points, with a big payout if all 3 things happen. SGPs have become the most popular type of bet I see online, and deserve their own lengthy discussion. For now just think of them as the vape pens of betting. They're obviously super addictive, extremely popular with younger people, and you can't really know what's in them, but it's probably bad.</p>
+<h3>Gambling gurus, and the people who listen to them</h3>
+<p>I've taken up lot of hobbies over the years. It seems like every time I take up a new hobby, I end up spending a lot of money on stupid stuff at the beginning. Then I get into it more, and realize what matters.</p>
+<p>There is an adverse selection process, where people who are new to a hobby have no idea what's actually good, what they actually need, or what things should actually cost. Filled with zeal to get started, they end up overpaying for inferior goods. Same thing for travelling in a new country. The guys at the train station trying to hustle you into a taxi are definitely not hooking you up with the cheapest way to get around.</p>
+<p>Betting experts, the kind who have podcasts and big followings on social media, are supposed to know more about this stuff than the average person. They're supposed to be like the guidebooks, or the seasoned traveller telling the newbie to walk 2 blocks and take the metro for $2 instead of paying $100 for a taxi. Yet they're pushing parlays and other sucker bets, and pushing sportsbooks that charge full vig and ban anybody who wins too much. The "experts" are pushing beginners into bad situations. They're the creeps at the train station hustling naive tourists into their buddy's taxi.</p>
+<p>Most of these experts don't do any better than flipping a coin, so I doubt they're actually making money on their "can't miss locks of the week". Gambling ads, sure. Everybody's taking gambling money right now, regardless of how it will hurt their brand, their audience, and sports long term. Clearly there's a lot of money in talking about it. That gambling money is there because these self-styled experts bring the sportsbooks more customers -- losing customers, specifically. </p>
+<p>Where's all that ad money coming from? The sportsbooks wouldn't be throwing money at influencers who were actually winning consistently. Any gambling show they sponsor is pretty much guaranteed to lose you money, or it wouldn't be sponsored. Any bet they're promoting heavily, like they do with parlays, is because it makes them more money that way. You shouldn't need to know any math to figure out why they're pushing teasers and parlays and "profit boosters". I love that last one. It's like saying Idi Amin served mankind. Why would they care about boosting YOUR profits? </p>
+<p>Unlike gamblers, sportsbooks don't make negative expected value plays due to emotions or lack of information. Your irrationality is their entire business.</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/cool-parlay-bro.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
+                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
+                </div>
+            </article>            <h4 class="date">Jul 12, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/sports-betting-and-the-limits-of-rationality.html" rel="bookmark" title="Permanent Link to &quot;Sports betting and the limits of rationality&quot;">Sports betting and the limits of rationality</a>
+                </h2>
+
+                
+                
+
+                <p>Earlier this year, I wrote most of a book about the psychology and mathematics of sports gambling called <em>Your Parlay Sucks</em>. The book never quite came together, and is probably too weird to ever get published, but it has some interesting bits, so I figured I'd share them here.</p>
+<p>Why did I get interested enough in sports betting to write a whole book about it? I think it's because I'm fascinated by the limits of rationality. Philosophers, economists and social scientists would like to treat humans as though they are capable of making rational decisions. That conflicts with the real world, where even pretty smart people make irrational choices. I certainly have. </p>
+<p>Sports betting is a sort of rationality lab. You and I might have different values or beliefs. What's crazy to me might be normal to you, or vice versa, but we should both be able to agree that placing bets that are guaranteed to lose money is irrational.</p>
+<p><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1553935">This paper</a>, "Intuitive Biases in Choice versus Estimation", is a wonderful illustration of cognitive bias and irrationality in the realm of sports betting.  </p>
+<p>The researchers had people bet on NFL football against the point spread. If you're not familiar, the idea behind the point spread is to attract an equal amount of action on both sides of the bet by handicapping one of the teams. If you bet on the favorite, they need to win by at least the amount of the spread for the bet to win. The other side side wins if the team loses by less than the spread, or wins the game outright.</p>
+<p>Gamblers can bet either side, and if there are more bets on one side than the other, the sportsbook can change the spread to attract equal action. So there's a potential for the wisdom of crowds to kick in, the invisible hand of the market moving the line towards the best estimate possible.</p>
+<p>Of course, that depends on gamblers being rational. A rational gambler has to be willing to take either side of a bet (or not bet at all), depending on the spread. If the spread is biased towards the underdog, they should be willing to take the underdog. If it's biased towards the favorite, they should take the favorite. And if the line is perfectly fair, they shouldn't bet at all.</p>
+<p>As I showed a while back with <a href="/majority-voting-in-ensemble-learning.html">ensemble learning</a>, the wisdom of crowds only works if the errors that people make are uncorrelated with each other. If most people are wrong about a particular thing, the "wisdom of crowds" will be wrong, too.</p>
+<p>This study found that people are consistently irrational when it comes to point spreads. They will tend to bet the favorite, even though both sides should have an equal chance of winning. It's probably easier to focus on which team is better, and assume that the better team is more likely to win against the point spread as well. It's harder to imagine the underdog losing the game but winning the bet, or pulling an upset and winning outright. </p>
+<p>The study took things further and adjusted the lines to be biased against the favorite team, so that taking the favorite would be guaranteed to lose more than 50% of the time. They even told the gamblers that they did this. And the gamblers still overwhelmingly picked the favorites. The researchers continued the study for the whole season. Even after weeks and weeks of steadily losing, being told over and over that the lines are unfair, the gamblers still preferred to take the favorites. They never learned. The participants got to keep their winnings, so they had an incentive to be right. And they still couldn't do it.</p>
+<p>Sportsbooks have a lot of ways of trick people into taking extra bad bets, as I will show. But they don't really need to. People will consistently take bad bets even if they should know they're bad bets. </p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/sports-betting-and-the-limits-of-rationality.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/sports-betting.html" rel="tag">sports betting</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/football.html" class="tags">football</a>
+                    &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
+                </div>
+            </article>
+
+                <div class="clear"></div>
+                <div class="pages">
+
+                    <a href="/author/casey-durfee2.html" class="prev_page">&larr;&nbsp;Previous</a>
+
+                    <a href="/author/casey-durfee4.html" class="next_page">Next&nbsp;&rarr;</a>
+
+                    <span>Page 3 of 4</span>
+                </div>
+
+            <div class="clear"></div>
+            <footer>
+                <p>
+                <a href="https://github.com/tcarwash/blue-penguin-dark">Blue Penguin Dark</a> Theme
+                &middot;
+                Powered by <a href="http://getpelican.com">Pelican</a>
+                &middot;
+                <a href="/feeds/all.atom.xml" rel="alternate">Atom Feed</a>
+            </footer>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>
