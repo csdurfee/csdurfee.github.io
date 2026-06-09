@@ -30,7 +30,315 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Mar 01, 2026</h4>
+        <div id="content">            <h4 class="date">Jun 07, 2026</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/laravels-weird-models.html" rel="bookmark" title="Permanent Link to &quot;Laravel's weird models&quot;">Laravel's weird models</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=K3lgmnsTdcA" target="_blank"><img alt="Herbie Hancock and Wah Wah Watson, &quot;Hang Up Your Hang Ups&quot;" src="https://img.youtube.com/vi/K3lgmnsTdcA/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=K3lgmnsTdcA" target="_blank">Herbie Hancock and Wah Wah Watson, "Hang Up Your Hang Ups"</a></p>
+<p>Like I said last week, I think Laravel's a good framework. It's really easy to get started while being sophisticated enough to handle complex use cases, it has some genuinely good ideas, and a vibrant community supporting it. Overall, I would recommend it despite its flaws. But it's more interesting to talk about a system that mostly does things well than something that's crap.</p>
+<p>In the <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">traditional definition of Model-View-Controller</a>, which dates back to the 1970's, models should be the biggest and most important part of the system. The controller and the view should both be fairly minimal layers that support the model.</p>
+<p>In the typical MVC web framework, models usually aren't as central as in the traditional definition, but they should give a good picture of the actual data used by the system -- how it's organized, how it relates to other data, what the data types are, what the validation rules are. Laravel's models do hardly any of that. </p>
+<p>Here's the SQL schema for the default Laravel <code>user</code> table:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="ss">&quot;users&quot;</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="ss">&quot;id&quot;</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="n">autoincrement</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="ss">&quot;name&quot;</span><span class="w"> </span><span class="nb">varchar</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="ss">&quot;email&quot;</span><span class="w"> </span><span class="nb">varchar</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="ss">&quot;email_verified_at&quot;</span><span class="w"> </span><span class="n">datetime</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="ss">&quot;password&quot;</span><span class="w"> </span><span class="nb">varchar</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="ss">&quot;remember_token&quot;</span><span class="w"> </span><span class="nb">varchar</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="ss">&quot;created_at&quot;</span><span class="w"> </span><span class="n">datetime</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="ss">&quot;updated_at&quot;</span><span class="w"> </span><span class="n">datetime</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<p>Here's the corresponding Laravel model:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span> 
+
+<span class="p">#[</span><span class="nd">Fillable</span><span class="p">([</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">])]</span>
+<span class="p">#[</span><span class="nd">Hidden</span><span class="p">([</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="s1">&#39;remember_token&#39;</span><span class="p">])]</span>
+<span class="k">class</span> <span class="nc">User</span> <span class="k">extends</span> <span class="nx">Authenticatable</span>
+<span class="p">{</span>
+    <span class="sd">/** @use HasFactory&lt;UserFactory&gt; */</span>
+    <span class="k">use</span> <span class="nx">HasFactory</span><span class="p">,</span> <span class="nx">Notifiable</span><span class="p">;</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Get the attributes that should be cast.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return array&lt;string, string&gt;</span>
+<span class="sd">     */</span>
+    <span class="k">protected</span> <span class="k">function</span> <span class="nf">casts</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="s1">&#39;email_verified_at&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;datetime&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;hashed&#39;</span><span class="p">,</span>
+        <span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div>
+
+<p>The model tells us almost nothing about what a user record is or how it works. It doesn't tell us which properties exist and what their datatypes are. If you know what "Fillable" means to Laravel, you can tell that the user should be allowed to mass-update the name, email and password fields, but the rest of it is pretty useless as documentation of how the model actually works.</p>
+<p>You might notice <code>created_at</code> and <code>updated_at</code> are also datetime fields in the SQL, like <code>email_verified_at</code>. So why don't those properties need to be cast as well? Laravel tries to add those columns to <em>every.single.table</em> in the database unless you explicitly turn it off, and they are handled <em>automagically</em>. (Find someone who loves you as much as Laravel loves those auto-added timestamps.) </p>
+<p>Why not have the actual functions doing the casting referenced in the model rather than strings? PHP has first class functions; we don't need to use strings as the values in the array returned by <code>casts()</code>. I shouldn't really have to know what function <code>hashed</code> or <code>datetime</code> maps to, I should just be able to click on the function name to get to the definition.</p>
+<p>Neither the SQL nor the model class tell us if any validation is being done on the data, or where. Databases <em>can</em> do data validation using <code>CHECK</code> constraints, so in a more old-fashioned type of database, we might get that info from the SQL schema. It would be nice if ORMs set up <code>CHECK</code> constraints as a part of the table schema, but I've never seen one that does. It's a shame, because there's a pretty suprising bug here because I'm using SQLite for the dtabase. SQLite varchar fields are text fields by another name, which can be up to a billion characters long. You can specify a <code>VARCHAR(100)</code> or whatever, but the database doesn't enforce it. If we want to restrict a SQLite text field to always be some reasonable length, we <em>have</em> to use <code>CHECK</code> constraints.</p>
+<p>Do we really want to allow billion character long usernames (<em>tres commas</em>!), or is there something in the PHP code that limits their length? Can we trust that code always getss run?  Name, email and password are <code>not null</code> in the DB. Is something checking to see that's true before trying to write to the database, or is it relying on the database server to return an error if those columns are omitted? Shouldn't usernames and/or email addresses be unique? How is that enforced?</p>
+<p>These are pretty reasonable questions to ask, and most MVC frameworks will give you the answers just by looking at the model classes.  To answer those questions in Laravel, you have to look at everywhere in the code it writes to the database, and what bespoke set of validations are being used in each place. There's no reason to believe validation is being applied in a uniform fashion.</p>
+<p>For contrast, here's what part of a <a href="https://www.djangoproject.com/">Django</a> user model looks like:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">User</span><span class="p">(</span><span class="n">AbstractUser</span><span class="p">):</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">EmailField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;email address&quot;</span><span class="p">),</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    
+    <span class="n">username</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">),</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+        <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span>
+            <span class="s2">&quot;Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">username_validator</span><span class="p">],</span>
+        <span class="n">error_messages</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;unique&quot;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;A user with that username already exists.&quot;</span><span class="p">),</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;password&quot;</span><span class="p">),</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+
+    <span class="n">USERNAME_FIELD</span> <span class="o">=</span> <span class="s2">&quot;email&quot;</span>
+    <span class="n">REQUIRED_FIELDS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>We can immediately tell what data types the fields are, which ones are required, and what validation is run on each field. The <code>username_validator</code> is supplied as the actual function, not some string that gets mapped to a function somewhere in the depths of the framework, so you can just click on it and be taken to the definition.</p>
+<p>We can get to the definition of <code>EmailField</code> in one click in an IDE, and see that it tries to validate the email address against the official RFC. We can also see that the labels and error messages will be internationalized by the <code>_()</code> function. Nice.</p>
+<p>Most of all, we can feel confident that these validators and constraints will be applied anywhere in the code that is using the User class. The validations are correctly encapsulated in the model.</p>
+<p>PHP isn't capable of as much Fancy Metaprogramming Magic as Python/Ruby, so the syntax can't be as elegant as Django's, but why can't we just declare the columns in the model class in Laravel? For instance, could we have a <code>public string $username</code> property on the class that the ORM fills in? <a href="https://www.yiiframework.com/doc/guide/2.0/en/structure-models#attributes">That's how Yii works</a>. <a href="https://symfony.com/doc/current/doctrine.html">Symfony, too</a>. It at least gives some sense of what the columns are on the database and how they map to PHP types, and it makes code completion work in the IDE.</p>
+<p>Unfortunately, if you try that in Laravel, you'll error about <code>Typed property $name must not be accessed before initialization</code>. You can't actually define the model in your model classes, because it interferes with Laravel's use of <a href="https://www.php.net/manual/en/language.oop5.magic.php">PHP's <code>__get()</code> and <code>__call()</code> <em>magic</em> methods</a>.</p>
+<p>There's a 3rd party library called <a href="https://wendell-adriel.gitbook.io/laravel-lift">Laravel Lift</a> that makes it possible to write saner Laravel models, through heavy use of PHP attributes and Laravel events. For example, we could use Lift's <code>Config</code> attribute to attach behavior to a string typed <code>$username</code> field. The attribute below will allow <code>$username</code> to be set through mass-assignment, requires it not be blank, and provides the error message if it is blank. That gets us pretty close to what Django models do.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">WendellAdriel\Lift\Attributes\Config</span><span class="p">;</span>
+<span class="c1">//...</span>
+<span class="k">class</span> <span class="nc">User</span> <span class="p">{</span>
+    <span class="k">use</span> <span class="nx">Lift</span><span class="p">;</span>
+
+    <span class="p">#[</span><span class="nd">Config</span><span class="p">(</span><span class="nx">fillable</span><span class="o">:</span> <span class="k">true</span><span class="p">,</span> 
+            <span class="nx">rules</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">,</span> <span class="s1">&#39;string&#39;</span><span class="p">],</span> 
+            <span class="nx">messages</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;The name field cannot be empty.&#39;</span><span class="p">])]</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$username</span><span class="p">;</span>
+<span class="c1">//...</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>As Lift's namespace clearly indicates, it's Just Some Wendell's experiment. But it's a pretty compelling proof of concept, at the very least -- whether you want to trust it in production or not is your call. The package has been around for three years, so there's some longevity. But it's puzzling that similar functionality isn't a core part of Laravel by now. </p>
+<p>There are a half dozen ways of doing every trivial thing in Laravel, but not even one way to do this super important thing? Along with the lack of Role-Based Access Control, it makes me wonder if the people setting the direction for Laravel know what really matters in the real world.</p>
+<p>It's weird because Laravel, like everybody, is chasing the AI zeitgeist at this point. Type hinting is kind of having a moment these days, because it makes AI and humans using them better at making reliable stuff quickly. Isn't that more important than all the crap in Laravel's <a href="https://laravel.com/docs/13.x/ai-sdk#images">official AI SDK</a> that I have a hard time imagining anybody using?</p>
+<h3>Searching for a source of truth</h3>
+<p>If you can't declare the columns in the model file, where do you declare them in Laravel? The closest thing to a source of truth ends up being the migrations used to create/modify the tables used. Here's the migration to create the user table:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+
+<span class="nx">Schema</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">();</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">unique</span><span class="p">();</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">timestamp</span><span class="p">(</span><span class="s1">&#39;email_verified_at&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">nullable</span><span class="p">();</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">);</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">rememberToken</span><span class="p">();</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">timestamps</span><span class="p">();</span>
+    <span class="p">});</span>
+</code></pre></div>
+
+<p>That still doesn't give us the whole picture, though. For instance, there may be later migrations that alter the table by adding more columns, or changing the datatypes. The <code>$table-&gt;timestamps()</code> call is what adds both the <code>created_at</code> and <code>updated_at</code> columns to the database. So there isn't even a 1:1 correspondence between this file and the database schema produced.</p>
+<p>It seems almost too obvious to say, but model classes should encapsulate the logic around how the model works. That's what they're there for. <a href="https://en.wikipedia.org/wiki/Cohesion_%28computer_science%29">Cohesion is good</a>. The whole point of MVC frameworks (and design patterns in general) is to split a complex problem into components that serve familiar roles and interact in predictable ways. Laravel does a good job of that a lot of the time, but this ain't it. </p>
+<h3>Validations: the other side of security</h3>
+<p>Validation rules are critical for ensuring that the data in the database is in a standard, predictable format. Validation isn't a separate concern from what the model does. It's integral to it. Weird data in the database always always always leads to weird bugs downstream. For more benign bugs, either somebody goes in and cleans the data up, or everybody has to remember that sometimes the <code>foo</code> field is a null and sometimes it's a blank string, and code around it till the end of time.</p>
+<p>Lack of validation can lead to security issues as well -- XSS, SQL Injection, and Remote Code Execution can all start with bad validation/sanitization/type checking on data written to the database. Like authorization, it's deceptively hard to do validation right, and kinda boring, but extremely important.</p>
+<p>So how does Laravel do validation? If you read the last post, it shouldn't surprise you to learn that there are a bunch of options, and <a href="https://laravel.com/docs/13.x/validation">the documentation</a> tells you to use whatever you feel like.</p>
+<p>The first recommended method is to do validation in the controller class where the data is being submitted to. An example directly from the documentation:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">store</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span><span class="o">:</span> <span class="nx">RedirectResponse</span>
+<span class="p">{</span>
+    <span class="nv">$validated</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">validate</span><span class="p">([</span>
+        <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">,</span> <span class="s1">&#39;unique:posts&#39;</span><span class="p">,</span> <span class="s1">&#39;max:255&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;body&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">],</span>
+    <span class="p">]);</span>
+
+    <span class="c1">// The blog post is valid...</span>
+
+    <span class="k">return</span> <span class="nx">redirect</span><span class="p">(</span><span class="s1">&#39;/posts&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>That means the validation is being done on the HTTP request, which is an obvious separation of concerns issue. The controller <em>should</em> be doing validation, but not this kind. Type checking on the request parameters before any model-related code is run is a good way to build <a href="https://en.wikipedia.org/wiki/Defense_in_depth_(computing)">defense in depth</a>. I wish HTTP request level type checking was baked into more MVC frameworks. I've used it before to improve security across the board on a huge <em>legacy</em> MVC app. It was well worth the effort to add security checks to the request object itself, eliminating hundreds of potential XSS vectors at one go.</p>
+<p>If the <code>page=</code> parameter isn't an integer but an attempt at XSS or SQL injection, we can hope that the ORM or something further on down the chain will prevent Bad Stuff from happening. But why even let it get to that point?</p>
+<p><a href="https://fastapi.tiangolo.com/tutorial/query-param-models/#query-parameters-with-a-pydantic-model">FastAPI</a> does an awesome job of this, thanks to Pydantic models. For example, we can validate a complex set of query parameters before it even hits the controller method. </p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">FilterParams</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">order_by</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;created_at&quot;</span><span class="p">,</span> <span class="s2">&quot;updated_at&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;created_at&quot;</span>
+    <span class="n">tags</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/items/&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">read_items</span><span class="p">(</span><span class="n">filter_query</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">FilterParams</span><span class="p">,</span> <span class="n">Query</span><span class="p">()]):</span>
+    <span class="c1"># do cool stuff here using our well validated filter_query object</span>
+</code></pre></div>
+
+<p>Even if the code had a giant SQL injection vulnerability with the limit/offset/order_by parameters, the request isn't going to get that far.</p>
+<p>There are other benefits. Because the inputs (and outputs) are well specified, fastAPI can generate an <a href="https://www.openapis.org/">OpenAPI</a> interface for free. That means a nice UI for testing API endpoints and auto-generation of API client libraries in any language you can think of, among other benefits. (It would be cool if it did GraphQL as well, but nothing's perfect.)</p>
+<h3>Validation logic should be a part of the model</h3>
+<p>In Laravel-land, if there are multiple endpoints that write to the database, there's no guarantee they will all use the same validation rules.</p>
+<p>It might be nice if there was only ever one endpoint per data type, but that's not how it works in reality. There might be one endpoint used by the website, another used by the JSON API, and a 3rd used in a mobile app webview, a 4th one on some old promo page everyone forgot about, and a 5th one in an admin tool. And what about loading/syncing data from another datasource via a batch job? Shouldn't that get validated, too? Why is data validation so tightly coupled to the HTTP request/response cycle?</p>
+<p>To the framework's credit, you can create an independent <code>Validator</code> object in Laravel that isn't tightly coupled to the HTTP request, but the documentation doesn't explain why you'd want to do that (which is always, IMO; the alternative is madness.)</p>
+<p>Instead, the official way to do more sophisticated data validation in Laravel is to create a custom HTTP request class called a <a href="https://laravel.com/docs/13.x/validation#form-request-validation">Form Request</a>. Now we're tightly coupling the validation rules not just to HTTP requests, but HTML forms and authorization rules as well. We're moving in the wrong direction! </p>
+<p>Form requests are just a way to move some model logic from the controller class (where it shouldn't be) to a different part of the controller layer (where it also shouldn't be). Keeping controllers "skinny" is one of Laravel's guiding principles, according to founder <a href="https://laraveldaily.com/post/taylor-otwell-thin-controllers-fat-models-approach">Taylor Ottwell</a>. But form requests are just hiding evidence of stuff that shouldn't be in the controller at all.</p>
+<h3>Disdain for databases and the N+1 problem</h3>
+<p>A lot of people who write web apps don't seem to like databases, or really understand them. This leads to a lot of anti-patterns to avoid writing even pretty easy SQL queries. (This certainly isn't unique to Laravel.)</p>
+<p>ORMs often display a problem called the "N+1 problem". Fetching a set of data from one model doesn't necessarily load the related data until you need it. You might fetch 100 book records from the database, which is done in a single SQL query. But then, as you print out each book record, it has to do a query to fetch the name of the author of the book from another table. It's trying to save time by not fetching related data you might never use. But if you do need to use it, the system ends up doing 101 queries to get 100 full records.</p>
+<p>Laravel provides a way of preventing lazy loading and/or warning when your code is doing it. But eager loading in Laravel is still non-ideal. This Laravel code will avoid the N+1 problem when accessing author data:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+
+<span class="nv">$catBooks</span> <span class="o">=</span> <span class="nx">Book</span><span class="o">::</span><span class="na">with</span><span class="p">(</span><span class="s1">&#39;author&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">,</span> <span class="s1">&#39;cats&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+</code></pre></div>
+
+<p>But it still fires off two requests, one to get the Books, then a second request to fetch the authors in bulk by ID. That's not terrible, but the whole point of relational databases is, you know, relations. There's no reason not to get the book and author data in a single query:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">A</span><span class="p">.</span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">books</span><span class="w"> </span><span class="n">B</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">authors</span><span class="w"> </span><span class="n">A</span>
+<span class="k">ON</span>
+<span class="w">    </span><span class="n">B</span><span class="p">.</span><span class="n">author_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">.</span><span class="n">id</span>
+<span class="k">WHERE</span>
+<span class="w">    </span><span class="n">B</span><span class="p">.</span><span class="n">subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">:</span><span class="n">subjectName</span>
+</code></pre></div>
+
+<h3>Mighty Morphin' Query Builders</h3>
+<p>Laravel has a query builder. It's like every other query builder in that its usage is harder to understand, and less performant, than a bit of raw SQL written with knowledge and care. There's no reason to believe that using the query builder is safer than writing a prepared statement by hand. And explaining how to use the query builder takes at least as much work as explaining how SQL works, but you have to write it in an Object-Oriented style instead of declarative.</p>
+<p>Here's an example from Laravel's query builder documentation:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+
+<span class="nv">$users</span> <span class="o">=</span> <span class="nx">DB</span><span class="o">::</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;votes&#39;</span><span class="p">,</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">orWhere</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nx">Builder</span> <span class="nv">$query</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;Abigail&#39;</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;votes&#39;</span><span class="p">,</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+        <span class="p">})</span>
+    <span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+</code></pre></div>
+
+<p>The equivalent SQL would be:</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span>
+<span class="k">from</span><span class="w"> </span><span class="n">users</span><span class="w"> </span>
+<span class="k">where</span><span class="w"> </span><span class="n">votes</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Abigail&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">votes</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">50</span><span class="p">)</span>
+</code></pre></div>
+
+<p>I find it hard to believe that there's anyone who finds the PHP version more readable than the SQL version. If I didn't know any better, I'd think the SQL version was used to generate the less readable PHP version rather than the other way around.</p>
+<p>As a database nerd, I've spent a lot of time optimizing slow SQL queries. If the PHP version of the query ends up in the slow query log, it can be a pain to find where in the codebase the query is being built. </p>
+<p>Query builders also encourage developers to scatter complex one-off SQL queries all over the codebase. This makes optimizing database performance a game of whack-a-mole. A much better paradigm is having complex queries written by hand, contained within <a href="https://www.umlboard.com/design-patterns/repository.html">Repository pattern</a> style classes. That makes optimizing the SQL and caching the results in a standard way much easier.</p>
+<p>Laravel's seeming lack of respect for databases shows up in the nomenclature as well. Laravel's "pivot tables" are what everyone else calls <a href="https://en.wikipedia.org/wiki/Associative_entity">"associative tables"</a>, "junction tables" or "join tables" -- a way to record many-to-many relationships between two other tables. They have nothing to do with what everybody else calls pivot tables, the kind you use in Microsoft Excel. Maybe it's <em>an Albany expression</em>, but it's absurd, and implies that whoever built the Laravel ORM didn't even know basic stuff about databases.</p>
+<h3>This helper function really could have been an if() statement</h3>
+<p>This is super trivial, which is why it's at the end. But it fits into the larger Laravel ethos of "more is better". Laravel comes with bazillions of little utility functions, some of which are genuinely helpful, others of which have no reason to exist.  Some examples (the actual code is as simple as you think):</p>
+<ul>
+<li>"The <code>exactly</code> method determines if the given string is an exact match with another string."</li>
+<li>"If you would like to conditionally dispatch an event, you may use the <code>dispatchIf</code> and <code>dispatchUnless</code> methods."</li>
+<li>"Append the given values to the string."</li>
+<li>(Paraphrasing) "You can pass an additional function, and if it returns false, the parent won't ever be run."</li>
+</ul>
+<p>These are all things that can be done with basic language functionality and control structures even the most beginner programmer should be aware of. We don't need a special Laravel branded version of the <code>if()</code> statement or the <code>===</code> operator. I don't know who is helped by these trivial functions. As with the bigger issues with authorization and validation, they reflect an odd set of priorities.</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/laravels-weird-models.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/software-development.html" rel="tag">software development</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/security.html" class="tags">security</a>
+                    &nbsp;<a href="/tag/laravel.html" class="tags">Laravel</a>
+                </div>
+            </article>            <h4 class="date">Jun 01, 2026</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/laravel-security-and-the-paradox-of-choice.html" rel="bookmark" title="Permanent Link to &quot;Laravel, security and the paradox of choice&quot;">Laravel, security and the paradox of choice</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=dpjM7wwSTxI" target="_blank"><img alt="&quot;Don't Explain&quot;, Dexter Gordon" src="https://img.youtube.com/vi/dpjM7wwSTxI/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=dpjM7wwSTxI" target="_blank">"Don't Explain", Dexter Gordon</a></p>
+<p>I've been working with <a href="https://www.laravel.com">Laravel</a> recently. It's good, probably the best tool for making webapps in PHP right now, for anyone still left doing that. But like any framework, it isn't perfect. It has some very PHP-ish flaws, like misusing established jargon. But the biggest PHP-ish Laravel sin is that there are a bajillion different ways to do every little thing.</p>
+<p>Having lots of good choices isn't always better. If I ask you to choose between 10 different flavors of ice cream you like, it may be hard for you to pick one. Do you go with rocky road, or pistachio, or chocolate? They're all good choices. You think about each one, and are happy, then think about the 9 flavors you don't get to have by choosing that one, and are less happy.</p>
+<p>If I give you two choices, one you like, and one you hate, you will probably be happier with your decision than if you had 10 good choices. You can feel confident that you picked the right one. There's no chance for regret or second-guessing. That's the paradox of choice. People can end up being less happy if they have too many good options. </p>
+<p>In an engineering context, it's not exactly like picking rocky road and kinda wishing you picked pistachio, but too many options still causes mental overhead. This pops up a lot in Laravel. Let's say you want to get the current user.  You can:</p>
+<ul>
+<li>call <code>auth()-&gt;user</code>. <code>auth()</code> is a helper method that's available everywhere in Laravel.</li>
+<li>call <code>request()-&gt;user</code>. <code>request()</code> is another global helper method.</li>
+<li>call <code>Auth::user()</code>. <code>Auth</code> is a facade that's also available everywhere.</li>
+<li>have the user passed in by automatic dependency injection, possibly with the help of the <code>[CurrentUser]</code> annotation or route model binding</li>
+<li>pass the request through automatic dependency injection, then get the user from that</li>
+</ul>
+<p>There are probably others! That's true of basically everything in Laravel.  The documentation will give you 5 different ways to do the same thing and say it's up to you to choose. Maybe it's not a big deal, but who does that help, exactly? </p>
+<p>If there's only one way to do a thing, everybody uses it. In Django, to get the current user, you do <code>request.user</code>. In Yii, you do <code>Yii::$app-&gt;user</code>. There's no need to think about it when reading or writing Django or Yii code, and probably most other frameworks. </p>
+<p>Laravel forces us out of a coding flow state to make trivial choices all over the place. You have to sit down and decide which way you're going to do it instead of just doing it. It's not really a creative choice, or one that makes the software more powerful. It's another thing to think about that doesn't create value for anybody.</p>
+<p>It's worse with multiple developers working on a project, especially with AI helpers in the mix. It's bad for maintainability to have everybody doing it their own way, based on their current mood or what they're used to, rather than a good engineering reason. </p>
+<p>Most of the time, Laravel's paradox of choice is a pretty minor issue. It's just a vector for sloppiness, not a fatal flaw. Sometimes the team needs to establish the official way of doing things, though thanks to the Law of Triviality, trying to hash out the One True Way can be an annoying waste of time. </p>
+<p>I wonder how many thousands of developer-hours have been wasted worldwide deciding between "PUT" and "PATCH". I still remember a meeting from 13 years ago where we spent a good half hour debating that issue. It was an internal API, and couldn't have mattered less. People in general, and nerds specifically, tend to get sucked into trivial bikeshedding debates. If the two choices were "PUT" and a bit of eldritch speech that summons the Ancient Gods to devour the world, we'd all be fine with using "PUT", I'm sure. It would've been a short meeting.</p>
+<h2>Not knowing what you're doing versus not even trying</h2>
+<p>It's different when security is involved. What's happening and why needs to be crystal clear. I think it's worth being dogmatic about how security-related code is written.</p>
+<p>The <a href="https://owasp.org/Top10/2025/">OWASP Top 10</a> is a list of the most common types of security problems on the web. It's easy to think of security and envision a zero-day attack on the Linux kernel or some daring social engineering hack, but the vast majority of attacks either fall under the heading of "Not Knowing What We're Doing", or "We're Not Even Trying". </p>
+<p>Anybody who creates software for the web should be hyper-aware of the OWASP Top 10, if only to understand how prosaic most of the issues are. The top two issues in the 2025 list were <a href="https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/">Broken Access Control</a> and <a href="https://owasp.org/Top10/2025/A02_2025-Security_Misconfiguration/">Security Misconfiguration</a>. Those two are always near the top, and both of them can be affected by having too many choices. </p>
+<p>In order to have a Security Misconfiguration, you have to have a configuration to misconfigure, right? Somebody chose an insecure configuration, or the software wasn't secure out of the box. More moving parts increases the odds of that happening. A certain amount of Security Misconfiguration issues could be eliminated by having fewer things you can do wrong.</p>
+<p>Laravel ships with pretty reasonable security defaults, though it's easy to overindex on the wrong things when looking at a list of features. Any good framework should protect you against XSS, CSRF, injection, and mass assignment, which I'd classify as "Not Even Trying" problems at this point. Additional browser security features, like Content-Security-Policy and Same Site cookies, have made it harder to screw things up, even if you misconfigure things, or the framework fails to prevent a problem. Anyone who's actually trying should be pretty well protected against those issues. </p>
+<p>The #1 issue, Broken Access Control, which was also #1 in the previous rankings in 2021, is squarely in the <em>Not Knowing What We're Doing</em> category. This is a place where disciplined engineering practices can make a big difference, and where Laravel's "do it however you want, yolo" approach to <em>everything</em> doesn't just trigger annoying bikeshedding convos but actual security incidents.</p>
+<h2>A maze of twisty passages, all alike.</h2>
+<p>Authorization is really easy to screw up in the best of conditions. Nobody wakes up and thinks, "I'm gonna do auth wrong today." We try, and we do it wrong. There's a reason why it's the #1 security issue -- it's error prone.</p>
+<p>Laravel lets its users down by giving them too many auth-related choices. I'm going to try to enumerate all the ways you can do authorization checks in the latest version of Laravel (13.x). It's a staggeringly long list, and I'm probably missing some. <a href="https://laravel.com/docs/13.x/authorization">Official documentation here, if you want to play along at home.</a></p>
+<p>You can:</p>
+<ul>
+<li>do it in raw PHP without using the Laravel authZ system at all. The official documentation suggests this.</li>
+<li>define an access control rule on the fly and then use it in the middle of a controller</li>
+<li>do it on the fly in the routes file </li>
+<li>define model-level policies in the application service provider's <code>boot()</code> method (Laravel's junk drawer, ugh)</li>
+<li>manually register Policy classes in non-standard locations through the <code>boot()</code> method as well</li>
+<li>manually register a policy via a different syntax in <code>boot()</code> called a "class callback array"</li>
+<li>create a Policy class (which is auto-discovered) and check them against the current user/object with the <code>Gate::</code> facade</li>
+<li>use the <code>-&gt;can()</code> method on the user object to check policies</li>
+<li>check a policy against the model's class (rather than specific objects) with various methods</li>
+<li>override a Policy with a policy filter and <code>Gate::before()</code>, which supersedes the normal policy checks. </li>
+<li>also override policy checks with <code>Gate::after()</code></li>
+<li>apply policies to controller classes via PHP attributes</li>
+<li>apply policies through the <code>can</code> middleware applied to a single route, by munging the normal arguments to <code>can()</code> into a single string (ugh)</li>
+<li>apply the <code>can</code> middleware on a group of routes</li>
+<li>check permissions in the <code>authorize()</code> method of a Form Request</li>
+<li>show/hide content in the view layer based on policies using the <code>@can</code> directive</li>
+<li>if you are using Laravel Inertia (their framework for single-page webapps), you can also define security policies in the <code>HandleInertiaRequests</code> middleware (which uses different syntax than other auth code in Laravel)</li>
+</ul>
+<p>If you have both HTML and JSON API endpoints, that can mean two sets of whatever method you choose, with added requirements to exclude database fields you'd never expose through HTML. </p>
+<p>Sheesh. Imagine doing a security audit on a Laravel application. You'd have to check every one of those possibilities to understand/document how the system does auth, then figure out if it's working as intended. </p>
+<p>As with Laravel's other "choose your own adventure" options, it appears that all the above methods are using the same basic code. The framework hasn't dramatically increased the complexity/attack surface of their own code, but they have yours. How can we understand whether authorization is being applied the way it's <em>supposed to</em>. when there are so many possible ways to apply the rules?</p>
+<h2>Remediations &amp; recommendations</h2>
+<p>Laravel has a nice event system. It fires off an event called <a href="https://github.com/laravel/framework/commit/0c6f5f75bf0ba4d3307145c9d92ae022f60414be"><code>GateEvaluated</code></a> every time that an authorization policy is checked. It would be pretty easy to log every auth check performed by Laravel, but it's not going to be all that helpful without some curation.</p>
+<p>For instance, frontend code might use the <code>@auth</code> directive to decide whether to display an edit link on a piece of content. If only the owner is allowed to edit it, the vast majority of the time, the edit link shouldn't display and that check is going to fail. It doesn't mean that someone is trying to hack the system. So failed auth checks are going to have a lot of noise.</p>
+<p>Granular auth checks can help separate signal from noise, and are a good idea anywhere. For instance, there should be separate policies for <code>can edit</code> (used to gate access to the edit page, or saving edits) and <code>can view edit link</code> (prevent showing the link to the edit page). <code>can view edit link</code> failures are probably not a result of user misbehavior.</p>
+<p>We should be more concerned about the dog that didn't bark. The logs can't tell you that an auth check should have failed, but passed instead. A log of auth checks would be valuable for incident response after something bad has happened, but you can't really use it to proactively find problems. Pathways that lead to circumvention of auth rules shouldn't happen during normal use of the system.</p>
+<p>The question of "should person A be allowed to do action B to thing C?" is a business logic question. Somebody or something has to know how the business should work to recognize the code's not working right. That requires a certain amount of manual auditing of the codebase, and a <a href="https://en.wikipedia.org/wiki/Single_source_of_truth">single source of truth</a>. If authorization rules are defined and checked in a standard way, that's a whole lot easier to do.</p>
+<h3>Start with policy classes and RBAC</h3>
+<p>Laravel's <a href="https://laravel.com/docs/13.x/authorization#creating-policies">Policy classes</a> are a good way to make sure that authorization rules are defined in predictable locations for a particular Model. I would recommend using them from the beginning of a project.</p>
+<p>Laravel has an ACL-based security model. It's worth starting with <a href="https://en.wikipedia.org/wiki/Role-based_access_control">Role Based Access Control</a> from the beginning, and it's odd the framework doesn't come with it out of the box, considering frameworks like Symfony and Django do. Spatie's <a href="https://spatie.be/docs/laravel-permission/v8/introduction">laravel-permission</a> package looks like a much better choice than rolling your own.</p>
+<p>For policies that aren't tied to a particular model, such as who can access <code>/admin</code> type pages, you can define Policy classes that aren't tied to a particular model, then register them in the <code>boot()</code> method of the app. That keeps all policies in one standard location.</p>
+<p>As far as checks against those policies, explicitly using the <code>Gate::</code> functions everywhere makes findability easier. Finding every auth check being done in the system shouldn't be some kind of treasure hunt.</p>
+<p>The <code>user()-&gt;can()</code> syntax is convenient but can't apply to all auth situations. Consistent checking is less important than clear definition of permissions, though. Can I search for the name of the permission and find everywhere in the code using it? Can I see which role(s) the permissions are assigned to? Can I see which users have that role, and maybe some clue why they're in that role? Are the permissions granular enough, and have they been assigned following least privilege?</p>
+<p>Laravel <code>FormRequest</code>s are the framework's one nod to more sophisticated security. They offer a mechanism to combine authorization and validation in one object. I'm not a huge fan of them because data validation should be a Model level concern, not a Controller level one. There's no good reason why validation should be tightly coupled to HTTP and HTML forms, except for the curious nature of Laravel models. (More on that next week.) While <code>FormRequest</code>s are odd from an architecture standpoint, consistent use of them is certainly better than a scattershot approach to auth. Keep things simple and consistent if you possibly can.</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/laravel-security-and-the-paradox-of-choice.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/software-development.html" rel="tag">software development</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/security.html" class="tags">security</a>
+                    &nbsp;<a href="/tag/laravel.html" class="tags">Laravel</a>
+                </div>
+            </article>            <h4 class="date">Mar 01, 2026</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -1075,201 +1383,6 @@ line shopping: +99     </p>
                 <div class="info">
                     <a href="/keys-to-the-kingdom.html">posted at 10:20</a>
                     &nbsp;&middot;&nbsp;<a href="/category/basketball.html" rel="tag">basketball</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
-                    &nbsp;<a href="/tag/bajillion.html" class="tags">bajillion</a>
-                </div>
-            </article>            <h4 class="date">Dec 10, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/free-throws-and-opportunity-costs.html" rel="bookmark" title="Permanent Link to &quot;Free throws and opportunity costs&quot;">Free throws and opportunity costs</a>
-                </h2>
-
-                
-                
-
-                <p><a href="https://www.youtube.com/watch?v=jpdiMcEeTJA" target="_blank"><img alt="Delia Derbyshire - Pot Au Feu (1968)" src="https://img.youtube.com/vi/jpdiMcEeTJA/0.jpg"></a></p>
-<p>Song: <a href="https://www.youtube.com/watch?v=jpdiMcEeTJA" target="_blank">Delia Derbyshire - Pot Au Feu (1968)</a></p>
-<p>Notebook: <a href="https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/free-throws.ipynb">https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/free-throws.ipynb</a></p>
-<h2>The Bucks</h2>
-<p>There's a lot of buzz around the Milwaukee Bucks right now because their star player has asked to be traded, but I'm gonna stick to the math. The NBA take-industrial complex has got the Giannis situation covered, and I do math better than drama.</p>
-<p>I noted a few weeks ago that the Bucks make a surprisingly low number of free throws given that they have a guy with one of the highest free throw rates in the league. They're also bad on defense and end up fouling a lot. That's a bad combination.</p>
-<p>As of December 5th, the Bucks are dead last in free throws made (14.4 per game) and 6th worst in free throws made by the other team (21.3 per game). Aren't they essentially having to play every game with a 6.9 point handicap? </p>
-<p>Although it's an intuitively simple way of looking at things, it's too simple. Basketball strategy is a series of tradeoffs. There are a lot of "good" numbers -- stats that correlate with more wins -- but it's usually hard to make one <em>good</em> number go up without a <em>bad</em> number going up, or another <em>good</em> number going down, in response.</p>
-<p>I'm looking at the last 25 years of team data from nba.com/stats.</p>
-<h2>Things to remember about free throws</h2>
-<p>There are complications to analyzing free throws because they're not a fixed quantity. Some fans will see a game where one team gets 20 free throws and the other team gets 35, and take it as evidence that the refs were biased. That's naive -- some players/teams foul more on defense, some players/teams take more <em>foul-worthy</em> shots on on offense, and there's plenty of random variation form game to game. It would be weird if every team committed exactly 30 fouls every single game.</p>
-<p>There's seasonality to foul calls as well. On top of formal rule changes, the NBA issues <em>points of emphasis</em> for its officials each year, which change how the rules are interpreted. Certain types of fouls may be emphasized, or de-emphasized, causing the total number of fouls called to go up or down. It's hard to find a formal record of these de facto rule changes, but as a fan, I've seen it several times. For instance, <a href="/overs-money-lines-and-pigeonholes.html">I previously talked about</a> the middle of the 2023 season, where the league told officials to stop calling so many fouls in general, without telling teams or the general public. </p>
-<p>There was another shift in the early 2010's where the officials quit calling so many fouls caused by the actions of the shooter rather than the defender. A shooter can shoot in a somewhat artificial way to ensnare the defender's arms. This type of grifting still exists in the league -- looking at you, James Harden -- but the league reduced the number of cheap fouls called in the early 2010's. I couldn't find exactly when they formally made the proclamation, but we can see a big shift in the free throw data after the 2010-11 season.</p>
-<p><img alt="/img/made-ft.png" src="/img/made-ft.png"></p>
-<p>The current season has been more like the NBA from 2004-2010, at over 39 made free throws a game. However, there's a lot more scoring now, so free throws are a smaller percentage of a team's total points:</p>
-<p><img alt="/img/points-off-ft.png" src="/img/points-off-ft.png"></p>
-<h2>Do free throw differentials matter?</h2>
-<p>Of course, there's going to be a lot more variance in the 20 games of this season when compared to a full 82 games.</p>
-<p>The Bucks' free throw differential of -6.9 (<em>not nice</em>) would be by far the worst of the last 25 years, if it held for the whole season. The Celtics' current differential of -6.3 also stands out. </p>
-<p>90% of NBA seasons are between the two white lines. We'd expect there to be 3 outliers by the end of the season, instead of 7.</p>
-<p><img alt="/img/ft-diff-season.png" src="/img/ft-diff-season.png"></p>
-<p>Some of the differential is due to chance. We should charitably assume that referees make random errors when calling or not calling fouls. Refs can make both Type I errors (fouls they shouldn't have called) and Type II errors (fouls they should have called and missed). Some teams will get called for more fouls than other teams, due to randomness, rather than conspiracy. Over a larger sample size, the refereeing luck will even out.</p>
-<p>Free throw differential is positively correlated with winning.</p>
-<p><img alt="/img/ftm-diff-win-pct.png" src="/img/ftm-diff-win-pct.png"></p>
-<p>The diagonal line is the overall trendline. Even though it's a positive trend, the teams with some of the biggest positive and negative differentials are close to .500 win percentage. This is a good example of why it's important to visualize data, not just look at the correlation. The bigger picture shows it's good to have a positive free throw point differential, but not a magic ticket to winning.</p>
-<h2>Do referees try to keep fouls roughly even?</h2>
-<p>It's possible referees have an unconscious bias towards calling an even number of fouls on both teams. There's certainly a correlation between more free throws made and more free throws given up to the other team.</p>
-<p><img alt="/img/ftm-vs-opponent.png" src="/img/ftm-vs-opponent.png"></p>
-<p>However, this overall picture is misleading. The number of fouls called per game goes up and down season-to-season based on rule changes and <em>points of emphasis</em>. So from year to year, the center of all the dots should move up and down along the diagonal line <code>FTM=Opponent FTM</code>. We should expect a positive correlation overall that isn't necessarily there in the individual seasons -- an example of <a href="https://en.wikipedia.org/wiki/Simpson's_paradox">Simpson's paradox</a>.</p>
-<p>Here's an animation of the correlations year-by-year:</p>
-<p><img alt="/img/ftm-scatter.gif" src="/img/ftm-scatter.gif"></p>
-<p>A lot of seasons, the trendline is basically flat. But plotting correlations year by year, there are a lot more positive years than negative.</p>
-<p><img alt="/img/corr-ftm.png" src="/img/corr-ftm.png"></p>
-<p>So I do think it's possible that refs call more fouls on teams that get fouled a lot, a conscious or subconscious bias towards <em>fairness</em>. Or perhaps, teams that play physical on offense also tend to play physical on defense as well. We'd need to look at individual games -- we're not going to see evidence of that in the yearly averages.</p>
-<h2>Basketball strategy and opportunity cost</h2>
-<p>The opponent's number of free throws made has a higher correlation with winning percentage (<code>r=-0.260</code>) than a team's number of free throws made (<code>r=0.153</code>). If it were possible to make such a binary tradeoff, the Bucks would be better off trying to foul the other team less, rather than trying to draw more fouls. That's especially true given the Bucks are the best 3 point shooting team in the league -- drawing more fouls would mean fewer 3 point attempts. They have the 2nd highest eFG%, so they're already making the most of their shot attempts. </p>
-<p>Why isn't their offense better overall? One big reason is their offensive rebounding rate is the lowest in the league. They score the fewest 2nd chance points in the league, at only 10.5 2nd chance points a game, versus 18 a game for the top teams. Does that mean another de facto 7 point handicap?</p>
-<p>Not necessarily, because offensive rebounding rate is a schematic choice. Do the bigs try to get the rebound (<em>crash the boards</em>), or do they try to hustle back and play defense? Teams coached by Doc Rivers tend to have low offensive rebounding rates. The "Lob City" Clippers were a great rebounding team, yet in their heyday from 2014-2018, they were 21st, 28th, 29th, and 24th in offensive rebounding, so it's not surprising the Bucks have that same tendency.</p>
-<p>The Thunder have the 3rd fewest second chance points, so a team can definitely be elite and not get a lot of offensive rebounds. But unlike the Thunder, the Bucks are bad on defense (22nd in defensive rating) and foul way too much, so they're not in a good place to make defense their identity. If this were NBA 2K, I'd probably move the "crash the boards" slider to the left for the Bucks and see what happens, because the Bucks are closer to being elite on the offensive end. There's more strength to build on.</p>
-<p>There is only a very slight positive correlation between 2nd chance point differential and winning percentage. It's a bad predictor of team success.</p>
-<p><img alt="/img/2nd-chance-diff.png" src="/img/2nd-chance-diff.png"></p>
-<h2>The Nets are fun... for now</h2>
-<p>The Brooklyn Nets had a bunch of draft picks and cap space going into this offseason, and they didn't seem to maximize those resources. A lot of people didn't like the trade they made for Michael Porter Jr., which got the Denver Nuggets out of salary cap hell in exchange for a fairly small return. The Nets were the only team in the league with the financial flexibility to take on bad contracts in trades, so they probably could have gotten more.</p>
-<p>They also didn't trade any of the five first round picks they accumulated in this year's draft. Why didn't they trade some of them for future picks? The conventional wisdom is that teams shouldn't try to develop too many rookies at once. What's a team supposed to do with five rookies (two of whom are teenagers), with some overlap in the positions they play?</p>
-<p>Well for one thing, they're supposed to be terrible. The Nets have been bottoming out for a few seasons, and I doubt that will stop this season. Catch them in the next few weeks while they're sort of trying to win games, if you're curious. They've won 3 out of their last 4 games and they've been entertaining.</p>
-<p>They were fun for a few weeks at this point in the season last year, too. The front office will probably try to trade away their best players over the next couple of months to keep them from being too good. But right now, MPJ is a good stats/bad team All-Star, Nic Claxton is solid as always, rookie Danny Wolf is already a fan favorite, and a couple other rookies show promise. </p>
-<p>As fun as they are, I'm not encouraged by the Nets' approach to rebuilding. I'm always a lot more concerned with process than outcomes, because the process can be controlled. It seems like their idea is that if they draft enough first rounders, inevitably some of them will be good. It's treating players like lotto scratch tickets -- players are inherently winners or losers, and it's the front office's job to play the percentages and get as many picks as possible.</p>
-<p>That's bad process to me. Players are more like a packet of seeds. The final result is heavily dependent on how and where they are grown. The same seed grown in two different environments can give two very different results. Some seeds are better than others, but without the right environment, even the best seeds won't grow to their maximum potential. I don't know if they have the culture and support system to develop their five rookies. It will be a few years before we'll see what sort of trees they're growing in Brooklyn.</p>
-<h2>The Mathletix Bajillion, week whatever</h2>
-<p>As usual, one set of NFL picks is algorithmic, the other is random. </p>
-<p>Mathletix won the week, with a total record of 6-4 versus the Ringer's 10-15 record (note: their website incorrectly lists <em>The Handicapos</em> as going 5-0 when they actually went 4-1. I'm petty enough to notice, but not petty enough to email them about it.)  </p>
-<p>The Ringer currently has 3 teams at 33-37 and 2 teams at 31-39, for a cumulative record of 161-189 (46.0% winning rate). Of course, some of the Ringer's picks contradict each other -- one Ringer team taking the home team, and another taking the away team on the same game. Removing the bets where Ringer teams contradicted each other would just make things worse, though, because taking both sides of a bet has a winning percentage of 50%, which is better than the Ringer's overall win rate.</p>
-<p>Someone taking the opposite of every one of the Ringer experts' picks would be up 11.9 units on the year, for a +3.4% rate of return. There's only a 6.7% chance of getting results that bad by flipping a coin. </p>
-<p>As I've written about before, I don't think that makes them bad as far as gambling experts go. Rather, I believe everything they know about football has already been incorporated into the line, so their knowledge is kind of a curse -- they're overvaluing information that the market has already absorbed, so they end up losing more than 50% of the time.</p>
-<p><em>Lines taken Wednesday morning</em></p>
-<h3>The Neil McAul-Stars</h3>
-<p>last week: 4-1, +304  <br>
-Overall: 15-10, +480  <br>
-line shopping: +80    </p>
-<ul>
-<li>CIN +2.5 -101 (lowvig)</li>
-<li>NYG -2 -110 (hard rock)</li>
-<li>MIA +3.5 -105 (lowvig)</li>
-<li>BUF PK -110 (lowvig)</li>
-<li>NYJ +13.5 -105 (prophetX)</li>
-</ul>
-<h3>The Vincent Hand-Eggs</h3>
-<p>last week: 2-3, -108  <br>
-Overall: 9-15-1, -671  <br>
-line shopping: +79    </p>
-<ul>
-<li>PHI -11.5 -105 (lowvig)</li>
-<li>DET +6 -105 (lowvig)</li>
-<li>WAS +2.5 +105 (prophetX)</li>
-<li>KC -4.5 -109 (prophetX)</li>
-<li>CIN +2.5 -101 (lowvig)</li>
-</ul>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/free-throws-and-opportunity-costs.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/nba.html" rel="tag">NBA</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
-                </div>
-            </article>            <h4 class="date">Dec 02, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/two-ways-to-go-from-the-middle.html" rel="bookmark" title="Permanent Link to &quot;Two ways to go from the middle&quot;">Two ways to go from the middle</a>
-                </h2>
-
-                
-                
-
-                <p><a href="https://www.youtube.com/watch?v=6L1mD-tgoE4" target="_blank"><img alt="Hobo Johnson, &quot;Sacramento Kings Anthem (we’re not that bad)&quot;" src="https://img.youtube.com/vi/6L1mD-tgoE4/0.jpg"></a></p>
-<p>Song: <a href="https://www.youtube.com/watch?v=6L1mD-tgoE4" target="_blank">Hobo Johnson, "Sacramento Kings Anthem (we’re not that bad)"</a></p>
-<p><em>Stats are as of 12/1/2025</em>. <a href="https://docs.google.com/spreadsheets/d/1rHkNoaj3lX5eEGQQ3NwpXtwajKTUYOhUecpoYItPL2M/edit?usp=sharing.">Spreadsheet here</a></p>
-<h2>The Kings</h2>
-<p>The Sacramento Kings are going through it. Again. For most other teams, the choices they've made recently would be a historically incompetent period, a basketball Dark Ages. For the Kings, it's just another season. </p>
-<p>Firing the only coach that's had success with the team in a long time and replacing him with a buddy of the owner who is willing to work cheap. Drafting two All-Star point guards and trading both of them away. Trading for two guys (LaVine and DeRozan) who everybody knew would be a bad fit from their years playing together on the Bulls. Trading the very good, ultra reliable Jonas Valančiūnas for the washed Dario Saric just to save a tiny bit of money.</p>
-<p>Do you know the <a href="https://www.youtube.com/watch?v=rKMMCPeiQoc">definition of insanity</a>? The Kings' front office doesn't.</p>
-<p>Sacramento is 5-16 so far. They're definitely not a good team, but maybe they're <em>not that bad</em>? They went 40-42 last season, which is respectable in the loaded Western Conference. They've had a brutally hard schedule, and 21 games is not a large sample size. </p>
-<p>I'll get back to the Kings, but first, the other side of the coin.</p>
-<h2>The Heat</h2>
-<p>The Miami Heat were arguably in a worse place than the Kings at the end of last season. They won 37 games, 3 fewer than the Kings, and play in the easier conference. They looked totally checked out by the end of the season, another team stuck in the middle of the NBA standings.</p>
-<p>It was a disappointing, dysfunctional run where they <a href="/free-throw-merchants-and-the-value-of-stars.html">traded away their best player</a> and seemed to be going nowhere. The vibes were bad, but they didn't blow up the team for the hope of maybe being good again someday, or run back the same players and the same scheme for another bout of mediocrity. Instead, they trusted the culture they built and tried something innovative.</p>
-<p>They've been one of the best stories in the NBA so far, greatly outperforming expectations by playing a radical brand of basketball on the offensive end. They completely overhauled their offense to quickly attack one-on-one matchups before the defense can get set, rather than the traditional approach of creating mismatches using pick-and-rolls. </p>
-<p><a href="https://www.youtube.com/watch?v=dVBsWm7uhGw">Here's a good video from Thinking Basketball explaining the strategy</a>, an even more turbo-charged version of the scheme the Grizzlies used to great success last year. As a basketball fan, it's a bit weird to watch at first, because pick and rolls are such an traditional part of basketball, but it's refreshing.</p>
-<p>I don't know why more teams don't have the courage to try unconventional things  -- <a href="/home-of-elvis-and-the-ancient-greeks.html">or in the Grizzlies' case, stick with something unconventional that was working.</a> In the NBA, it takes a great coach and front office to defy the conventional wisdom and try to get more out of the players already on the roster -- putting them in a position to succeed rather than re-shuffling the deck.</p>
-<p>The most remarkable part is that overhauling the offense hasn't sacrificed the Heat's identity as a top-tier defensive team at all. They have the 4th best defense in the league so far by Defensive Rating. They're doing this while playing at the fastest pace in the league this year. Teams that play fast are usually just trying to outscore their opponents, with little attention to defense. </p>
-<p>But the Heat are using their scheme to generate high quality offensive opportunities for players that are primarily on the court for their defense. They're building on their core identity rather than changing directions entirely. They're building on strength.</p>
-<p>An elite playmaker like Tyrese Halliburton, or a generational talent like SGA or Jokic, can set up defense-first players for easy looks, but most teams that concentrate on defense struggle generating enough offensive firepower. The Orlando Magic have been plagued by that problem for years. The system Miami is running seems like a cheat code for defensively minded teams -- at least until the league inevitably figures out ways to slow it down.</p>
-<p>I couldn't find anybody in the media who knew the Heat's scheme change was coming, much less an idea of how much of an impact it would have.  I looked at a bunch of preseason power rankings, and they were all pretty down on the Heat for the same reasons, without any hint that they could fix the problems with a different play style. It's much easier to assess the impact of roster changes.</p>
-<p>For example, this is from <a href="https://www.nbcsports.com/nba/news/nba-power-rankings-2025-26-where-do-teams-stand-after-nba-offseason-rockets-nuggets-chase-thunder-at-top">NBC Sports'</a> preseason power rankings:</p>
-<blockquote>
-<p>this was a middle-of-the-pack Heat team last season that made no bold moves, no massive upgrades, leaving them in the same spot they were a year ago.</p>
-</blockquote>
-<p>Here's <a href="https://bleacherreport.com/articles/25253509-nba-power-rankings-entering-2025-preseason">Bleacher Report's</a></p>
-<blockquote>
-<p>for an offensively challenged team, replacing [Tyler Herro's] scoring (21.5 points over the last four seasons) and distribution (4.6 assists in the same span) is going to be tough.</p>
-</blockquote>
-<p>And <a href="https://www.usatoday.com/story/sports/nba/2025/09/30/nba-power-rankings-training-camps/86421865007/">USA Today's</a>:</p>
-<blockquote>
-<p>Losing Tyler Herro for the first two months of the season, potentially, comes as a significant blow to a team that struggled to score — especially late in games — even when he was on the floor.</p>
-</blockquote>
-<p>With the change in style the Heat are still only a mid-tier team on offense, ranking 14th in Offensive Rating. But that's a big step up from last year, when they were 21st, especially given they haven't had their best offensive player for the first month of the season.</p>
-<p>Are they going to win a title with the present roster? No, but in addition to giving their fans something to cheer for, all their players will look much better on paper than they did at the start of this season. If they do decide to trade players, the Heat can get more in return for them. And it's not hard to get free agents to move to Miami if the team is winning and the vibes are good, so they could be a real contender again quickly. </p>
-<p>It's weird that tanking is seen as the best way to increase the chances of future success in the NBA, rather than building a winning culture and innovating. The two teams with the most success in recent years at doing a major rebuild have been the Spurs and the Thunder. They were both bad for a few years, but they're also two of the best run teams in the league. They draft well, they trade well, they do player development well, they do analytics well. They had a clear vision of the type of team they wanted to build and the clear ability to develop players. If a team doesn't have those organizational competencies, what's the point of a tank? They're just going to waste their high-level draft picks, not develop the rest of the roster, and be mediocre again in 5 years.</p>
-<h2>Power ranking the power rankers</h2>
-<p>I collected data from six preseason NBA power rankings. There's a link to the spreadsheet at the top of the article. I would've liked to collect more data, and I'm sure there are other sites that did good NBA power rankings, but stuff like that is basically impossible to find these days, lost in a sea of completely LLM generated baloney or locked behind paywalls. It's not useful interrogating why some LLM <em>stochastically decided</em> that the Warriors are the 4th best team in the NBA this year, but there's seemingly an endless supply of that type of nonsense. Which is to say: thanks for reading this, however you managed to get here. I hope you'll keep coming back for this completely human generated baloney. </p>
-<p>I compared the rankings from each list to each team's point differential, which is a better estimate of how good a team is than their win-loss record. How good were our mighty morphin' power rankers at predicting the current standings? </p>
-<p>So far, the most accurate ranking has been <a href="https://www.rotoballer.com/rss-slideshow/nba-preseason-power-rankings-every-team-from-worst-to-first">RotoBaller's</a>, with a Spearman correlation of .76. The worst has been USA Today, at .69. Taking the median rank of all six sources produced a correlation of .74, which was better than 5 out of the 6 individual scores. So we're getting a "wisdom of crowds" effect, which is interesting, since all the rankings are fairly similar to each other. <a href="/majority-voting-in-ensemble-learning.html">(Previously discussed in <em>Majority voting in ensemble learning</em>.)</a></p>
-<p>I also included rankings based on my own preseason win total estimates. I got a score of .73, right in the middle of the pack. That's respectable, but I can't believe I'm getting beat by the freaking New York Post.</p>
-<p>Comparing rankings to records, the power rankers were too high on the Clippers, Cavaliers, Pacers, Kings and Warriors. They were too low on the Raptors, Suns, Heat, Spurs and Pistons.</p>
-<h2>Strength of schedule</h2>
-<p>Scheduling matters. Some teams have played much harder schedules than others, and we're dealing with small sample sizes, so win-loss records can be deceiving early in the season.</p>
-<p>I grabbed adjusted Net Rating (aNET) data from <a href="https://dunksandthrees.com/stats/team">dunksandthrees</a>, which calculates the offensive and defensive ratings for each team, adjusted for strength of schedule. I also included Simple Rating System (SRS) data from <a href="https://www.basketball-reference.com/leagues/NBA_2025.html">basketball-reference</a>, which is the same idea as aNET, but a different methodology.</p>
-<p>The difference between aNET and average point differential gives a sense of which team records might be the most misleading compared to the team's actual skill level. For instance, the Sacramento Kings have already played the Thunder, Nuggets and Timberwolves three times apiece, going 2-7 over those games. Even a decent team would be expected to have a losing record against those opponents.</p>
-<p>Based on aNET, the Cavaliers, Warriors, Clippers, Kings and Celtics are probably better than their records indicate.</p>
-<p>Going the other way, the Raptors have had a deceptively easy schedule, going 7-1 in games against the woeful Nets, Hornets, Pacers and Wizards. Going 7-1 doesn't tell us much, because those are teams pretty much everybody should be able to beat. </p>
-<p>The stats indicate that the Raptors, Hornets, Spurs, Jazz, and Suns are probably not as good as their records.</p>
-<p>Most of the teams the power rankers got wrong have been hurt or helped significantly by their schedules so far. The biggest exception has been the Miami Heat, who apparently nobody saw coming, and are probably about as good as their record says they are.</p>
-<h2>The Kangz</h2>
-<p>What to make of the Kings? According to basketball-reference, they've had the hardest schedule in the league so far. It's fair to say they're not as bad as the record says.</p>
-<p>While they're 28th in point differential, they're 25th by aNET, and 26th by SRS. So they might have 7 or 8 wins instead of 5 if they'd played a league average schedule. That's not that much, though, and a clear step back from last year.</p>
-<p>Their rookie, Nique Clifford, has not looked good so far, and they don't have many players that other teams would want in a trade. It doesn't seem like they have any clue of how to develop young talent. Their highest paid player, Zach LaVine, has another year on his contract, doesn't play defense, and has put up a -1.1 VORP this year. They just benched their one big signing of the offseason (Dennis Schröder), and are instead starting Russell Westbrook, a man born during the Reagan Administration playing on a one year minimum deal.</p>
-<p>On paper, they don't have much they can do to get better.  But everybody was saying that about the Heat at the end of last year, and look at them now. I just can't see the Kings having that type of organizational courage, but I hope they find it somehow rather than spend years on another doomed rebuild. Sacramento fans deserve better than another version of the current mess. At least an innovative mess would be a change of pace from trying the same stupid thing over and over. What's the worst that could happen?</p>
-<p>Sacramento's roster isn't great, but <a href="/home-of-elvis-and-the-ancient-greeks.html">like the Grizzlies</a>, the biggest problems I see are organizational. I understand the Kings are a rich man's toy, not a serious basketball team, but wouldn't it be more fun to own a team that <em>wasn't</em> a giant tire fire? I don't get spending billions of dollars to buy a sports team just to run it into the ground like this.</p>
-<h2>The Mathletix Bajillion, week 5</h2>
-<p>As usual: One of these teams picks NFL games randomly, the other uses a simple algorithm. </p>
-<p><a href="https://www.theringer.com/topic/ringer-107">4 of 5 Ringer 107 teams had a losing week</a>, going 10-15 collectively. All five still have a losing record on the season, so right now the McAul-Stars are the undisputed leaders.</p>
-<p>Bluster aside, the important thing to notice is how much they're saving taking cheaper lines than the standard -110 odds. The McAul-Stars would be up +110 instead of +176 if the bets were taken at a retail sportsbook, and the Hand-Eggs would be down -620 instead of -563.</p>
-<p><em>Lines taken Tuesday morning. Since it's early in the week, the reduced juice isn't quite as juicy as usual.</em></p>
-<h3>The Neil McAul-Stars</h3>
-<p>last week: 4-1, +296    <br>
-Overall: 11-9, +176    <br>
-line shopping: +66</p>
-<ul>
-<li>SEA -7 -108 (lowvig)</li>
-<li>DAL +3 -104 (prophetx)</li>
-<li>CIN +5.5 -108 (draftkangz)</li>
-<li>JAX +2 -108 (prophetx)</li>
-<li>LAC +2.5 +108 (prophetx)</li>
-</ul>
-<h3>The Vincent Hand-Eggs</h3>
-<p>last week: 1-4, -316  <br>
-Overall: 7-12-1, -563 <br>
-line shopping: +57</p>
-<ul>
-<li>WAS +1.5 +100 (lowvig)</li>
-<li>CIN +5.5 -108 (draftkangz)</li>
-<li>LAR -8 -101 (prophetx)</li>
-<li>DEN -7.5 +100 (lowvig)</li>
-<li>CLE -3.5 -108 (prophetx)</li>
-</ul>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/two-ways-to-go-from-the-middle.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/nba.html" rel="tag">NBA</a>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
                     &nbsp;<a href="/tag/bajillion.html" class="tags">bajillion</a>

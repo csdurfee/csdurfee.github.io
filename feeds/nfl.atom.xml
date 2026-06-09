@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>mathletix - NFL</title><link href="/" rel="alternate"></link><link href="/feeds/nfl.atom.xml" rel="self"></link><id>/</id><updated>2025-12-31T10:20:00-10:00</updated><entry><title>A quick one</title><link href="/a-quick-one.html" rel="alternate"></link><published>2025-12-31T10:20:00-10:00</published><updated>2025-12-31T10:20:00-10:00</updated><author><name>casey durfee</name></author><id>tag:None,2025-12-31:/a-quick-one.html</id><summary type="html">&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=DsWFRi5qtfI" target="_blank"&gt;&lt;img alt="Bohannon, &amp;quot;Save Their Souls&amp;quot;" src="https://img.youtube.com/vi/DsWFRi5qtfI/0.jpg"&gt;&lt;/a&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>mathletix - NFL</title><link href="/" rel="alternate"/><link href="/feeds/nfl.atom.xml" rel="self"/><id>/</id><updated>2025-12-31T10:20:00-10:00</updated><entry><title>A quick one</title><link href="/a-quick-one.html" rel="alternate"/><published>2025-12-31T10:20:00-10:00</published><updated>2025-12-31T10:20:00-10:00</updated><author><name>casey durfee</name></author><id>tag:None,2025-12-31:/a-quick-one.html</id><summary type="html">&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=DsWFRi5qtfI" target="_blank"&gt;&lt;img alt="Bohannon, &amp;quot;Save Their Souls&amp;quot;" src="https://img.youtube.com/vi/DsWFRi5qtfI/0.jpg"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Song: &lt;a href="https://www.youtube.com/watch?v=DsWFRi5qtfI" target="_blank"&gt;Bohannon, "Save Their Souls"&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Nothing this week, as I'm working on a couple big things about the NFL.&lt;/p&gt;
 &lt;h1&gt;Mathletix Bajillion, see you next year edition&lt;/h1&gt;
@@ -33,4 +33,4 @@ line shopping: +133       &lt;/p&gt;
 &lt;li&gt;DET +3 -110 (lowvig)&lt;/li&gt;
 &lt;li&gt;BUF -7 -105 (lowvig)&lt;/li&gt;
 &lt;li&gt;NE -10.5 -102 (lowvig)&lt;/li&gt;
-&lt;/ul&gt;</content><category term="NFL"></category><category term="bajillion"></category></entry></feed>
+&lt;/ul&gt;</content><category term="NFL"/><category term="bajillion"/></entry></feed>

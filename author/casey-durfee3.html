@@ -30,7 +30,150 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Aug 08, 2025</h4>
+        <div id="content">            <h4 class="date">Sep 23, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/primes-and-self-similarity.html" rel="bookmark" title="Permanent Link to &quot;Primes and self-similarity&quot;">Primes and self-similarity</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank"><img alt="John Hollenbeck &amp; NDR Big Band, &quot;Entitlement&quot;" src="https://img.youtube.com/vi/ncmIlVdL8po/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank">John Hollenbeck &amp; NDR Big Band, "Entitlement"</a></p>
+<p>I've been messing around with prime numbers, because there are several places where they intersect with both <a href="/do-you-wanna-win.html">random walks</a> and the <a href="/riding-the-waves.html">arcsine distribution</a>.  It's going to take a while to finally tie that bow, though.</p>
+<p>So it's a quick one this week: a kinda-cool story, and a kinda-cool graph.</p>
+<h3>Random Primes</h3>
+<p>The prime numbers are simple to find, but not easy. They're not randomly distributed, but it's hard to come up with easy ways to find them, and they act like random numbers in certain ways.  Why is 47 prime and 57 non-prime? You can't really tell just by looking.</p>
+<p>To find the primes, we can write down every number from, say, 1 to 1000. Then we cross out 2, and every number divisible by 2 (4, 6, 8, etc.). Repeat that with 3 (6, 9, 12, etc.), and so on. The numbers left behind are prime. This is the famous <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes</a> -- it's a tedious way to find prime numbers, but it's by far the easiest to understand.</p>
+<p>The sieve gave mathematician David Hawkins an idea [1]: what about doing that same process, but randomly?  For each number, flip a coin, if it comes up heads, cross the number out. That will eliminate half of the numbers on the first pass. Take the lowest number <code>k</code> that remains and eliminate each of the remaining numbers with probability <code>1/k</code>. Say it's 4. For each remaining number, we flip a 4 sided die and if it comes up 4, we cross it out. </p>
+<p>If we go through all the numbers, what's left over won't look like real prime numbers -- there should be as many even fake primes as odd ones, for starters. But the remaining numbers will be as sparse as the actual prime numbers. As the sample size N heads to infinity, the chances of a random number being a real prime, and being a fake prime, are the same -- <code>1/log(N)</code>.</p>
+<p>This is a brilliant way to figure out what we know about prime numbers are due to their density, and what are due to other, seemingly more magical (but still non-random) factors. </p>
+<p>Several characteristics of real primes apply to the random primes. And tantalizingly, things that can't be proven about real primes can be proven about the fake ones. It's been conjectured that there are infinitely many pairs of twin primes -- primes that are separated by 2 numbers. An example would be 5 and 7, or 11 and 13. It makes sense for a lot of reasons that there should be an infinite number of twin primes.  But mathematicians have been trying to prove it for over 150 years, without success.</p>
+<p>Random primes can be odd or even, so the analogy to twin primes would be two random primes that are only one apart, say 5 and 6. It's relatively simple to prove that there are an infinite number of random twin primes [2]. That could easily be fool's gold -- treating the primes like they're randomly distributed gives mathematicians a whole toolbox of statistical techniques to use on them, but they're not random, or arbitrary. They're perfectly logical, and yet still inscrutible, hidden in plain sight.</p>
+<h3>Largest prime factors of composite numbers</h3>
+<p>I was intrigued by the largest prime factor of composite (non-prime) numbers. Are there any patterns?</p>
+<p>As background, every number can be split into a unique set of prime factors. For instance, the number 24 can be factored into <code>24 = 8 * 3 = 2 * 2 * 2 * 3</code>. Let's say we knock off the biggest prime factor. We get: <code>2 * 2 * 2 = 8</code>. The raw numbers rapidly get too big, so I looked at the log of the ratio:</p>
+<p><img alt="/img/logratios100k.png" src="/img/logratios100k.png"></p>
+<p>The red curve is the distribution of the first 100,000 composite numbers, the orange is the next 100,000 composite numbers, and so on. </p>
+<p>What if we bump up an order of magnitude? This time, the red curve is the first million composite numbers, the orange is the next million, and so on. Here's what that looks like:</p>
+<p><img alt="/img/logratios1M.png" src="/img/logratios1M.png"></p>
+<p>Pretty much the same graph, right? The X axis is different, but the shapes are very similar to the first one. </p>
+<p>Let's go another order of magnitude up. The first 10,000,000 versus the next 10,000,000, and so on?</p>
+<p><img alt="/img/logratios10M.png" src="/img/logratios10M.png"></p>
+<p>We get the same basic shapes again! The self-similarity is kinda cool. Is it possible to come up with some function for the distribution for this quantity? You tell me.</p>
+<h3>The perils of interpolation</h3>
+<p>These graphs are flawed. I'm generating these graphs using Kernel Density Estimation, a technique for visualizing the density of data. Histograms, another common way, can be misleading. The choice of bin size can radically alter what the histogram looks like.</p>
+<p>But KDE can also be misleading. These graphs make it look like the curve starts at zero.  That's not true. The minimum possible value happens when a number is of the form <code>2*p</code>, where p is a prime -- the value will be <code>log(2)</code>, about .693.</p>
+<p>This data is actually way <em>chunkier</em> than KDE is treating it.  Every point of data is the log of a whole number. So there aren't that many unique values. For instance, between 0 and 1 on the X axis, there's only one possible value -- <code>log(2)</code>. Between 1 and 3, there are only 18 possible values, <code>log(2)</code> thru <code>log(19)</code> -- those being the only integers with a <code>log</code> less than 3 and greater than 1.</p>
+<p>This makes it hard to visualize the data accurately. There are too many possible values to display each one individually, but not enough for KDE's smoothing to be appropriate.</p>
+<p>The <em>kernel</em> in Kernel Density Estimation is the algorithm used to smooth the data --  it's basically a moving average that assumes something about the distribution of the data. People usually use the Gaussian kernel, which treats the data like a normal distribution -- smooth and bell curvy. A better choice for chunky data is the <em>tophat</em> kernel, which treats the space between points like a uniform distribution -- in other words, a flat line. If the sparseness of the data on the X axis were due to a small sample size, the tophat kernel would display plateaus that aren't in the real data. But here, I calculated data for the first 100 Million numbers, so there's no lack of data. The sparseness of the data is by construction. <code>log(2)</code> will be the only value between 0 and 1, no matter how many numbers we go up to. So the left side of the graph <em>should</em> look fairly chunky.</p>
+<p>The tophat kernel does a much better job of conveying the non-smoothness of the distribution:</p>
+<p><img alt="/img/tophat.png" src="/img/tophat.png"></p>
+<h3>References</h3>
+<p>[1] https://chance.dartmouth.edu/chance_news/recent_news/chance_primes_chapter2.html</p>
+<p>[2] for sufficiently large values of <em>simple</em></p>
+<p>[3] https://scikit-learn.org/stable/auto_examples/neighbors/plot_kde_1d.html</p>
+<p>[4] https://en.wikipedia.org/wiki/Kernel_density_estimation</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/primes-and-self-similarity.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/math.html" rel="tag">math</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/number-theory.html" class="tags">number theory</a>
+                    &nbsp;<a href="/tag/machine-learning.html" class="tags">machine learning</a>
+                    &nbsp;<a href="/tag/some-educational-value.html" class="tags">some educational value</a>
+                </div>
+            </article>            <h4 class="date">Sep 10, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/one-in-e.html" rel="bookmark" title="Permanent Link to &quot;One in e&quot;">One in e</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank"><img alt="Klonhertz, &quot;Three Girl Rhumba&quot;" src="https://img.youtube.com/vi/16At3u6Nz0Y/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank">Klonhertz, "Three Girl Rhumba"</a></p>
+<p>Notebook available <a href="https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/632%20selection.ipynb">here</a></p>
+<h3>Think of a number</h3>
+<p>Pick a number between 1-100.</p>
+<p>Say I write down the numbers from 1-100 on pieces of paper and put them in a big bag, and randomly select from them. After every selection, I put the paper back in the bag, so the same number can get picked more than once.  If I do that 100 times, what is the chance of your number being chosen?</p>
+<p>The math isn't too tricky. It's often easier to calculate the chances of a thing not happening, then subtract that from 1, to get the chances of the thing happening. There's a 99/100 chance your number doesn't get picked each time. So the probability of never getting selected is $(99/100)^{100} = .366$. Subtract that from one, and there's a 63.4% chance your number will be chosen. Alternately, we'd expect to get 634 unique numbers in 1000 selections.</p>
+<p>When I start picking numbers, there's a low chance of getting a duplicate, but that increases as I go along. On my second pick, there's only a 1/100 chance of getting a duplicate. But if I'm near the end and have gotten 60 uniques so far, there's a 60/100 chance.</p>
+<p>It's kind of a self-correcting process. Every time I pick a unique number, it increases the odds of getting a duplicate on the next pick. Each pick is independent, but the likelihood of getting a duplicate is not.</p>
+<p>I could choose the numbers by flipping a biased coin that comes up heads 63.4% of the time for each one instead. I will get the same number of values on average, and they will be randomly chosen, but the count of values will be much more variable:</p>
+<p><img alt="/img/distinct-binomial.png" src="/img/distinct-binomial.png"></p>
+<p>Of course, if the goal is to select exactly 63 items out of 100, the best way would be to randomly select 63 without replacement so there is no variation in the number of items selected.</p>
+<h3>A number's a number</h3>
+<p>Instead of selecting 100 times from 100 numbers, what if we selected a bajillion times from a bajillion numbers? To put it in math terms, what is $\lim\limits_{n\to\infty} (\frac{n-1}{n})^{n}$ ?</p>
+<p>It turns out this is equal to $\frac{1}{e}$ ! Yeah, e! Your old buddy from calculus class. You know, the $e^{i\pi}$ guy?</p>
+<p>As n goes to infinity, the probability of a number being selected is $1-\frac{1}{e} = .632$. This leads to a technique called bootstrapping, or ".632 selection" in machine learning (back to that in a minute).</p>
+<h3>Don't think of an answer</h3>
+<p>What are the chances that a number gets selected exactly once? Turns out, it's $\frac{1}{e}$, same as the chances of not getting selected! This was surprising enough to me to bother to work out the proof, given at the end.</p>
+<p>That means the chances of a number getting selected more than once is $1 - \frac{2}{e}$. </p>
+<p>The breakdown:</p>
+<ul>
+<li>1/e (36.8%) of numbers don't get selected</li>
+<li>1/e (36.8%) get selected exactly once</li>
+<li>1-2/e (26.4%) get selected 2+ times</li>
+</ul>
+<p>As before, the variance in number of items picked 2+ times is much lower than flipping a coin that comes up heads 26.4% of the time:</p>
+<p><img alt="/img/more-than-once.png" src="/img/more-than-once.png"></p>
+<h3>Derangements</h3>
+<p>Say I'm handing out coats randomly after a party. What are the chances that nobody gets their own coat back? </p>
+<p>This is called a derangement, and the probability is also 1/e. An almost correct way to think about this is the chance of each person not getting their own coat (or each coat not getting their own person, depending on your perspective) is $\frac{(x-1)}{x}$ and there are $x$ coats, so the chances of a derangement are $\frac{x-1}{x}^{x}$.</p>
+<p>This is wrong because each round isn't independent. In the first case, we were doing selection with replacement, so a number being picked one round doesn't affect its probability of being picked next round.  That's not the case here. Say we've got the numbers 1 thru 4. To make a derangement, the first selection can be 2, 3 or 4. The second selection can be 1, 3 or 4. But 3 or 4 might have been picked in the first selection and can't be chosen again. 2/3rds of the time, there will only be two options for the second selection, not three.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Rencontres_numbers">long way 'round the mountain</a> involves introducing a new mathematical function called the subfactorial, denoted as $!x$, which is equal to the integer closest to $\frac{x!}{e}$. $e$ gets in there because in the course of counting the number of possible derangements, a series is produced that converges to $1/e$.</p>
+<p>The number of derangements for a set of size x is $!x$ and the number of permutations is $x!$, so the probability of a derangement as x gets big is $\frac{!x}{x!} = \frac{1}{e}$</p>
+<p>What about the chances of only one person getting their coat back? It's also $\frac{1}{e}$, just like the chances of a number getting selected exactly once when drawing numbers with replacement.  The number of fixed points -- number of people who get their own coat back -- follows a Poisson distribution with mean 1.</p>
+<p>The second process seems very different from the first one. It is selection with replacement versus without replacement. But $e$ is sort of the horizon line of mathematics -- a lot of things tend towards it (or its inverse) in the distance.</p>
+<h3>Bootstrapping</h3>
+<p>Say we're working on a typical statistics/machine learning problem. We're given some training data where we already know the right answer, and we're trying to predict for future results. There are a ton of ways we could build a model. Which model will do the best on the unknown data, and how variable might the accuracy be? </p>
+<p>Bootstrapping is a way to answer those questions. A good way to estimate how accurate a model will be in the future is to train it over and over with different random subsets of the training data, and see how accurate the model is on the data that was held out. That will give a range of accuracy scores which can be used to estimate how well the model will be on new inputs, where we don't know the answers ahead of time. If the model we're building has a small set of parameters we're fitting (like the coefficients in a linear regression), we can also estimate a range of plausible values for those parameters. If that range is really wide, it indicates a certain parameter isn't that important to the model, because it doesn't matter if it's big or small.</p>
+<p>Bootstrapping is a way of answering those questions, using the process described before -- if we have x datapoints, pick x numbers without replacement x times. The ones that get selected at least once are used to train the models, and the ones that don't get selected are used to generate an estimate of accuracy on unseen data. We can do that over and over again and get different splits every time. </p>
+<p>It's a fine way to split up the training data and the validation data to generate a range of plausible accuracy scores, but I couldn't find a good reason other than tradition for doing it that way. The 63.2/36.8 split isn't some magical value. Instead of having the numbers that weren't picked be the holdout group, we could instead leave out the numbers that were only picked once (also 1/e of the numbers), and train on the ones not selected or selected more than once. But picking 63% of values (or some other percentage) without replacement is the best way to do it, in my opinion. </p>
+<p>The <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">original paper</a> doesn't give any statistical insight into why the choice was made, but a remark at the end says, "it is remarkably easy to implement on the computer", and notes the $4 cost of running the experiments on Stanford's <a href="https://www.ibm.com/history/system-370">IBM 370/168 mainframe</a>. Maybe it's just the engineer in me, but it seems like a goofy way to do things, unless you actually want a variable number of items selected each run.</p>
+<p>In the notebook, I showed that bootstrapping is about 40% slower than selection without replacement when using numpy's <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html">choice()</a> function. However, the cost of selecting which items to use for training vs. testing should be insignificant compared to the cost of actually training the models using that train/test split.</p>
+<h3>A chance encounter</h3>
+<p>A quick proof of the chances of being selected exactly once.</p>
+<p>Doing x selections with replacement, the chance of a number being chosen as the very first selection (and no other times) is 
+$\frac{1}{x} * \frac{x-1}{x}^{x-1}$</p>
+<p>There are x possible positions for a number to be selected exactly once. Multiply the above by x, which cancels out 1/x. So the chances of a number being selected exactly once at any position is $(\frac{x-1}{x})^{x-1}$.</p>
+<p>Let's try to find a number $q$ so that $\lim\limits_{x\to\infty} (\frac{x-1}{x})^{x-1} = e^{q}$.</p>
+<p>Taking the log of both sides:<br>
+$q = \lim\limits_{x\to\infty} (x-1) * log(\frac{x-1}{x}) = \lim\limits_{x\to\infty} \frac{log(\frac{x-1}{x})}{1/(x-1)}$</p>
+<p>Let 
+$f(x) = log(\frac{x-1}{x})$
+and 
+$g(x) = \frac{1}{x-1}$</p>
+<p>By L'Hopital's rule, $\lim\limits_{x\to\infty} \frac{f(x)}{g(x)} = \lim\limits_{x\to\infty}\frac{f'(x)}{g'(x)}$</p>
+<p>The derivative of a log of a function is the derivative of the function divided by the function itself, so:</p>
+<p>$f'(x) = \frac{d}{dx} log(\frac{x-1}{x}) = \frac{d}{dx} log(1 - \frac{1}{x}) = \frac{\frac{d}{dx}(1-\frac{1}{x})}{1-\frac{1}{x}} =\frac{\frac{1}{x^{2}}}{{1-\frac{1}{x}}} = \frac{1}{x^{2}-x} = \frac{1}{x(x-1)}$</p>
+<p>and</p>
+<p>$g'(x) = \frac{-1}{(x-1)^{2}}$</p>
+<p>Canceling out (x-1) from both, $\frac{f'(x)}{g'(x)} = \frac{1}{x}  * \frac{x-1}{-1} = -1 * \frac{x-1}{x}$.</p>
+<p>So $q = \lim\limits_{x\to\infty} -1 * \frac{x-1}{x} = -1$</p>
+<p>At the limit, the probability of being selected exactly once is $e^{-1} = \frac{1}{e}$</p>
+<h3>References/Further Reading</h3>
+<p><a href="https://oeis.org/A068985">https://oeis.org/A068985</a></p>
+<p><a href="https://mathworld.wolfram.com/Derangement.html">https://mathworld.wolfram.com/Derangement.html</a></p>
+<p>Great explanation of how to calculate derangements using the inclusion-exclusion principle: <a href="https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/">https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/</a></p>
+<p>The bible of machine learning introduces bootstrapping, but no talk of why that selection process. <a href="https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf">https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf</a></p>
+<p>The original bootstrap paper: <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf</a></p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/one-in-e.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/statistics.html" rel="tag">statistics</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/machine-learning.html" class="tags">machine learning</a>
+                    &nbsp;<a href="/tag/some-educational-value.html" class="tags">some educational value</a>
+                </div>
+            </article>            <h4 class="date">Aug 08, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -64,7 +207,7 @@
 <p>Three of the random walks ended up around 50 units after 1000 bets, which is pretty good. Two of them made a tiny bit of money. The other four lost money. This is a small sample size, but a 44% chance of losing money after paying for 1,000 picks at $30 a pop isn't great. (More info on the economics of touts in the book.)</p>
 <p>The touts I looked at generally don't sell picks for every single game. So with 1200 games in an NBA season, this could be several years' worth of results.</p>
 <p>Imagine all of these as 9 different touts, with the exact same level of skill at picking games. But some of them look like geniuses, and some look like bozos. There would probably be some selection bias. The ones with the bad records would drop out -- who's buying their picks if they're losing money?  And the ones who did better than their true skill level of 54.1% would be more likely to stick with it. Yet all these random walks were generated with the same 54.1% win rate.</p>
-<p>If you bought 1,000 picks from this tout, you don't get to choose which of the <span class="math">\(2^{1000} = (2^{10})^{100} \approx 10^{300}\)</span> possible random walks you will actually get. If each bet has a 54.1% chance of winning, there's no guarantee you will have exactly 541 wins and 459 losses at the end of 1000 bets. </p>
+<p>If you bought 1,000 picks from this tout, you don't get to choose which of the $2^{1000} = (2^{10})^{100} \approx 10^{300}$ possible random walks you will actually get. If each bet has a 54.1% chance of winning, there's no guarantee you will have exactly 541 wins and 459 losses at the end of 1000 bets. </p>
 <p>Here's what someone who is right 60% of the time looks like. </p>
 <p><img alt="/img/rw0.6.png" src="/img/rw0.6.png"></p>
 <p>Success is pretty boring.</p>
@@ -104,68 +247,6 @@
 <p>This Expected Value of playing this way doesn't have any randomness in it. It's just a simple algebra problem. According to EV, they should end up with $252 at the end of the season, for a profit of $152. Nice. But as I've mentioned before, EV says nothing about the range of possible outcomes.</p>
 <p>If I actually simulate it, a pretty wide range of outcomes are possible. 99% of the time, the gambler makes money, but 6 times out of 100,000, they lose everything and more. (6 in 100,000 is about the same odds as winning a 14 leg parlay.)</p>
 <p>With betting a fixed size, the rate of return is lower and the risk of going broke doesn't go away. So it's sub-optimal compared to Kelly-style betting with a very small percentage of the total bankroll.</p>
-<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
-
-    var mathjaxscript = document.createElement('script');
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
-
-    var configscript = document.createElement('script');
-    configscript.type = 'text/x-mathjax-config';
-    configscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        availableFonts: ['STIX', 'TeX']," +
-        "        preferredFont: 'STIX'," +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script>
                 <div class="clear"></div>
 
                 <div class="info">
@@ -1705,288 +1786,6 @@
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/football.html" class="tags">football</a>
                     &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
-                </div>
-            </article>            <h4 class="date">Jun 30, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/the-final-word-on-the-hot-hand-for-now.html" rel="bookmark" title="Permanent Link to &quot;The final word on the hot hand (for now)&quot;">The final word on the hot hand (for now)</a>
-                </h2>
-
-                
-                
-
-                <p>(Notebooks and other code available at: <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>.)</p>
-<p>Last time, we found that there are many players like LeBron, where their FG% is higher when they've missed most of their last 5 shots than when they've made most of them. However, most players don't have enough attempts when they've gone 0 or 5 out of their last 5 for a good statistical analysis.</p>
-<p>So instead I will be looking at a binary split -- I will call a player <em>cold</em> when they've made 0, 1 or 2 of their last 5 shots, and <em>hot</em> when they've made 3, 4 or 5 of their last 5. Most players have a FG% between 40 and 60%, so this nicely splits them into times when they're shooting better than average versus worse than average.</p>
-<h2>Anthony Edwards</h2>
-<p>Anthony Edwards ("Ant") is particularly unstreaky for a young player. He's only completed 5 seasons in the league, but has the 5th biggest z score of the last 20 years. He could definitely catch LeBron someday.</p>
-<p>Ant has the LeBron-like pattern of FG% trending downward when he's <em>hot</em>. He doesn't have anywhere near the volume of LeBron, so the spike at 20% (1/5) might just be noise. But overall, he shoots worse when he's been shooting well.</p>
-<p><img alt="ant-last-5" src="/img/ant-last-5.png"></p>
-<p>The trend appears to be due to shot selection. He takes far more above the break 3 pointers when he's <em>hot</em> than when he's cold. The additional 3 point attempts come at the expense of shots in the restricted area.</p>
-<p>Here are the changes in tendencies:</p>
-<pre>
-| BASIC_ZONE            |   hot |   cold |   diff |
-|:----------------------|------:|-------:|-------:|
-| Above the Break 3     |  41.5 |   31.7 |    9.8 |
-| Corner 3              |   3.6 |    4.8 |   -1.2 |
-| In The Paint (Non-RA) |  13.4 |   14.6 |   -1.1 |
-| Mid-Range             |  14.1 |   12.2 |    1.9 |
-| Restricted Area       |  27.4 |   36.7 |   -9.4 |
-</pre>
-
-<p>Of course, this would be justified if Ant shot above the break 3's better when he's <em>hot</em>, but he doesn't. He makes 37% of his above the break 3's when he's <em>cold</em> but that drops to 34% when he's hot. So he's trading restricted area shots, with an expected value of .601 * 2 = 1.202 points, for above the break 3's, with an expected value of .34 * 3 = 1.02 points.</p>
-<p>Here are the changes in FG percentages. His FG% on corner 3's goes up, but it's on insignificant volume:</p>
-<pre>
-| BASIC_ZONE            |   hot |   cold |   diff |
-|:----------------------|------:|-------:|-------:|
-| Above the Break 3     |  34   |   37.1 |   -3.1 |
-| Corner 3              |  45   |   33   |   12   |
-| In The Paint (Non-RA) |  40.8 |   34   |    6.8 |
-| Mid-Range             |  36.3 |   34.8 |    1.5 |
-| Restricted Area       |  60.1 |   65.4 |   -5.2 |
-</pre>
-
-<h2>The rest of the league</h2>
-<p>I looked at league-wide shot selection in <em>hot</em>/<em>cold</em> situations. I restricted to the last 10 seasons, since the rise of the 3 pointer has dramatically changed shot selection. Here are changes in shot selection for all players:</p>
-<pre>
-| BASIC_ZONE            |   hot |   cold |   diff |
-|:----------------------|------:|-------:|-------:|
-| Above the Break 3     |  22.1 |   22.3 |   -0.2 |
-| Corner 3              |   6.2 |    7   |   -0.9 |
-| In The Paint (Non-RA) |  15.8 |   15.3 |    0.4 |
-| Mid-Range             |  25.3 |   23.5 |    1.8 |
-| Restricted Area       |  30.7 |   31.8 |   -1.2 |
-</pre>
-
-<p>The mid-range shot is the lowest value shot type, so it's notable that the rate goes up when players are <em>hot</em>. These additional mid ranges come at the expense of Corner 3's and Restricted Area shots, the two most valuable types of shots.</p>
-<p>As before, changes in shot selection could be justified if players actually shoot differently based on their last 5 results, but they don't. Here are the changes in shooting percentages (hot minus cold) for all players:</p>
-<pre>
-| BASIC_ZONE            |   hot |   cold |   diff |
-|:----------------------|------:|-------:|-------:|
-| Above the Break 3     |  34.7 |   35   |   -0.3 |
-| Corner 3              |  38.4 |   38.9 |   -0.4 |
-| In The Paint (Non-RA) |  41.7 |   41.2 |    0.5 |
-| Mid-Range             |  39.8 |   40.1 |   -0.3 |
-| Restricted Area       |  62.7 |   60.7 |    2   |
-</pre>
-
-<p>For 3 out of 5 shot types, the <em>hot</em> FG percentages are lower than the <em>cold</em> ones. Combined with the changes in shot selection, I think there's evidence that the league as a whole is scoring less efficiently because of the false belief in the hot hand. </p>
-<p>The data says that players are essentially trading Restricted Area (.627 * 2 = 1.25 points per shot) and Corner 3 (.384 * 3 = 1.15 points per shot) attempts for Mid-Ranges (.398 * 2 = .796 points per shot) when they think they've got the <em>hot hand</em>. That's clearly bad! If it happens once a game, that's 38 points a year lost, which might be enough to swing a game or two.</p>
-<p>The change in restricted area and in the paint (non-RA) FG% is intriguing, but if the hot hand did exist, wouldn't we see it on 3 point or mid-range shots, rather than restricted area shots? The announcer doesn't say "he's heating up" after a guy has made 3 layups in a row, they say it after 3 longer range shots in a row, right?</p>
-<h2>Higher volume players</h2>
-<p>I decided to focus on players with at least 1000 streaks, which leaves 630 players. Collectively, they are responsible for 84% of all shots in the NBA over the last 20 years.</p>
-<p>Their FG percentages are, on average, 1% lower when they are <em>hot</em> than when they are <em>cold</em>. </p>
-<p>68% of them shoot worse when they're hot than when they're cold, which is a pretty dramatic split.</p>
-<p><img alt="fg-pct-hot-cold" src="/img/fg-pct-hot-cold.png"></p>
-<p>Here's a plot of the difference between hot and cold FG% versus z-score:</p>
-<p><img alt="z-score-hot-cold" src="/img/z-score-hot-cold.png"></p>
-<p>Players with negative values on the x axis shoot better when they're cold, and positive values shoot better when they're hot.</p>
-<p>Now, there should be some correlation between z-scores and hot/cold shooting tendency. I've shown simulations where a tendency to shoot <em>better cold</em> produces unstreaky results (skewed towards positive z scores), and <em>better hot</em> will produce streaky results (negative z scores). So there should be more dots in the upper left and bottom right quadrants compared to the other diagonal.</p>
-<p>But if players behaved by coin flips, we should see roughly the same number of players with positive and negative z scores, and roughly the same number of players who shoot better when they're hot and better when they're cold.</p>
-<p>I simulated all 3.5 million shots by these players, using their career average FG% for every shot. So any streakiness or unstreakiness is going to be totally random. As you can see, the data is much less spread out across both the X and Y axis.</p>
-<p><img alt="sim-z-hot-cold" src="/img/sim-z-hot-cold.png"></p>
-<p>Here are the crosstabs from the simulation:</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>better cold</th>
-<th>better hot</th>
-<th>margin</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>positive z</td>
-<td>178</td>
-<td>135</td>
-<td>313</td>
-</tr>
-<tr>
-<td>negative z</td>
-<td>112</td>
-<td>210</td>
-<td>322</td>
-</tr>
-<tr>
-<td>margin</td>
-<td>290</td>
-<td>345</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>As promised, the marginal values are pretty close to one another. That's what happens when "better hot" vs. "better cold" and "positive z" vs. "negative z" are determined purely by chance.</p>
-<p>Here are the actual crosstabs. The marginal values are much more imbalanced.</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>better cold</th>
-<th>better hot</th>
-<th>margin</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>positive z</td>
-<td>343</td>
-<td>126</td>
-<td>469</td>
-</tr>
-<tr>
-<td>negative z</td>
-<td>88</td>
-<td>78</td>
-<td>166</td>
-</tr>
-<tr>
-<td>margin</td>
-<td>431</td>
-<td>204</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>Things to note:</p>
-<ul>
-<li>68% of the players shoot better when they're cold.</li>
-<li>74% of the players have a positive z-score.</li>
-<li>Even among players with a negative z score, the majority of them shoot better when they're cold. </li>
-<li>Even among players that shoot better when they're hot, the majority of them <em>still</em> produce results that are less streaky than expected by chance.</li>
-</ul>
-<p>That's all super weird!</p>
-<p>As always, these are just general trends. There are 78 players in the "better hot" + "negative z" box, and there should be around 210 players. We can't really say which players are the 130 "missing" players, though.</p>
-<p>That's all I've got on the hot hand in the NBA for now. I think I understand it a lot better now, and I hope you do, too. </p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/the-final-word-on-the-hot-hand-for-now.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
-                    &nbsp;<a href="/tag/the-hot-hand.html" class="tags">the hot hand</a>
-                </div>
-            </article>            <h4 class="date">Jun 18, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/lesimulation.html" rel="bookmark" title="Permanent Link to &quot;LeSimulation&quot;">LeSimulation</a>
-                </h2>
-
-                
-                
-
-                <p>(As usual, all code and notebooks are available at <a href="https://github.com/csdurfee/hot_hand">https://github.com/csdurfee/hot_hand</a>)</p>
-<p>Last time, we saw that LeBron James was by far the un-streakiest player in the NBA over the last 20 years and found out that it's at least partly caused by shot selection. He takes both lower percentage shots than average when he's shooting well and higher percentage shots than average when he's shooting poorly.</p>
-<h2>LeMartingale</h2>
-<p>I got the question of why it's OK to use a player's overall FG% to gauge their streakiness. We know that every shot a player takes has a slightly different level of difficulty, and thus a different probability that it will go in. Shouldn't that affect the streakiness?</p>
-<p>It's a good question.  Let's say you've got a bag with 2 types of coins inside. One of them comes up heads 40% of the time, the other comes up heads 60% of the time. You can't tell which is which. If you pick a coin randomly out of the bag and flip it, what are the chances, on average, it comes up heads? </p>
-<p>It's 50%, right? The selecting of the coin and the flipping of the coin are two independent steps. We can multiply the probabilities at each step together, so the overall chances of heads are <code>(.5 * .4) + (.5 * .6) = .5</code>. If we kept randomly selecting from the bag and flipping a coin, the results would be indistinguishable from just flipping a single fair coin over and over.</p>
-<p>In math, this is known as a <a href="https://en.wikipedia.org/wiki/Martingale_(probability_theory)">Martingale</a>. Previous outcomes don't give us information about the next event. (More in depth explanation <a href="https://www.cs.yale.edu/homes/aspnes/pinewiki/Martingales.html">here</a>).  That's different from LeBron. We know he essentially chooses the 60% heads coin when he's been getting a lot of tails recently, and the 60% tails coin when he's been getting a lot of heads recently.</p>
-<h2>LeSimulation</h2>
-<p>If I create a simulation of LeBron James that uses his exact shooting tendencies and FG percentages, and the shot selection is totally random, it shouldn't show any streaky or unstreaky tendencies beyond expected by chance. Let's see what LeSimulation looks like.</p>
-<p>At the end of the last edition, I got LeBron's shooting stats:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">Above</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="k">Break</span><span class="w"> </span><span class="mi">3</span><span class="w">        </span><span class="mi">0</span>.<span class="mi">344598</span>
-<span class="nv">Backcourt</span><span class="w">                </span><span class="mi">0</span>.<span class="mi">058824</span>
-<span class="nv">In</span><span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">Paint</span><span class="w"> </span><span class="ss">(</span><span class="nv">Non</span><span class="o">-</span><span class="nv">RA</span><span class="ss">)</span><span class="w">    </span><span class="mi">0</span>.<span class="mi">401369</span>
-<span class="nv">Left</span><span class="w"> </span><span class="nv">Corner</span><span class="w"> </span><span class="mi">3</span><span class="w">            </span><span class="mi">0</span>.<span class="mi">394799</span>
-<span class="nv">Mid</span><span class="o">-</span><span class="nv">Range</span><span class="w">                </span><span class="mi">0</span>.<span class="mi">379890</span>
-<span class="nv">Restricted</span><span class="w"> </span><span class="nv">Area</span><span class="w">          </span><span class="mi">0</span>.<span class="mi">720138</span>
-<span class="nv">Right</span><span class="w"> </span><span class="nv">Corner</span><span class="w"> </span><span class="mi">3</span><span class="w">           </span><span class="mi">0</span>.<span class="mi">370370</span>
-</code></pre></div>
-
-<p>And shooting tendencies (what percent of the time he takes each type of shot):</p>
-<div class="highlight"><pre><span></span><code><span class="nv">Above</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="k">Break</span><span class="w"> </span><span class="mi">3</span><span class="w">        </span><span class="mi">0</span>.<span class="mi">204940</span>
-<span class="nv">Backcourt</span><span class="w">                </span><span class="mi">0</span>.<span class="mi">001160</span>
-<span class="nv">In</span><span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">Paint</span><span class="w"> </span><span class="ss">(</span><span class="nv">Non</span><span class="o">-</span><span class="nv">RA</span><span class="ss">)</span><span class="w">    </span><span class="mi">0</span>.<span class="mi">109652</span>
-<span class="nv">Left</span><span class="w"> </span><span class="nv">Corner</span><span class="w"> </span><span class="mi">3</span><span class="w">            </span><span class="mi">0</span>.<span class="mi">014431</span>
-<span class="nv">Mid</span><span class="o">-</span><span class="nv">Range</span><span class="w">                </span><span class="mi">0</span>.<span class="mi">267715</span>
-<span class="nv">Restricted</span><span class="w"> </span><span class="nv">Area</span><span class="w">          </span><span class="mi">0</span>.<span class="mi">386442</span>
-<span class="nv">Right</span><span class="w"> </span><span class="nv">Corner</span><span class="w"> </span><span class="mi">3</span><span class="w">           </span><span class="mi">0</span>.<span class="mi">015660</span>
-</code></pre></div>
-
-<p>The simulation randomly chooses a shot type, based on the actual tendencies, then attempts a shot at the corresponding FG%.</p>
-<p><img alt="le-fake-career" src="/img/le-fake-career.png"></p>
-<p>The z-scores look like they should -- mean is very close to 0, standard deviation close to 1. No streaky/unstreaky tendencies, as promised. No evidence that shot attempts were at different FG%.</p>
-<h2>LeSimulation 2 - last 5 FG%</h2>
-<p>My next simulation uses LeBron's FG% over his last 5 shots. We've seen he shoots the best with 0 makes in his last 5; the worst with 5 makes in his last 5. The simulation uses his exact percentages at each level. For the first 5 shots of every game, it uses his career FG%.</p>
-<p>I ran the simulation 1,000 times. Here are the z-scores:</p>
-<p><img alt="le-fake-career-2" src="/img/le-fake-career-2.png"></p>
-<p>As expected, this simulation is pretty un-streaky:</p>
-<div class="highlight"><pre><span></span><code>count    1000.000000
-mean        1.635843
-std         0.985464
-min        -1.665389
-25%         1.001550
-50%         1.623242
-75%         2.346864
-max         4.509869
-</code></pre></div>
-
-<p>It's still not nearly as unstreaky as the man himself, though -- Lebron's z score of 5.9 would be way bigger than the largest value in 1,000 simulations (4.5). So he'd still be an outlier compared to these simulated un-streaky players.</p>
-<h2>LeSimulation 3 -- No resetting streaks</h2>
-<p>What about a fake player where the streaks don't reset between games? That should make the simulated player even more unstreaky.</p>
-<p>In this version of the simulation, every shot will be influenced by the FG% of the previous 5 shots, even if they happened in the previous game(s).</p>
-<p><img alt="le-fake-career-3" src="/img/le-fake-career-3.png"></p>
-<p>Here are the corresponding z-scores:</p>
-<div class="highlight"><pre><span></span><code>count    1000.000000
-mean        2.179821
-std         0.963330
-min        -1.033468
-25%         1.536542
-50%         2.203681
-75%         2.865350
-max         5.073167
-</code></pre></div>
-
-<p>So, the mean went from 1.6 to 2.2, and the max z score went from 4.5 to 5.1. That's still not nearly unstreaky enough to match LeReal LeBron, but at least it's closer.</p>
-<p>It's possible that if we tracked the last 7 shots, or 9, instead of 5, we would see even more of a dramatic change in FG percentage. Or there's some other factor I haven't considered that is adding unstreakiness, such as the fact that his FG percentage tends to go down the more shots he's taken in a game.</p>
-<h2>DoppLeGangers</h2>
-<p>I was curious if I could find similar players to LeBron. There's a good way to do that, but I wanted to try my own way first. I found players where, like LeBron, their FG% steadily declines the more shots they've made out of the last 5.  There are 18 such players in the 2004-2024 years: Karl Malone (his last season), Grant Hill, Ben Wallace, Eddie House, Michael Redd, Jarvis Hayes, Andres Nocioni, JJ Redick, Nicolas Batum, Goran Dragic, DeMar DeRozan, Patrick Beverley, Marcus Morris Sr., Bradley Beal, Kelly Oubre Jr., Norman Powell, Donte DiVincenzo, and Landry Shamet.</p>
-<p>Overall, these players have a mean z-score of 1.47, which is pretty impressive, but except for Goran Dragic, there isn't much overlap over the players with the highest overall z scores. 18 players is a pretty small sample size, as well.</p>
-<p>I also looked at a broader set of players where at least 4 out of the 5 comparisons were decreasing. This gave 180 players, with an average z score of 1.0. </p>
-<h3>LeRight way</h3>
-<p>The right way to identify LeBron-alikes is probably to use a similarity metric that I didn't invent. The fg percentages after 0,1,2...5/5 makes are sort of like a probability distribution. </p>
-<p>In statistics and machine learning, we are often fitting a theoretical distribution to the actual observed data. Is it a good representation of the observed data? Do their distributions have the same sort of shape? The standard measure is relative entropy, also known as <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">KL divergence</a>.</p>
-<p>If I normalize the shooting percentages and compare them to LeBron's, players with a low relative entropy should show the same tendency to shoot better when they're shooting worse than average over their last 5, and vice versa.</p>
-<p>For example, LeBron's last 5 percentages are:</p>
-<div class="highlight"><pre><span></span><code><span class="mf">0</span><span class="w">    </span><span class="mf">0.564612</span>
-<span class="mf">1</span><span class="w">     </span><span class="mf">0.50712</span>
-<span class="mf">2</span><span class="w">    </span><span class="mf">0.505937</span>
-<span class="mf">3</span><span class="w">    </span><span class="mf">0.496538</span>
-<span class="mf">4</span><span class="w">    </span><span class="mf">0.473849</span>
-<span class="mf">5</span><span class="w">    </span><span class="mf">0.464052</span>
-</code></pre></div>
-
-<p>By normalizing them, they act like a probability distribution (they all add up to one) but still have the same relative proportions.</p>
-<div class="highlight"><pre><span></span><code><span class="mf">0</span><span class="w">    </span><span class="mf">0.187448</span>
-<span class="mf">1</span><span class="w">     </span><span class="mf">0.16836</span>
-<span class="mf">2</span><span class="w">    </span><span class="mf">0.167968</span>
-<span class="mf">3</span><span class="w">    </span><span class="mf">0.164847</span>
-<span class="mf">4</span><span class="w">    </span><span class="mf">0.157315</span>
-<span class="mf">5</span><span class="w">    </span><span class="mf">0.154062</span>
-</code></pre></div>
-
-<p>The normalization also corrects for the fact that shooters have different overall FG percentages.</p>
-<p>Normalized values can then be compared to other players' values. The lower the entropy, the more similar their shapes are.</p>
-<p>I also calculated the Jensen-Shannon distance, which is like relative entropy, but symmetrical (<code>distance(le_bron, le_other_guy) = distance(le_other_guy, le_bron)</code>).</p>
-<p>The closest guys to LeBron by this measure are CJ McCollum, Terry Rozier, Andrea Bargnani, Marcus Morris, Richard Hamilton, Nikola Vucevic, Zach Randolph, Lauri Markkanen, Kawhi Leonard, and Kevin Huerter. </p>
-<p>Since Richard Hamilton had the least streaky game in the last 20 years, it's not surpring to see him. But except for Randolph and Vucevic, none of the top 10 had exceptional z scores, though they were all positive.</p>
-<p>The Jensen-Shannon distance results were extremely similar to entropy. It agreed exactly with the entropy on 73 of the top 100 players. The average z score for those players was 1.16, versus 1.15 for entropy. So, in aggregate, both were better than my homegrown metric at identifying unstreaky players.</p>
-<p>This graph shows the shape of the 10 players most similar to LeBron. They all have the same downward trend.</p>
-<p><img alt="most-similar-last5" src="/img/most-similar-last5.png"></p>
-<p>I haven't looked at whether the reason for the trend in last 5 FG% is due to shot selection for these other players, which is probably the interesting part. Some of the players flagged here are inevitably due to chance. It's based on six 50/50 measurements, so 1 in 64 players would get flagged as "LeBron like" even if the data was randomly generated.</p>
-<p>None of my queries here turned up the un-streakiest players like Luka Doncic and Anthony Edwards. Whatever causes their extreme unstreakiness (beyond randomness) must be different from LeBron's tendencies. Stay tuned!</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/lesimulation.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/sports-analytics.html" rel="tag">sports analytics</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
-                    &nbsp;<a href="/tag/the-hot-hand.html" class="tags">the hot hand</a>
                 </div>
             </article>
 

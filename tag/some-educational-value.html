@@ -29,7 +29,295 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Jul 26, 2025</h4>
+        <div id="content">            <h4 class="date">Sep 23, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/primes-and-self-similarity.html" rel="bookmark" title="Permanent Link to &quot;Primes and self-similarity&quot;">Primes and self-similarity</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank"><img alt="John Hollenbeck &amp; NDR Big Band, &quot;Entitlement&quot;" src="https://img.youtube.com/vi/ncmIlVdL8po/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank">John Hollenbeck &amp; NDR Big Band, "Entitlement"</a></p>
+<p>I've been messing around with prime numbers, because there are several places where they intersect with both <a href="/do-you-wanna-win.html">random walks</a> and the <a href="/riding-the-waves.html">arcsine distribution</a>.  It's going to take a while to finally tie that bow, though.</p>
+<p>So it's a quick one this week: a kinda-cool story, and a kinda-cool graph.</p>
+<h3>Random Primes</h3>
+<p>The prime numbers are simple to find, but not easy. They're not randomly distributed, but it's hard to come up with easy ways to find them, and they act like random numbers in certain ways.  Why is 47 prime and 57 non-prime? You can't really tell just by looking.</p>
+<p>To find the primes, we can write down every number from, say, 1 to 1000. Then we cross out 2, and every number divisible by 2 (4, 6, 8, etc.). Repeat that with 3 (6, 9, 12, etc.), and so on. The numbers left behind are prime. This is the famous <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes</a> -- it's a tedious way to find prime numbers, but it's by far the easiest to understand.</p>
+<p>The sieve gave mathematician David Hawkins an idea [1]: what about doing that same process, but randomly?  For each number, flip a coin, if it comes up heads, cross the number out. That will eliminate half of the numbers on the first pass. Take the lowest number <code>k</code> that remains and eliminate each of the remaining numbers with probability <code>1/k</code>. Say it's 4. For each remaining number, we flip a 4 sided die and if it comes up 4, we cross it out. </p>
+<p>If we go through all the numbers, what's left over won't look like real prime numbers -- there should be as many even fake primes as odd ones, for starters. But the remaining numbers will be as sparse as the actual prime numbers. As the sample size N heads to infinity, the chances of a random number being a real prime, and being a fake prime, are the same -- <code>1/log(N)</code>.</p>
+<p>This is a brilliant way to figure out what we know about prime numbers are due to their density, and what are due to other, seemingly more magical (but still non-random) factors. </p>
+<p>Several characteristics of real primes apply to the random primes. And tantalizingly, things that can't be proven about real primes can be proven about the fake ones. It's been conjectured that there are infinitely many pairs of twin primes -- primes that are separated by 2 numbers. An example would be 5 and 7, or 11 and 13. It makes sense for a lot of reasons that there should be an infinite number of twin primes.  But mathematicians have been trying to prove it for over 150 years, without success.</p>
+<p>Random primes can be odd or even, so the analogy to twin primes would be two random primes that are only one apart, say 5 and 6. It's relatively simple to prove that there are an infinite number of random twin primes [2]. That could easily be fool's gold -- treating the primes like they're randomly distributed gives mathematicians a whole toolbox of statistical techniques to use on them, but they're not random, or arbitrary. They're perfectly logical, and yet still inscrutible, hidden in plain sight.</p>
+<h3>Largest prime factors of composite numbers</h3>
+<p>I was intrigued by the largest prime factor of composite (non-prime) numbers. Are there any patterns?</p>
+<p>As background, every number can be split into a unique set of prime factors. For instance, the number 24 can be factored into <code>24 = 8 * 3 = 2 * 2 * 2 * 3</code>. Let's say we knock off the biggest prime factor. We get: <code>2 * 2 * 2 = 8</code>. The raw numbers rapidly get too big, so I looked at the log of the ratio:</p>
+<p><img alt="/img/logratios100k.png" src="/img/logratios100k.png"></p>
+<p>The red curve is the distribution of the first 100,000 composite numbers, the orange is the next 100,000 composite numbers, and so on. </p>
+<p>What if we bump up an order of magnitude? This time, the red curve is the first million composite numbers, the orange is the next million, and so on. Here's what that looks like:</p>
+<p><img alt="/img/logratios1M.png" src="/img/logratios1M.png"></p>
+<p>Pretty much the same graph, right? The X axis is different, but the shapes are very similar to the first one. </p>
+<p>Let's go another order of magnitude up. The first 10,000,000 versus the next 10,000,000, and so on?</p>
+<p><img alt="/img/logratios10M.png" src="/img/logratios10M.png"></p>
+<p>We get the same basic shapes again! The self-similarity is kinda cool. Is it possible to come up with some function for the distribution for this quantity? You tell me.</p>
+<h3>The perils of interpolation</h3>
+<p>These graphs are flawed. I'm generating these graphs using Kernel Density Estimation, a technique for visualizing the density of data. Histograms, another common way, can be misleading. The choice of bin size can radically alter what the histogram looks like.</p>
+<p>But KDE can also be misleading. These graphs make it look like the curve starts at zero.  That's not true. The minimum possible value happens when a number is of the form <code>2*p</code>, where p is a prime -- the value will be <code>log(2)</code>, about .693.</p>
+<p>This data is actually way <em>chunkier</em> than KDE is treating it.  Every point of data is the log of a whole number. So there aren't that many unique values. For instance, between 0 and 1 on the X axis, there's only one possible value -- <code>log(2)</code>. Between 1 and 3, there are only 18 possible values, <code>log(2)</code> thru <code>log(19)</code> -- those being the only integers with a <code>log</code> less than 3 and greater than 1.</p>
+<p>This makes it hard to visualize the data accurately. There are too many possible values to display each one individually, but not enough for KDE's smoothing to be appropriate.</p>
+<p>The <em>kernel</em> in Kernel Density Estimation is the algorithm used to smooth the data --  it's basically a moving average that assumes something about the distribution of the data. People usually use the Gaussian kernel, which treats the data like a normal distribution -- smooth and bell curvy. A better choice for chunky data is the <em>tophat</em> kernel, which treats the space between points like a uniform distribution -- in other words, a flat line. If the sparseness of the data on the X axis were due to a small sample size, the tophat kernel would display plateaus that aren't in the real data. But here, I calculated data for the first 100 Million numbers, so there's no lack of data. The sparseness of the data is by construction. <code>log(2)</code> will be the only value between 0 and 1, no matter how many numbers we go up to. So the left side of the graph <em>should</em> look fairly chunky.</p>
+<p>The tophat kernel does a much better job of conveying the non-smoothness of the distribution:</p>
+<p><img alt="/img/tophat.png" src="/img/tophat.png"></p>
+<h3>References</h3>
+<p>[1] https://chance.dartmouth.edu/chance_news/recent_news/chance_primes_chapter2.html</p>
+<p>[2] for sufficiently large values of <em>simple</em></p>
+<p>[3] https://scikit-learn.org/stable/auto_examples/neighbors/plot_kde_1d.html</p>
+<p>[4] https://en.wikipedia.org/wiki/Kernel_density_estimation</p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/primes-and-self-similarity.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/math.html" rel="tag">math</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/number-theory.html" class="tags">number theory</a>
+                    &nbsp;<a href="/tag/machine-learning.html" class="tags">machine learning</a>
+                    &nbsp;<a href="/tag/some-educational-value.html" class="tags selected">some educational value</a>
+                </div>
+            </article>            <h4 class="date">Sep 10, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/one-in-e.html" rel="bookmark" title="Permanent Link to &quot;One in e&quot;">One in e</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank"><img alt="Klonhertz, &quot;Three Girl Rhumba&quot;" src="https://img.youtube.com/vi/16At3u6Nz0Y/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank">Klonhertz, "Three Girl Rhumba"</a></p>
+<p>Notebook available <a href="https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/632%20selection.ipynb">here</a></p>
+<h3>Think of a number</h3>
+<p>Pick a number between 1-100.</p>
+<p>Say I write down the numbers from 1-100 on pieces of paper and put them in a big bag, and randomly select from them. After every selection, I put the paper back in the bag, so the same number can get picked more than once.  If I do that 100 times, what is the chance of your number being chosen?</p>
+<p>The math isn't too tricky. It's often easier to calculate the chances of a thing not happening, then subtract that from 1, to get the chances of the thing happening. There's a 99/100 chance your number doesn't get picked each time. So the probability of never getting selected is $(99/100)^{100} = .366$. Subtract that from one, and there's a 63.4% chance your number will be chosen. Alternately, we'd expect to get 634 unique numbers in 1000 selections.</p>
+<p>When I start picking numbers, there's a low chance of getting a duplicate, but that increases as I go along. On my second pick, there's only a 1/100 chance of getting a duplicate. But if I'm near the end and have gotten 60 uniques so far, there's a 60/100 chance.</p>
+<p>It's kind of a self-correcting process. Every time I pick a unique number, it increases the odds of getting a duplicate on the next pick. Each pick is independent, but the likelihood of getting a duplicate is not.</p>
+<p>I could choose the numbers by flipping a biased coin that comes up heads 63.4% of the time for each one instead. I will get the same number of values on average, and they will be randomly chosen, but the count of values will be much more variable:</p>
+<p><img alt="/img/distinct-binomial.png" src="/img/distinct-binomial.png"></p>
+<p>Of course, if the goal is to select exactly 63 items out of 100, the best way would be to randomly select 63 without replacement so there is no variation in the number of items selected.</p>
+<h3>A number's a number</h3>
+<p>Instead of selecting 100 times from 100 numbers, what if we selected a bajillion times from a bajillion numbers? To put it in math terms, what is $\lim\limits_{n\to\infty} (\frac{n-1}{n})^{n}$ ?</p>
+<p>It turns out this is equal to $\frac{1}{e}$ ! Yeah, e! Your old buddy from calculus class. You know, the $e^{i\pi}$ guy?</p>
+<p>As n goes to infinity, the probability of a number being selected is $1-\frac{1}{e} = .632$. This leads to a technique called bootstrapping, or ".632 selection" in machine learning (back to that in a minute).</p>
+<h3>Don't think of an answer</h3>
+<p>What are the chances that a number gets selected exactly once? Turns out, it's $\frac{1}{e}$, same as the chances of not getting selected! This was surprising enough to me to bother to work out the proof, given at the end.</p>
+<p>That means the chances of a number getting selected more than once is $1 - \frac{2}{e}$. </p>
+<p>The breakdown:</p>
+<ul>
+<li>1/e (36.8%) of numbers don't get selected</li>
+<li>1/e (36.8%) get selected exactly once</li>
+<li>1-2/e (26.4%) get selected 2+ times</li>
+</ul>
+<p>As before, the variance in number of items picked 2+ times is much lower than flipping a coin that comes up heads 26.4% of the time:</p>
+<p><img alt="/img/more-than-once.png" src="/img/more-than-once.png"></p>
+<h3>Derangements</h3>
+<p>Say I'm handing out coats randomly after a party. What are the chances that nobody gets their own coat back? </p>
+<p>This is called a derangement, and the probability is also 1/e. An almost correct way to think about this is the chance of each person not getting their own coat (or each coat not getting their own person, depending on your perspective) is $\frac{(x-1)}{x}$ and there are $x$ coats, so the chances of a derangement are $\frac{x-1}{x}^{x}$.</p>
+<p>This is wrong because each round isn't independent. In the first case, we were doing selection with replacement, so a number being picked one round doesn't affect its probability of being picked next round.  That's not the case here. Say we've got the numbers 1 thru 4. To make a derangement, the first selection can be 2, 3 or 4. The second selection can be 1, 3 or 4. But 3 or 4 might have been picked in the first selection and can't be chosen again. 2/3rds of the time, there will only be two options for the second selection, not three.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Rencontres_numbers">long way 'round the mountain</a> involves introducing a new mathematical function called the subfactorial, denoted as $!x$, which is equal to the integer closest to $\frac{x!}{e}$. $e$ gets in there because in the course of counting the number of possible derangements, a series is produced that converges to $1/e$.</p>
+<p>The number of derangements for a set of size x is $!x$ and the number of permutations is $x!$, so the probability of a derangement as x gets big is $\frac{!x}{x!} = \frac{1}{e}$</p>
+<p>What about the chances of only one person getting their coat back? It's also $\frac{1}{e}$, just like the chances of a number getting selected exactly once when drawing numbers with replacement.  The number of fixed points -- number of people who get their own coat back -- follows a Poisson distribution with mean 1.</p>
+<p>The second process seems very different from the first one. It is selection with replacement versus without replacement. But $e$ is sort of the horizon line of mathematics -- a lot of things tend towards it (or its inverse) in the distance.</p>
+<h3>Bootstrapping</h3>
+<p>Say we're working on a typical statistics/machine learning problem. We're given some training data where we already know the right answer, and we're trying to predict for future results. There are a ton of ways we could build a model. Which model will do the best on the unknown data, and how variable might the accuracy be? </p>
+<p>Bootstrapping is a way to answer those questions. A good way to estimate how accurate a model will be in the future is to train it over and over with different random subsets of the training data, and see how accurate the model is on the data that was held out. That will give a range of accuracy scores which can be used to estimate how well the model will be on new inputs, where we don't know the answers ahead of time. If the model we're building has a small set of parameters we're fitting (like the coefficients in a linear regression), we can also estimate a range of plausible values for those parameters. If that range is really wide, it indicates a certain parameter isn't that important to the model, because it doesn't matter if it's big or small.</p>
+<p>Bootstrapping is a way of answering those questions, using the process described before -- if we have x datapoints, pick x numbers without replacement x times. The ones that get selected at least once are used to train the models, and the ones that don't get selected are used to generate an estimate of accuracy on unseen data. We can do that over and over again and get different splits every time. </p>
+<p>It's a fine way to split up the training data and the validation data to generate a range of plausible accuracy scores, but I couldn't find a good reason other than tradition for doing it that way. The 63.2/36.8 split isn't some magical value. Instead of having the numbers that weren't picked be the holdout group, we could instead leave out the numbers that were only picked once (also 1/e of the numbers), and train on the ones not selected or selected more than once. But picking 63% of values (or some other percentage) without replacement is the best way to do it, in my opinion. </p>
+<p>The <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">original paper</a> doesn't give any statistical insight into why the choice was made, but a remark at the end says, "it is remarkably easy to implement on the computer", and notes the $4 cost of running the experiments on Stanford's <a href="https://www.ibm.com/history/system-370">IBM 370/168 mainframe</a>. Maybe it's just the engineer in me, but it seems like a goofy way to do things, unless you actually want a variable number of items selected each run.</p>
+<p>In the notebook, I showed that bootstrapping is about 40% slower than selection without replacement when using numpy's <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html">choice()</a> function. However, the cost of selecting which items to use for training vs. testing should be insignificant compared to the cost of actually training the models using that train/test split.</p>
+<h3>A chance encounter</h3>
+<p>A quick proof of the chances of being selected exactly once.</p>
+<p>Doing x selections with replacement, the chance of a number being chosen as the very first selection (and no other times) is 
+$\frac{1}{x} * \frac{x-1}{x}^{x-1}$</p>
+<p>There are x possible positions for a number to be selected exactly once. Multiply the above by x, which cancels out 1/x. So the chances of a number being selected exactly once at any position is $(\frac{x-1}{x})^{x-1}$.</p>
+<p>Let's try to find a number $q$ so that $\lim\limits_{x\to\infty} (\frac{x-1}{x})^{x-1} = e^{q}$.</p>
+<p>Taking the log of both sides:<br>
+$q = \lim\limits_{x\to\infty} (x-1) * log(\frac{x-1}{x}) = \lim\limits_{x\to\infty} \frac{log(\frac{x-1}{x})}{1/(x-1)}$</p>
+<p>Let 
+$f(x) = log(\frac{x-1}{x})$
+and 
+$g(x) = \frac{1}{x-1}$</p>
+<p>By L'Hopital's rule, $\lim\limits_{x\to\infty} \frac{f(x)}{g(x)} = \lim\limits_{x\to\infty}\frac{f'(x)}{g'(x)}$</p>
+<p>The derivative of a log of a function is the derivative of the function divided by the function itself, so:</p>
+<p>$f'(x) = \frac{d}{dx} log(\frac{x-1}{x}) = \frac{d}{dx} log(1 - \frac{1}{x}) = \frac{\frac{d}{dx}(1-\frac{1}{x})}{1-\frac{1}{x}} =\frac{\frac{1}{x^{2}}}{{1-\frac{1}{x}}} = \frac{1}{x^{2}-x} = \frac{1}{x(x-1)}$</p>
+<p>and</p>
+<p>$g'(x) = \frac{-1}{(x-1)^{2}}$</p>
+<p>Canceling out (x-1) from both, $\frac{f'(x)}{g'(x)} = \frac{1}{x}  * \frac{x-1}{-1} = -1 * \frac{x-1}{x}$.</p>
+<p>So $q = \lim\limits_{x\to\infty} -1 * \frac{x-1}{x} = -1$</p>
+<p>At the limit, the probability of being selected exactly once is $e^{-1} = \frac{1}{e}$</p>
+<h3>References/Further Reading</h3>
+<p><a href="https://oeis.org/A068985">https://oeis.org/A068985</a></p>
+<p><a href="https://mathworld.wolfram.com/Derangement.html">https://mathworld.wolfram.com/Derangement.html</a></p>
+<p>Great explanation of how to calculate derangements using the inclusion-exclusion principle: <a href="https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/">https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/</a></p>
+<p>The bible of machine learning introduces bootstrapping, but no talk of why that selection process. <a href="https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf">https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf</a></p>
+<p>The original bootstrap paper: <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf</a></p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/one-in-e.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/statistics.html" rel="tag">statistics</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/machine-learning.html" class="tags">machine learning</a>
+                    &nbsp;<a href="/tag/some-educational-value.html" class="tags selected">some educational value</a>
+                </div>
+            </article>            <h4 class="date">Jul 31, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/harmonics.html" rel="bookmark" title="Permanent Link to &quot;Harmonics&quot;">Harmonics</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=5Ocq8UlLuuw" target="_blank"><img alt="Donna Summer and Giorgio Moroder, &quot;I Feel Love&quot; (Patrick Cowley Remix)" src="https://img.youtube.com/vi/5Ocq8UlLuuw/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=5Ocq8UlLuuw" target="_blank">Donna Summer and Giorgio Moroder, "I Feel Love" (Patrick Cowley Remix)</a></p>
+<p>Notebook: <a href="https://github.com/csdurfee/csdurfee.github.io/blob/main/harmonics.ipynb">https://github.com/csdurfee/csdurfee.github.io/blob/main/harmonics.ipynb</a></p>
+<p>I was gonna do random walks this week, but the thing about random walks is you don't know where you're gonna end up, and I ended up back at last week's topic again. </p>
+<p>Last time, we saw that the sine wave, sawtooth wave and square wave produced very different distributions.</p>
+<p>All three waveforms are used in electronic music, and they all have different acoustic properties. A sine wave sounds like a "boop" -- think of the sound they play to censor someone who says a swear word on the TV.  That's a sine wave with a frequency of 1000Hz. Sawtooth waves are extremely buzzy. A square wave has, ironically, kind of a round sound, at least as far as how it gets used in electronic music.  A good example is the bass line to this week's song. </p>
+<p>It's not a pure square wave, and it's rare to ever hear pure sawtooth or square waves because they're harsh on the ears. Usually multiple waveforms are combined together and then passed through various filters and effects -- in other words, synthesized. </p>
+<p>Pretty much every sound you've ever heard is a mix of different frequencies. Only sine waves are truly pure, just a single frequency. I tried looking for an actual musical instrument that produces pure sine waves, and the closest thing (according to the internet, at least) is a tuning fork. </p>
+<p>Any other musical instrument, or human voice, or backfiring car, will produce overtones. There's one note that is perceived as the <em>fundamental frequency</em>, but every sound is kind of like a little chord when the overtones are included. </p>
+<p>For musical instruments, the loudest overtones are generally at frequencies that are a multiple of the original frequency. These overtones are called <em>harmonics</em>.</p>
+<p>For instance, if I play a note at 400 Hz on a guitar, it will also produce harmonics at 800 Hz (2x the fundamental frequency), 1200 Hz (3x), 1600 Hz (4x), 2000 Hz (5x), and so on. This corresponds to the <a href="https://en.wikipedia.org/wiki/Harmonic_series_(mathematics)">harmonic series in mathematics</a>. It's the sum of the ratios of the wavelengths of the harmonics to the fundamental frequency: 1 + 1/2 + 1/3 + 1/4 + 1/5 + ...</p>
+<h3>The clarinet is the squarest instrument</h3>
+<p>I played the clarinet in grade school and I am the biggest dork on the planet, so it's certainly metaphorically true. But it's also literally true.</p>
+<p>There's a lot that goes into exactly which overtones get produced by a physical instrument, but most instruments put out the whole series of harmonics. <a href="https://newt.phys.unsw.edu.au/jw/clarinetacoustics.html#harmonics">The clarinet is different</a>. Because of a clarinet's physical shape, it pretty much only produces odd harmonics. So, in our example, 400 Hz, 1200 Hz, 2000 Hz, etc.</p>
+<p>The square wave is like an idealized version of a clarinet -- it also only puts out odd harmonics. This is a result of how a square wave is constructed. In the real world, they're formed out of a combination of sine waves. Which sine waves? You guessed it -- the ones that correspond to the odd harmonic frequencies.</p>
+<p>Here's the fundamental frequency combined with the 3rd harmonic:</p>
+<p><img alt="/img/square3.png" src="/img/square3.png"></p>
+<p>It already looks a bit square-wavey. Additional harmonics make the square parts a bit more square.  Here's what it looks like going up to the 19th harmonic:</p>
+<p><img alt="/img/square21.png" src="/img/square21.png"></p>
+<p>In the real world, we can only add a finite number of harmonics, but if we could combine an infinite number of them, we would get the ideal square wave. This is called the <a href="https://en.wikipedia.org/wiki/Fourier_series">Fourier series</a> of the square wave.</p>
+<p>Here's an illustration to help show how the square wave gets built up:</p>
+<p><img alt="/img/square-buildup.png" src="/img/square-buildup.png"></p>
+<p>The red wave is the fundamental frequency. The orange square-ish wave is the result of combining the other colored waves with the red wave.</p>
+<p>The sum normally would be scaled up a bit (multiplied by 4/pi), but it's easier without the scaling to see how the other waves sort of hammer the fundamental frequency into the shape of the square wave. At some points they are pushing it up, and other points pulling it down.</p>
+<p>Perhaps this graph makes it clearer. The red is the fundamental, the yellow is the sum of all the other harmonics, and the orange is the combination of the two:</p>
+<p><img alt="/img/combine-harmonics-square.png" src="/img/combine-harmonics-square.png"></p>
+<p>Where the yellow is above the X axis, it's pulling the fundamental frequency up, and where it's below, it's pulling the fundamental down.</p>
+<h3>The sawtooth</h3>
+<p>A sawtooth wave is what you get when you combine all the harmonics, odd and even. Like the square wave, it starts to take its basic shape right away. Here's the fundamental plus the second harmonic:</p>
+<p><img alt="/img/sawtooth2.png" src="/img/sawtooth2.png"></p>
+<p>And here it is going all the way up to the 10th harmonic:</p>
+<p><img alt="/img/sawtooth10.png" src="/img/sawtooth10.png"></p>
+<p>Red fundamental plus yellow harmonics produce the orange sawtooth wave:</p>
+<p><img alt="/img/combine-harmonics-saw.png" src="/img/combine-harmonics-saw.png"></p>
+<p>Last time, I talked about the sawtooth wave producing a uniform distribution of amplitudes -- the butter gets spread evenly over the toast. The graph above isn't a very smooth stroke of butter. It's not steadily decreasing, particularly at the ends. Here's what the distribution looks like at this point:</p>
+<p><img alt="/img/sawtooth10-amps.png" src="/img/sawtooth10-amps.png"></p>
+<p>With an infinite series of harmonics, that graph will even out to a uniform distribution</p>
+<h3>Getting even</h3>
+<p>What about only the even harmonics? Is that a thing? Not in the natural world as far as I know, but there's nothing stopping me from making one. (It wouldn't be the worst musical crime I've ever committed.)</p>
+<p>Here's what a combo of just the even harmonics looks like:</p>
+<p><img alt="/img/even-harmonics.png" src="/img/even-harmonics.png"></p>
+<p>Thanks to a little code from the pygame project, it's easy to turn that waveform into a sound file. It sounds like an angry computer beep, with a little flutter mixed in.</p>
+<p><a href="/audio/evens_clean.wav" target="_blank">Here's an audio sample</a></p>
+<h3>In my prime</h3>
+<p>The <a href="https://mathworld.wolfram.com/HarmonicSeriesofPrimes.html">harmonic series of primes</a> is what it sounds like: the harmonic series, but just the prime numbers: 1 + 1/2 + 1/3 + 1/5 + 1/7 + 1/11 + 1/13 + ....</p>
+<p>Although it's important in mathematics, I don't have a good musical reason to do this. But if you can throw the prime numbers into something, you gotta do it.</p>
+<p>As a sound, I kinda like it. It's nice and throaty. <a href="/audio/primes.wav" target="_blank">Here's what it sounds like.</a></p>
+<p>It doesn't really sound like a sawtooth wave or a square wave to me. Here's the waveform:</p>
+<p><img alt="/img/prime-waveform.png" src="/img/prime-waveform.png"></p>
+<p>Here's what the distribution of amplitudes looks like:</p>
+<p><img alt="/img/prime-amp.png" src="/img/prime-amp.png"></p>
+<h3>Dissonance</h3>
+<p>Some of the overtones of the harmonic series don't correspond with the 12 notes of the modern western musical scale (called 12 tone equal temprament, or 12TET). The first 4 harmonics of the series are nice and clean, but after that they get weird. Each harmonic in the series is smaller in amplitude than the previous one, so it has less of an effect on the shape of the final wave. So the dissonance is there, but it's way in the background.</p>
+<p>The prime number bloop I made above should be extra <em>weird</em>. The 2nd and 3rd harmonics are included, so those will sound nice, but after that they are at least a little off the standard western scale.</p>
+<p>Say we're playing the <em>prime bloop</em> at A4 (the standard pitch used for tuning).  Here's how the harmonics work out. A cent is 1% of a semitone. So a note that is off by 50 cents is right between two notes on the 12 tone scale.</p>
+<table>
+<thead>
+<tr>
+<th>harmonic #</th>
+<th>frequency</th>
+<th>pitch</th>
+<th>error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>440 Hz</td>
+<td>A4</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>880 Hz</td>
+<td>A5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1320</td>
+<td>E6</td>
+<td>+2 cents</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2200</td>
+<td>C#7</td>
+<td>-14 cents</td>
+</tr>
+<tr>
+<td>7</td>
+<td>3080</td>
+<td>G7</td>
+<td>+31 cents</td>
+</tr>
+<tr>
+<td>11</td>
+<td>4840</td>
+<td>D#8</td>
+<td>-49 cents</td>
+</tr>
+<tr>
+<td>13</td>
+<td>5720</td>
+<td>F8</td>
+<td>+41 cents</td>
+</tr>
+<tr>
+<td>17</td>
+<td>7480</td>
+<td>A#8</td>
+<td>+5 cents</td>
+</tr>
+</tbody>
+</table>
+<p>(Note the 3rd harmonic, E6, is a little <em>off</em> in 12TET, despite being a <em>perfect fifth</em> -- an exact 3:2 ratio with the A5.)</p>
+<h3>Harmonics aren't everything</h3>
+<p>While it's true that any audio can be decomposed into a bunch of sine waves, the fundamental frequency and the harmonics aren't really what gives an instrument its unique timbre. It's hundreds or thousands of tiny overtones that don't line up with the harmonics.</p>
+<p>Here are the spectra of two different piano sounds playing at 220 Hz. One is a somewhat fake piano sound (Fruity DX10), the other a natural, rich sounding one (LABS Soft Piano, which you might've heard before if you listen to those "Lofi Hip Hop Beats to Doomscroll/Not Study To" playlists). Can you guess which is which?</p>
+<p><img alt="/img/real-piano.png" src="/img/real-piano.png"></p>
+<p><img alt="/img/fake-piano.png" src="/img/fake-piano.png"></p>
+<p>The answer may surprise you. I mean, it can't be that surprising since there are only 2 options. But I'd probably get it wrong, if I didn't already know which is which.</p>
+<h3>Sources/Notes</h3>
+<p><a href="https://www.phys.unsw.edu.au/music/">This website from UNSW was invaluable</a>, particularly <a href="https://newt.phys.unsw.edu.au/jw/harmonics.html">https://newt.phys.unsw.edu.au/jw/harmonics.html</a></p>
+<p>Code used to generate the audio: <a href="https://stackoverflow.com/questions/56592522/python-simple-audio-tone-generator">https://stackoverflow.com/questions/56592522/python-simple-audio-tone-generator</a></p>
+<p>"The internet" claiming the sound of a tuning fork is a sine wave here (no citation given): <a href="https://en.wikipedia.org/wiki/Tuning_fork#Description">https://en.wikipedia.org/wiki/Tuning_fork#Description</a>.</p>
+<p>There are many good videos on Youtube about 12TET and Just Intonation, by people who know more about music than me. Here's one from David Bennett: <a href="https://www.youtube.com/watch?v=7JhVcGtT8z4">https://www.youtube.com/watch?v=7JhVcGtT8z4</a></p>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/harmonics.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/math.html" rel="tag">math</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/some-educational-value.html" class="tags selected">some educational value</a>
+                </div>
+            </article>            <h4 class="date">Jul 26, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -444,356 +732,6 @@
                     <a href="/riding-the-waves.html">posted at 10:20</a>
                     &nbsp;&middot;&nbsp;<a href="/category/statistics.html" rel="tag">statistics</a>
                     &nbsp;&middot;
-                    &nbsp;<a href="/tag/some-educational-value.html" class="tags selected">some educational value</a>
-                </div>
-            </article>            <h4 class="date">Jul 31, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/harmonics.html" rel="bookmark" title="Permanent Link to &quot;Harmonics&quot;">Harmonics</a>
-                </h2>
-
-                
-                
-
-                <p><a href="https://www.youtube.com/watch?v=5Ocq8UlLuuw" target="_blank"><img alt="Donna Summer and Giorgio Moroder, &quot;I Feel Love&quot; (Patrick Cowley Remix)" src="https://img.youtube.com/vi/5Ocq8UlLuuw/0.jpg"></a></p>
-<p>Song: <a href="https://www.youtube.com/watch?v=5Ocq8UlLuuw" target="_blank">Donna Summer and Giorgio Moroder, "I Feel Love" (Patrick Cowley Remix)</a></p>
-<p>Notebook: <a href="https://github.com/csdurfee/csdurfee.github.io/blob/main/harmonics.ipynb">https://github.com/csdurfee/csdurfee.github.io/blob/main/harmonics.ipynb</a></p>
-<p>I was gonna do random walks this week, but the thing about random walks is you don't know where you're gonna end up, and I ended up back at last week's topic again. </p>
-<p>Last time, we saw that the sine wave, sawtooth wave and square wave produced very different distributions.</p>
-<p>All three waveforms are used in electronic music, and they all have different acoustic properties. A sine wave sounds like a "boop" -- think of the sound they play to censor someone who says a swear word on the TV.  That's a sine wave with a frequency of 1000Hz. Sawtooth waves are extremely buzzy. A square wave has, ironically, kind of a round sound, at least as far as how it gets used in electronic music.  A good example is the bass line to this week's song. </p>
-<p>It's not a pure square wave, and it's rare to ever hear pure sawtooth or square waves because they're harsh on the ears. Usually multiple waveforms are combined together and then passed through various filters and effects -- in other words, synthesized. </p>
-<p>Pretty much every sound you've ever heard is a mix of different frequencies. Only sine waves are truly pure, just a single frequency. I tried looking for an actual musical instrument that produces pure sine waves, and the closest thing (according to the internet, at least) is a tuning fork. </p>
-<p>Any other musical instrument, or human voice, or backfiring car, will produce overtones. There's one note that is perceived as the <em>fundamental frequency</em>, but every sound is kind of like a little chord when the overtones are included. </p>
-<p>For musical instruments, the loudest overtones are generally at frequencies that are a multiple of the original frequency. These overtones are called <em>harmonics</em>.</p>
-<p>For instance, if I play a note at 400 Hz on a guitar, it will also produce harmonics at 800 Hz (2x the fundamental frequency), 1200 Hz (3x), 1600 Hz (4x), 2000 Hz (5x), and so on. This corresponds to the <a href="https://en.wikipedia.org/wiki/Harmonic_series_(mathematics)">harmonic series in mathematics</a>. It's the sum of the ratios of the wavelengths of the harmonics to the fundamental frequency: 1 + 1/2 + 1/3 + 1/4 + 1/5 + ...</p>
-<h3>The clarinet is the squarest instrument</h3>
-<p>I played the clarinet in grade school and I am the biggest dork on the planet, so it's certainly metaphorically true. But it's also literally true.</p>
-<p>There's a lot that goes into exactly which overtones get produced by a physical instrument, but most instruments put out the whole series of harmonics. <a href="https://newt.phys.unsw.edu.au/jw/clarinetacoustics.html#harmonics">The clarinet is different</a>. Because of a clarinet's physical shape, it pretty much only produces odd harmonics. So, in our example, 400 Hz, 1200 Hz, 2000 Hz, etc.</p>
-<p>The square wave is like an idealized version of a clarinet -- it also only puts out odd harmonics. This is a result of how a square wave is constructed. In the real world, they're formed out of a combination of sine waves. Which sine waves? You guessed it -- the ones that correspond to the odd harmonic frequencies.</p>
-<p>Here's the fundamental frequency combined with the 3rd harmonic:</p>
-<p><img alt="/img/square3.png" src="/img/square3.png"></p>
-<p>It already looks a bit square-wavey. Additional harmonics make the square parts a bit more square.  Here's what it looks like going up to the 19th harmonic:</p>
-<p><img alt="/img/square21.png" src="/img/square21.png"></p>
-<p>In the real world, we can only add a finite number of harmonics, but if we could combine an infinite number of them, we would get the ideal square wave. This is called the <a href="https://en.wikipedia.org/wiki/Fourier_series">Fourier series</a> of the square wave.</p>
-<p>Here's an illustration to help show how the square wave gets built up:</p>
-<p><img alt="/img/square-buildup.png" src="/img/square-buildup.png"></p>
-<p>The red wave is the fundamental frequency. The orange square-ish wave is the result of combining the other colored waves with the red wave.</p>
-<p>The sum normally would be scaled up a bit (multiplied by 4/pi), but it's easier without the scaling to see how the other waves sort of hammer the fundamental frequency into the shape of the square wave. At some points they are pushing it up, and other points pulling it down.</p>
-<p>Perhaps this graph makes it clearer. The red is the fundamental, the yellow is the sum of all the other harmonics, and the orange is the combination of the two:</p>
-<p><img alt="/img/combine-harmonics-square.png" src="/img/combine-harmonics-square.png"></p>
-<p>Where the yellow is above the X axis, it's pulling the fundamental frequency up, and where it's below, it's pulling the fundamental down.</p>
-<h3>The sawtooth</h3>
-<p>A sawtooth wave is what you get when you combine all the harmonics, odd and even. Like the square wave, it starts to take its basic shape right away. Here's the fundamental plus the second harmonic:</p>
-<p><img alt="/img/sawtooth2.png" src="/img/sawtooth2.png"></p>
-<p>And here it is going all the way up to the 10th harmonic:</p>
-<p><img alt="/img/sawtooth10.png" src="/img/sawtooth10.png"></p>
-<p>Red fundamental plus yellow harmonics produce the orange sawtooth wave:</p>
-<p><img alt="/img/combine-harmonics-saw.png" src="/img/combine-harmonics-saw.png"></p>
-<p>Last time, I talked about the sawtooth wave producing a uniform distribution of amplitudes -- the butter gets spread evenly over the toast. The graph above isn't a very smooth stroke of butter. It's not steadily decreasing, particularly at the ends. Here's what the distribution looks like at this point:</p>
-<p><img alt="/img/sawtooth10-amps.png" src="/img/sawtooth10-amps.png"></p>
-<p>With an infinite series of harmonics, that graph will even out to a uniform distribution</p>
-<h3>Getting even</h3>
-<p>What about only the even harmonics? Is that a thing? Not in the natural world as far as I know, but there's nothing stopping me from making one. (It wouldn't be the worst musical crime I've ever committed.)</p>
-<p>Here's what a combo of just the even harmonics looks like:</p>
-<p><img alt="/img/even-harmonics.png" src="/img/even-harmonics.png"></p>
-<p>Thanks to a little code from the pygame project, it's easy to turn that waveform into a sound file. It sounds like an angry computer beep, with a little flutter mixed in.</p>
-<p><a href="/audio/evens_clean.wav" target="_blank">Here's an audio sample</a></p>
-<h3>In my prime</h3>
-<p>The <a href="https://mathworld.wolfram.com/HarmonicSeriesofPrimes.html">harmonic series of primes</a> is what it sounds like: the harmonic series, but just the prime numbers: 1 + 1/2 + 1/3 + 1/5 + 1/7 + 1/11 + 1/13 + ....</p>
-<p>Although it's important in mathematics, I don't have a good musical reason to do this. But if you can throw the prime numbers into something, you gotta do it.</p>
-<p>As a sound, I kinda like it. It's nice and throaty. <a href="/audio/primes.wav" target="_blank">Here's what it sounds like.</a></p>
-<p>It doesn't really sound like a sawtooth wave or a square wave to me. Here's the waveform:</p>
-<p><img alt="/img/prime-waveform.png" src="/img/prime-waveform.png"></p>
-<p>Here's what the distribution of amplitudes looks like:</p>
-<p><img alt="/img/prime-amp.png" src="/img/prime-amp.png"></p>
-<h3>Dissonance</h3>
-<p>Some of the overtones of the harmonic series don't correspond with the 12 notes of the modern western musical scale (called 12 tone equal temprament, or 12TET). The first 4 harmonics of the series are nice and clean, but after that they get weird. Each harmonic in the series is smaller in amplitude than the previous one, so it has less of an effect on the shape of the final wave. So the dissonance is there, but it's way in the background.</p>
-<p>The prime number bloop I made above should be extra <em>weird</em>. The 2nd and 3rd harmonics are included, so those will sound nice, but after that they are at least a little off the standard western scale.</p>
-<p>Say we're playing the <em>prime bloop</em> at A4 (the standard pitch used for tuning).  Here's how the harmonics work out. A cent is 1% of a semitone. So a note that is off by 50 cents is right between two notes on the 12 tone scale.</p>
-<table>
-<thead>
-<tr>
-<th>harmonic #</th>
-<th>frequency</th>
-<th>pitch</th>
-<th>error</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>440 Hz</td>
-<td>A4</td>
-<td>0</td>
-</tr>
-<tr>
-<td>2</td>
-<td>880 Hz</td>
-<td>A5</td>
-<td>0</td>
-</tr>
-<tr>
-<td>3</td>
-<td>1320</td>
-<td>E6</td>
-<td>+2 cents</td>
-</tr>
-<tr>
-<td>5</td>
-<td>2200</td>
-<td>C#7</td>
-<td>-14 cents</td>
-</tr>
-<tr>
-<td>7</td>
-<td>3080</td>
-<td>G7</td>
-<td>+31 cents</td>
-</tr>
-<tr>
-<td>11</td>
-<td>4840</td>
-<td>D#8</td>
-<td>-49 cents</td>
-</tr>
-<tr>
-<td>13</td>
-<td>5720</td>
-<td>F8</td>
-<td>+41 cents</td>
-</tr>
-<tr>
-<td>17</td>
-<td>7480</td>
-<td>A#8</td>
-<td>+5 cents</td>
-</tr>
-</tbody>
-</table>
-<p>(Note the 3rd harmonic, E6, is a little <em>off</em> in 12TET, despite being a <em>perfect fifth</em> -- an exact 3:2 ratio with the A5.)</p>
-<h3>Harmonics aren't everything</h3>
-<p>While it's true that any audio can be decomposed into a bunch of sine waves, the fundamental frequency and the harmonics aren't really what gives an instrument its unique timbre. It's hundreds or thousands of tiny overtones that don't line up with the harmonics.</p>
-<p>Here are the spectra of two different piano sounds playing at 220 Hz. One is a somewhat fake piano sound (Fruity DX10), the other a natural, rich sounding one (LABS Soft Piano, which you might've heard before if you listen to those "Lofi Hip Hop Beats to Doomscroll/Not Study To" playlists). Can you guess which is which?</p>
-<p><img alt="/img/real-piano.png" src="/img/real-piano.png"></p>
-<p><img alt="/img/fake-piano.png" src="/img/fake-piano.png"></p>
-<p>The answer may surprise you. I mean, it can't be that surprising since there are only 2 options. But I'd probably get it wrong, if I didn't already know which is which.</p>
-<h3>Sources/Notes</h3>
-<p><a href="https://www.phys.unsw.edu.au/music/">This website from UNSW was invaluable</a>, particularly <a href="https://newt.phys.unsw.edu.au/jw/harmonics.html">https://newt.phys.unsw.edu.au/jw/harmonics.html</a></p>
-<p>Code used to generate the audio: <a href="https://stackoverflow.com/questions/56592522/python-simple-audio-tone-generator">https://stackoverflow.com/questions/56592522/python-simple-audio-tone-generator</a></p>
-<p>"The internet" claiming the sound of a tuning fork is a sine wave here (no citation given): <a href="https://en.wikipedia.org/wiki/Tuning_fork#Description">https://en.wikipedia.org/wiki/Tuning_fork#Description</a>.</p>
-<p>There are many good videos on Youtube about 12TET and Just Intonation, by people who know more about music than me. Here's one from David Bennett: <a href="https://www.youtube.com/watch?v=7JhVcGtT8z4">https://www.youtube.com/watch?v=7JhVcGtT8z4</a></p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/harmonics.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/math.html" rel="tag">math</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/some-educational-value.html" class="tags selected">some educational value</a>
-                </div>
-            </article>            <h4 class="date">Sep 10, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/one-in-e.html" rel="bookmark" title="Permanent Link to &quot;One in e&quot;">One in e</a>
-                </h2>
-
-                
-                
-
-                <p><a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank"><img alt="Klonhertz, &quot;Three Girl Rhumba&quot;" src="https://img.youtube.com/vi/16At3u6Nz0Y/0.jpg"></a></p>
-<p>Song: <a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank">Klonhertz, "Three Girl Rhumba"</a></p>
-<p>Notebook available <a href="https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/632%20selection.ipynb">here</a></p>
-<h3>Think of a number</h3>
-<p>Pick a number between 1-100.</p>
-<p>Say I write down the numbers from 1-100 on pieces of paper and put them in a big bag, and randomly select from them. After every selection, I put the paper back in the bag, so the same number can get picked more than once.  If I do that 100 times, what is the chance of your number being chosen?</p>
-<p>The math isn't too tricky. It's often easier to calculate the chances of a thing not happening, then subtract that from 1, to get the chances of the thing happening. There's a 99/100 chance your number doesn't get picked each time. So the probability of never getting selected is <span class="math">\((99/100)^{100} = .366\)</span>. Subtract that from one, and there's a 63.4% chance your number will be chosen. Alternately, we'd expect to get 634 unique numbers in 1000 selections.</p>
-<p>When I start picking numbers, there's a low chance of getting a duplicate, but that increases as I go along. On my second pick, there's only a 1/100 chance of getting a duplicate. But if I'm near the end and have gotten 60 uniques so far, there's a 60/100 chance.</p>
-<p>It's kind of a self-correcting process. Every time I pick a unique number, it increases the odds of getting a duplicate on the next pick. Each pick is independent, but the likelihood of getting a duplicate is not.</p>
-<p>I could choose the numbers by flipping a biased coin that comes up heads 63.4% of the time for each one instead. I will get the same number of values on average, and they will be randomly chosen, but the count of values will be much more variable:</p>
-<p><img alt="/img/distinct-binomial.png" src="/img/distinct-binomial.png"></p>
-<p>Of course, if the goal is to select exactly 63 items out of 100, the best way would be to randomly select 63 without replacement so there is no variation in the number of items selected.</p>
-<h3>A number's a number</h3>
-<p>Instead of selecting 100 times from 100 numbers, what if we selected a bajillion times from a bajillion numbers? To put it in math terms, what is <span class="math">\(\lim\limits_{n\to\infty} (\frac{n-1}{n})^{n}\)</span> ?</p>
-<p>It turns out this is equal to <span class="math">\(\frac{1}{e}\)</span> ! Yeah, e! Your old buddy from calculus class. You know, the <span class="math">\(e^{i\pi}\)</span> guy?</p>
-<p>As n goes to infinity, the probability of a number being selected is <span class="math">\(1-\frac{1}{e} = .632\)</span>. This leads to a technique called bootstrapping, or ".632 selection" in machine learning (back to that in a minute).</p>
-<h3>Don't think of an answer</h3>
-<p>What are the chances that a number gets selected exactly once? Turns out, it's <span class="math">\(\frac{1}{e}\)</span>, same as the chances of not getting selected! This was surprising enough to me to bother to work out the proof, given at the end.</p>
-<p>That means the chances of a number getting selected more than once is <span class="math">\(1 - \frac{2}{e}\)</span>. </p>
-<p>The breakdown:</p>
-<ul>
-<li>1/e (36.8%) of numbers don't get selected</li>
-<li>1/e (36.8%) get selected exactly once</li>
-<li>1-2/e (26.4%) get selected 2+ times</li>
-</ul>
-<p>As before, the variance in number of items picked 2+ times is much lower than flipping a coin that comes up heads 26.4% of the time:</p>
-<p><img alt="/img/more-than-once.png" src="/img/more-than-once.png"></p>
-<h3>Derangements</h3>
-<p>Say I'm handing out coats randomly after a party. What are the chances that nobody gets their own coat back? </p>
-<p>This is called a derangement, and the probability is also 1/e. An almost correct way to think about this is the chance of each person not getting their own coat (or each coat not getting their own person, depending on your perspective) is <span class="math">\(\frac{(x-1)}{x}\)</span> and there are <span class="math">\(x\)</span> coats, so the chances of a derangement are <span class="math">\(\frac{x-1}{x}^{x}\)</span>.</p>
-<p>This is wrong because each round isn't independent. In the first case, we were doing selection with replacement, so a number being picked one round doesn't affect its probability of being picked next round.  That's not the case here. Say we've got the numbers 1 thru 4. To make a derangement, the first selection can be 2, 3 or 4. The second selection can be 1, 3 or 4. But 3 or 4 might have been picked in the first selection and can't be chosen again. 2/3rds of the time, there will only be two options for the second selection, not three.</p>
-<p>The <a href="https://en.wikipedia.org/wiki/Rencontres_numbers">long way 'round the mountain</a> involves introducing a new mathematical function called the subfactorial, denoted as <span class="math">\(!x\)</span>, which is equal to the integer closest to <span class="math">\(\frac{x!}{e}\)</span>. <span class="math">\(e\)</span> gets in there because in the course of counting the number of possible derangements, a series is produced that converges to <span class="math">\(1/e\)</span>.</p>
-<p>The number of derangements for a set of size x is <span class="math">\(!x\)</span> and the number of permutations is <span class="math">\(x!\)</span>, so the probability of a derangement as x gets big is <span class="math">\(\frac{!x}{x!} = \frac{1}{e}\)</span></p>
-<p>What about the chances of only one person getting their coat back? It's also <span class="math">\(\frac{1}{e}\)</span>, just like the chances of a number getting selected exactly once when drawing numbers with replacement.  The number of fixed points -- number of people who get their own coat back -- follows a Poisson distribution with mean 1.</p>
-<p>The second process seems very different from the first one. It is selection with replacement versus without replacement. But <span class="math">\(e\)</span> is sort of the horizon line of mathematics -- a lot of things tend towards it (or its inverse) in the distance.</p>
-<h3>Bootstrapping</h3>
-<p>Say we're working on a typical statistics/machine learning problem. We're given some training data where we already know the right answer, and we're trying to predict for future results. There are a ton of ways we could build a model. Which model will do the best on the unknown data, and how variable might the accuracy be? </p>
-<p>Bootstrapping is a way to answer those questions. A good way to estimate how accurate a model will be in the future is to train it over and over with different random subsets of the training data, and see how accurate the model is on the data that was held out. That will give a range of accuracy scores which can be used to estimate how well the model will be on new inputs, where we don't know the answers ahead of time. If the model we're building has a small set of parameters we're fitting (like the coefficients in a linear regression), we can also estimate a range of plausible values for those parameters. If that range is really wide, it indicates a certain parameter isn't that important to the model, because it doesn't matter if it's big or small.</p>
-<p>Bootstrapping is a way of answering those questions, using the process described before -- if we have x datapoints, pick x numbers without replacement x times. The ones that get selected at least once are used to train the models, and the ones that don't get selected are used to generate an estimate of accuracy on unseen data. We can do that over and over again and get different splits every time. </p>
-<p>It's a fine way to split up the training data and the validation data to generate a range of plausible accuracy scores, but I couldn't find a good reason other than tradition for doing it that way. The 63.2/36.8 split isn't some magical value. Instead of having the numbers that weren't picked be the holdout group, we could instead leave out the numbers that were only picked once (also 1/e of the numbers), and train on the ones not selected or selected more than once. But picking 63% of values (or some other percentage) without replacement is the best way to do it, in my opinion. </p>
-<p>The <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">original paper</a> doesn't give any statistical insight into why the choice was made, but a remark at the end says, "it is remarkably easy to implement on the computer", and notes the $4 cost of running the experiments on Stanford's <a href="https://www.ibm.com/history/system-370">IBM 370/168 mainframe</a>. Maybe it's just the engineer in me, but it seems like a goofy way to do things, unless you actually want a variable number of items selected each run.</p>
-<p>In the notebook, I showed that bootstrapping is about 40% slower than selection without replacement when using numpy's <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html">choice()</a> function. However, the cost of selecting which items to use for training vs. testing should be insignificant compared to the cost of actually training the models using that train/test split.</p>
-<h3>A chance encounter</h3>
-<p>A quick proof of the chances of being selected exactly once.</p>
-<p>Doing x selections with replacement, the chance of a number being chosen as the very first selection (and no other times) is 
-<span class="math">\(\frac{1}{x} * \frac{x-1}{x}^{x-1}\)</span></p>
-<p>There are x possible positions for a number to be selected exactly once. Multiply the above by x, which cancels out 1/x. So the chances of a number being selected exactly once at any position is <span class="math">\((\frac{x-1}{x})^{x-1}\)</span>.</p>
-<p>Let's try to find a number <span class="math">\(q\)</span> so that <span class="math">\(\lim\limits_{x\to\infty} (\frac{x-1}{x})^{x-1} = e^{q}\)</span>.</p>
-<p>Taking the log of both sides:<br>
-<span class="math">\(q = \lim\limits_{x\to\infty} (x-1) * log(\frac{x-1}{x}) = \lim\limits_{x\to\infty} \frac{log(\frac{x-1}{x})}{1/(x-1)}\)</span></p>
-<p>Let 
-<span class="math">\(f(x) = log(\frac{x-1}{x})\)</span>
-and 
-<span class="math">\(g(x) = \frac{1}{x-1}\)</span></p>
-<p>By L'Hopital's rule, <span class="math">\(\lim\limits_{x\to\infty} \frac{f(x)}{g(x)} = \lim\limits_{x\to\infty}\frac{f'(x)}{g'(x)}\)</span></p>
-<p>The derivative of a log of a function is the derivative of the function divided by the function itself, so:</p>
-<p><span class="math">\(f'(x) = \frac{d}{dx} log(\frac{x-1}{x}) = \frac{d}{dx} log(1 - \frac{1}{x}) = \frac{\frac{d}{dx}(1-\frac{1}{x})}{1-\frac{1}{x}} =\frac{\frac{1}{x^{2}}}{{1-\frac{1}{x}}} = \frac{1}{x^{2}-x} = \frac{1}{x(x-1)}\)</span></p>
-<p>and</p>
-<p><span class="math">\(g'(x) = \frac{-1}{(x-1)^{2}}\)</span></p>
-<p>Canceling out (x-1) from both, <span class="math">\(\frac{f'(x)}{g'(x)} = \frac{1}{x}  * \frac{x-1}{-1} = -1 * \frac{x-1}{x}\)</span>.</p>
-<p>So <span class="math">\(q = \lim\limits_{x\to\infty} -1 * \frac{x-1}{x} = -1\)</span></p>
-<p>At the limit, the probability of being selected exactly once is <span class="math">\(e^{-1} = \frac{1}{e}\)</span></p>
-<h3>References/Further Reading</h3>
-<p><a href="https://oeis.org/A068985">https://oeis.org/A068985</a></p>
-<p><a href="https://mathworld.wolfram.com/Derangement.html">https://mathworld.wolfram.com/Derangement.html</a></p>
-<p>Great explanation of how to calculate derangements using the inclusion-exclusion principle: <a href="https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/">https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/</a></p>
-<p>The bible of machine learning introduces bootstrapping, but no talk of why that selection process. <a href="https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf">https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf</a></p>
-<p>The original bootstrap paper: <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf</a></p>
-<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
-
-    var mathjaxscript = document.createElement('script');
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
-
-    var configscript = document.createElement('script');
-    configscript.type = 'text/x-mathjax-config';
-    configscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        availableFonts: ['STIX', 'TeX']," +
-        "        preferredFont: 'STIX'," +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/one-in-e.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/statistics.html" rel="tag">statistics</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/machine-learning.html" class="tags">machine learning</a>
-                    &nbsp;<a href="/tag/some-educational-value.html" class="tags selected">some educational value</a>
-                </div>
-            </article>            <h4 class="date">Sep 23, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/primes-and-self-similarity.html" rel="bookmark" title="Permanent Link to &quot;Primes and self-similarity&quot;">Primes and self-similarity</a>
-                </h2>
-
-                
-                
-
-                <p><a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank"><img alt="John Hollenbeck &amp; NDR Big Band, &quot;Entitlement&quot;" src="https://img.youtube.com/vi/ncmIlVdL8po/0.jpg"></a></p>
-<p>Song: <a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank">John Hollenbeck &amp; NDR Big Band, "Entitlement"</a></p>
-<p>I've been messing around with prime numbers, because there are several places where they intersect with both <a href="/do-you-wanna-win.html">random walks</a> and the <a href="/riding-the-waves.html">arcsine distribution</a>.  It's going to take a while to finally tie that bow, though.</p>
-<p>So it's a quick one this week: a kinda-cool story, and a kinda-cool graph.</p>
-<h3>Random Primes</h3>
-<p>The prime numbers are simple to find, but not easy. They're not randomly distributed, but it's hard to come up with easy ways to find them, and they act like random numbers in certain ways.  Why is 47 prime and 57 non-prime? You can't really tell just by looking.</p>
-<p>To find the primes, we can write down every number from, say, 1 to 1000. Then we cross out 2, and every number divisible by 2 (4, 6, 8, etc.). Repeat that with 3 (6, 9, 12, etc.), and so on. The numbers left behind are prime. This is the famous <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes</a> -- it's a tedious way to find prime numbers, but it's by far the easiest to understand.</p>
-<p>The sieve gave mathematician David Hawkins an idea [1]: what about doing that same process, but randomly?  For each number, flip a coin, if it comes up heads, cross the number out. That will eliminate half of the numbers on the first pass. Take the lowest number <code>k</code> that remains and eliminate each of the remaining numbers with probability <code>1/k</code>. Say it's 4. For each remaining number, we flip a 4 sided die and if it comes up 4, we cross it out. </p>
-<p>If we go through all the numbers, what's left over won't look like real prime numbers -- there should be as many even fake primes as odd ones, for starters. But the remaining numbers will be as sparse as the actual prime numbers. As the sample size N heads to infinity, the chances of a random number being a real prime, and being a fake prime, are the same -- <code>1/log(N)</code>.</p>
-<p>This is a brilliant way to figure out what we know about prime numbers are due to their density, and what are due to other, seemingly more magical (but still non-random) factors. </p>
-<p>Several characteristics of real primes apply to the random primes. And tantalizingly, things that can't be proven about real primes can be proven about the fake ones. It's been conjectured that there are infinitely many pairs of twin primes -- primes that are separated by 2 numbers. An example would be 5 and 7, or 11 and 13. It makes sense for a lot of reasons that there should be an infinite number of twin primes.  But mathematicians have been trying to prove it for over 150 years, without success.</p>
-<p>Random primes can be odd or even, so the analogy to twin primes would be two random primes that are only one apart, say 5 and 6. It's relatively simple to prove that there are an infinite number of random twin primes [2]. That could easily be fool's gold -- treating the primes like they're randomly distributed gives mathematicians a whole toolbox of statistical techniques to use on them, but they're not random, or arbitrary. They're perfectly logical, and yet still inscrutible, hidden in plain sight.</p>
-<h3>Largest prime factors of composite numbers</h3>
-<p>I was intrigued by the largest prime factor of composite (non-prime) numbers. Are there any patterns?</p>
-<p>As background, every number can be split into a unique set of prime factors. For instance, the number 24 can be factored into <code>24 = 8 * 3 = 2 * 2 * 2 * 3</code>. Let's say we knock off the biggest prime factor. We get: <code>2 * 2 * 2 = 8</code>. The raw numbers rapidly get too big, so I looked at the log of the ratio:</p>
-<p><img alt="/img/logratios100k.png" src="/img/logratios100k.png"></p>
-<p>The red curve is the distribution of the first 100,000 composite numbers, the orange is the next 100,000 composite numbers, and so on. </p>
-<p>What if we bump up an order of magnitude? This time, the red curve is the first million composite numbers, the orange is the next million, and so on. Here's what that looks like:</p>
-<p><img alt="/img/logratios1M.png" src="/img/logratios1M.png"></p>
-<p>Pretty much the same graph, right? The X axis is different, but the shapes are very similar to the first one. </p>
-<p>Let's go another order of magnitude up. The first 10,000,000 versus the next 10,000,000, and so on?</p>
-<p><img alt="/img/logratios10M.png" src="/img/logratios10M.png"></p>
-<p>We get the same basic shapes again! The self-similarity is kinda cool. Is it possible to come up with some function for the distribution for this quantity? You tell me.</p>
-<h3>The perils of interpolation</h3>
-<p>These graphs are flawed. I'm generating these graphs using Kernel Density Estimation, a technique for visualizing the density of data. Histograms, another common way, can be misleading. The choice of bin size can radically alter what the histogram looks like.</p>
-<p>But KDE can also be misleading. These graphs make it look like the curve starts at zero.  That's not true. The minimum possible value happens when a number is of the form <code>2*p</code>, where p is a prime -- the value will be <code>log(2)</code>, about .693.</p>
-<p>This data is actually way <em>chunkier</em> than KDE is treating it.  Every point of data is the log of a whole number. So there aren't that many unique values. For instance, between 0 and 1 on the X axis, there's only one possible value -- <code>log(2)</code>. Between 1 and 3, there are only 18 possible values, <code>log(2)</code> thru <code>log(19)</code> -- those being the only integers with a <code>log</code> less than 3 and greater than 1.</p>
-<p>This makes it hard to visualize the data accurately. There are too many possible values to display each one individually, but not enough for KDE's smoothing to be appropriate.</p>
-<p>The <em>kernel</em> in Kernel Density Estimation is the algorithm used to smooth the data --  it's basically a moving average that assumes something about the distribution of the data. People usually use the Gaussian kernel, which treats the data like a normal distribution -- smooth and bell curvy. A better choice for chunky data is the <em>tophat</em> kernel, which treats the space between points like a uniform distribution -- in other words, a flat line. If the sparseness of the data on the X axis were due to a small sample size, the tophat kernel would display plateaus that aren't in the real data. But here, I calculated data for the first 100 Million numbers, so there's no lack of data. The sparseness of the data is by construction. <code>log(2)</code> will be the only value between 0 and 1, no matter how many numbers we go up to. So the left side of the graph <em>should</em> look fairly chunky.</p>
-<p>The tophat kernel does a much better job of conveying the non-smoothness of the distribution:</p>
-<p><img alt="/img/tophat.png" src="/img/tophat.png"></p>
-<h3>References</h3>
-<p>[1] https://chance.dartmouth.edu/chance_news/recent_news/chance_primes_chapter2.html</p>
-<p>[2] for sufficiently large values of <em>simple</em></p>
-<p>[3] https://scikit-learn.org/stable/auto_examples/neighbors/plot_kde_1d.html</p>
-<p>[4] https://en.wikipedia.org/wiki/Kernel_density_estimation</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/primes-and-self-similarity.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/math.html" rel="tag">math</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/number-theory.html" class="tags">number theory</a>
-                    &nbsp;<a href="/tag/machine-learning.html" class="tags">machine learning</a>
                     &nbsp;<a href="/tag/some-educational-value.html" class="tags selected">some educational value</a>
                 </div>
             </article>

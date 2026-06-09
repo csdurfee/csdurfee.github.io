@@ -30,7 +30,202 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Nov 28, 2025</h4>
+        <div id="content">            <h4 class="date">Dec 10, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/free-throws-and-opportunity-costs.html" rel="bookmark" title="Permanent Link to &quot;Free throws and opportunity costs&quot;">Free throws and opportunity costs</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=jpdiMcEeTJA" target="_blank"><img alt="Delia Derbyshire - Pot Au Feu (1968)" src="https://img.youtube.com/vi/jpdiMcEeTJA/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=jpdiMcEeTJA" target="_blank">Delia Derbyshire - Pot Au Feu (1968)</a></p>
+<p>Notebook: <a href="https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/free-throws.ipynb">https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/free-throws.ipynb</a></p>
+<h2>The Bucks</h2>
+<p>There's a lot of buzz around the Milwaukee Bucks right now because their star player has asked to be traded, but I'm gonna stick to the math. The NBA take-industrial complex has got the Giannis situation covered, and I do math better than drama.</p>
+<p>I noted a few weeks ago that the Bucks make a surprisingly low number of free throws given that they have a guy with one of the highest free throw rates in the league. They're also bad on defense and end up fouling a lot. That's a bad combination.</p>
+<p>As of December 5th, the Bucks are dead last in free throws made (14.4 per game) and 6th worst in free throws made by the other team (21.3 per game). Aren't they essentially having to play every game with a 6.9 point handicap? </p>
+<p>Although it's an intuitively simple way of looking at things, it's too simple. Basketball strategy is a series of tradeoffs. There are a lot of "good" numbers -- stats that correlate with more wins -- but it's usually hard to make one <em>good</em> number go up without a <em>bad</em> number going up, or another <em>good</em> number going down, in response.</p>
+<p>I'm looking at the last 25 years of team data from nba.com/stats.</p>
+<h2>Things to remember about free throws</h2>
+<p>There are complications to analyzing free throws because they're not a fixed quantity. Some fans will see a game where one team gets 20 free throws and the other team gets 35, and take it as evidence that the refs were biased. That's naive -- some players/teams foul more on defense, some players/teams take more <em>foul-worthy</em> shots on on offense, and there's plenty of random variation form game to game. It would be weird if every team committed exactly 30 fouls every single game.</p>
+<p>There's seasonality to foul calls as well. On top of formal rule changes, the NBA issues <em>points of emphasis</em> for its officials each year, which change how the rules are interpreted. Certain types of fouls may be emphasized, or de-emphasized, causing the total number of fouls called to go up or down. It's hard to find a formal record of these de facto rule changes, but as a fan, I've seen it several times. For instance, <a href="/overs-money-lines-and-pigeonholes.html">I previously talked about</a> the middle of the 2023 season, where the league told officials to stop calling so many fouls in general, without telling teams or the general public. </p>
+<p>There was another shift in the early 2010's where the officials quit calling so many fouls caused by the actions of the shooter rather than the defender. A shooter can shoot in a somewhat artificial way to ensnare the defender's arms. This type of grifting still exists in the league -- looking at you, James Harden -- but the league reduced the number of cheap fouls called in the early 2010's. I couldn't find exactly when they formally made the proclamation, but we can see a big shift in the free throw data after the 2010-11 season.</p>
+<p><img alt="/img/made-ft.png" src="/img/made-ft.png"></p>
+<p>The current season has been more like the NBA from 2004-2010, at over 39 made free throws a game. However, there's a lot more scoring now, so free throws are a smaller percentage of a team's total points:</p>
+<p><img alt="/img/points-off-ft.png" src="/img/points-off-ft.png"></p>
+<h2>Do free throw differentials matter?</h2>
+<p>Of course, there's going to be a lot more variance in the 20 games of this season when compared to a full 82 games.</p>
+<p>The Bucks' free throw differential of -6.9 (<em>not nice</em>) would be by far the worst of the last 25 years, if it held for the whole season. The Celtics' current differential of -6.3 also stands out. </p>
+<p>90% of NBA seasons are between the two white lines. We'd expect there to be 3 outliers by the end of the season, instead of 7.</p>
+<p><img alt="/img/ft-diff-season.png" src="/img/ft-diff-season.png"></p>
+<p>Some of the differential is due to chance. We should charitably assume that referees make random errors when calling or not calling fouls. Refs can make both Type I errors (fouls they shouldn't have called) and Type II errors (fouls they should have called and missed). Some teams will get called for more fouls than other teams, due to randomness, rather than conspiracy. Over a larger sample size, the refereeing luck will even out.</p>
+<p>Free throw differential is positively correlated with winning.</p>
+<p><img alt="/img/ftm-diff-win-pct.png" src="/img/ftm-diff-win-pct.png"></p>
+<p>The diagonal line is the overall trendline. Even though it's a positive trend, the teams with some of the biggest positive and negative differentials are close to .500 win percentage. This is a good example of why it's important to visualize data, not just look at the correlation. The bigger picture shows it's good to have a positive free throw point differential, but not a magic ticket to winning.</p>
+<h2>Do referees try to keep fouls roughly even?</h2>
+<p>It's possible referees have an unconscious bias towards calling an even number of fouls on both teams. There's certainly a correlation between more free throws made and more free throws given up to the other team.</p>
+<p><img alt="/img/ftm-vs-opponent.png" src="/img/ftm-vs-opponent.png"></p>
+<p>However, this overall picture is misleading. The number of fouls called per game goes up and down season-to-season based on rule changes and <em>points of emphasis</em>. So from year to year, the center of all the dots should move up and down along the diagonal line <code>FTM=Opponent FTM</code>. We should expect a positive correlation overall that isn't necessarily there in the individual seasons -- an example of <a href="https://en.wikipedia.org/wiki/Simpson's_paradox">Simpson's paradox</a>.</p>
+<p>Here's an animation of the correlations year-by-year:</p>
+<p><img alt="/img/ftm-scatter.gif" src="/img/ftm-scatter.gif"></p>
+<p>A lot of seasons, the trendline is basically flat. But plotting correlations year by year, there are a lot more positive years than negative.</p>
+<p><img alt="/img/corr-ftm.png" src="/img/corr-ftm.png"></p>
+<p>So I do think it's possible that refs call more fouls on teams that get fouled a lot, a conscious or subconscious bias towards <em>fairness</em>. Or perhaps, teams that play physical on offense also tend to play physical on defense as well. We'd need to look at individual games -- we're not going to see evidence of that in the yearly averages.</p>
+<h2>Basketball strategy and opportunity cost</h2>
+<p>The opponent's number of free throws made has a higher correlation with winning percentage (<code>r=-0.260</code>) than a team's number of free throws made (<code>r=0.153</code>). If it were possible to make such a binary tradeoff, the Bucks would be better off trying to foul the other team less, rather than trying to draw more fouls. That's especially true given the Bucks are the best 3 point shooting team in the league -- drawing more fouls would mean fewer 3 point attempts. They have the 2nd highest eFG%, so they're already making the most of their shot attempts. </p>
+<p>Why isn't their offense better overall? One big reason is their offensive rebounding rate is the lowest in the league. They score the fewest 2nd chance points in the league, at only 10.5 2nd chance points a game, versus 18 a game for the top teams. Does that mean another de facto 7 point handicap?</p>
+<p>Not necessarily, because offensive rebounding rate is a schematic choice. Do the bigs try to get the rebound (<em>crash the boards</em>), or do they try to hustle back and play defense? Teams coached by Doc Rivers tend to have low offensive rebounding rates. The "Lob City" Clippers were a great rebounding team, yet in their heyday from 2014-2018, they were 21st, 28th, 29th, and 24th in offensive rebounding, so it's not surprising the Bucks have that same tendency.</p>
+<p>The Thunder have the 3rd fewest second chance points, so a team can definitely be elite and not get a lot of offensive rebounds. But unlike the Thunder, the Bucks are bad on defense (22nd in defensive rating) and foul way too much, so they're not in a good place to make defense their identity. If this were NBA 2K, I'd probably move the "crash the boards" slider to the left for the Bucks and see what happens, because the Bucks are closer to being elite on the offensive end. There's more strength to build on.</p>
+<p>There is only a very slight positive correlation between 2nd chance point differential and winning percentage. It's a bad predictor of team success.</p>
+<p><img alt="/img/2nd-chance-diff.png" src="/img/2nd-chance-diff.png"></p>
+<h2>The Nets are fun... for now</h2>
+<p>The Brooklyn Nets had a bunch of draft picks and cap space going into this offseason, and they didn't seem to maximize those resources. A lot of people didn't like the trade they made for Michael Porter Jr., which got the Denver Nuggets out of salary cap hell in exchange for a fairly small return. The Nets were the only team in the league with the financial flexibility to take on bad contracts in trades, so they probably could have gotten more.</p>
+<p>They also didn't trade any of the five first round picks they accumulated in this year's draft. Why didn't they trade some of them for future picks? The conventional wisdom is that teams shouldn't try to develop too many rookies at once. What's a team supposed to do with five rookies (two of whom are teenagers), with some overlap in the positions they play?</p>
+<p>Well for one thing, they're supposed to be terrible. The Nets have been bottoming out for a few seasons, and I doubt that will stop this season. Catch them in the next few weeks while they're sort of trying to win games, if you're curious. They've won 3 out of their last 4 games and they've been entertaining.</p>
+<p>They were fun for a few weeks at this point in the season last year, too. The front office will probably try to trade away their best players over the next couple of months to keep them from being too good. But right now, MPJ is a good stats/bad team All-Star, Nic Claxton is solid as always, rookie Danny Wolf is already a fan favorite, and a couple other rookies show promise. </p>
+<p>As fun as they are, I'm not encouraged by the Nets' approach to rebuilding. I'm always a lot more concerned with process than outcomes, because the process can be controlled. It seems like their idea is that if they draft enough first rounders, inevitably some of them will be good. It's treating players like lotto scratch tickets -- players are inherently winners or losers, and it's the front office's job to play the percentages and get as many picks as possible.</p>
+<p>That's bad process to me. Players are more like a packet of seeds. The final result is heavily dependent on how and where they are grown. The same seed grown in two different environments can give two very different results. Some seeds are better than others, but without the right environment, even the best seeds won't grow to their maximum potential. I don't know if they have the culture and support system to develop their five rookies. It will be a few years before we'll see what sort of trees they're growing in Brooklyn.</p>
+<h2>The Mathletix Bajillion, week whatever</h2>
+<p>As usual, one set of NFL picks is algorithmic, the other is random. </p>
+<p>Mathletix won the week, with a total record of 6-4 versus the Ringer's 10-15 record (note: their website incorrectly lists <em>The Handicapos</em> as going 5-0 when they actually went 4-1. I'm petty enough to notice, but not petty enough to email them about it.)  </p>
+<p>The Ringer currently has 3 teams at 33-37 and 2 teams at 31-39, for a cumulative record of 161-189 (46.0% winning rate). Of course, some of the Ringer's picks contradict each other -- one Ringer team taking the home team, and another taking the away team on the same game. Removing the bets where Ringer teams contradicted each other would just make things worse, though, because taking both sides of a bet has a winning percentage of 50%, which is better than the Ringer's overall win rate.</p>
+<p>Someone taking the opposite of every one of the Ringer experts' picks would be up 11.9 units on the year, for a +3.4% rate of return. There's only a 6.7% chance of getting results that bad by flipping a coin. </p>
+<p>As I've written about before, I don't think that makes them bad as far as gambling experts go. Rather, I believe everything they know about football has already been incorporated into the line, so their knowledge is kind of a curse -- they're overvaluing information that the market has already absorbed, so they end up losing more than 50% of the time.</p>
+<p><em>Lines taken Wednesday morning</em></p>
+<h3>The Neil McAul-Stars</h3>
+<p>last week: 4-1, +304  <br>
+Overall: 15-10, +480  <br>
+line shopping: +80    </p>
+<ul>
+<li>CIN +2.5 -101 (lowvig)</li>
+<li>NYG -2 -110 (hard rock)</li>
+<li>MIA +3.5 -105 (lowvig)</li>
+<li>BUF PK -110 (lowvig)</li>
+<li>NYJ +13.5 -105 (prophetX)</li>
+</ul>
+<h3>The Vincent Hand-Eggs</h3>
+<p>last week: 2-3, -108  <br>
+Overall: 9-15-1, -671  <br>
+line shopping: +79    </p>
+<ul>
+<li>PHI -11.5 -105 (lowvig)</li>
+<li>DET +6 -105 (lowvig)</li>
+<li>WAS +2.5 +105 (prophetX)</li>
+<li>KC -4.5 -109 (prophetX)</li>
+<li>CIN +2.5 -101 (lowvig)</li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/free-throws-and-opportunity-costs.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/nba.html" rel="tag">NBA</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
+                </div>
+            </article>            <h4 class="date">Dec 02, 2025</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/two-ways-to-go-from-the-middle.html" rel="bookmark" title="Permanent Link to &quot;Two ways to go from the middle&quot;">Two ways to go from the middle</a>
+                </h2>
+
+                
+                
+
+                <p><a href="https://www.youtube.com/watch?v=6L1mD-tgoE4" target="_blank"><img alt="Hobo Johnson, &quot;Sacramento Kings Anthem (we’re not that bad)&quot;" src="https://img.youtube.com/vi/6L1mD-tgoE4/0.jpg"></a></p>
+<p>Song: <a href="https://www.youtube.com/watch?v=6L1mD-tgoE4" target="_blank">Hobo Johnson, "Sacramento Kings Anthem (we’re not that bad)"</a></p>
+<p><em>Stats are as of 12/1/2025</em>. <a href="https://docs.google.com/spreadsheets/d/1rHkNoaj3lX5eEGQQ3NwpXtwajKTUYOhUecpoYItPL2M/edit?usp=sharing.">Spreadsheet here</a></p>
+<h2>The Kings</h2>
+<p>The Sacramento Kings are going through it. Again. For most other teams, the choices they've made recently would be a historically incompetent period, a basketball Dark Ages. For the Kings, it's just another season. </p>
+<p>Firing the only coach that's had success with the team in a long time and replacing him with a buddy of the owner who is willing to work cheap. Drafting two All-Star point guards and trading both of them away. Trading for two guys (LaVine and DeRozan) who everybody knew would be a bad fit from their years playing together on the Bulls. Trading the very good, ultra reliable Jonas Valančiūnas for the washed Dario Saric just to save a tiny bit of money.</p>
+<p>Do you know the <a href="https://www.youtube.com/watch?v=rKMMCPeiQoc">definition of insanity</a>? The Kings' front office doesn't.</p>
+<p>Sacramento is 5-16 so far. They're definitely not a good team, but maybe they're <em>not that bad</em>? They went 40-42 last season, which is respectable in the loaded Western Conference. They've had a brutally hard schedule, and 21 games is not a large sample size. </p>
+<p>I'll get back to the Kings, but first, the other side of the coin.</p>
+<h2>The Heat</h2>
+<p>The Miami Heat were arguably in a worse place than the Kings at the end of last season. They won 37 games, 3 fewer than the Kings, and play in the easier conference. They looked totally checked out by the end of the season, another team stuck in the middle of the NBA standings.</p>
+<p>It was a disappointing, dysfunctional run where they <a href="/free-throw-merchants-and-the-value-of-stars.html">traded away their best player</a> and seemed to be going nowhere. The vibes were bad, but they didn't blow up the team for the hope of maybe being good again someday, or run back the same players and the same scheme for another bout of mediocrity. Instead, they trusted the culture they built and tried something innovative.</p>
+<p>They've been one of the best stories in the NBA so far, greatly outperforming expectations by playing a radical brand of basketball on the offensive end. They completely overhauled their offense to quickly attack one-on-one matchups before the defense can get set, rather than the traditional approach of creating mismatches using pick-and-rolls. </p>
+<p><a href="https://www.youtube.com/watch?v=dVBsWm7uhGw">Here's a good video from Thinking Basketball explaining the strategy</a>, an even more turbo-charged version of the scheme the Grizzlies used to great success last year. As a basketball fan, it's a bit weird to watch at first, because pick and rolls are such an traditional part of basketball, but it's refreshing.</p>
+<p>I don't know why more teams don't have the courage to try unconventional things  -- <a href="/home-of-elvis-and-the-ancient-greeks.html">or in the Grizzlies' case, stick with something unconventional that was working.</a> In the NBA, it takes a great coach and front office to defy the conventional wisdom and try to get more out of the players already on the roster -- putting them in a position to succeed rather than re-shuffling the deck.</p>
+<p>The most remarkable part is that overhauling the offense hasn't sacrificed the Heat's identity as a top-tier defensive team at all. They have the 4th best defense in the league so far by Defensive Rating. They're doing this while playing at the fastest pace in the league this year. Teams that play fast are usually just trying to outscore their opponents, with little attention to defense. </p>
+<p>But the Heat are using their scheme to generate high quality offensive opportunities for players that are primarily on the court for their defense. They're building on their core identity rather than changing directions entirely. They're building on strength.</p>
+<p>An elite playmaker like Tyrese Halliburton, or a generational talent like SGA or Jokic, can set up defense-first players for easy looks, but most teams that concentrate on defense struggle generating enough offensive firepower. The Orlando Magic have been plagued by that problem for years. The system Miami is running seems like a cheat code for defensively minded teams -- at least until the league inevitably figures out ways to slow it down.</p>
+<p>I couldn't find anybody in the media who knew the Heat's scheme change was coming, much less an idea of how much of an impact it would have.  I looked at a bunch of preseason power rankings, and they were all pretty down on the Heat for the same reasons, without any hint that they could fix the problems with a different play style. It's much easier to assess the impact of roster changes.</p>
+<p>For example, this is from <a href="https://www.nbcsports.com/nba/news/nba-power-rankings-2025-26-where-do-teams-stand-after-nba-offseason-rockets-nuggets-chase-thunder-at-top">NBC Sports'</a> preseason power rankings:</p>
+<blockquote>
+<p>this was a middle-of-the-pack Heat team last season that made no bold moves, no massive upgrades, leaving them in the same spot they were a year ago.</p>
+</blockquote>
+<p>Here's <a href="https://bleacherreport.com/articles/25253509-nba-power-rankings-entering-2025-preseason">Bleacher Report's</a></p>
+<blockquote>
+<p>for an offensively challenged team, replacing [Tyler Herro's] scoring (21.5 points over the last four seasons) and distribution (4.6 assists in the same span) is going to be tough.</p>
+</blockquote>
+<p>And <a href="https://www.usatoday.com/story/sports/nba/2025/09/30/nba-power-rankings-training-camps/86421865007/">USA Today's</a>:</p>
+<blockquote>
+<p>Losing Tyler Herro for the first two months of the season, potentially, comes as a significant blow to a team that struggled to score — especially late in games — even when he was on the floor.</p>
+</blockquote>
+<p>With the change in style the Heat are still only a mid-tier team on offense, ranking 14th in Offensive Rating. But that's a big step up from last year, when they were 21st, especially given they haven't had their best offensive player for the first month of the season.</p>
+<p>Are they going to win a title with the present roster? No, but in addition to giving their fans something to cheer for, all their players will look much better on paper than they did at the start of this season. If they do decide to trade players, the Heat can get more in return for them. And it's not hard to get free agents to move to Miami if the team is winning and the vibes are good, so they could be a real contender again quickly. </p>
+<p>It's weird that tanking is seen as the best way to increase the chances of future success in the NBA, rather than building a winning culture and innovating. The two teams with the most success in recent years at doing a major rebuild have been the Spurs and the Thunder. They were both bad for a few years, but they're also two of the best run teams in the league. They draft well, they trade well, they do player development well, they do analytics well. They had a clear vision of the type of team they wanted to build and the clear ability to develop players. If a team doesn't have those organizational competencies, what's the point of a tank? They're just going to waste their high-level draft picks, not develop the rest of the roster, and be mediocre again in 5 years.</p>
+<h2>Power ranking the power rankers</h2>
+<p>I collected data from six preseason NBA power rankings. There's a link to the spreadsheet at the top of the article. I would've liked to collect more data, and I'm sure there are other sites that did good NBA power rankings, but stuff like that is basically impossible to find these days, lost in a sea of completely LLM generated baloney or locked behind paywalls. It's not useful interrogating why some LLM <em>stochastically decided</em> that the Warriors are the 4th best team in the NBA this year, but there's seemingly an endless supply of that type of nonsense. Which is to say: thanks for reading this, however you managed to get here. I hope you'll keep coming back for this completely human generated baloney. </p>
+<p>I compared the rankings from each list to each team's point differential, which is a better estimate of how good a team is than their win-loss record. How good were our mighty morphin' power rankers at predicting the current standings? </p>
+<p>So far, the most accurate ranking has been <a href="https://www.rotoballer.com/rss-slideshow/nba-preseason-power-rankings-every-team-from-worst-to-first">RotoBaller's</a>, with a Spearman correlation of .76. The worst has been USA Today, at .69. Taking the median rank of all six sources produced a correlation of .74, which was better than 5 out of the 6 individual scores. So we're getting a "wisdom of crowds" effect, which is interesting, since all the rankings are fairly similar to each other. <a href="/majority-voting-in-ensemble-learning.html">(Previously discussed in <em>Majority voting in ensemble learning</em>.)</a></p>
+<p>I also included rankings based on my own preseason win total estimates. I got a score of .73, right in the middle of the pack. That's respectable, but I can't believe I'm getting beat by the freaking New York Post.</p>
+<p>Comparing rankings to records, the power rankers were too high on the Clippers, Cavaliers, Pacers, Kings and Warriors. They were too low on the Raptors, Suns, Heat, Spurs and Pistons.</p>
+<h2>Strength of schedule</h2>
+<p>Scheduling matters. Some teams have played much harder schedules than others, and we're dealing with small sample sizes, so win-loss records can be deceiving early in the season.</p>
+<p>I grabbed adjusted Net Rating (aNET) data from <a href="https://dunksandthrees.com/stats/team">dunksandthrees</a>, which calculates the offensive and defensive ratings for each team, adjusted for strength of schedule. I also included Simple Rating System (SRS) data from <a href="https://www.basketball-reference.com/leagues/NBA_2025.html">basketball-reference</a>, which is the same idea as aNET, but a different methodology.</p>
+<p>The difference between aNET and average point differential gives a sense of which team records might be the most misleading compared to the team's actual skill level. For instance, the Sacramento Kings have already played the Thunder, Nuggets and Timberwolves three times apiece, going 2-7 over those games. Even a decent team would be expected to have a losing record against those opponents.</p>
+<p>Based on aNET, the Cavaliers, Warriors, Clippers, Kings and Celtics are probably better than their records indicate.</p>
+<p>Going the other way, the Raptors have had a deceptively easy schedule, going 7-1 in games against the woeful Nets, Hornets, Pacers and Wizards. Going 7-1 doesn't tell us much, because those are teams pretty much everybody should be able to beat. </p>
+<p>The stats indicate that the Raptors, Hornets, Spurs, Jazz, and Suns are probably not as good as their records.</p>
+<p>Most of the teams the power rankers got wrong have been hurt or helped significantly by their schedules so far. The biggest exception has been the Miami Heat, who apparently nobody saw coming, and are probably about as good as their record says they are.</p>
+<h2>The Kangz</h2>
+<p>What to make of the Kings? According to basketball-reference, they've had the hardest schedule in the league so far. It's fair to say they're not as bad as the record says.</p>
+<p>While they're 28th in point differential, they're 25th by aNET, and 26th by SRS. So they might have 7 or 8 wins instead of 5 if they'd played a league average schedule. That's not that much, though, and a clear step back from last year.</p>
+<p>Their rookie, Nique Clifford, has not looked good so far, and they don't have many players that other teams would want in a trade. It doesn't seem like they have any clue of how to develop young talent. Their highest paid player, Zach LaVine, has another year on his contract, doesn't play defense, and has put up a -1.1 VORP this year. They just benched their one big signing of the offseason (Dennis Schröder), and are instead starting Russell Westbrook, a man born during the Reagan Administration playing on a one year minimum deal.</p>
+<p>On paper, they don't have much they can do to get better.  But everybody was saying that about the Heat at the end of last year, and look at them now. I just can't see the Kings having that type of organizational courage, but I hope they find it somehow rather than spend years on another doomed rebuild. Sacramento fans deserve better than another version of the current mess. At least an innovative mess would be a change of pace from trying the same stupid thing over and over. What's the worst that could happen?</p>
+<p>Sacramento's roster isn't great, but <a href="/home-of-elvis-and-the-ancient-greeks.html">like the Grizzlies</a>, the biggest problems I see are organizational. I understand the Kings are a rich man's toy, not a serious basketball team, but wouldn't it be more fun to own a team that <em>wasn't</em> a giant tire fire? I don't get spending billions of dollars to buy a sports team just to run it into the ground like this.</p>
+<h2>The Mathletix Bajillion, week 5</h2>
+<p>As usual: One of these teams picks NFL games randomly, the other uses a simple algorithm. </p>
+<p><a href="https://www.theringer.com/topic/ringer-107">4 of 5 Ringer 107 teams had a losing week</a>, going 10-15 collectively. All five still have a losing record on the season, so right now the McAul-Stars are the undisputed leaders.</p>
+<p>Bluster aside, the important thing to notice is how much they're saving taking cheaper lines than the standard -110 odds. The McAul-Stars would be up +110 instead of +176 if the bets were taken at a retail sportsbook, and the Hand-Eggs would be down -620 instead of -563.</p>
+<p><em>Lines taken Tuesday morning. Since it's early in the week, the reduced juice isn't quite as juicy as usual.</em></p>
+<h3>The Neil McAul-Stars</h3>
+<p>last week: 4-1, +296    <br>
+Overall: 11-9, +176    <br>
+line shopping: +66</p>
+<ul>
+<li>SEA -7 -108 (lowvig)</li>
+<li>DAL +3 -104 (prophetx)</li>
+<li>CIN +5.5 -108 (draftkangz)</li>
+<li>JAX +2 -108 (prophetx)</li>
+<li>LAC +2.5 +108 (prophetx)</li>
+</ul>
+<h3>The Vincent Hand-Eggs</h3>
+<p>last week: 1-4, -316  <br>
+Overall: 7-12-1, -563 <br>
+line shopping: +57</p>
+<ul>
+<li>WAS +1.5 +100 (lowvig)</li>
+<li>CIN +5.5 -108 (draftkangz)</li>
+<li>LAR -8 -101 (prophetx)</li>
+<li>DEN -7.5 +100 (lowvig)</li>
+<li>CLE -3.5 -108 (prophetx)</li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/two-ways-to-go-from-the-middle.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/nba.html" rel="tag">NBA</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
+                    &nbsp;<a href="/tag/bajillion.html" class="tags">bajillion</a>
+                </div>
+            </article>            <h4 class="date">Nov 28, 2025</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -828,7 +1023,7 @@ line shopping: +6</p>
 </tr>
 </tbody>
 </table>
-<p>For 1,000 observations, a 95% confidence interval is roughly +/- <span class="math">\(\frac{1}{\sqrt{1000}} \approx \frac{1}{\sqrt(33*30)} \approx 3\%\)</span>, which is much bigger than the difference between 50.5% and 51.5%. So the difference isn't significant.</p>
+<p>For 1,000 observations, a 95% confidence interval is roughly +/- $\frac{1}{\sqrt{1000}} \approx \frac{1}{\sqrt(33*30)} \approx 3\%$, which is much bigger than the difference between 50.5% and 51.5%. So the difference isn't significant.</p>
 <h3>Are sportsbooks leaving money on the table?</h3>
 <p>It's odd to me that the over would win more than 50% of the time when that's the side that usually has the most money on it. That's not a huge imbalance, but the sportsbooks would be making more money if they increased the point totals a bit so the over loses 51% of the time instead. </p>
 <p>Gamblers betting on point totals are probably a little more savvy than ones betting the lines. It's kind of an odd thing to bet on. Doesn't matter who won, doesn't matter whether it was a good game or not. All bets are math problems, but point totals are more obviously a math problem than money lines or spreads.</p>
@@ -838,68 +1033,6 @@ line shopping: +6</p>
 <p><img alt="point-total-yoy" src="/img/point-total-yoy.png"></p>
 <p>Point totals go down at the end of every year. That's because playoff games tend to be more tightly contested than regular season games. The vertical line is where the playoffs start.</p>
 <p>There appears to be an increase in average point totals during the 2021 season, but it's stayed fairly consistent since then, with one notable exception. There's an big dip in point totals during the 2023 season, around game 800. This is almost certainly due to <a href="https://clutchpoints.com/nba/nba-stories/nba-news-adam-silver-admission-officiating">a directive from the NBA telling officials to call fewer fouls</a>. Fans (and presumably gamblers) noticed right away, but the NBA only admitted the change well after the fact. Luckily, nothing has happened since then to further undermine trust in the NBA! </p>
-<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
-
-    var mathjaxscript = document.createElement('script');
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
-
-    var configscript = document.createElement('script');
-    configscript.type = 'text/x-mathjax-config';
-    configscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        availableFonts: ['STIX', 'TeX']," +
-        "        preferredFont: 'STIX'," +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script>
                 <div class="clear"></div>
 
                 <div class="info">
@@ -1470,70 +1603,8 @@ line shopping: +6</p>
 <p>I've talked to a couple people who take bridgejumper parlays, and they genuinely seem to think they've found some kind of glitch in the matrix -- all of the legs of the bet have a high chance of winning, therefore the bet is a sure thing. </p>
 <p>A sensible person would know that sportsbooks aren't in the business of offering free money so maybe they're missing something. A humble person would assume they probably hadn't discovered some clever trick the sportsbooks don't know about. But most people who get into betting aren't sensible or humble (they think they can see the future, after all), so for a certain class of bettor, this type of wager just <em>feels</em> like a sure thing. </p>
 <p>In parlay form, the fallacy seems obvious to me. Just because the individual risk on each leg of the parlay is small, that doesn't mean the combined risk is.</p>
-<p>There's a more sophisticated version of this fallacy in statistics called p-hacking. As always, <a href="https://xkcd.com/882/">there's an xkcd about it</a>. A particular experiment might have a 5% chance of giving a false result. 5% is a pretty small number. But if you do 13 of those experiments, there's about a 50% chance that at least one of them will give a false result. Even people who are good at math and science probably don't have a good sense of what <span class="math">\(.95^{13}\)</span> equals. It's sort of like a 13 leg parlay of money line bets at -1900.</p>
+<p>There's a more sophisticated version of this fallacy in statistics called p-hacking. As always, <a href="https://xkcd.com/882/">there's an xkcd about it</a>. A particular experiment might have a 5% chance of giving a false result. 5% is a pretty small number. But if you do 13 of those experiments, there's about a 50% chance that at least one of them will give a false result. Even people who are good at math and science probably don't have a good sense of what $.95^{13}$ equals. It's sort of like a 13 leg parlay of money line bets at -1900.</p>
 <p>Next time: more on point totals, money lines, and human nature.</p>
-<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
-
-    var mathjaxscript = document.createElement('script');
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
-
-    var configscript = document.createElement('script');
-    configscript.type = 'text/x-mathjax-config';
-    configscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        availableFonts: ['STIX', 'TeX']," +
-        "        preferredFont: 'STIX'," +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script>
                 <div class="clear"></div>
 
                 <div class="info">
@@ -1542,211 +1613,6 @@ line shopping: +6</p>
                     &nbsp;&middot;
                     &nbsp;<a href="/tag/basketball.html" class="tags">basketball</a>
                     &nbsp;<a href="/tag/your-parlay-sucks.html" class="tags">your parlay sucks</a>
-                </div>
-            </article>            <h4 class="date">Sep 23, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/primes-and-self-similarity.html" rel="bookmark" title="Permanent Link to &quot;Primes and self-similarity&quot;">Primes and self-similarity</a>
-                </h2>
-
-                
-                
-
-                <p><a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank"><img alt="John Hollenbeck &amp; NDR Big Band, &quot;Entitlement&quot;" src="https://img.youtube.com/vi/ncmIlVdL8po/0.jpg"></a></p>
-<p>Song: <a href="https://www.youtube.com/watch?v=ncmIlVdL8po" target="_blank">John Hollenbeck &amp; NDR Big Band, "Entitlement"</a></p>
-<p>I've been messing around with prime numbers, because there are several places where they intersect with both <a href="/do-you-wanna-win.html">random walks</a> and the <a href="/riding-the-waves.html">arcsine distribution</a>.  It's going to take a while to finally tie that bow, though.</p>
-<p>So it's a quick one this week: a kinda-cool story, and a kinda-cool graph.</p>
-<h3>Random Primes</h3>
-<p>The prime numbers are simple to find, but not easy. They're not randomly distributed, but it's hard to come up with easy ways to find them, and they act like random numbers in certain ways.  Why is 47 prime and 57 non-prime? You can't really tell just by looking.</p>
-<p>To find the primes, we can write down every number from, say, 1 to 1000. Then we cross out 2, and every number divisible by 2 (4, 6, 8, etc.). Repeat that with 3 (6, 9, 12, etc.), and so on. The numbers left behind are prime. This is the famous <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes</a> -- it's a tedious way to find prime numbers, but it's by far the easiest to understand.</p>
-<p>The sieve gave mathematician David Hawkins an idea [1]: what about doing that same process, but randomly?  For each number, flip a coin, if it comes up heads, cross the number out. That will eliminate half of the numbers on the first pass. Take the lowest number <code>k</code> that remains and eliminate each of the remaining numbers with probability <code>1/k</code>. Say it's 4. For each remaining number, we flip a 4 sided die and if it comes up 4, we cross it out. </p>
-<p>If we go through all the numbers, what's left over won't look like real prime numbers -- there should be as many even fake primes as odd ones, for starters. But the remaining numbers will be as sparse as the actual prime numbers. As the sample size N heads to infinity, the chances of a random number being a real prime, and being a fake prime, are the same -- <code>1/log(N)</code>.</p>
-<p>This is a brilliant way to figure out what we know about prime numbers are due to their density, and what are due to other, seemingly more magical (but still non-random) factors. </p>
-<p>Several characteristics of real primes apply to the random primes. And tantalizingly, things that can't be proven about real primes can be proven about the fake ones. It's been conjectured that there are infinitely many pairs of twin primes -- primes that are separated by 2 numbers. An example would be 5 and 7, or 11 and 13. It makes sense for a lot of reasons that there should be an infinite number of twin primes.  But mathematicians have been trying to prove it for over 150 years, without success.</p>
-<p>Random primes can be odd or even, so the analogy to twin primes would be two random primes that are only one apart, say 5 and 6. It's relatively simple to prove that there are an infinite number of random twin primes [2]. That could easily be fool's gold -- treating the primes like they're randomly distributed gives mathematicians a whole toolbox of statistical techniques to use on them, but they're not random, or arbitrary. They're perfectly logical, and yet still inscrutible, hidden in plain sight.</p>
-<h3>Largest prime factors of composite numbers</h3>
-<p>I was intrigued by the largest prime factor of composite (non-prime) numbers. Are there any patterns?</p>
-<p>As background, every number can be split into a unique set of prime factors. For instance, the number 24 can be factored into <code>24 = 8 * 3 = 2 * 2 * 2 * 3</code>. Let's say we knock off the biggest prime factor. We get: <code>2 * 2 * 2 = 8</code>. The raw numbers rapidly get too big, so I looked at the log of the ratio:</p>
-<p><img alt="/img/logratios100k.png" src="/img/logratios100k.png"></p>
-<p>The red curve is the distribution of the first 100,000 composite numbers, the orange is the next 100,000 composite numbers, and so on. </p>
-<p>What if we bump up an order of magnitude? This time, the red curve is the first million composite numbers, the orange is the next million, and so on. Here's what that looks like:</p>
-<p><img alt="/img/logratios1M.png" src="/img/logratios1M.png"></p>
-<p>Pretty much the same graph, right? The X axis is different, but the shapes are very similar to the first one. </p>
-<p>Let's go another order of magnitude up. The first 10,000,000 versus the next 10,000,000, and so on?</p>
-<p><img alt="/img/logratios10M.png" src="/img/logratios10M.png"></p>
-<p>We get the same basic shapes again! The self-similarity is kinda cool. Is it possible to come up with some function for the distribution for this quantity? You tell me.</p>
-<h3>The perils of interpolation</h3>
-<p>These graphs are flawed. I'm generating these graphs using Kernel Density Estimation, a technique for visualizing the density of data. Histograms, another common way, can be misleading. The choice of bin size can radically alter what the histogram looks like.</p>
-<p>But KDE can also be misleading. These graphs make it look like the curve starts at zero.  That's not true. The minimum possible value happens when a number is of the form <code>2*p</code>, where p is a prime -- the value will be <code>log(2)</code>, about .693.</p>
-<p>This data is actually way <em>chunkier</em> than KDE is treating it.  Every point of data is the log of a whole number. So there aren't that many unique values. For instance, between 0 and 1 on the X axis, there's only one possible value -- <code>log(2)</code>. Between 1 and 3, there are only 18 possible values, <code>log(2)</code> thru <code>log(19)</code> -- those being the only integers with a <code>log</code> less than 3 and greater than 1.</p>
-<p>This makes it hard to visualize the data accurately. There are too many possible values to display each one individually, but not enough for KDE's smoothing to be appropriate.</p>
-<p>The <em>kernel</em> in Kernel Density Estimation is the algorithm used to smooth the data --  it's basically a moving average that assumes something about the distribution of the data. People usually use the Gaussian kernel, which treats the data like a normal distribution -- smooth and bell curvy. A better choice for chunky data is the <em>tophat</em> kernel, which treats the space between points like a uniform distribution -- in other words, a flat line. If the sparseness of the data on the X axis were due to a small sample size, the tophat kernel would display plateaus that aren't in the real data. But here, I calculated data for the first 100 Million numbers, so there's no lack of data. The sparseness of the data is by construction. <code>log(2)</code> will be the only value between 0 and 1, no matter how many numbers we go up to. So the left side of the graph <em>should</em> look fairly chunky.</p>
-<p>The tophat kernel does a much better job of conveying the non-smoothness of the distribution:</p>
-<p><img alt="/img/tophat.png" src="/img/tophat.png"></p>
-<h3>References</h3>
-<p>[1] https://chance.dartmouth.edu/chance_news/recent_news/chance_primes_chapter2.html</p>
-<p>[2] for sufficiently large values of <em>simple</em></p>
-<p>[3] https://scikit-learn.org/stable/auto_examples/neighbors/plot_kde_1d.html</p>
-<p>[4] https://en.wikipedia.org/wiki/Kernel_density_estimation</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/primes-and-self-similarity.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/math.html" rel="tag">math</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/number-theory.html" class="tags">number theory</a>
-                    &nbsp;<a href="/tag/machine-learning.html" class="tags">machine learning</a>
-                    &nbsp;<a href="/tag/some-educational-value.html" class="tags">some educational value</a>
-                </div>
-            </article>            <h4 class="date">Sep 10, 2025</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="/one-in-e.html" rel="bookmark" title="Permanent Link to &quot;One in e&quot;">One in e</a>
-                </h2>
-
-                
-                
-
-                <p><a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank"><img alt="Klonhertz, &quot;Three Girl Rhumba&quot;" src="https://img.youtube.com/vi/16At3u6Nz0Y/0.jpg"></a></p>
-<p>Song: <a href="https://www.youtube.com/watch?v=16At3u6Nz0Y" target="_blank">Klonhertz, "Three Girl Rhumba"</a></p>
-<p>Notebook available <a href="https://github.com/csdurfee/csdurfee.github.io/blob/main/notebooks/632%20selection.ipynb">here</a></p>
-<h3>Think of a number</h3>
-<p>Pick a number between 1-100.</p>
-<p>Say I write down the numbers from 1-100 on pieces of paper and put them in a big bag, and randomly select from them. After every selection, I put the paper back in the bag, so the same number can get picked more than once.  If I do that 100 times, what is the chance of your number being chosen?</p>
-<p>The math isn't too tricky. It's often easier to calculate the chances of a thing not happening, then subtract that from 1, to get the chances of the thing happening. There's a 99/100 chance your number doesn't get picked each time. So the probability of never getting selected is <span class="math">\((99/100)^{100} = .366\)</span>. Subtract that from one, and there's a 63.4% chance your number will be chosen. Alternately, we'd expect to get 634 unique numbers in 1000 selections.</p>
-<p>When I start picking numbers, there's a low chance of getting a duplicate, but that increases as I go along. On my second pick, there's only a 1/100 chance of getting a duplicate. But if I'm near the end and have gotten 60 uniques so far, there's a 60/100 chance.</p>
-<p>It's kind of a self-correcting process. Every time I pick a unique number, it increases the odds of getting a duplicate on the next pick. Each pick is independent, but the likelihood of getting a duplicate is not.</p>
-<p>I could choose the numbers by flipping a biased coin that comes up heads 63.4% of the time for each one instead. I will get the same number of values on average, and they will be randomly chosen, but the count of values will be much more variable:</p>
-<p><img alt="/img/distinct-binomial.png" src="/img/distinct-binomial.png"></p>
-<p>Of course, if the goal is to select exactly 63 items out of 100, the best way would be to randomly select 63 without replacement so there is no variation in the number of items selected.</p>
-<h3>A number's a number</h3>
-<p>Instead of selecting 100 times from 100 numbers, what if we selected a bajillion times from a bajillion numbers? To put it in math terms, what is <span class="math">\(\lim\limits_{n\to\infty} (\frac{n-1}{n})^{n}\)</span> ?</p>
-<p>It turns out this is equal to <span class="math">\(\frac{1}{e}\)</span> ! Yeah, e! Your old buddy from calculus class. You know, the <span class="math">\(e^{i\pi}\)</span> guy?</p>
-<p>As n goes to infinity, the probability of a number being selected is <span class="math">\(1-\frac{1}{e} = .632\)</span>. This leads to a technique called bootstrapping, or ".632 selection" in machine learning (back to that in a minute).</p>
-<h3>Don't think of an answer</h3>
-<p>What are the chances that a number gets selected exactly once? Turns out, it's <span class="math">\(\frac{1}{e}\)</span>, same as the chances of not getting selected! This was surprising enough to me to bother to work out the proof, given at the end.</p>
-<p>That means the chances of a number getting selected more than once is <span class="math">\(1 - \frac{2}{e}\)</span>. </p>
-<p>The breakdown:</p>
-<ul>
-<li>1/e (36.8%) of numbers don't get selected</li>
-<li>1/e (36.8%) get selected exactly once</li>
-<li>1-2/e (26.4%) get selected 2+ times</li>
-</ul>
-<p>As before, the variance in number of items picked 2+ times is much lower than flipping a coin that comes up heads 26.4% of the time:</p>
-<p><img alt="/img/more-than-once.png" src="/img/more-than-once.png"></p>
-<h3>Derangements</h3>
-<p>Say I'm handing out coats randomly after a party. What are the chances that nobody gets their own coat back? </p>
-<p>This is called a derangement, and the probability is also 1/e. An almost correct way to think about this is the chance of each person not getting their own coat (or each coat not getting their own person, depending on your perspective) is <span class="math">\(\frac{(x-1)}{x}\)</span> and there are <span class="math">\(x\)</span> coats, so the chances of a derangement are <span class="math">\(\frac{x-1}{x}^{x}\)</span>.</p>
-<p>This is wrong because each round isn't independent. In the first case, we were doing selection with replacement, so a number being picked one round doesn't affect its probability of being picked next round.  That's not the case here. Say we've got the numbers 1 thru 4. To make a derangement, the first selection can be 2, 3 or 4. The second selection can be 1, 3 or 4. But 3 or 4 might have been picked in the first selection and can't be chosen again. 2/3rds of the time, there will only be two options for the second selection, not three.</p>
-<p>The <a href="https://en.wikipedia.org/wiki/Rencontres_numbers">long way 'round the mountain</a> involves introducing a new mathematical function called the subfactorial, denoted as <span class="math">\(!x\)</span>, which is equal to the integer closest to <span class="math">\(\frac{x!}{e}\)</span>. <span class="math">\(e\)</span> gets in there because in the course of counting the number of possible derangements, a series is produced that converges to <span class="math">\(1/e\)</span>.</p>
-<p>The number of derangements for a set of size x is <span class="math">\(!x\)</span> and the number of permutations is <span class="math">\(x!\)</span>, so the probability of a derangement as x gets big is <span class="math">\(\frac{!x}{x!} = \frac{1}{e}\)</span></p>
-<p>What about the chances of only one person getting their coat back? It's also <span class="math">\(\frac{1}{e}\)</span>, just like the chances of a number getting selected exactly once when drawing numbers with replacement.  The number of fixed points -- number of people who get their own coat back -- follows a Poisson distribution with mean 1.</p>
-<p>The second process seems very different from the first one. It is selection with replacement versus without replacement. But <span class="math">\(e\)</span> is sort of the horizon line of mathematics -- a lot of things tend towards it (or its inverse) in the distance.</p>
-<h3>Bootstrapping</h3>
-<p>Say we're working on a typical statistics/machine learning problem. We're given some training data where we already know the right answer, and we're trying to predict for future results. There are a ton of ways we could build a model. Which model will do the best on the unknown data, and how variable might the accuracy be? </p>
-<p>Bootstrapping is a way to answer those questions. A good way to estimate how accurate a model will be in the future is to train it over and over with different random subsets of the training data, and see how accurate the model is on the data that was held out. That will give a range of accuracy scores which can be used to estimate how well the model will be on new inputs, where we don't know the answers ahead of time. If the model we're building has a small set of parameters we're fitting (like the coefficients in a linear regression), we can also estimate a range of plausible values for those parameters. If that range is really wide, it indicates a certain parameter isn't that important to the model, because it doesn't matter if it's big or small.</p>
-<p>Bootstrapping is a way of answering those questions, using the process described before -- if we have x datapoints, pick x numbers without replacement x times. The ones that get selected at least once are used to train the models, and the ones that don't get selected are used to generate an estimate of accuracy on unseen data. We can do that over and over again and get different splits every time. </p>
-<p>It's a fine way to split up the training data and the validation data to generate a range of plausible accuracy scores, but I couldn't find a good reason other than tradition for doing it that way. The 63.2/36.8 split isn't some magical value. Instead of having the numbers that weren't picked be the holdout group, we could instead leave out the numbers that were only picked once (also 1/e of the numbers), and train on the ones not selected or selected more than once. But picking 63% of values (or some other percentage) without replacement is the best way to do it, in my opinion. </p>
-<p>The <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">original paper</a> doesn't give any statistical insight into why the choice was made, but a remark at the end says, "it is remarkably easy to implement on the computer", and notes the $4 cost of running the experiments on Stanford's <a href="https://www.ibm.com/history/system-370">IBM 370/168 mainframe</a>. Maybe it's just the engineer in me, but it seems like a goofy way to do things, unless you actually want a variable number of items selected each run.</p>
-<p>In the notebook, I showed that bootstrapping is about 40% slower than selection without replacement when using numpy's <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html">choice()</a> function. However, the cost of selecting which items to use for training vs. testing should be insignificant compared to the cost of actually training the models using that train/test split.</p>
-<h3>A chance encounter</h3>
-<p>A quick proof of the chances of being selected exactly once.</p>
-<p>Doing x selections with replacement, the chance of a number being chosen as the very first selection (and no other times) is 
-<span class="math">\(\frac{1}{x} * \frac{x-1}{x}^{x-1}\)</span></p>
-<p>There are x possible positions for a number to be selected exactly once. Multiply the above by x, which cancels out 1/x. So the chances of a number being selected exactly once at any position is <span class="math">\((\frac{x-1}{x})^{x-1}\)</span>.</p>
-<p>Let's try to find a number <span class="math">\(q\)</span> so that <span class="math">\(\lim\limits_{x\to\infty} (\frac{x-1}{x})^{x-1} = e^{q}\)</span>.</p>
-<p>Taking the log of both sides:<br>
-<span class="math">\(q = \lim\limits_{x\to\infty} (x-1) * log(\frac{x-1}{x}) = \lim\limits_{x\to\infty} \frac{log(\frac{x-1}{x})}{1/(x-1)}\)</span></p>
-<p>Let 
-<span class="math">\(f(x) = log(\frac{x-1}{x})\)</span>
-and 
-<span class="math">\(g(x) = \frac{1}{x-1}\)</span></p>
-<p>By L'Hopital's rule, <span class="math">\(\lim\limits_{x\to\infty} \frac{f(x)}{g(x)} = \lim\limits_{x\to\infty}\frac{f'(x)}{g'(x)}\)</span></p>
-<p>The derivative of a log of a function is the derivative of the function divided by the function itself, so:</p>
-<p><span class="math">\(f'(x) = \frac{d}{dx} log(\frac{x-1}{x}) = \frac{d}{dx} log(1 - \frac{1}{x}) = \frac{\frac{d}{dx}(1-\frac{1}{x})}{1-\frac{1}{x}} =\frac{\frac{1}{x^{2}}}{{1-\frac{1}{x}}} = \frac{1}{x^{2}-x} = \frac{1}{x(x-1)}\)</span></p>
-<p>and</p>
-<p><span class="math">\(g'(x) = \frac{-1}{(x-1)^{2}}\)</span></p>
-<p>Canceling out (x-1) from both, <span class="math">\(\frac{f'(x)}{g'(x)} = \frac{1}{x}  * \frac{x-1}{-1} = -1 * \frac{x-1}{x}\)</span>.</p>
-<p>So <span class="math">\(q = \lim\limits_{x\to\infty} -1 * \frac{x-1}{x} = -1\)</span></p>
-<p>At the limit, the probability of being selected exactly once is <span class="math">\(e^{-1} = \frac{1}{e}\)</span></p>
-<h3>References/Further Reading</h3>
-<p><a href="https://oeis.org/A068985">https://oeis.org/A068985</a></p>
-<p><a href="https://mathworld.wolfram.com/Derangement.html">https://mathworld.wolfram.com/Derangement.html</a></p>
-<p>Great explanation of how to calculate derangements using the inclusion-exclusion principle: <a href="https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/">https://www.themathdoctors.org/derangements-how-often-is-everything-wrong/</a></p>
-<p>The bible of machine learning introduces bootstrapping, but no talk of why that selection process. <a href="https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf">https://trevorhastie.github.io/ISLR/ISLR%20Seventh%20Printing.pdf</a></p>
-<p>The original bootstrap paper: <a href="https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf">https://sites.stat.washington.edu/courses/stat527/s14/readings/ann_stat1979.pdf</a></p>
-<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
-
-    var mathjaxscript = document.createElement('script');
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
-
-    var configscript = document.createElement('script');
-    configscript.type = 'text/x-mathjax-config';
-    configscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        availableFonts: ['STIX', 'TeX']," +
-        "        preferredFont: 'STIX'," +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="/one-in-e.html">posted at 10:20</a>
-                    &nbsp;&middot;&nbsp;<a href="/category/statistics.html" rel="tag">statistics</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="/tag/machine-learning.html" class="tags">machine learning</a>
-                    &nbsp;<a href="/tag/some-educational-value.html" class="tags">some educational value</a>
                 </div>
             </article>
 
